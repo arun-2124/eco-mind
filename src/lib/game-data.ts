@@ -1,6 +1,13 @@
-import { Mission, SDGInfo, SDGNumber, AIExplainerTopic, Chapter } from "@/types/game";
+import { Mission, SDGInfo, SDGNumber, AIExplainerTopic, Chapter, SurpriseEvent } from "@/types/game";
 
 export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
+  2: {
+    number: 2,
+    title: "Zero Hunger",
+    shortName: "Zero Hunger",
+    color: "#DDA63A",
+    iconName: "Wheat",
+  },
   3: {
     number: 3,
     title: "Good Health and Well-being",
@@ -29,6 +36,13 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
     color: "#FD6925",
     iconName: "Cpu",
   },
+  10: {
+    number: 10,
+    title: "Reduced Inequalities",
+    shortName: "Reduced Inequalities",
+    color: "#E11484",
+    iconName: "Users",
+  },
   11: {
     number: 11,
     title: "Sustainable Cities and Communities",
@@ -50,12 +64,12 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
     color: "#3F7E44",
     iconName: "Globe",
   },
-  10: {
-    number: 10,
-    title: "Reduced Inequalities",
-    shortName: "Reduced Inequalities",
-    color: "#E11484",
-    iconName: "Users",
+  14: {
+    number: 14,
+    title: "Life Below Water",
+    shortName: "Life Below Water",
+    color: "#0A97D9",
+    iconName: "Fish",
   },
   15: {
     number: 15,
@@ -76,38 +90,95 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
 export const CHAPTERS: Chapter[] = [
   {
     number: 1,
-    title: "The Centralized Collapse",
-    theme: "Infrastructure & Network Limits",
-    description: "Nova City's centralized cloud AI encounters bandwidth saturation, cooling water depletion, and rolling blackouts.",
+    title: "The City is Losing Control",
+    theme: "AI Fundamentals & Edge AI",
+    description: "Nova City's centralized cloud infrastructure buckles under massive data streams, bandwidth saturation, and rolling blackouts.",
     missionRange: [1, 4],
   },
   {
     number: 2,
-    title: "Autonomous Rescue & Physical AI",
-    theme: "Embodied Robotics & Disaster Response",
-    description: "An earthquake disables cell towers. Physical AI quadrupeds and rovers must navigate rubble using onboard perception.",
+    title: "Machines Come Alive",
+    theme: "Physical AI & Embodied Robotics",
+    description: "Physical AI rescue rovers and quadruped robots face real-world friction, flooding, obstacle navigation, and hospital crises.",
     missionRange: [5, 8],
   },
   {
     number: 3,
-    title: "Smart Energy & Grid Resilience",
-    theme: "Renewable Balancing & Microgrids",
-    description: "Nova City faces electricity rationing. AI workloads must adapt dynamically to solar and wind availability.",
+    title: "The Energy War",
+    theme: "Sustainable Computing & Efficient AI",
+    description: "Hyperscale data centers push the grid to the brink. The Task Force must enforce model quantization, renewable scheduling, and battery stewardship.",
     missionRange: [9, 12],
   },
   {
     number: 4,
-    title: "Circular Robotics & Resource Stewardship",
-    theme: "E-Waste Mitigation & Modular Repair",
-    description: "Piles of discarded robot chassis threaten urban soil. The Task Force establishes a circular hardware supply chain.",
+    title: "The Planet Strikes Back",
+    theme: "Environmental Monitoring & Stewardship",
+    description: "Ecological emergencies strike Nova City: aquifer leaks, forest wildfires, marine microplastics, and agricultural soil stress.",
     missionRange: [13, 16],
   },
   {
     number: 5,
-    title: "Planetary Equilibrium & The Reborn City",
-    theme: "Decentralized Eco-Intelligence",
-    description: "Nova City constructs an open, transparent, and energy-thrifty physical AI civilization in harmony with planetary limits.",
+    title: "The Last Decision",
+    theme: "Responsible Governance & Circular Future",
+    description: "Mounting electronic waste, invasive surveillance, and algorithmic authority culminate in the definitive protocol for Nova City's future.",
     missionRange: [17, 20],
+  },
+];
+
+export const SURPRISE_EVENTS: SurpriseEvent[] = [
+  {
+    id: "se-1",
+    title: "SUDDEN POWER GRID FAILURE",
+    description: "A thermal spike at Substation 4 triggered an automatic emergency shutdown across District 7.",
+    severity: "critical",
+    affectedMetric: "energyStability",
+    delta: -15,
+    recommendedAction: "Prioritize local battery backup and schedule computing tasks during solar peaks.",
+  },
+  {
+    id: "se-2",
+    title: "CELL TOWER SPECTRUM CONGESTION",
+    description: "Mass video broadcasts from citizens have jammed the 5G uplink, causing 600ms latency spikes.",
+    severity: "warning",
+    affectedMetric: "networkStability",
+    delta: -18,
+    recommendedAction: "Switch all robotic units to local on-device inference to bypass congested cellular relays.",
+  },
+  {
+    id: "se-3",
+    title: "FLASH FLOOD WATER SURGE",
+    description: "Storm runoff breached Sector 3 canal levees, inundating lower access corridors.",
+    severity: "warning",
+    affectedMetric: "rescueProgress",
+    delta: -10,
+    recommendedAction: "Deploy amphibious crawler units with ultrasonic depth sensing.",
+  },
+  {
+    id: "se-4",
+    title: "ROBOT MOTOR THERMAL MALFUNCTION",
+    description: "Continuous high-torque driving in debris has overheated servo actuators in 12 rescue units.",
+    severity: "warning",
+    affectedMetric: "rescueProgress",
+    delta: -12,
+    recommendedAction: "Enforce duty-cycle throttling and modular joint replacements.",
+  },
+  {
+    id: "se-5",
+    title: "MUNICIPAL AQUIFER PRESSURE LOSS",
+    description: "Deep cooling intake for industrial servers caused an unanticipated 14% pressure drop in residential reservoirs.",
+    severity: "critical",
+    affectedMetric: "waterAvailability",
+    delta: -16,
+    recommendedAction: "Mandate closed-loop evaporative cooling systems immediately.",
+  },
+  {
+    id: "se-6",
+    title: "CIVIC PRIVACY LEAK ALARM",
+    description: "Unencrypted facial recognition logs from traffic cameras surfaced on an open public forum.",
+    severity: "critical",
+    affectedMetric: "publicTrust",
+    delta: -20,
+    recommendedAction: "Enforce zero-retention edge data minimization and cryptographic hashing.",
   },
 ];
 
@@ -118,50 +189,50 @@ export const AI_EXPLAINER_TOPICS: AIExplainerTopic[] = [
     subtitle: "Machines that learn patterns to make decisions",
     iconName: "Brain",
     definition:
-      "Artificial Intelligence (AI) refers to computer software designed to perform tasks that typically require human intelligence—such as recognizing faces, understanding spoken words, or navigating a street.",
+      "Artificial Intelligence (AI) refers to software models that detect statistical patterns in data to classify objects, make predictions, or plan actions without requiring rigid hardcoded rules for every scenario.",
     realWorldExample:
-      "A music app predicting which song you might like next based on your past listening habits.",
+      "A navigation system calculating the fastest route through changing traffic conditions.",
     takeaway:
-      "AI is not magic thinking; it is math and statistical pattern recognition running on physical computing hardware.",
+      "AI is not conscious thought—it is statistical optimization executed on physical computer chips consuming real electricity.",
     tag: "Foundational AI",
   },
   {
     id: "what-is-edge-ai",
     title: "2. What is Edge AI?",
-    subtitle: "Running intelligence directly on physical devices",
+    subtitle: "Computing directly where sensors capture data",
     iconName: "Cpu",
     definition:
-      "Edge AI means processing artificial intelligence models locally on or near the physical machine (like a robot or phone) rather than sending all information across the internet to a distant server.",
+      "Edge AI runs machine learning models locally on the physical machine (such as a robot, drone, or smartphone) rather than streaming raw sensor feeds across the internet to a distant data center.",
     realWorldExample:
-      "Your smartphone unlocking instantly using Face ID without needing a Wi-Fi or cellular internet connection.",
+      "A smartphone recognizing your face instantly without needing Wi-Fi or cellular connectivity.",
     takeaway:
-      "Edge AI eliminates latency and protects data privacy, though device batteries and manufacturing must be balanced.",
+      "Edge AI eliminates network delay, saves transmission energy, and functions during internet outages.",
     tag: "Edge Computing",
   },
   {
     id: "what-is-cloud-ai",
     title: "3. What is Cloud AI?",
-    subtitle: "Massive computing in remote data centres",
+    subtitle: "Massive computing in remote data centers",
     iconName: "Cloud",
     definition:
-      "Cloud AI processes tasks in large warehouse-sized data centers equipped with thousands of interconnected graphics processing units (GPUs).",
+      "Cloud AI processes workloads in warehouse-scale data centers with thousands of interconnected GPUs. While capable of running enormous models, transmitting gigabytes of video to the cloud requires significant radio power and cooling water.",
     realWorldExample:
-      "Asking a large language model a complex multi-paragraph question where massive supercomputers compute the answer.",
+      "Querying a massive multi-billion parameter model that requires a supercomputer cluster to compute answers.",
     takeaway:
-      "Cloud AI delivers unmatched horsepower, but data transmission radio power and data center cooling water add real environmental costs.",
+      "Cloud AI offers vast processing power, but reliance on continuous streaming creates single-point-of-failure vulnerabilities and high carbon footprints.",
     tag: "Cloud Infrastructure",
   },
   {
     id: "what-is-physical-ai",
     title: "4. What is Physical AI?",
-    subtitle: "AI that perceives, reasons, and acts in the physical world",
+    subtitle: "AI embodied in physical robots and machines",
     iconName: "Bot",
     definition:
-      "Physical AI refers to intelligent systems embodied in physical machines (like autonomous vehicles or rescue quadrupeds) that interact with physical objects, friction, gravity, and unpredictable real-world terrain.",
+      "Physical AI refers to artificial intelligence operating inside physical hardware—such as autonomous rovers, drones, or robotic arms—that interacts directly with forces, friction, terrain, and obstacles in the physical world.",
     realWorldExample:
-      "A robotic vacuum navigating around chair legs and avoiding falling down stairs.",
+      "An autonomous search-and-rescue quadruped robot walking across wet rubble without slipping.",
     takeaway:
-      "Physical AI bridges digital math with mechanical force, motors, and human physical safety.",
+      "Physical AI bridges software algorithms with physical safety, mechanical motion, and real energy limits.",
     tag: "Robotics",
   },
   {
@@ -170,2421 +241,3036 @@ export const AI_EXPLAINER_TOPICS: AIExplainerTopic[] = [
     subtitle: "Enabling machines to see and interpret pixels",
     iconName: "Eye",
     definition:
-      "Computer Vision is the branch of AI that teaches computers to interpret visual information from camera frames, identifying objects, boundaries, obstacles, and people.",
+      "Computer Vision is the AI domain that processes raw visual frames from cameras, segmenting pixels into identified objects, people, boundaries, hazards, and pathways.",
     realWorldExample:
-      "An autonomous car recognizing a red stop sign and a pedestrian crossing the road.",
+      "An autonomous shuttle identifying a bicycle, pedestrian, and red stop light in a fraction of a second.",
     takeaway:
-      "Vision transforms raw grid pixels into meaningful spatial understanding in milliseconds.",
+      "Computer vision transforms matrices of raw numbers into spatial understanding.",
     tag: "Perception",
   },
   {
     id: "what-are-sensors",
-    title: "6. What are Sensors?",
-    subtitle: "The sensory organs of modern robots",
+    title: "6. What are Sensors and Sensor Fusion?",
+    subtitle: "The sensory organs of intelligent robots",
     iconName: "Radio",
     definition:
-      "Sensors are electronic components that detect physical changes in the environment—such as light, heat, pressure, ultrasonic echoes, or motion—and convert them into digital signals.",
+      "Sensors measure physical properties (light, heat, sound, vibration, distance) and convert them into electrical signals. Sensor fusion merges data from multiple sensors (like cameras and LiDAR) into one coherent world model.",
     realWorldExample:
-      "A thermometer on your wall measuring room temperature and turning on the thermostat.",
+      "Combining radar and camera data on a vehicle so it can see through dense fog and rain.",
     takeaway:
-      "Robots cannot make intelligent decisions without accurate sensors reading the physical world.",
+      "No single sensor is perfect; combining complementary sensors provides robust perception.",
     tag: "Hardware",
   },
   {
     id: "what-is-lidar",
     title: "7. What is LiDAR?",
-    subtitle: "Light Detection and Ranging: Seeing with laser pulses",
+    subtitle: "Light Detection and Ranging: 3D laser mapping",
     iconName: "Scan",
     definition:
-      "LiDAR shoots millions of invisible eye-safe laser beams per second and measures the time it takes for them to bounce back, creating a dense 3D point-cloud map of surrounding geometry.",
+      "LiDAR shoots rapid pulses of eye-safe laser light and calculates the precise time-of-flight bounce-back to produce millions of 3D points every second, mapping exact distances in complete darkness.",
     realWorldExample:
-      "Emergency rescue drones mapping a collapsed stadium in complete darkness to find pathways.",
+      "Rescue quadrupeds mapping a collapsed basement in total darkness to detect structural voids.",
     takeaway:
-      "LiDAR operates in total darkness and smoke where normal optical cameras fail.",
+      "LiDAR works in pitch black where optical cameras fail, making it critical for search and rescue.",
     tag: "Sensors",
   },
   {
-    id: "what-is-local-inference",
-    title: "8. What is Local Inference?",
-    subtitle: "Computing a neural network without the web",
-    iconName: "Zap",
+    id: "what-is-quantization",
+    title: "8. What is Model Quantization & Pruning?",
+    subtitle: "Shrinking AI models so they run fast on tiny chips",
+    iconName: "Minimize2",
     definition:
-      "Inference is the step where a trained AI model takes live inputs and calculates an answer. Local inference executes that computation entirely on the device's own microchip.",
+      "Quantization converts high-precision 32-bit floating numbers into compact 8-bit integers (INT8), reducing model size by 75% and slashing computing energy while retaining over 98% accuracy. Pruning removes redundant neural connections.",
     realWorldExample:
-      "A drone calculating its stabilization motors 500 times per second while flying under an overpass.",
+      "Compressing a 5GB neural network down to 350MB so it fits onto a battery-powered agricultural drone.",
     takeaway:
-      "Local inference prevents robots from crashing when communication tunnels get cut.",
-    tag: "Edge Computing",
+      "Bigger models are not always better; optimized small models save massive amounts of electricity.",
+    tag: "Optimization",
   },
   {
-    id: "what-is-energy-efficient-ai",
-    title: "9. What is Energy-Efficient AI?",
-    subtitle: "Delivering intelligence with minimal electricity",
-    iconName: "Sparkles",
-    definition:
-      "Energy-efficient AI utilizes algorithmic compression (like quantization from 32-bit to 8-bit numbers) and clever scheduling to slash electricity draw by over 60% without sacrificing accuracy.",
-    realWorldExample:
-      "Shrinking a high-resolution photo file into a compact format that still looks sharp but downloads in a split second.",
-    takeaway:
-      "How an algorithm is written directly dictates how many watts of power it burns.",
-    tag: "Sustainable Computing",
-  },
-  {
-    id: "what-is-ewaste",
-    title: "10. What is Electronic Waste (E-Waste)?",
-    subtitle: "Discarded electronic equipment and the circular solution",
+    id: "what-is-circular-robotics",
+    title: "9. What is Circular Electronics & E-Waste?",
+    subtitle: "Designing hardware to be repaired, reused, and recycled",
     iconName: "Recycle",
     definition:
-      "E-waste refers to discarded electronic devices, circuit boards, batteries, and robots. It contains toxic heavy metals (lead, mercury, cadmium) that can poison soil and groundwater if sent to landfills.",
+      "Circular engineering designs robots with standardized modular components, enabling worn batteries, sensors, or motors to be swapped and refurbished rather than dumping entire chassis into landfills.",
     realWorldExample:
-      "Replacing your working mobile phone every single year instead of repairing the cracked glass.",
+      "Swapping a degraded battery cell in an inspection rover in 30 seconds instead of discarding the whole machine.",
     takeaway:
-      "Responsible robotics embraces modularity: replace the worn chip, not the entire machine.",
+      "The greenest robot is the one that stays operational for a decade through modular repair.",
     tag: "Circular Economy",
+  },
+  {
+    id: "what-is-responsible-ai",
+    title: "10. What is Responsible & Human-in-the-Loop AI?",
+    subtitle: "Ensuring algorithms remain accountable and aligned with human values",
+    iconName: "Shield",
+    definition:
+      "Responsible AI mandates data minimization (collecting only what is strictly necessary), transparency, algorithmic fairness, and human oversight before high-stakes physical or social decisions are carried out.",
+    realWorldExample:
+      "An automated medical triage system presenting diagnostic recommendations to human doctors who make the final call.",
+    takeaway:
+      "AI must amplify human wisdom and protect privacy, not replace human moral responsibility.",
+    tag: "Governance",
   },
 ];
 
 export const MISSIONS: Mission[] = [
-  // ==========================================
-  // CHAPTER 1: THE CENTRALIZED COLLAPSE (1 - 4)
-  // ==========================================
   {
-    id: 1,
-    number: 1,
-    chapterNumber: 1,
-    chapterTitle: "Chapter 1: The Centralized Collapse",
-    title: "The AI Infrastructure Crisis",
-    category: "Edge AI vs Centralized Cloud",
-    heroImage: "/assets/m1-infrastructure-crisis.svg",
-    environmentalContext:
-      "Nova City's central hyperscale data center consumes 280 Megawatts of fossil electricity and evaporates 4.2 million liters of drinking water daily for evaporative cooling.",
-    storyProblem:
-      "Every autonomous civic vehicle, environmental sensor, and public safety camera streams raw 4K video feeds back to central servers. Network cables and wireless relays are overheating, causing civic outages.",
-    prompt: "Choose the computational paradigm for Nova City's 45,000 autonomous civic robots.",
-    question: "How should Nova City process telemetry and sensor data from its autonomous robotic fleet?",
-    options: [
+    "id": 1,
+    "number": 1,
+    "chapterNumber": 1,
+    "chapterTitle": "Chapter 1: The City is Losing Control",
+    "title": "The First Signal",
+    "category": "AI Fundamentals & Intelligent Triage",
+    "heroImage": "/assets/m1-infrastructure-crisis.svg",
+    "environmentalContext": "Nova City's automated monitoring grid detects conflicting emergency telemetry from District 7 during an unexpected urban infrastructure failure.",
+    "storyProblem": "Tens of thousands of sensor packets are flooding central switches. The emergency task force must decide how to evaluate and filter raw incoming signals before critical response units are dispatched.",
+    "prompt": "Choose the computational strategy to ingest and evaluate incoming disaster distress signals.",
+    "question": "How should Nova City's emergency telemetry center filter distress signals from District 7?",
+    "options": [
       {
-        id: "m1-opt-a",
-        key: "A",
-        title: "Deploy Onboard Local Edge AI Processing",
-        isSustainable: true,
-        image: "/assets/m1-edge-ai.svg",
-        shortDescription: "Process video, distance, and motor commands on local low-power neural chips mounted on the robots.",
-        detailedExplanation:
-          "Autonomous robots perform object detection and immediate path-planning on onboard neural accelerators. Only anomalous events, telemetry digests, and compressed alerts are transmitted over wireless radio.",
-        advantages: [
-          "Zero dependence on continuous wireless uplink; immediate millisecond obstacle avoidance.",
-          "Cuts municipal wireless network transmission bandwidth and data center server load by 85%.",
+        "id": "m1-opt-a",
+        "key": "A",
+        "title": "Deploy Automated Anomaly Filtering & Signal Prioritization",
+        "isSustainable": true,
+        "image": "/assets/m1-edge-ai.svg",
+        "shortDescription": "Execute edge-level signal filtering to separate critical distress anomalies from normal background noise.",
+        "detailedExplanation": "Lightweight statistical models evaluate sensor noise right at neighborhood substation relays. Only authenticated anomalies and high-severity distress vectors are forwarded, preventing system saturation.",
+        "advantages": [
+          "Prevents mainframe network saturation",
+          "Isolates high-urgency distress beacons in milliseconds"
         ],
-        disadvantages: [
-          "Slightly increases onboard battery draw and requires procurement of specialized edge NPU silicon.",
+        "disadvantages": [
+          "Requires local verification logic on district gateways"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 20, social: 15, economic: 10 },
-        cityMetricDeltas: {
-          energyIndex: -12,
-          carbonIndex: -15,
-          waterIndex: -18,
-          ewasteIndex: +2,
-          operationalEfficiency: +20,
-          citizenWellbeing: +10,
-          resilienceIndex: +25,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 20,
+          "energy": 20,
+          "social": 15,
+          "economic": 10
         },
-        sharedCityDeltas: {
-          energyStability: +15,
-          networkStability: +25,
-          environmentalHealth: +12,
-          waterAvailability: +18,
-          rescueProgress: +10,
-          publicTrust: +12,
-          ewasteLevel: +2,
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -12,
+          "waterIndex": -15,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 15,
+          "resilienceIndex": 25
         },
-        learningObjective: "Understand Edge AI vs Cloud AI: Local computation eliminates massive radio transmission energy and latency.",
-        sdgs: [7, 9, 11, 13],
-        consequenceNarration:
-          "Emergency congestion cleared across municipal spectrum! Rescue rovers and civic shuttles navigate fluidly without dropped connections.",
-        educationalTakeaway:
-          "Edge AI processes data right at the physical sensor. Computing locally slashes massive cooling water and transmission emissions.",
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 20,
+          "environmentalHealth": 5,
+          "waterAvailability": 5,
+          "rescueProgress": 15,
+          "publicTrust": 12,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand how intelligent data preprocessing prevents infrastructure gridlock and reduces transmission waste.",
+        "sdgs": [
+          9,
+          11,
+          13
+        ],
+        "consequenceNarration": "Emergency channels cleared instantaneously. The first rescue teams received exact verified coordinates while transmission power was kept minimal.",
+        "educationalTakeaway": "Intelligent triage processes signal characteristics locally, saving gigawatt-hours of data transmission power."
       },
       {
-        id: "m1-opt-b",
-        key: "B",
-        title: "Continuous 24/7 Cloud Uplink Streaming",
-        isSustainable: false,
-        image: "/assets/m1-cloud-heavy.svg",
-        shortDescription: "Stream every raw camera pixel and sensor reading continuously to the central AETHER cloud servers.",
-        detailedExplanation:
-          "Robots carry minimal onboard silicon, relaying uncompressed camera feeds to the centralized server warehouse where multi-GPU supercomputers make all steering and actuation decisions.",
-        advantages: [
-          "Robots use cheaper microcontrollers with marginally lower initial unit fabrication complexity.",
+        "id": "m1-opt-b",
+        "key": "B",
+        "title": "Ingest All Raw Unfiltered Telemetry into Central Mainframe",
+        "isSustainable": false,
+        "image": "/assets/m1-cloud-heavy.svg",
+        "shortDescription": "Stream all uncompressed sensor packets directly into the central cloud database for full retrospective logging.",
+        "detailedExplanation": "Every substation pushes continuous raw logs to central servers. Data center GPUs execute exhaustive batch parsing across all telemetry streams regardless of urgency.",
+        "advantages": [
+          "Creates an exhaustive raw historical log of every sensor bit"
         ],
-        disadvantages: [
-          "Wireless networks choke under petabytes of video; data centers consume excessive cooling water and electricity.",
-          "Any wireless dropout freezes all robots instantaneously in place.",
+        "disadvantages": [
+          "Consumes massive server bandwidth and generates processing backlogs during emergencies"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -20, energy: -25, social: -10, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +18,
-          carbonIndex: +22,
-          waterIndex: +25,
-          ewasteIndex: +4,
-          operationalEfficiency: -15,
-          citizenWellbeing: -12,
-          resilienceIndex: -20,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -15,
+          "energy": -20,
+          "social": -10,
+          "economic": -12
         },
-        sharedCityDeltas: {
-          energyStability: -18,
-          networkStability: -28,
-          environmentalHealth: -15,
-          waterAvailability: -22,
-          rescueProgress: -8,
-          publicTrust: -14,
-          ewasteLevel: +5,
+        "cityMetricDeltas": {
+          "energyIndex": 15,
+          "carbonIndex": 18,
+          "waterIndex": 20,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -12,
+          "citizenWellbeing": -10,
+          "resilienceIndex": -15
         },
-        learningObjective: "Centralized cloud reliance creates single-point-of-failure fragility and massive cooling footprints.",
-        sdgs: [9, 11],
-        consequenceNarration:
-          "Cell towers overheated. 35% of municipal shuttles stalled at intersections waiting for packet acknowledgments.",
-        educationalTakeaway:
-          "Continuous cloud streaming consumes excessive transmission power and cooling water. Physical robotics require edge resilience.",
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -22,
+          "environmentalHealth": -5,
+          "waterAvailability": -10,
+          "rescueProgress": 5,
+          "publicTrust": -8,
+          "ewasteLevel": 4
+        },
+        "learningObjective": "Recognize that transmitting and parsing uncurated raw data wastes vast electrical energy and causes delayed response times.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "Mainframe queues backed up by 18 minutes. Rescue rovers were delayed waiting for packet acknowledgement while server cooling fans spun at maximum RPM.",
+        "educationalTakeaway": "Unfiltered streaming creates single-point bottlenecks and wastes cooling water in centralized server facilities."
+      }
+    ],
+    "sdgs": [
+      9,
+      11,
+      13
+    ],
+    "summaryNote": "Edge triage saves transmission power and ensures immediate response during civic crises.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 28,
+        "y": 44,
+        "title": "Telemetry Gateway",
+        "description": "Evaluates raw signal packets to distinguish genuine alerts from static."
       },
+      {
+        "id": "h2",
+        "x": 72,
+        "y": 56,
+        "title": "Central Mainframe",
+        "description": "Overheats when processing millions of raw telemetry streams simultaneously."
+      }
     ],
-    sdgs: [7, 9, 11, 13],
-    summaryNote: "Edge processing reduces data movement energy, preserving grid stability.",
-    hotspots: [
-      { id: "h1-1", label: "Central Server Facility", x: 28, y: 35, description: "Hyperscale servers consuming massive cooling water.", tag: "Cloud Infrastructure" },
-      { id: "h1-2", label: "Edge Rescue Rover", x: 68, y: 72, description: "Local NPU processor enabling standalone intelligence.", tag: "Edge AI" },
-      { id: "h1-3", label: "Cellular Transmission Tower", x: 82, y: 25, description: "Wireless bottleneck radiating thermal waste.", tag: "Telecom Network" },
-    ],
-    aiConcept: {
-      title: "Edge AI vs Cloud AI",
-      subtitle: "Where computation takes place matters physically",
-      definition: "Edge AI executes neural network inferences locally on device hardware rather than relying on remote data centers.",
-      realWorldExample: "Your phone unlocking with Face ID locally vs uploading your face video to an overseas server.",
-      takeaway: "Edge computing slashes network traffic, saves water, and protects robotic autonomy.",
-      componentType: "pipeline",
-    },
+    "aiConcept": {
+      "title": "Data Triage & Intelligent Filtering",
+      "subtitle": "Separating signal from noise before transmission",
+      "definition": "Data triage uses lightweight algorithms at the collection point to evaluate urgency, transmitting only verified anomalies rather than continuous raw data.",
+      "realWorldExample": "A smartwatch alerting you to an abnormal heart rhythm without streaming every millisecond of raw electrocardiogram data across the cellular network.",
+      "takeaway": "Transmitting insights rather than raw data cuts electrical power by over 80%.",
+      "componentType": "efficiency"
+    }
   },
   {
-    id: 2,
-    number: 2,
-    chapterNumber: 1,
-    chapterTitle: "Chapter 1: The Centralized Collapse",
-    title: "Network Collapse & Telemetry Jam",
-    category: "Edge Bandwidth Optimization",
-    heroImage: "/assets/m1-infrastructure-crisis.svg",
-    environmentalContext:
-      "Municipal fiber optic backbones and microwave repeater stations are running at 98% thermal capacity, forcing rolling bandwidth shedding.",
-    storyProblem:
-      "Traffic sensors, air quality monitors, and robotic shuttles are competing for packet queues. Critical ambulance routing signals are being delayed by 4.8 seconds.",
-    prompt: "Choose the telemetry protocol for Nova City's municipal IoT infrastructure.",
-    question: "How should municipal sensor networks transmit environmental data?",
-    options: [
+    "id": 2,
+    "number": 2,
+    "chapterNumber": 1,
+    "chapterTitle": "Chapter 1: The City is Losing Control",
+    "title": "The Network Collapse",
+    "category": "Edge AI vs Cloud AI",
+    "heroImage": "/assets/m1-infrastructure-crisis.svg",
+    "environmentalContext": "Cellular relays and fiber backbones across Nova City suffer massive bandwidth saturation as 45,000 civic robots stream video back to cloud servers.",
+    "storyProblem": "A rescue robot fleet operating in the dense downtown sector is experiencing high latency. Cellular towers are overheating, threatening a total wireless blackout.",
+    "prompt": "Select the architectural execution pipeline for robotic navigation and hazard perception.",
+    "question": "Where should the rescue robots execute their obstacle detection and spatial reasoning?",
+    "options": [
       {
-        id: "m2-opt-a",
-        key: "A",
-        title: "Event-Triggered Anomaly Reporting & Edge Filtering",
-        isSustainable: true,
-        image: "/assets/m1-edge-ai.svg",
-        shortDescription: "Sensors analyze readings on-device and only transmit compressed alerts when notable anomalies occur.",
-        detailedExplanation:
-          "Sensors run lightweight edge models to identify baseline norms. If air quality or traffic remains expected, only hourly 12-byte summary digests are transmitted.",
-        advantages: [
-          "Reduces transmission bandwidth demand by 94%, guaranteeing immediate clear channels for emergency sirens and medics.",
-          "Multiplies battery lifespan of roadside sensor units by 4x.",
+        "id": "m2-opt-a",
+        "key": "A",
+        "title": "Deploy Onboard Local Edge AI Processing",
+        "isSustainable": true,
+        "image": "/assets/m1-edge-ai.svg",
+        "shortDescription": "Process video, distance, and motor commands on local low-power neural chips mounted on the robots.",
+        "detailedExplanation": "Robots evaluate camera pixels and path-planning directly on local hardware accelerators. Only brief status beacons and compressed alerts are transmitted over wireless radio.",
+        "advantages": [
+          "Zero dependence on continuous wireless uplink; immediate millisecond obstacle avoidance",
+          "Cuts municipal wireless network transmission bandwidth and data center server load by 85%"
         ],
-        disadvantages: [
-          "Requires sensors to possess small micro-NPUs to compute local variance checks.",
+        "disadvantages": [
+          "Requires local NPU chips on robot platforms"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 20, energy: 20, social: 15, economic: 15 },
-        cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: -12,
-          waterIndex: -10,
-          ewasteIndex: 0,
-          operationalEfficiency: +22,
-          citizenWellbeing: +15,
-          resilienceIndex: +24,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 25,
+          "energy": 20,
+          "social": 15,
+          "economic": 10
         },
-        sharedCityDeltas: {
-          energyStability: +12,
-          networkStability: +30,
-          environmentalHealth: +10,
-          waterAvailability: +12,
-          rescueProgress: +15,
-          publicTrust: +14,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -12,
+          "carbonIndex": -15,
+          "waterIndex": -18,
+          "ewasteIndex": 2,
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 10,
+          "resilienceIndex": 25
         },
-        learningObjective: "Edge filtering prevents network congestion and conserves RF transmission energy.",
-        sdgs: [9, 11],
-        consequenceNarration:
-          "Network latency plummeted to 8ms. Emergency ambulance routes are cleared instantly with zero packet loss.",
-        educationalTakeaway:
-          "Sending only what matters is the golden rule of sustainable communications. Edge filtering saves electromagnetic power.",
+        "sharedCityDeltas": {
+          "energyStability": 15,
+          "networkStability": 25,
+          "environmentalHealth": 12,
+          "waterAvailability": 18,
+          "rescueProgress": 10,
+          "publicTrust": 12,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Understand Edge AI vs Cloud AI: Local computation eliminates massive radio transmission energy and latency.",
+        "sdgs": [
+          7,
+          9,
+          11,
+          13
+        ],
+        "consequenceNarration": "Emergency congestion cleared across municipal spectrum! Rescue rovers navigate fluidly without dropped connections.",
+        "educationalTakeaway": "Edge AI processes data right at the physical sensor. Computing locally slashes massive cooling water and transmission emissions."
       },
       {
-        id: "m2-opt-b",
-        key: "B",
-        title: "Continuous Raw Telemetry Polling",
-        isSustainable: false,
-        image: "/assets/m1-cloud-heavy.svg",
-        shortDescription: "Every roadside sensor transmits full 100Hz raw waveform logs to central databases unconditionally.",
-        detailedExplanation:
-          "Central databases receive millions of repetitive identical temperature, noise, and vibration numbers per second, storing everything in high-power flash storage arrays.",
-        advantages: [
-          "Complete historical logs stored centrally without needing any intelligence on the sensor nodes.",
+        "id": "m2-opt-b",
+        "key": "B",
+        "title": "Continuous 24/7 Cloud Uplink Streaming",
+        "isSustainable": false,
+        "image": "/assets/m1-cloud-heavy.svg",
+        "shortDescription": "Stream every raw camera pixel and sensor reading continuously to the central AETHER cloud servers.",
+        "detailedExplanation": "Robots carry minimal onboard silicon, relaying uncompressed camera feeds to the centralized server warehouse where multi-GPU supercomputers make all steering decisions.",
+        "advantages": [
+          "Robots use cheaper microcontrollers with lower unit silicon cost"
         ],
-        disadvantages: [
-          "Clogs wireless networks; causes ambulance telemetry dropouts and burns unnecessary radio transmitter power.",
+        "disadvantages": [
+          "Wireless networks choke under petabytes of video; data centers consume excessive cooling water and electricity",
+          "Wireless dropouts freeze all robots instantaneously in place"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -15, energy: -20, social: -15, economic: -10 },
-        cityMetricDeltas: {
-          energyIndex: +15,
-          carbonIndex: +16,
-          waterIndex: +14,
-          ewasteIndex: +2,
-          operationalEfficiency: -18,
-          citizenWellbeing: -14,
-          resilienceIndex: -22,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -20,
+          "energy": -25,
+          "social": -10,
+          "economic": -15
         },
-        sharedCityDeltas: {
-          energyStability: -15,
-          networkStability: -25,
-          environmentalHealth: -12,
-          waterAvailability: -14,
-          rescueProgress: -12,
-          publicTrust: -16,
-          ewasteLevel: +4,
+        "cityMetricDeltas": {
+          "energyIndex": 18,
+          "carbonIndex": 22,
+          "waterIndex": 25,
+          "ewasteIndex": 4,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -12,
+          "resilienceIndex": -20
         },
-        learningObjective: "Unnecessary raw data streaming burns energy and crowds out life-critical communications.",
-        sdgs: [9, 11],
-        consequenceNarration:
-          "Microwave repeaters tripped safety circuits. Telemetry lag caused two autonomous buses to stall in the transit tunnel.",
-        educationalTakeaway:
-          "Data minimization is a core sustainability principle. Transmitting identical noise wastefully drains batteries and servers.",
+        "sharedCityDeltas": {
+          "energyStability": -18,
+          "networkStability": -28,
+          "environmentalHealth": -15,
+          "waterAvailability": -22,
+          "rescueProgress": -8,
+          "publicTrust": -14,
+          "ewasteLevel": 5
+        },
+        "learningObjective": "Centralized cloud reliance creates single-point-of-failure fragility and massive cooling footprints.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "Cell towers overheated. 35% of municipal shuttles stalled at intersections waiting for packet acknowledgments.",
+        "educationalTakeaway": "Continuous cloud streaming consumes excessive transmission power and cooling water. Physical robotics require edge resilience."
+      }
+    ],
+    "sdgs": [
+      7,
+      9,
+      11,
+      13
+    ],
+    "summaryNote": "Edge AI drastically cuts network congestion and guarantees real-time responsiveness.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 30,
+        "y": 50,
+        "title": "Edge NPU",
+        "description": "Performs neural network inference in under 15ms directly on robot."
       },
+      {
+        "id": "h2",
+        "x": 75,
+        "y": 35,
+        "title": "Cellular Tower",
+        "description": "Suffers radio amplifier thermal overload when saturated with raw video."
+      }
     ],
-    sdgs: [9, 11],
-    summaryNote: "Filtering at the edge keeps critical civic communication channels clear.",
-    hotspots: [
-      { id: "h2-1", label: "Smart Streetlight Sensor", x: 40, y: 60, description: "Monitors particulate matter with local micro-NPU.", tag: "Edge IoT" },
-      { id: "h2-2", label: "Emergency Siren Uplink", x: 75, y: 30, description: "Requires ultra-low-latency priority transmission.", tag: "Safety Protocol" },
-    ],
-    aiConcept: {
-      title: "Data Minimization & Edge Filtering",
-      subtitle: "Transmitting insights instead of raw pixels",
-      definition: "Edge filtering uses lightweight algorithms to extract key insights and only send alerts when deviations occur.",
-      realWorldExample: "A security camera that only sends a text notification when a door opens, rather than streaming empty hallways all night.",
-      takeaway: "Transmitting less data directly reduces wireless power and server strain.",
-      componentType: "pipeline",
-    },
+    "aiConcept": {
+      "title": "Edge AI vs Cloud AI",
+      "subtitle": "Where computation takes place matters physically",
+      "definition": "Edge AI runs algorithms on the local device, while Cloud AI transmits data across the internet to centralized server warehouses.",
+      "realWorldExample": "Your phone unlocking with face recognition in airplane mode versus waiting for an internet server to process your voice search.",
+      "takeaway": "Edge computing delivers millisecond response times and eliminates massive network transmission energy.",
+      "componentType": "pipeline"
+    }
   },
   {
-    id: 3,
-    number: 3,
-    chapterNumber: 1,
-    chapterTitle: "Chapter 1: The Centralized Collapse",
-    title: "The Energy Emergency & Blackout Threat",
-    category: "Model Optimization & Quantization",
-    heroImage: "/assets/m3-energy-emergency.svg",
-    environmentalContext:
-      "A heatwave has pushed grid temperatures to 44°C. Nova City's municipal transformer banks are operating near their thermal tripping limits.",
-    storyProblem:
-      "AETHER's central models are calculating millions of unnecessary 32-bit floating point calculations for simple routine tasks, generating intense heat.",
-    prompt: "Choose the computational precision and scheduling strategy for municipal AI.",
-    question: "How should Nova City reduce the electrical power consumed by its artificial intelligence workloads?",
-    options: [
+    "id": 3,
+    "number": 3,
+    "chapterNumber": 1,
+    "chapterTitle": "Chapter 1: The City is Losing Control",
+    "title": "The Blind Robot",
+    "category": "Computer Vision & Perception",
+    "heroImage": "/assets/m2-autonomous-rescue.svg",
+    "environmentalContext": "A collapsed commercial complex in the West Quarter is cloaked in dense dust, smoke, and total electrical darkness.",
+    "storyProblem": "Standard optical cameras on rescue rovers produce blank black frames filled with visual noise, preventing detection of trapped building occupants.",
+    "prompt": "Choose the sensory perception and vision architecture for the rescue robot.",
+    "question": "How should the rescue robot perceive its environment in pitch-black, smoke-filled corridors?",
+    "options": [
       {
-        id: "m3-opt-a",
-        key: "A",
-        title: "INT8 Model Quantization & Clean Renewable Scheduling",
-        isSustainable: true,
-        image: "/assets/m3-optimized-scheduling.svg",
-        shortDescription: "Compress AI model weights from 32-bit float to 8-bit integer and schedule heavy background compute when solar is peak.",
-        detailedExplanation:
-          "Quantizing models to INT8 cuts matrix multiplication silicon energy by 72% with negligible accuracy change. Heavy model retraining is deferred to midday when rooftop solar generation exceeds demand.",
-        advantages: [
-          "Slashes algorithmic energy draw by ~70% immediately; prevents transformer overheating and grid blackouts.",
-          "Extends device battery operation time significantly.",
+        "id": "m3-opt-a",
+        "key": "A",
+        "title": "Multi-Spectral Thermal & 3D LiDAR Sensor Fusion",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Combine 3D laser depth mapping with long-wave infrared thermal imaging for onboard geometry reconstruction.",
+        "detailedExplanation": "Eye-safe infrared laser pulses penetrate smoke particles, constructing a real-time 3D point cloud of the collapsed room while thermal sensors detect body heat through dust.",
+        "advantages": [
+          "Functions reliably in pitch darkness and dense smoke",
+          "Conserves battery by avoiding high-wattage incandescent illumination"
         ],
-        disadvantages: [
-          "Requires model conversion and verification of precision thresholds.",
+        "disadvantages": [
+          "Requires sensor calibration algorithms to fuse 3D point clouds with thermal frames"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 30, social: 15, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -22,
-          carbonIndex: -24,
-          waterIndex: -16,
-          ewasteIndex: 0,
-          operationalEfficiency: +20,
-          citizenWellbeing: +15,
-          resilienceIndex: +25,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 18,
+          "energy": 15,
+          "social": 25,
+          "economic": 12
         },
-        sharedCityDeltas: {
-          energyStability: +28,
-          networkStability: +15,
-          environmentalHealth: +20,
-          waterAvailability: +18,
-          rescueProgress: +12,
-          publicTrust: +18,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -8,
+          "carbonIndex": -10,
+          "waterIndex": -5,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 25,
+          "resilienceIndex": 25
         },
-        learningObjective: "Algorithmic efficiency (quantization + scheduling) drastically lowers carbon emissions without sacrificing performance.",
-        sdgs: [7, 9, 13],
-        consequenceNarration:
-          "Grid strain relieved! Substation temperatures dropped 12°C. Zero blackout occurred during the peak afternoon heat.",
-        educationalTakeaway:
-          "Model quantization is like replacing bulky cargo trucks with nimble electric bikes. Same destination, a fraction of the watts.",
+        "sharedCityDeltas": {
+          "energyStability": 8,
+          "networkStability": 10,
+          "environmentalHealth": 10,
+          "waterAvailability": 5,
+          "rescueProgress": 25,
+          "publicTrust": 20,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand computer vision and multi-modal sensor fusion in physical AI.",
+        "sdgs": [
+          3,
+          9,
+          11
+        ],
+        "consequenceNarration": "Thermal signatures revealed three survivors behind a drywall partition in under 4 minutes! The rover navigated debris with zero illumination required.",
+        "educationalTakeaway": "Sensor fusion combines complementary physical signals to perceive what human eyes or standard cameras cannot see."
       },
       {
-        id: "m3-opt-b",
-        key: "B",
-        title: "Max-Power Overclocked Continuous Compute",
-        isSustainable: false,
-        image: "/assets/m3-max-power.svg",
-        shortDescription: "Run uncompressed FP32 models continuously at maximum clock frequency around the clock.",
-        detailedExplanation:
-          "Servers run at full throttle 24/7 without consideration of solar curves or numerical compression, demanding fossil peaker plants to supply extra megawatts.",
-        advantages: [
-          "Developers do not have to perform any weight quantization or temporal job scheduling.",
+        "id": "m3-opt-b",
+        "key": "B",
+        "title": "High-Intensity 2000-Watt Floodlights & Standard Optical Camera",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Illuminate the dark building with high-power halogen floodlights and run a standard visual classification model.",
+        "detailedExplanation": "The robot powers high-wattage lamps to light up the dark corridor, attempting to use standard RGB camera vision trained on daytime imagery.",
+        "advantages": [
+          "Uses standard off-the-shelf camera hardware"
         ],
-        disadvantages: [
-          "Trips grid circuit breakers; triggers blackouts and releases thousands of tons of avoidable carbon dioxide.",
+        "disadvantages": [
+          "Drains 60% of rover battery within 30 minutes; light reflects off smoke particles creating severe whiteout glare"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -30, social: -20, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +26,
-          carbonIndex: +28,
-          waterIndex: +22,
-          ewasteIndex: +5,
-          operationalEfficiency: -15,
-          citizenWellbeing: -20,
-          resilienceIndex: -25,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -12,
+          "energy": -25,
+          "social": -15,
+          "economic": -10
         },
-        sharedCityDeltas: {
-          energyStability: -30,
-          networkStability: -18,
-          environmentalHealth: -24,
-          waterAvailability: -20,
-          rescueProgress: -15,
-          publicTrust: -22,
-          ewasteLevel: +6,
+        "cityMetricDeltas": {
+          "energyIndex": 20,
+          "carbonIndex": 15,
+          "waterIndex": 5,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -15,
+          "resilienceIndex": -12
         },
-        learningObjective: "Brute-force computing wastes massive energy and threatens societal infrastructure resilience.",
-        sdgs: [7, 13],
-        consequenceNarration:
-          "Two substation transformers blew out in Sector 4. 85,000 residents lost domestic refrigeration for 6 hours.",
-        educationalTakeaway:
-          "Sustainable AI requires right-sized computation. Running oversized models wastefully burns fossil fuel and risks outages.",
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -5,
+          "environmentalHealth": -5,
+          "waterAvailability": -2,
+          "rescueProgress": 5,
+          "publicTrust": -10,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Realize that brute-force illumination wastes battery and blinds optical sensors in particulate-heavy environments.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "Blinding glare bounced off smoke particles. The rover battery depleted rapidly, requiring a dangerous manual retrieval operation.",
+        "educationalTakeaway": "Optical computer vision fails in smoke and glare. Advanced physical AI relies on active sensing like LiDAR and infrared."
+      }
+    ],
+    "sdgs": [
+      3,
+      9,
+      11
+    ],
+    "summaryNote": "LiDAR and thermal sensing provide vision in extreme conditions without wasting precious battery energy.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 45,
+        "y": 35,
+        "title": "LiDAR Turret",
+        "description": "Fires 300,000 laser pulses per second to map room geometry in total darkness."
       },
+      {
+        "id": "h2",
+        "x": 55,
+        "y": 65,
+        "title": "Thermal Sensor",
+        "description": "Detects human body heat signatures through thick airborne particulates."
+      }
     ],
-    sdgs: [7, 9, 13],
-    summaryNote: "Quantization cuts mathematical energy consumption by up to 75%.",
-    hotspots: [
-      { id: "h3-1", label: "Solar Microgrid Array", x: 22, y: 48, description: "Supplies daytime zero-carbon compute power.", tag: "Renewable Energy" },
-      { id: "h3-2", label: "Substation Transformer", x: 55, y: 70, description: "Protected from thermal overload by INT8 model compression.", tag: "Power Grid" },
-    ],
-    aiConcept: {
-      title: "Model Quantization & Dynamic Scheduling",
-      subtitle: "Compressing numbers to save gigawatts",
-      definition: "Quantization reduces the precision of neural network weights (e.g. from 32-bit floating points to 8-bit integers) to cut memory and compute requirements.",
-      realWorldExample: "Measuring someone's height in centimeters rather than calculating it down to nanometers with twenty decimals.",
-      takeaway: "Algorithmic optimization saves more electricity than constructing new power plants.",
-      componentType: "efficiency",
-    },
+    "aiConcept": {
+      "title": "Computer Vision & Active Sensing",
+      "subtitle": "Teaching machines to interpret physical reality",
+      "definition": "Computer vision converts raw electromagnetic signals into spatial geometry and semantic object classifications.",
+      "realWorldExample": "Self-driving cars navigating through foggy highways using radar and LiDAR when human vision is obstructed.",
+      "takeaway": "Active sensors emit their own energy pulses, enabling robots to navigate independently of ambient lighting.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 4,
-    number: 4,
-    chapterNumber: 1,
-    chapterTitle: "Chapter 1: The Centralized Collapse",
-    title: "The Industrial E-Waste Crisis",
-    category: "Circular Robotics & Modular Repair",
-    heroImage: "/assets/m4-ewaste-crisis.svg",
-    environmentalContext:
-      "Landfills outside Nova City contain over 12,000 tons of discarded civic robotics, leaking lithium, lead, and rare earth oxides into regional groundwater.",
-    storyProblem:
-      "Municipal procurement contracts historically mandated replacing entire robotic quadrupeds whenever a single vision camera sensor or motor bearing broke.",
-    prompt: "Establish a lifecycle protocol for Nova City's robotic maintenance depots.",
-    question: "What policy should govern outdated or damaged autonomous robotic systems?",
-    options: [
+    "id": 4,
+    "number": 4,
+    "chapterNumber": 1,
+    "chapterTitle": "Chapter 1: The City is Losing Control",
+    "title": "The First Rescue",
+    "category": "Autonomous Decisions & Real-Time Processing",
+    "heroImage": "/assets/m2-autonomous-rescue.svg",
+    "environmentalContext": "A sudden structural aftershock shifts collapsed concrete beams, blocking the designated egress route of an autonomous rescue rover carrying medical supplies.",
+    "storyProblem": "The rover has 90 seconds to reroute before ceiling integrity fails. The remote operator teleoperation link is experiencing an 800ms packet round-trip lag.",
+    "prompt": "Choose the obstacle navigation and trajectory decision protocol.",
+    "question": "How should the rescue rover navigate past the newly fallen concrete obstacle?",
+    "options": [
       {
-        id: "m4-opt-a",
-        key: "A",
-        title: "Modular Component Refurbishment & Closed-Loop Recycling",
-        isSustainable: true,
-        image: "/assets/m4-modular-repair.svg",
-        shortDescription: "Mandate standardized modular chassis: swap and repair only defective sensors or joints; recycle raw metals cleanly.",
-        detailedExplanation:
-          "Robotic frames are designed for rapid field disassembly. Working motors, battery packs, and titanium struts are reconditioned and reused across multiple fleet generations.",
-        advantages: [
-          "Reduces virgin metal mining demand by 80% and slashes municipal e-waste generation by 88%.",
-          "Lowers long-term fleet maintenance costs by 60%.",
+        "id": "m4-opt-a",
+        "key": "A",
+        "title": "Autonomous Onboard Trajectory Planning with Dynamic Kinematics",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Calculate an alternative clearance trajectory locally using real-time physics and obstacle avoidance algorithms.",
+        "detailedExplanation": "The rover's onboard motion planner evaluates ground friction, center-of-mass balance, and clearance margins in 20 milliseconds, executing an agile detour without waiting for remote authorization.",
+        "advantages": [
+          "Immediate execution within 25 milliseconds; zero vulnerability to wireless transmission lag",
+          "Safely maneuvers past the obstacle before secondary debris falls"
         ],
-        disadvantages: [
-          "Requires establishing modular mechanical standards and training specialized municipal technicians.",
+        "disadvantages": [
+          "Requires robust onboard collision-checking algorithms"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 15, social: 20, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: -14,
-          waterIndex: -12,
-          ewasteIndex: -25,
-          operationalEfficiency: +18,
-          citizenWellbeing: +15,
-          resilienceIndex: +20,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 15,
+          "energy": 18,
+          "social": 25,
+          "economic": 15
         },
-        sharedCityDeltas: {
-          energyStability: +10,
-          networkStability: +10,
-          environmentalHealth: +26,
-          waterAvailability: +16,
-          rescueProgress: +12,
-          publicTrust: +18,
-          ewasteLevel: -28,
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -8,
+          "waterIndex": -5,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 25,
+          "resilienceIndex": 30
         },
-        learningObjective: "Circular economy (Reduce, Reuse, Repair, Refurbish, Recycle) preserves embodied energy in hardware.",
-        sdgs: [6, 11, 12],
-        consequenceNarration:
-          "92% of decommissioned patrol rovers were repaired and redeployed within 48 hours. E-waste contamination halted.",
-        educationalTakeaway:
-          "The greenest robot is the one already built. Modular repair preserves rare earths and stops hazardous toxic leaching.",
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 15,
+          "environmentalHealth": 8,
+          "waterAvailability": 5,
+          "rescueProgress": 30,
+          "publicTrust": 20,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand real-time closed-loop autonomous decision-making in physical robotics.",
+        "sdgs": [
+          3,
+          9,
+          11
+        ],
+        "consequenceNarration": "Rover pivoted around the fallen girder in 1.4 seconds flat, reaching the trapped survivors just as the main arch collapsed safely behind it.",
+        "educationalTakeaway": "In life-critical robotics, onboard real-time autonomy prevents catastrophic delays caused by remote wireless lag."
       },
       {
-        id: "m4-opt-b",
-        key: "B",
-        title: "Total Scrap & New Hardware Purchasing",
-        isSustainable: false,
-        image: "/assets/m4-dump-replacement.svg",
-        shortDescription: "Dump entire robot chassis in industrial scrap yards whenever repairs are needed and buy brand new models.",
-        detailedExplanation:
-          "Depots throw away entire robots because unscrewing non-standard proprietary glue joints is deemed inconvenient, fueling relentless strip mining for new lithium and neodymium.",
-        advantages: [
-          "Always provides the city with pristine, brand-new exterior paint and fresh factory warranties.",
+        "id": "m4-opt-b",
+        "key": "B",
+        "title": "Emergency Halt & Remote Human Video Teleoperation",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Lock all motor brakes, upload a full 360-degree video feed, and wait for a remote human operator to drive manually.",
+        "detailedExplanation": "The robot ceases all autonomous motion, opening a high-bandwidth video stream to a distant human driver who attempts to steer using a joystick across an 800ms lagging connection.",
+        "advantages": [
+          "Keeps a human pilot directly steering every wheel turn"
         ],
-        disadvantages: [
-          "Expands toxic e-waste mountains; consumes millions of liters of water in overseas mineral extraction.",
+        "disadvantages": [
+          "High-latency control loop causes oversteering, wheel slippage, and critical time loss in collapsing environments"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -15, social: -15, economic: -20 },
-        cityMetricDeltas: {
-          energyIndex: +12,
-          carbonIndex: +18,
-          waterIndex: +20,
-          ewasteIndex: +28,
-          operationalEfficiency: -10,
-          citizenWellbeing: -16,
-          resilienceIndex: -18,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -10,
+          "energy": -20,
+          "social": -15,
+          "economic": -10
         },
-        sharedCityDeltas: {
-          energyStability: -8,
-          networkStability: -6,
-          environmentalHealth: -28,
-          waterAvailability: -18,
-          rescueProgress: -6,
-          publicTrust: -20,
-          ewasteLevel: +30,
+        "cityMetricDeltas": {
+          "energyIndex": 15,
+          "carbonIndex": 12,
+          "waterIndex": 8,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -20,
+          "citizenWellbeing": -18,
+          "resilienceIndex": -20
         },
-        learningObjective: "Planned obsolescence in robotics creates hazardous waste streams and depletes planetary minerals.",
-        sdgs: [6, 12],
-        consequenceNarration:
-          "Toxic runoff from the South Basin scrapyard entered the municipal water supply, triggering clean-water rationing.",
-        educationalTakeaway:
-          "Discarding working hardware is unsustainable. Sustainable engineering demands design-for-disassembly and modularity.",
-      },
+        "sharedCityDeltas": {
+          "energyStability": -10,
+          "networkStability": -18,
+          "environmentalHealth": -5,
+          "waterAvailability": -5,
+          "rescueProgress": 5,
+          "publicTrust": -12,
+          "ewasteLevel": 3
+        },
+        "learningObjective": "Recognize the physics of control latency: high-lag remote control in dynamic environments leads to mechanical failures.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "Due to 800ms video lag, the remote driver overcorrected. The rover wedged its left track into rebar, requiring 40 minutes of hazardous cutting.",
+        "educationalTakeaway": "Teleoperation fails when network latency exceeds mechanical reaction times. Physical AI must execute safe reflexes locally."
+      }
     ],
-    sdgs: [6, 11, 12],
-    summaryNote: "Circular repair stops toxic e-waste runoff and protects drinking water.",
-    hotspots: [
-      { id: "h4-1", label: "Cleanroom Repair Station", x: 30, y: 55, description: "Technicians swapping standardized sensor modules.", tag: "Modular Repair" },
-      { id: "h4-2", label: "Lithium Battery Reconditioner", x: 65, y: 40, description: "Testing and balancing reusable energy cells.", tag: "Circular Economy" },
+    "sdgs": [
+      3,
+      9,
+      11
     ],
-    aiConcept: {
-      title: "The 5R Circular Robotics Economy",
-      subtitle: "Reduce, Reuse, Repair, Refurbish, Recycle",
-      definition: "A circular economy keeps physical hardware and materials in active use for as long as possible, eliminating toxic waste.",
-      realWorldExample: "Swapping out a defective laptop battery instead of throwing away the screen, keyboard, and processor.",
-      takeaway: "True sustainable robotics considers the entire physical lifecycle from mine to disposal.",
-      componentType: "circular",
-    },
-  },
-
-  // ==========================================
-  // CHAPTER 2: AUTONOMOUS RESCUE & PHYSICAL AI (5 - 8)
-  // ==========================================
-  {
-    id: 5,
-    number: 5,
-    chapterNumber: 2,
-    chapterTitle: "Chapter 2: Autonomous Rescue & Physical AI",
-    title: "Seismic Rubble Navigation",
-    category: "Physical AI Perception & Actuation",
-    heroImage: "/assets/disaster-recovery.svg",
-    environmentalContext:
-      "A magnitude 6.8 seismic tremor has collapsed bridges and multi-tier highway overpasses across Sector 7. Cellular networks are severed.",
-    storyProblem:
-      "Trapped survivors require rapid location. Debris piles are shifting and unstable. Thick dust clouds prevent standard aerial drones from viewing the ground.",
-    prompt: "Deploy the ground search-and-rescue rover perception pipeline.",
-    question: "How should rescue rovers navigate through collapsed structural debris without wireless connectivity?",
-    options: [
+    "summaryNote": "Local autonomous kinematics prevent dangerous delays in time-sensitive disaster response.",
+    "hotspots": [
       {
-        id: "m5-opt-a",
-        key: "A",
-        title: "Autonomous 3D LiDAR & Multi-Sensor SLAM with Human Gatekeeping",
-        isSustainable: true,
-        image: "/assets/m2-collaborative.svg",
-        shortDescription: "Rovers construct real-time 3D point-cloud maps locally and navigate debris autonomously, requesting human confirmation only for critical extrication.",
-        detailedExplanation:
-          "Onboard LiDAR penetrates smoke and darkness. Edge computing calculates foot placement and path-planning locally, ensuring rovers keep moving even with total RF silence.",
-        advantages: [
-          "Zero dependence on cloud servers; operational through zero-connectivity blackout zones.",
-          "Protects human rescue workers from unstable secondary collapse hazards.",
-        ],
-        disadvantages: [
-          "Requires onboard high-performance edge inference hardware.",
-        ],
-        pointsAwarded: 250,
-        impacts: { environmental: 15, energy: 15, social: 30, economic: 15 },
-        cityMetricDeltas: {
-          energyIndex: -8,
-          carbonIndex: -10,
-          waterIndex: -5,
-          ewasteIndex: 0,
-          operationalEfficiency: +25,
-          citizenWellbeing: +25,
-          resilienceIndex: +30,
-        },
-        sharedCityDeltas: {
-          energyStability: +8,
-          networkStability: +15,
-          environmentalHealth: +10,
-          waterAvailability: +8,
-          rescueProgress: +32,
-          publicTrust: +26,
-          ewasteLevel: 0,
-        },
-        learningObjective: "Physical AI couples local perception, decision-making, and mechanical action to save lives safely.",
-        sdgs: [3, 9, 11],
-        consequenceNarration:
-          "Rovers navigated dark collapsed tunnels within 22 minutes, successfully identifying 14 trapped survivors without a single network connection.",
-        educationalTakeaway:
-          "Physical AI must be resilient. In disaster zones, assuming high-speed internet exists is a recipe for catastrophic failure.",
+        "id": "h1",
+        "x": 38,
+        "y": 62,
+        "title": "Kinematic Planner",
+        "description": "Computes motor velocity curves that prevent rover tipping on uneven debris."
       },
       {
-        id: "m5-opt-b",
-        key: "B",
-        title: "100% Continuous High-Def Video Teleoperation",
-        isSustainable: false,
-        image: "/assets/m2-teleop-lag.svg",
-        shortDescription: "Stream raw dual 4K video feeds back to remote operators who must manually joy-stick every single step the robot takes.",
-        detailedExplanation:
-          "The robot has no autonomous navigation capability. It waits for wireless packets from a remote driver before moving a limb or turning a track.",
-        advantages: [
-          "No complex onboard SLAM algorithms needed on the rover chassis.",
-        ],
-        disadvantages: [
-          "Robots freeze completely whenever dust or concrete blocks the wireless radio signal.",
-          "Operators experience motion sickness and fatigue after 45 minutes of manual steering.",
-        ],
-        pointsAwarded: 50,
-        impacts: { environmental: -10, energy: -15, social: -25, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +12,
-          carbonIndex: +14,
-          waterIndex: +8,
-          ewasteIndex: +2,
-          operationalEfficiency: -20,
-          citizenWellbeing: -22,
-          resilienceIndex: -25,
-        },
-        sharedCityDeltas: {
-          energyStability: -10,
-          networkStability: -20,
-          environmentalHealth: -8,
-          waterAvailability: -6,
-          rescueProgress: -24,
-          publicTrust: -20,
-          ewasteLevel: +3,
-        },
-        learningObjective: "Total teleoperation dependency fails during natural disasters when RF networks collapse.",
-        sdgs: [3, 11],
-        consequenceNarration:
-          "Wireless packet loss spiked to 70%. Three rovers tumbled down elevator shafts due to 1.4-second joystick latency.",
-        educationalTakeaway:
-          "Local autonomy combined with human oversight is the cornerstone of responsible Physical AI in life-or-death missions.",
-      },
+        "id": "h2",
+        "x": 70,
+        "y": 40,
+        "title": "Wireless Latency Buffer",
+        "description": "Suffers 800ms round-trip delay, making real-time manual control hazardous."
+      }
     ],
-    sdgs: [3, 9, 11],
-    summaryNote: "Local LiDAR SLAM allows physical robots to save lives through communication blackouts.",
-    hotspots: [
-      { id: "h5-1", label: "3D LiDAR Sensor Turret", x: 48, y: 35, description: "Pulses 300,000 laser points per second through smoke.", tag: "Perception" },
-      { id: "h5-2", label: "Articulated Rubber Track", x: 62, y: 75, description: "Traverses 45-degree concrete rubble piles.", tag: "Physical Actuation" },
-    ],
-    aiConcept: {
-      title: "Physical AI Perception & SLAM",
-      subtitle: "Simultaneous Localization and Mapping",
-      definition: "Physical AI combines sensor perception (LiDAR/cameras), spatial reasoning (SLAM), and mechanical actuation (motors) to interact with physical terrain.",
-      realWorldExample: "A self-driving rover mapping an unknown cave while simultaneously tracking where it is inside it.",
-      takeaway: "Embodied intelligence must function when disconnected from the cloud.",
-      componentType: "robot",
-    },
+    "aiConcept": {
+      "title": "Real-Time Autonomy vs Teleoperation",
+      "subtitle": "The critical relationship between latency and physical safety",
+      "definition": "Real-time autonomy executes the perception-action cycle locally within milliseconds, avoiding the dangerous control lag inherent in remote internet operation.",
+      "realWorldExample": "An autonomous drone stabilizing itself against a wind gust in 10ms instead of crashing while waiting for a remote pilot signal.",
+      "takeaway": "Physical systems with mass and momentum require local intelligence to guarantee safety in dynamic environments.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 6,
-    number: 6,
-    chapterNumber: 2,
-    chapterTitle: "Chapter 2: Autonomous Rescue & Physical AI",
-    title: "Survivor Triaging & Swarm Coordination",
-    category: "Distributed Physical Swarm",
-    heroImage: "/assets/m2-autonomous-rescue.svg",
-    environmentalContext:
-      "Dust and smoke from collapsed industrial warehouses have reduced visibility to under 2 meters. Thermal signatures are dissipating rapidly in the evening cold.",
-    storyProblem:
-      "Multiple survivor signals have been detected across a 4-square-kilometer disaster perimeter. Rescue resources must be deployed efficiently before temperatures drop below freezing.",
-    prompt: "Choose the coordination architecture for the search-and-rescue rover team.",
-    question: "How should multiple rescue robots coordinate their search across the disaster grid?",
-    options: [
+    "id": 5,
+    "number": 5,
+    "chapterNumber": 2,
+    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "title": "The Flooded Street",
+    "category": "Sensors, Navigation & Environmental Perception",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Torrential monsoon rains have inundated the central transit corridor with 1.2 meters of murky, debris-filled floodwater.",
+    "storyProblem": "Submerged curbs, open drainage grates, and submerged obstacles are invisible to optical cameras. Amphibious ground rovers must ferry clean water supplies across the flooded avenue.",
+    "prompt": "Choose the aquatic navigation and terrain perception strategy.",
+    "question": "How should the autonomous ground rover safely traverse the flooded avenue?",
+    "options": [
       {
-        id: "m6-opt-a",
-        key: "A",
-        title: "Decentralized Peer-to-Peer Mesh Swarm Coordination",
-        isSustainable: true,
-        image: "/assets/m2-collaborative.svg",
-        shortDescription: "Rovers communicate directly with nearby peers over low-power ad-hoc radio, dividing search grids dynamically without a central server.",
-        detailedExplanation:
-          "If one rover discovers an obstacle or survivor, it relays a lightweight 30-byte message to neighbor rovers. The swarm self-organizes its search paths without requiring central cloud arbitration.",
-        advantages: [
-          "Zero single-point-of-failure; search continues seamlessly even if several rovers are crushed or battery-depleted.",
-          "Ultra-low radio emissions minimize interference with emergency human medical gear.",
+        "id": "m5-opt-a",
+        "key": "A",
+        "title": "Acoustic Sonar Mapping & Variable Torque Wheel Modulation",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Use ultrasonic bathymetric pingers to map submerged depth profiles while modulating wheel torque to prevent silt spin.",
+        "detailedExplanation": "Downward and forward-looking acoustic transducers map the submerged road surface through muddy water, detecting open storm drain hazards and adjusting wheel speed dynamically.",
+        "advantages": [
+          "Detects hidden drop-offs and underwater debris through turbid water",
+          "Conserves battery by maintaining optimal traction without spinning wheels"
         ],
-        disadvantages: [
-          "Requires decentralized consensus protocols programmed into rover firmware.",
+        "disadvantages": [
+          "Requires underwater acoustic transducer hardware"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 15, energy: 20, social: 30, economic: 15 },
-        cityMetricDeltas: {
-          energyIndex: -8,
-          carbonIndex: -10,
-          waterIndex: -4,
-          ewasteIndex: 0,
-          operationalEfficiency: +26,
-          citizenWellbeing: +28,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 20,
+          "energy": 18,
+          "social": 22,
+          "economic": 15
         },
-        sharedCityDeltas: {
-          energyStability: +8,
-          networkStability: +22,
-          environmentalHealth: +8,
-          waterAvailability: +8,
-          rescueProgress: +35,
-          publicTrust: +28,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -8,
+          "waterIndex": -12,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 25
         },
-        learningObjective: "Decentralized swarm intelligence is fault-tolerant, resilient, and energy-conserving.",
-        sdgs: [3, 9, 11],
-        consequenceNarration:
-          "The mesh swarm covered 4 square kilometers in 35 minutes, identifying 28 survivors and directing medical drones with pinpoint accuracy.",
-        educationalTakeaway:
-          "Distributed networks distribute both the work and the resilience. No single point of failure means no total collapse.",
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 12,
+          "environmentalHealth": 15,
+          "waterAvailability": 15,
+          "rescueProgress": 25,
+          "publicTrust": 18,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand how specialized physical sensors adapt to challenging environmental media like turbid water.",
+        "sdgs": [
+          6,
+          9,
+          11
+        ],
+        "consequenceNarration": "Acoustic pings identified a submerged 3-meter open sewer cavity! The rover circumnavigated the hazard cleanly, delivering 400 liters of purified water.",
+        "educationalTakeaway": "Different physical environments require different sensor physics. Sound waves travel through murky water where light cannot penetrate."
       },
       {
-        id: "m6-opt-b",
-        key: "B",
-        title: "Centralized Master Controller Rover",
-        isSustainable: false,
-        image: "/assets/m2-teleop-lag.svg",
-        shortDescription: "A single master command van processes all data and issues direct movement commands to every individual rover.",
-        detailedExplanation:
-          "All rovers wait for step-by-step instructions from a central generator-powered van stationed on the perimeter. If the van loses line of sight, the entire fleet stops.",
-        advantages: [
-          "Simpler individual rover programming since all logic is held in the master computer.",
+        "id": "m5-opt-b",
+        "key": "B",
+        "title": "High-RPM Full-Throttle Blind Water Forcing",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Lock differential axles, apply 100% electric motor torque, and plow straight through the standing water.",
+        "detailedExplanation": "The robot ignores underwater depth sensing, applying maximum electrical power to wheels in hopes of overpowering hydraulic drag and submerged mud.",
+        "advantages": [
+          "Requires no specialized sonar mapping algorithms"
         ],
-        disadvantages: [
-          "Catastrophic vulnerability: if the command van loses power or antenna alignment, all rovers freeze dead in the rubble.",
+        "disadvantages": [
+          "High risk of wheel slippage, motor burn-out, falling into submerged culverts, and rapid battery depletion"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -10, energy: -15, social: -25, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +10,
-          carbonIndex: +14,
-          waterIndex: +6,
-          ewasteIndex: +2,
-          operationalEfficiency: -18,
-          citizenWellbeing: -20,
-          resilienceIndex: -24,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -15,
+          "energy": -25,
+          "social": -12,
+          "economic": -18
         },
-        sharedCityDeltas: {
-          energyStability: -8,
-          networkStability: -22,
-          environmentalHealth: -6,
-          waterAvailability: -4,
-          rescueProgress: -20,
-          publicTrust: -18,
-          ewasteLevel: +2,
+        "cityMetricDeltas": {
+          "energyIndex": 22,
+          "carbonIndex": 18,
+          "waterIndex": 15,
+          "ewasteIndex": 4,
+          "operationalEfficiency": -20,
+          "citizenWellbeing": -15,
+          "resilienceIndex": -20
         },
-        learningObjective: "Centralized command structures are fragile bottlenecks in emergency physical response.",
-        sdgs: [3, 11],
-        consequenceNarration:
-          "A falling telegraph pole snapped the command van's mast. All 18 rovers froze for 2 crucial hours while survivors waited in the freezing cold.",
-        educationalTakeaway:
-          "Resilient robotics avoids single points of failure. Swarm autonomy keeps working when leaders fall.",
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -5,
+          "environmentalHealth": -10,
+          "waterAvailability": -8,
+          "rescueProgress": 5,
+          "publicTrust": -12,
+          "ewasteLevel": 4
+        },
+        "learningObjective": "Physical force without sensory feedback leads to mechanical failure and wasted energy in robotics.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "The rover fell into an unmapped underwater ditch. Both electric hub motors overheated and short-circuited under silt resistance.",
+        "educationalTakeaway": "Blind physical force is thermodynamically wasteful. Intelligent physical AI uses sensory feedback to minimize expended energy."
+      }
+    ],
+    "branchingModifiers": [
+      {
+        "conditionMission": 2,
+        "requiredChoice": "A",
+        "headline": "High-Speed Mesh Network Synchronized",
+        "narrativeEffect": "Because Edge AI was deployed in Mission 2, local bathymetric sonar data is shared between rovers in real time without lag.",
+        "isPositive": true
       },
+      {
+        "conditionMission": 2,
+        "requiredChoice": "B",
+        "headline": "Network Packet Drop Alert",
+        "narrativeEffect": "Due to cloud streaming congestion from Mission 2, rovers experience intermittent telemetries and must navigate with local sonar alone.",
+        "isPositive": false
+      }
     ],
-    sdgs: [3, 9, 11],
-    summaryNote: "Decentralized mesh networks protect rescue operations from catastrophic radio cutoffs.",
-    hotspots: [
-      { id: "h6-1", label: "Peer-to-Peer Mesh Antenna", x: 50, y: 25, description: "Short-range 900MHz link sharing survivor coordinates.", tag: "Mesh Radio" },
-      { id: "h6-2", label: "Infrared Thermal Sensor", x: 35, y: 65, description: "Detects human body heat beneath 1.5m of pulverized brick.", tag: "Life Detection" },
+    "sdgs": [
+      6,
+      9,
+      11
     ],
-    aiConcept: {
-      title: "Decentralized Swarm Intelligence",
-      subtitle: "Robust collective behavior without a master",
-      definition: "Swarm robotics coordinates multiple autonomous units using local interaction rules rather than top-down centralized control.",
-      realWorldExample: "A flock of birds flying smoothly around obstacles without any single bird acting as a permanent air-traffic controller.",
-      takeaway: "Swarm architectures guarantee that the loss of one unit does not halt the mission.",
-      componentType: "robot",
-    },
+    "summaryNote": "Acoustic sensing and intelligent traction control enable safe amphibious navigation through floodwaters.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 30,
+        "y": 70,
+        "title": "Bathymetric Sonar",
+        "description": "Emits ultrasonic acoustic pulses to measure depth through opaque muddy runoff."
+      },
+      {
+        "id": "h2",
+        "x": 65,
+        "y": 55,
+        "title": "Torque Controller",
+        "description": "Modulates electric current to each wheel to prevent tire spinning in underwater silt."
+      }
+    ],
+    "aiConcept": {
+      "title": "Sensors & Environmental Perception",
+      "subtitle": "Matching sensor physics to real-world mediums",
+      "definition": "Environmental perception relies on matching sensor physics (electromagnetic, acoustic, inertial) to the medium through which the robot travels.",
+      "realWorldExample": "Submarines using sonar rather than radar because radio waves attenuate rapidly in water.",
+      "takeaway": "Robots perceive through physics: when optical vision fails, acoustics and pressure sensors preserve operational capability.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 7,
-    number: 7,
-    chapterNumber: 2,
-    chapterTitle: "Chapter 2: Autonomous Rescue & Physical AI",
-    title: "Power Grid Black Start",
-    category: "Physical AI Grid Actuation",
-    heroImage: "/assets/m3-energy-emergency.svg",
-    environmentalContext:
-      "Following the earthquake, 80% of Nova City's regional electrical grid has suffered a total blackout ('black start' condition).",
-    storyProblem:
-      "Simultaneously switching on high-voltage circuit breakers will cause immediate surge overloads, blowing out expensive generator turbines and delaying recovery by weeks.",
-    prompt: "Coordinate the robotic breaker actuation sequence across the power distribution network.",
-    question: "How should physical robotic switchgear restore electricity to the dark city grid?",
-    options: [
+    "id": 6,
+    "number": 6,
+    "chapterNumber": 2,
+    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "title": "The Missing Child",
+    "category": "Object Detection & Human Supervision",
+    "heroImage": "/assets/m2-autonomous-rescue.svg",
+    "environmentalContext": "An evacuation stadium holding 8,000 citizens has reported a lost 7-year-old child wearing a yellow raincoat amidst chaotic crowd movements.",
+    "storyProblem": "Ground patrol robots must locate the child rapidly without causing public panic, violating biometric privacy, or misidentifying individuals.",
+    "prompt": "Choose the computer vision and verification protocol.",
+    "question": "How should the autonomous patrol robot search for the missing child in the crowded evacuation center?",
+    "options": [
       {
-        id: "m7-opt-a",
-        key: "A",
-        title: "Autonomous Dynamic Microgrid Sectionalizing with Essential Islanding",
-        isSustainable: true,
-        image: "/assets/m3-optimized-scheduling.svg",
-        shortDescription: "Robotic switchgear autonomously energizes localized medical and water pumping islands first, balancing phase voltages gradually.",
-        detailedExplanation:
-          "Edge sensors at each substation measure frequency and phase synchronization. Only clean renewable solar and battery reserves are brought online first to stabilize hospitals before industrial loads are reconnected.",
-        advantages: [
-          "Prevents generator coil blowout and catastrophic secondary fires; restores intensive care and drinking water pumps in under 20 minutes.",
-          "Protects fragile renewable inverters from grid-frequency shocks.",
+        "id": "m6-opt-a",
+        "key": "A",
+        "title": "Edge Feature Matching with Human Staff Dispatch",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Detect color and height attributes locally on-device, dispatching human social workers for direct contact.",
+        "detailedExplanation": "The robot's camera runs a lightweight edge object detector looking strictly for specific clothing color and height ranges. Upon a potential match, it alerts nearby human counselors without recording or broadcasting faces.",
+        "advantages": [
+          "Protects biometric privacy of thousands of citizens",
+          "Human counselors handle physical interaction with children gently"
         ],
-        disadvantages: [
-          "Non-essential commercial districts must wait several additional hours for reconnection.",
+        "disadvantages": [
+          "Requires coordination between robotic alerts and human social workers"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 20, energy: 30, social: 25, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -15,
-          carbonIndex: -18,
-          waterIndex: -14,
-          ewasteIndex: 0,
-          operationalEfficiency: +25,
-          citizenWellbeing: +25,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 15,
+          "energy": 15,
+          "social": 28,
+          "economic": 12
         },
-        sharedCityDeltas: {
-          energyStability: +30,
-          networkStability: +20,
-          environmentalHealth: +18,
-          waterAvailability: +24,
-          rescueProgress: +20,
-          publicTrust: +25,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -8,
+          "carbonIndex": -6,
+          "waterIndex": -4,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 28,
+          "resilienceIndex": 25
         },
-        learningObjective: "Intelligent islanding and phased restoration prevent catastrophic power grid cascade failures.",
-        sdgs: [7, 9, 11],
-        consequenceNarration:
-          "Substations locked into stable 50Hz synchronization. Hospital backup systems resumed clean power with zero generator tripping.",
-        educationalTakeaway:
-          "Restoring complex infrastructure requires balance, not brute force. Dynamic islanding protects delicate green technology.",
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 12,
+          "environmentalHealth": 8,
+          "waterAvailability": 5,
+          "rescueProgress": 25,
+          "publicTrust": 28,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Learn how human-in-the-loop AI ensures ethical protection and emotional safety in high-stakes public situations.",
+        "sdgs": [
+          3,
+          10,
+          11,
+          16
+        ],
+        "consequenceNarration": "Child located safely near the aid tent within 6 minutes. Human counselors reunited the child with family with zero public distress or privacy violations.",
+        "educationalTakeaway": "Responsible robotics uses AI to locate and alert, keeping human care workers at the center of delicate human interactions."
       },
       {
-        id: "m7-opt-b",
-        key: "B",
-        title: "Simultaneous High-Voltage Blanket Reclosure",
-        isSustainable: false,
-        image: "/assets/m3-max-power.svg",
-        shortDescription: "Close every main transmission breaker at the same moment to attempt full city-wide power restoration in one burst.",
-        detailedExplanation:
-          "Robotic actuators slam all circuit breakers shut simultaneously, expecting the central coal and gas plants to absorb the astronomical inrush current.",
-        advantages: [
-          "If it works, the entire city receives power in a single second.",
+        "id": "m6-opt-b",
+        "key": "B",
+        "title": "Indiscriminate Mass Facial Biometric Scanning & Public Megaphone Alert",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Stream all 8,000 faces to a central facial recognition database and sound loud automated siren horns upon correlation.",
+        "detailedExplanation": "Patrol rovers capture high-resolution face crops of every civilian, broadcasting unencrypted facial embeddings to central police databases and sounding loud synthesized voice sirens on matches.",
+        "advantages": [
+          "Executes high-density facial database searches"
         ],
-        disadvantages: [
-          "Extremely high probability of massive inductive inrush current destroying transformer coils and triggering secondary substation explosions.",
+        "disadvantages": [
+          "Violates civil liberties, creates severe crowd panic, and risks high false-positive rates on diverse populations"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -20, energy: -30, social: -25, economic: -25 },
-        cityMetricDeltas: {
-          energyIndex: +25,
-          carbonIndex: +25,
-          waterIndex: +15,
-          ewasteIndex: +10,
-          operationalEfficiency: -22,
-          citizenWellbeing: -24,
-          resilienceIndex: -30,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -10,
+          "energy": -18,
+          "social": -25,
+          "economic": -10
         },
-        sharedCityDeltas: {
-          energyStability: -35,
-          networkStability: -20,
-          environmentalHealth: -18,
-          waterAvailability: -18,
-          rescueProgress: -18,
-          publicTrust: -26,
-          ewasteLevel: +12,
+        "cityMetricDeltas": {
+          "energyIndex": 15,
+          "carbonIndex": 12,
+          "waterIndex": 6,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -25,
+          "resilienceIndex": -15
         },
-        learningObjective: "Blanket energization without physical phase synchronization causes catastrophic hardware damage.",
-        sdgs: [7, 9],
-        consequenceNarration:
-          "Immense electrical arc-flash vaporized two 400kV busbars at North Station. Dark-start delayed by an additional 36 hours.",
-        educationalTakeaway:
-          "Physical AI must respect electro-mechanical physics. Pushing systems beyond physical tolerances destroys real infrastructure.",
+        "sharedCityDeltas": {
+          "energyStability": -8,
+          "networkStability": -15,
+          "environmentalHealth": -4,
+          "waterAvailability": -3,
+          "rescueProgress": 10,
+          "publicTrust": -25,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Understand the ethical risks and social harm of uncontrolled biometric surveillance in disaster zones.",
+        "sdgs": [
+          10,
+          16
+        ],
+        "consequenceNarration": "A false positive triggered blaring siren alerts on an elderly civilian. Crowd panic erupted, resulting in three minor stampede injuries and civic protests.",
+        "educationalTakeaway": "Technology must never compromise human dignity. Mass facial surveillance in vulnerable shelters erodes public trust."
+      }
+    ],
+    "sdgs": [
+      3,
+      10,
+      11,
+      16
+    ],
+    "summaryNote": "Human-in-the-loop object detection protects privacy while reuniting lost family members safely.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 40,
+        "y": 45,
+        "title": "Edge Attribute Classifier",
+        "description": "Detects clothing color and spatial bounding boxes without storing biometric faces."
       },
+      {
+        "id": "h2",
+        "x": 75,
+        "y": 55,
+        "title": "Human Liaison Link",
+        "description": "Directly alerts trained human counselors to verify and assist the individual."
+      }
     ],
-    sdgs: [7, 9, 11],
-    summaryNote: "Decentralized microgrid islanding restores critical hospital power safely.",
-    hotspots: [
-      { id: "h7-1", label: "Smart High-Voltage Breaker", x: 42, y: 62, description: "Monitors AC phase angle before mechanical closure.", tag: "Grid Actuator" },
-      { id: "h7-2", label: "Hospital Microgrid Battery", x: 70, y: 35, description: "Zero-emission lithium-iron-phosphate emergency reserve.", tag: "Clean Energy" },
-    ],
-    aiConcept: {
-      title: "Microgrid Islanding & Black Start",
-      subtitle: "Autonomous electrical stability in emergencies",
-      definition: "Microgrid islanding disconnects a local circuit from the wider stressed grid so it can generate, balance, and consume its own local power safely.",
-      realWorldExample: "A hospital running off its own solar panels and batteries when the main city electricity grid goes dark.",
-      takeaway: "Decentralized energy modules ensure that regional collapses don't turn off critical life-support systems.",
-      componentType: "efficiency",
-    },
+    "aiConcept": {
+      "title": "Human-in-the-Loop AI & Privacy",
+      "subtitle": "Augmenting human compassion rather than replacing it",
+      "definition": "Human-in-the-loop architectures combine automated pattern detection with human oversight and ethical judgment for sensitive decisions.",
+      "realWorldExample": "AI flagging potentially abnormal medical imaging for a certified radiologist to review and diagnose.",
+      "takeaway": "Algorithms excel at fast search, but human empathy and ethical reasoning are irreplaceable in societal crises.",
+      "componentType": "general"
+    }
   },
   {
-    id: 8,
-    number: 8,
-    chapterNumber: 2,
-    chapterTitle: "Chapter 2: Autonomous Rescue & Physical AI",
-    title: "Flood Gate Hydraulic Actuation",
-    category: "Physical AI Environmental Protection",
-    heroImage: "/assets/disaster-recovery.svg",
-    environmentalContext:
-      "Seismic damage cracked the earthen levees along the Azure River. Stormwater is rushing toward the low-income historic residential district.",
-    storyProblem:
-      "Municipal floodgate valves require physical mechanical force to actuate. Central SCADA telemetry has been severed by mudslides.",
-    prompt: "Deploy autonomous physical actuator rovers to seal the retention sluices.",
-    question: "How should robotic actuators operate the physical hydraulic flood control gates?",
-    options: [
+    "id": 7,
+    "number": 7,
+    "chapterNumber": 2,
+    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "title": "The Broken Bridge",
+    "category": "Sensor Fusion & Structural Risk Assessment",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "An aftershock has cracked the primary concrete support pylon of the East Span Bridge, the only heavy vehicle conduit into District 4.",
+    "storyProblem": "A 12-ton autonomous supply transport must decide whether the bridge will sustain its transit weight or if routing through a 25-kilometer bypass is necessary.",
+    "prompt": "Choose the structural assessment and risk evaluation strategy.",
+    "question": "How should the autonomous transport determine if the cracked bridge can support its crossing?",
+    "options": [
       {
-        id: "m8-opt-a",
-        key: "A",
-        title: "Autonomous Closed-Loop Pressure Regulation with Edge Hydrodynamic Modeling",
-        isSustainable: true,
-        image: "/assets/disaster-recovery.svg",
-        shortDescription: "Robotic actuators calculate local water volume and torque, modulating sluice gates gradually to prevent pipe hammer and downstream surge.",
-        detailedExplanation:
-          "Rovers analyze water height and structural stress on concrete gate hinges using onboard ultrasonic sensors, tuning hydraulic valve turning speed to safely divert water into wetlands.",
-        advantages: [
-          "Prevents levee blowout and safely diverts floodwaters into natural marshland reservoirs without damaging downstream neighborhoods.",
-          "Functions with 100% offline autonomy at the physical valve site.",
+        "id": "m7-opt-a",
+        "key": "A",
+        "title": "Multi-Sensor Ultrasonic Resonant Vibration & Strain Gauging",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Deploy acoustic resonance sensors to evaluate micro-fractures inside the concrete matrix before committing wheel load.",
+        "detailedExplanation": "A small scout robot clamps piezoelectric transducers to the pylon, measuring sonic wave velocity through the concrete to calculate internal modulus of elasticity and tensile yield limits.",
+        "advantages": [
+          "Detects internal structural shear that is completely invisible from the surface",
+          "Prevents catastrophic bridge collapse and loss of critical cargo"
         ],
-        disadvantages: [
-          "Takes 12 minutes of steady modulated closing rather than an instant slam.",
+        "disadvantages": [
+          "Takes 4 minutes to perform harmonic acoustic measurements"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 15, social: 30, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -5,
-          carbonIndex: -10,
-          waterIndex: -20,
-          ewasteIndex: 0,
-          operationalEfficiency: +24,
-          citizenWellbeing: +28,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 20,
+          "energy": 18,
+          "social": 22,
+          "economic": 25
         },
-        sharedCityDeltas: {
-          energyStability: +10,
-          networkStability: +10,
-          environmentalHealth: +28,
-          waterAvailability: +30,
-          rescueProgress: +25,
-          publicTrust: +28,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -8,
+          "carbonIndex": -10,
+          "waterIndex": -5,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 28
         },
-        learningObjective: "Physical AI models real-world hydrodynamic forces to protect human communities and ecosystems.",
-        sdgs: [6, 11, 13],
-        consequenceNarration:
-          "42,000 homes in the Azure Basin were spared from flooding. Stormwater was cleanly diverted into wetland recharge aquifers.",
-        educationalTakeaway:
-          "Physical AI acts directly upon nature. Careful engineering that cooperates with natural ecosystems creates lasting resilience.",
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 12,
+          "environmentalHealth": 10,
+          "waterAvailability": 8,
+          "rescueProgress": 24,
+          "publicTrust": 20,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand physical AI sensor fusion: combining mechanical strain sensing with physical simulations to evaluate structural integrity.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "Acoustic resonance detected an internal 40% shear fault in the center rebar. Transport safely rerouted to the bypass, preventing a fatal bridge collapse.",
+        "educationalTakeaway": "Physical AI evaluates structural mechanics and materials science, not just superficial visual appearances."
       },
       {
-        id: "m8-opt-b",
-        key: "B",
-        title: "Rapid Emergency Drop Without Pressure Feedback",
-        isSustainable: false,
-        image: "/assets/m4-dump-replacement.svg",
-        shortDescription: "Trigger explosive mechanical release pins to slam 40-ton steel floodgates down at maximum velocity instantly.",
-        detailedExplanation:
-          "Actuators dump steel gates without monitoring hydraulic pressure spikes, ignoring the massive water hammer shockwave rebounding through aging stormwater tunnels.",
-        advantages: [
-          "Closes the gate opening in under 3 seconds.",
+        "id": "m7-opt-b",
+        "key": "B",
+        "title": "Superficial Visual Color Camera Inspection & Immediate Crossing",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Inspect surface crack width using standard camera zoom lenses and cross immediately if the surface looks passable.",
+        "detailedExplanation": "The vehicle runs a fast optical edge detector on the surface concrete. Since the visible crack appears less than 5mm wide, it proceeds across the bridge at full speed.",
+        "advantages": [
+          "Requires zero scout robot deployment or acoustic wait time"
         ],
-        disadvantages: [
-          "Water hammer shockwave ruptures underground sewer pipes and causes secondary levee breaches 2 kilometers downstream.",
+        "disadvantages": [
+          "Surface cracks do not reflect internal rebar tensile failure, risking total bridge collapse under dynamic axle weight"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -10, social: -25, economic: -20 },
-        cityMetricDeltas: {
-          energyIndex: +8,
-          carbonIndex: +12,
-          waterIndex: +25,
-          ewasteIndex: +5,
-          operationalEfficiency: -20,
-          citizenWellbeing: -25,
-          resilienceIndex: -28,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -20,
+          "energy": -15,
+          "social": -22,
+          "economic": -28
         },
-        sharedCityDeltas: {
-          energyStability: -8,
-          networkStability: -8,
-          environmentalHealth: -26,
-          waterAvailability: -28,
-          rescueProgress: -15,
-          publicTrust: -24,
-          ewasteLevel: +4,
+        "cityMetricDeltas": {
+          "energyIndex": 18,
+          "carbonIndex": 15,
+          "waterIndex": 8,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -22,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -25
         },
-        learningObjective: "Violent mechanical actuation without sensor feedback causes severe secondary structural disasters.",
-        sdgs: [6, 11],
-        consequenceNarration:
-          "Water hammer ruptured the main municipal aqueduct. Raw stormwater mixed with contaminated industrial runoff.",
-        educationalTakeaway:
-          "Every physical action has an equal and opposite reaction. Physical AI must account for mechanical feedback and fluid dynamics.",
-      },
+        "sharedCityDeltas": {
+          "energyStability": -12,
+          "networkStability": -8,
+          "environmentalHealth": -12,
+          "waterAvailability": -5,
+          "rescueProgress": -10,
+          "publicTrust": -22,
+          "ewasteLevel": 3
+        },
+        "learningObjective": "Optical appearance is insufficient for structural safety. Physical AI must model invisible mechanical forces.",
+        "sdgs": [
+          9,
+          11
+        ],
+        "consequenceNarration": "Under dynamic axle load, the compromised pylon sheared. The bridge span collapsed into the canal, destroying the 12-ton transport and severing the district's lifeline.",
+        "educationalTakeaway": "Never trust surface pixels alone when evaluating physical weight limits and materials fatigue."
+      }
     ],
-    sdgs: [6, 11, 13],
-    summaryNote: "Modulated closed-loop floodgate actuation protects homes and preserves clean wetlands.",
-    hotspots: [
-      { id: "h8-1", label: "Hydraulic Sluice Actuator", x: 52, y: 55, description: "Edge controlled high-torque planetary gearbox.", tag: "Physical Actuator" },
-      { id: "h8-2", label: "Ultrasonic Water Gauge", x: 25, y: 72, description: "Monitors Azure river surge level in real time.", tag: "Hydrology Sensor" },
+    "sdgs": [
+      9,
+      11
     ],
-    aiConcept: {
-      title: "Closed-Loop Feedback Control",
-      subtitle: "Adjusting physical action based on continuous measurement",
-      definition: "Closed-loop control continuously checks sensors to fine-tune motor torque and valve speed, preventing mechanical strain and failure.",
-      realWorldExample: "Cruise control in an electric car gently easing off throttle as you go downhill rather than slamming the brakes.",
-      takeaway: "Sustainable robotics uses intelligence to move smoothly rather than wasting energy with brute force.",
-      componentType: "robot",
-    },
-  },
-
-  // ==========================================
-  // CHAPTER 3: SMART ENERGY & GRID RESILIENCE (9 - 12)
-  // ==========================================
-  {
-    id: 9,
-    number: 9,
-    chapterNumber: 3,
-    chapterTitle: "Chapter 3: Smart Energy & Grid Resilience",
-    title: "Solar-Powered Rover Fleet Charging",
-    category: "Renewable Autonomous Charging",
-    heroImage: "/assets/m3-optimized-scheduling.svg",
-    environmentalContext:
-      "Municipal electric charging stations are pulling 140MW from the regional coal-fired backup plant whenever rover fleets return for overnight charging.",
-    storyProblem:
-      "Nova City's 3,500 civic rovers and logistics drones plug in simultaneously at 18:00 when residential electricity consumption peaks, stressing the city's power grid.",
-    prompt: "Architect the autonomous fleet charging and solar integration strategy.",
-    question: "When and how should Nova City's autonomous robotic fleet recharge its batteries?",
-    options: [
+    "summaryNote": "Acoustic resonance testing detects internal structural faults before catastrophic mechanical failures occur.",
+    "hotspots": [
       {
-        id: "m9-opt-a",
-        key: "A",
-        title: "Predictive Solar-Tracked Opportunistic Recharging with Smart V2G",
-        isSustainable: true,
-        image: "/assets/m3-optimized-scheduling.svg",
-        shortDescription: "Rovers charge at distributed solar canopy stations during midday solar peaks, feeding battery power back to the grid (V2G) during evening domestic peaks.",
-        detailedExplanation:
-          "Fleets use predictive weather models to top up batteries when sunlight is abundant. During evening residential hours, rovers parked at municipal docks feed surplus power back to stabilize homes.",
-        advantages: [
-          "Flattens grid peak demand completely; transforms the robotic fleet into a 45MWh distributed emergency battery for the city.",
-          "Cuts fleet operational emissions by 84%.",
-        ],
-        disadvantages: [
-          "Requires bidirectional Vehicle-to-Grid (V2G) charging hardware at municipal docks.",
-        ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 30, social: 20, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -20,
-          carbonIndex: -22,
-          waterIndex: -10,
-          ewasteIndex: 0,
-          operationalEfficiency: +20,
-          citizenWellbeing: +18,
-          resilienceIndex: +26,
-        },
-        sharedCityDeltas: {
-          energyStability: +28,
-          networkStability: +15,
-          environmentalHealth: +22,
-          waterAvailability: +14,
-          rescueProgress: +12,
-          publicTrust: +20,
-          ewasteLevel: 0,
-        },
-        learningObjective: "Vehicle-to-Grid (V2G) and temporal renewable alignment transform consumer robots into civic energy stabilizers.",
-        sdgs: [7, 11, 13],
-        consequenceNarration:
-          "Evening grid brownouts eliminated! The rover fleet powered 12,000 apartment air conditioners using clean stored sunlight.",
-        educationalTakeaway:
-          "Timing is everything in clean energy. Recharging with daytime sun and supporting the grid at night creates circular energy synergy.",
+        "id": "h1",
+        "x": 48,
+        "y": 55,
+        "title": "Piezoelectric Transducer",
+        "description": "Sends ultrasonic waves through concrete to measure internal material elasticity."
       },
       {
-        id: "m9-opt-b",
-        key: "B",
-        title: "Immediate Fast-Charge at Nightfall",
-        isSustainable: false,
-        image: "/assets/m3-max-power.svg",
-        shortDescription: "Rovers return en masse at 18:00 and draw 350kW ultra-fast DC charging simultaneously regardless of grid strain.",
-        detailedExplanation:
-          "Fleet depots prioritize rapid 20-minute turnaround times, forcing utility managers to fire up dirty diesel and coal generators to meet the sudden artificial peak.",
-        advantages: [
-          "Rovers are fully charged and ready to resume driving in under 25 minutes.",
-        ],
-        disadvantages: [
-          "Massive thermal battery degradation; burns fossil peaker fuels and triggers local transformer brownouts.",
-        ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -25, social: -15, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +24,
-          carbonIndex: +26,
-          waterIndex: +12,
-          ewasteIndex: +8,
-          operationalEfficiency: -12,
-          citizenWellbeing: -16,
-          resilienceIndex: -22,
-        },
-        sharedCityDeltas: {
-          energyStability: -28,
-          networkStability: -12,
-          environmentalHealth: -24,
-          waterAvailability: -12,
-          rescueProgress: -8,
-          publicTrust: -18,
-          ewasteLevel: +10,
-        },
-        learningObjective: "Fast charging during peak demand periods accelerates battery wear and burns dirty fossil fuels.",
-        sdgs: [7, 13],
-        consequenceNarration:
-          "Peaker generator emissions turned the evening skyline gray. Battery cell health declined 14% across the fleet.",
-        educationalTakeaway:
-          "Convenience without intelligence harms the planet. Smart scheduling costs nothing in hardware but saves gigawatts.",
-      },
+        "id": "h2",
+        "x": 62,
+        "y": 40,
+        "title": "Finite Element Model",
+        "description": "Computes dynamic axle stress distribution on the bridge span."
+      }
     ],
-    sdgs: [7, 11, 13],
-    summaryNote: "Solar-tracked charging turns robotic fleets into distributed green battery reserves.",
-    hotspots: [
-      { id: "h9-1", label: "Solar Canopy Charging Dock", x: 38, y: 45, description: "Bifacial solar panels generating clean direct DC power.", tag: "Solar Dock" },
-      { id: "h9-2", label: "Bidirectional V2G Inverter", x: 62, y: 65, description: "Feeds battery power back to homes during peak hours.", tag: "Smart Grid" },
-    ],
-    aiConcept: {
-      title: "Vehicle-to-Grid (V2G) Energy Orchestration",
-      subtitle: "Robots as mobile power batteries",
-      definition: "V2G allows electric robots and vehicles to not only draw power from the grid but also feed electricity back during emergencies or peak demand.",
-      realWorldExample: "Your electric car powering your refrigerator during an evening neighborhood blackout.",
-      takeaway: "Physical AI can stabilize energy grids by coordinating when and where energy flows.",
-      componentType: "efficiency",
-    },
+    "aiConcept": {
+      "title": "Sensor Fusion & Structural Physics",
+      "subtitle": "Looking beneath surface appearances",
+      "definition": "Sensor fusion in physical AI combines optical imagery with acoustic, vibrational, and strain sensor data to model internal mechanical states.",
+      "realWorldExample": "Aviation maintenance using ultrasonic non-destructive testing to detect hairline metal fatigue inside jet engine turbine blades.",
+      "takeaway": "Embodied AI must understand physics, stress limits, and material science to operate safely in the built environment.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 10,
-    number: 10,
-    chapterNumber: 3,
-    chapterTitle: "Chapter 3: Smart Energy & Grid Resilience",
-    title: "Thermal Inversion & Data Center Cooling",
-    category: "Sustainable Thermal Engineering",
-    heroImage: "/assets/m1-infrastructure-crisis.svg",
-    environmentalContext:
-      "A summer atmospheric thermal inversion has trapped hot stagnant air over the industrial sector. Data center chiller evaporators are consuming 5.1 million liters of potable water daily.",
-    storyProblem:
-      "Municipal drinking water reserves in Lake Serene are dropping by 3cm per week solely to cool server racks computing routine municipal operations.",
-    prompt: "Redesign the server cooling infrastructure for Nova City's municipal computing facilities.",
-    question: "How should Nova City cool its essential municipal computing racks without depleting drinking water?",
-    options: [
+    "id": 8,
+    "number": 8,
+    "chapterNumber": 2,
+    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "title": "The Hospital Emergency",
+    "category": "Physical AI in Healthcare & Safety",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Nova Memorial Hospital is operating on emergency backup microgrids while receiving 400 trauma patients from regional structural failures.",
+    "storyProblem": "Medical staff are overwhelmed. Autonomous robotic assistants are available to transport medicine, sterilize wards, and assist triage teams.",
+    "prompt": "Choose the operational boundary and autonomy level for hospital service robots.",
+    "question": "How should autonomous robots assist hospital staff during the mass-casualty crisis?",
+    "options": [
       {
-        id: "m10-opt-a",
-        key: "A",
-        title: "Closed-Loop Dielectric Immersion Cooling with District Heat Capture",
-        isSustainable: true,
-        image: "/assets/m1-edge-ai.svg",
-        shortDescription: "Submerge computing hardware in biodegradable dielectric fluid; capture waste heat and pipe it to heat city water and commercial buildings.",
-        detailedExplanation:
-          "Immersion cooling eliminates evaporative water loss entirely (0 liters consumed). The 55°C waste heat is harvested by heat pumps and piped into the district heating and greenhouse network.",
-        advantages: [
-          "Cuts cooling energy consumption by 90% and eliminates all municipal water evaporation.",
-          "Turns thermal waste into valuable greenhouse agriculture heat.",
+        "id": "m8-opt-a",
+        "key": "A",
+        "title": "Segregated Logistics Navigation & Strict Doctor-Supervised Support",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Deploy robots for automated medicine transport and UV sterilization along designated corridors, leaving all clinical decisions to doctors.",
+        "detailedExplanation": "Robots navigate hospital hallways with LiDAR, delivering pharmaceuticals and carrying surgical tools between wings. Zero biometric or clinical diagnostic authority is given to algorithms.",
+        "advantages": [
+          "Frees up 65% of nursing staff from manual hauling tasks",
+          "Zero risk of algorithmic diagnostic error or ethical medical malpractice"
         ],
-        disadvantages: [
-          "Requires retrofitting server chassis with non-conductive dielectric immersion tanks.",
+        "disadvantages": [
+          "Requires hallway clearance protocols for robot traffic"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 30, energy: 25, social: 20, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -18,
-          carbonIndex: -20,
-          waterIndex: -30,
-          ewasteIndex: 0,
-          operationalEfficiency: +22,
-          citizenWellbeing: +20,
-          resilienceIndex: +25,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 18,
+          "energy": 15,
+          "social": 28,
+          "economic": 20
         },
-        sharedCityDeltas: {
-          energyStability: +22,
-          networkStability: +15,
-          environmentalHealth: +26,
-          waterAvailability: +35,
-          rescueProgress: +10,
-          publicTrust: +22,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -8,
+          "carbonIndex": -10,
+          "waterIndex": -6,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 30,
+          "resilienceIndex": 25
         },
-        learningObjective: "Closed-loop thermal management eliminates water waste and repurposes computing heat for urban greenhouses.",
-        sdgs: [6, 7, 9, 12],
-        consequenceNarration:
-          "Potable water withdrawal halted! Lake Serene stabilized while 18 urban greenhouses received free heating from server racks.",
-        educationalTakeaway:
-          "Computers don't just consume energy; they turn 100% of it into heat. Capturing that heat is circular engineering at its best.",
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 15,
+          "environmentalHealth": 12,
+          "waterAvailability": 10,
+          "rescueProgress": 26,
+          "publicTrust": 25,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand the proper division of labor in physical AI: robots excel at mechanical logistics, while humans retain clinical judgment.",
+        "sdgs": [
+          3,
+          9,
+          11,
+          16
+        ],
+        "consequenceNarration": "Nursing staff spent 100% of their time with patients. Critical antibiotics arrived in ICU beds within 90 seconds through automated pneumatic-free rovers.",
+        "educationalTakeaway": "Responsible robotics relieves physical drudgery for human experts without overreaching into delicate ethical decisions."
       },
       {
-        id: "m10-opt-b",
-        key: "B",
-        title: "Deep Aquifer Open-Cycle Groundwater Pumping",
-        isSustainable: false,
-        image: "/assets/m1-cloud-heavy.svg",
-        shortDescription: "Drill deep industrial wells into the deep drinking aquifer and blast chillers at maximum flow to maintain cold air.",
-        detailedExplanation:
-          "Data centers pump ancient subterranean groundwater through massive cooling towers, venting millions of liters of pristine water into the atmosphere as steam.",
-        advantages: [
-          "Requires zero changes to traditional server rack layouts or fans.",
+        "id": "m8-opt-b",
+        "key": "B",
+        "title": "Full Algorithmic Autonomous Patient Triage & Prescription Dispensation",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Authorize AI robots to diagnose walk-in trauma patients with cameras and dispense prescription narcotics automatically.",
+        "detailedExplanation": "Patients are scanned by robotic kiosks that classify injury severity and dispense medication without physician sign-off in an effort to eliminate wait times.",
+        "advantages": [
+          "Fast intake processing with minimal initial human doctor involvement"
         ],
-        disadvantages: [
-          "Permanently depletes ancient drinking aquifers; lowers regional water table and causes ground subsidence.",
+        "disadvantages": [
+          "Extremely high risk of clinical misdiagnosis, medication overdose, algorithmic bias, and severe liability"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -30, energy: -20, social: -25, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +16,
-          carbonIndex: +18,
-          waterIndex: +35,
-          ewasteIndex: +2,
-          operationalEfficiency: -14,
-          citizenWellbeing: -22,
-          resilienceIndex: -24,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -10,
+          "energy": -15,
+          "social": -30,
+          "economic": -20
         },
-        sharedCityDeltas: {
-          energyStability: -15,
-          networkStability: -10,
-          environmentalHealth: -30,
-          waterAvailability: -35,
-          rescueProgress: -8,
-          publicTrust: -26,
-          ewasteLevel: +4,
+        "cityMetricDeltas": {
+          "energyIndex": 12,
+          "carbonIndex": 10,
+          "waterIndex": 5,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -30,
+          "resilienceIndex": -20
         },
-        learningObjective: "Open-loop evaporative cooling trades precious human drinking water for temporary computing convenience.",
-        sdgs: [6, 12],
-        consequenceNarration:
-          "Residential wells in North Sector dried up. Citizens queued for bottled water rations while cooling towers vented steam.",
-        educationalTakeaway:
-          "Water is life. Sacrificing community drinking water to cool inefficient computers is an unacceptable technological compromise.",
+        "sharedCityDeltas": {
+          "energyStability": -8,
+          "networkStability": -10,
+          "environmentalHealth": -5,
+          "waterAvailability": -4,
+          "rescueProgress": 5,
+          "publicTrust": -28,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Recognize that autonomous clinical decision-making without human oversight violates medical ethics and endangers lives.",
+        "sdgs": [
+          3,
+          16
+        ],
+        "consequenceNarration": "An algorithmic misclassification prescribed anticoagulants to a patient with internal hemorrhage. Doctors had to perform emergency resuscitation amidst chaotic errors.",
+        "educationalTakeaway": "AI systems must never make autonomous life-or-death clinical prescriptions without qualified human verification."
+      }
+    ],
+    "sdgs": [
+      3,
+      9,
+      11,
+      16
+    ],
+    "summaryNote": "Robots safely augment healthcare by handling logistics, preserving human wisdom for clinical diagnosis.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 35,
+        "y": 55,
+        "title": "Sterile Logistics Rover",
+        "description": "Automates transit of heavy medical supplies between operating rooms."
       },
+      {
+        "id": "h2",
+        "x": 72,
+        "y": 45,
+        "title": "Physician Control Station",
+        "description": "Doctors maintain 100% authority over patient diagnosis and treatment orders."
+      }
     ],
-    sdgs: [6, 7, 9, 12],
-    summaryNote: "Immersion cooling saves millions of liters of water and recycles server heat into food greenhouses.",
-    hotspots: [
-      { id: "h10-1", label: "Dielectric Immersion Tank", x: 35, y: 50, description: "Non-conductive liquid absorbing heat with zero water loss.", tag: "Thermal Tech" },
-      { id: "h10-2", label: "Greenhouse Heat Pipe", x: 72, y: 35, description: "Distributes 55°C warm water to grow urban crops.", tag: "District Heat" },
-    ],
-    aiConcept: {
-      title: "Closed-Loop Immersion & Heat Harvesting",
-      subtitle: "Eliminating the water cost of computing",
-      definition: "Dielectric immersion cooling submerges electronic circuit boards in specialized thermal oil, removing heat without evaporating water.",
-      realWorldExample: "A liquid-cooled high-end computer that uses radiator fluid rather than constantly spraying fresh tap water into the air.",
-      takeaway: "True sustainable intelligence protects natural water tables through closed-loop engineering.",
-      componentType: "pipeline",
-    },
+    "aiConcept": {
+      "title": "Physical AI in Healthcare & Ethics",
+      "subtitle": "Automating logistics while protecting human care",
+      "definition": "Healthcare robotics focuses on physical support (hauling supplies, UV sterilization, ergonomic lifting) while reserving diagnostic and compassionate care for trained doctors.",
+      "realWorldExample": "Hospital Tug robots transporting linens and medications so nurses spend more time at patient bedsides.",
+      "takeaway": "Robots should handle the dangerous and repetitive tasks so humans can focus on empathy, judgment, and care.",
+      "componentType": "general"
+    }
   },
   {
-    id: 11,
-    number: 11,
-    chapterNumber: 3,
-    chapterTitle: "Chapter 3: Smart Energy & Grid Resilience",
-    title: "Microgrid Islanding & Energy Partitioning",
-    category: "Decentralized Energy AI",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "A thunderstorm has severed high-voltage interties connecting Nova City to the regional hydro grid, isolating the urban transmission network.",
-    storyProblem:
-      "Fluctuations in cloud cover cause solar farm output to oscillate wildly, threatening frequency collapse across residential sectors.",
-    prompt: "Configure the automated microgrid partitioning controller.",
-    question: "How should Nova City's energy management AI maintain electrical frequency across urban microgrids?",
-    options: [
+    "id": 9,
+    "number": 9,
+    "chapterNumber": 3,
+    "chapterTitle": "Chapter 3: The Energy War",
+    "title": "The Data Center Crisis",
+    "category": "Sustainable Computing & Thermal Management",
+    "heroImage": "/assets/m3-energy-emergency.svg",
+    "environmentalContext": "Nova City's central hyperscale data center is consuming 310 Megawatts of power—equivalent to 240,000 homes—causing regional brownouts during peak heat.",
+    "storyProblem": "Data center server racks are reaching critical thermal thresholds. The facility is evaporating 5 million liters of municipal drinking water daily for cooling towers.",
+    "prompt": "Choose the computing and cooling infrastructure strategy.",
+    "question": "How should Nova City's primary AI compute center manage thermal load and power consumption?",
+    "options": [
       {
-        id: "m11-opt-a",
-        key: "A",
-        title: "Decentralized Autonomous Microgrids with Edge Frequency Synthesizers",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Divide the city into 14 self-balancing neighborhood microgrids that dynamically trade energy locally using smart inverters.",
-        detailedExplanation:
-          "Smart battery inverters use edge frequency sensors to detect phase drift within 4 milliseconds, adjusting synthetic inertia without waiting for centralized commands.",
-        advantages: [
-          "Guarantees that a blackout in one neighborhood never cascades across the rest of the city.",
-          "Maximizes utilization of distributed rooftop solar arrays.",
+        "id": "m9-opt-a",
+        "key": "A",
+        "title": "Dynamic Workload Throttling & Closed-Loop Dielectric Immersion Cooling",
+        "isSustainable": true,
+        "image": "/assets/m3-optimized-scheduling.svg",
+        "shortDescription": "Submerge GPU blades in biodegradable dielectric fluid with zero water evaporation, capturing waste heat for city district heating.",
+        "detailedExplanation": "Servers operate submerged in non-conductive dielectric fluid with 98% thermal efficiency. Non-urgent AI workloads are postponed until nightfall when cooler ambient temperatures prevail.",
+        "advantages": [
+          "Eliminates 95% of evaporative water consumption",
+          "Captures server waste heat to warm residential water supplies",
+          "Lowers compute energy by 35%"
         ],
-        disadvantages: [
-          "Requires grid-forming inverters deployed at every neighborhood substation.",
+        "disadvantages": [
+          "Requires retrofitting server chassis for fluid immersion"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 30, social: 25, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -20,
-          carbonIndex: -22,
-          waterIndex: -8,
-          ewasteIndex: 0,
-          operationalEfficiency: +24,
-          citizenWellbeing: +22,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 28,
+          "energy": 25,
+          "social": 20,
+          "economic": 18
         },
-        sharedCityDeltas: {
-          energyStability: +32,
-          networkStability: +22,
-          environmentalHealth: +20,
-          waterAvailability: +16,
-          rescueProgress: +15,
-          publicTrust: +25,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -18,
+          "carbonIndex": -22,
+          "waterIndex": -25,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 18,
+          "resilienceIndex": 25
         },
-        learningObjective: "Decentralized microgrids provide fault isolation and absorb volatile renewable fluctuations locally.",
-        sdgs: [7, 9, 11],
-        consequenceNarration:
-          "All 14 neighborhood microgrids stabilized within 18 milliseconds. Zero homes experienced power interruptions.",
-        educationalTakeaway:
-          "Centralized grids collapse like dominos. Decentralized microgrids act like watertight ship bulkheads—one leak doesn't sink the ship.",
+        "sharedCityDeltas": {
+          "energyStability": 22,
+          "networkStability": 15,
+          "environmentalHealth": 22,
+          "waterAvailability": 25,
+          "rescueProgress": 12,
+          "publicTrust": 18,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand sustainable data center design: immersion cooling and dynamic thermal workload scheduling.",
+        "sdgs": [
+          6,
+          7,
+          9,
+          12,
+          13
+        ],
+        "consequenceNarration": "Water intake dropped to zero! Captured server heat warmed 14,000 homes in District 8, and the city avoided rolling electrical brownouts.",
+        "educationalTakeaway": "Computing produces real physical heat. Closed-loop immersion cooling eliminates water waste and turns computing waste heat into urban energy."
       },
       {
-        id: "m11-opt-b",
-        key: "B",
-        title: "Centralized SCADA Forced Load Shedding",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "A central controller blindly shuts off entire residential quadrants to prevent turbine frequency trips.",
-        detailedExplanation:
-          "The central system cuts power to 120,000 homes in random rotating blocks, turning off traffic lights and water pressure to maintain power to commercial towers.",
-        advantages: [
-          "Requires no upgrades to existing legacy central substation hardware.",
+        "id": "m9-opt-b",
+        "key": "B",
+        "title": "Emergency Open-Loop Groundwater Extraction & Diesel Peaker Generators",
+        "isSustainable": false,
+        "image": "/assets/m3-max-power.svg",
+        "shortDescription": "Pump cold water from municipal drinking aquifers into open evaporative cooling towers and fire emergency diesel generators.",
+        "detailedExplanation": "To keep overclocked server clusters running at 100% capacity, operators pump millions of liters from deep aquifers and burn 40,000 gallons of diesel fuel hourly to bypass grid limits.",
+        "advantages": [
+          "Maintains maximum uninterrupted server GPU clock speeds"
         ],
-        disadvantages: [
-          "Severely disrupts citizen well-being; causes food spoilage and disables traffic safety signals.",
+        "disadvantages": [
+          "Depletes municipal drinking water reserves and emits massive particulate carbon smog into urban air"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -15, energy: -20, social: -30, economic: -20 },
-        cityMetricDeltas: {
-          energyIndex: +18,
-          carbonIndex: +20,
-          waterIndex: +10,
-          ewasteIndex: +2,
-          operationalEfficiency: -20,
-          citizenWellbeing: -28,
-          resilienceIndex: -25,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -28,
+          "energy": -25,
+          "social": -20,
+          "economic": -15
         },
-        sharedCityDeltas: {
-          energyStability: -25,
-          networkStability: -18,
-          environmentalHealth: -15,
-          waterAvailability: -15,
-          rescueProgress: -12,
-          publicTrust: -28,
-          ewasteLevel: +4,
+        "cityMetricDeltas": {
+          "energyIndex": 25,
+          "carbonIndex": 28,
+          "waterIndex": 30,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -22
         },
-        learningObjective: "Blind centralized load shedding disproportionately penalizes vulnerable communities.",
-        sdgs: [7, 11],
-        consequenceNarration:
-          "Rolling blackouts stranded 4,000 citizens in elevators and spoiled thousands of kilograms of refrigerated food.",
-        educationalTakeaway:
-          "Intelligent energy distribution protects equity and human dignity. Decentralized microgrids put resilience in community hands.",
+        "sharedCityDeltas": {
+          "energyStability": -22,
+          "networkStability": 5,
+          "environmentalHealth": -25,
+          "waterAvailability": -28,
+          "rescueProgress": 5,
+          "publicTrust": -20,
+          "ewasteLevel": 3
+        },
+        "learningObjective": "Recognize the severe environmental footprint of evaporative water cooling and fossil peaker generation in artificial intelligence.",
+        "sdgs": [
+          6,
+          7,
+          13
+        ],
+        "consequenceNarration": "Residential faucets in the South Ward ran dry as the aquifer dropped 4 meters. Dense diesel exhaust triggered urban air quality asthma alerts.",
+        "educationalTakeaway": "Open-loop cooling wastes precious drinking water. Sustainable AI requires cooling efficiency built into physical architecture."
+      }
+    ],
+    "branchingModifiers": [
+      {
+        "conditionMission": 8,
+        "requiredChoice": "A",
+        "headline": "High Civic Cooperation",
+        "narrativeEffect": "Because hospital robotics respected privacy and ethics in Mission 8, citizens actively support district energy conservation measures.",
+        "isPositive": true
       },
+      {
+        "conditionMission": 8,
+        "requiredChoice": "B",
+        "headline": "Citizen Resistance Warning",
+        "narrativeEffect": "Due to hospital triage controversies in Mission 8, citizens are skeptical of municipal power requests, complicating grid adjustments.",
+        "isPositive": false
+      }
     ],
-    sdgs: [7, 9, 11],
-    summaryNote: "Decentralized microgrids isolate electrical faults and protect community stability.",
-    hotspots: [
-      { id: "h11-1", label: "Grid-Forming Inverter", x: 45, y: 55, description: "Synthesizes 50Hz grid frequency from rooftop solar arrays.", tag: "Inverter Tech" },
-      { id: "h11-2", label: "Neighborhood Battery Vault", x: 75, y: 40, description: "Absorbs midday solar surplus for evening streetlights.", tag: "Storage" },
+    "sdgs": [
+      6,
+      7,
+      9,
+      12,
+      13
     ],
-    aiConcept: {
-      title: "Synthetic Inertia & Smart Inverters",
-      subtitle: "Software-defined stability for clean grids",
-      definition: "Smart inverters use microsecond algorithms to mimic heavy spinning metal turbines, stabilizing electrical frequency on solar and wind grids.",
-      realWorldExample: "A digital gyroscope on a drone keeping it level during sudden wind gusts without heavy mechanical flywheels.",
-      takeaway: "Advanced power electronics make 100% renewable energy grids physically stable.",
-      componentType: "efficiency",
-    },
+    "summaryNote": "Immersion cooling and workload shifting eliminate water consumption and stabilize the electric grid.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 38,
+        "y": 48,
+        "title": "Immersion Tank",
+        "description": "Submerges computing hardware in synthetic biodegradable fluid to capture heat with zero evaporation."
+      },
+      {
+        "id": "h2",
+        "x": 70,
+        "y": 62,
+        "title": "District Heat Exchanger",
+        "description": "Pipes hot dielectric fluid to residential radiators across the city."
+      }
+    ],
+    "aiConcept": {
+      "title": "Data Centers & Sustainable Computing",
+      "subtitle": "The invisible environmental footprint of digital intelligence",
+      "definition": "Data centers consume substantial electricity and water for cooling. Sustainable computing optimizes thermal efficiency, fluid reuse, and renewable energy synchronization.",
+      "realWorldExample": "Modern data centers operating in cold Nordic climates reusing server heat to supply municipal district hot water.",
+      "takeaway": "Every cloud query has a physical energy and water cost. Green AI optimizes both software workloads and thermal hardware.",
+      "componentType": "efficiency"
+    }
   },
   {
-    id: 12,
-    number: 12,
-    chapterNumber: 3,
-    chapterTitle: "Chapter 3: Smart Energy & Grid Resilience",
-    title: "Battery Storage Chemistry & Lifecycle",
-    category: "Battery Degradation AI",
-    heroImage: "/assets/m3-energy-emergency.svg",
-    environmentalContext:
-      "Extreme rapid-charging protocols have degraded lithium batteries in 40% of municipal storage packs, reducing capacity by 35% in just 18 months.",
-    storyProblem:
-      "Utility managers want to throw away thousands of large battery modules and buy fresh units from overseas cobalt mines.",
-    prompt: "Implement an electrochemical battery life-extension policy.",
-    question: "How should Nova City manage its aging lithium-ion municipal storage batteries?",
-    options: [
+    "id": 10,
+    "number": 10,
+    "chapterNumber": 3,
+    "chapterTitle": "Chapter 3: The Energy War",
+    "title": "The Oversized Model",
+    "category": "Quantization, Pruning & Model Efficiency",
+    "heroImage": "/assets/m3-energy-emergency.svg",
+    "environmentalContext": "Nova City's municipal traffic light optimization algorithm uses a massive 70-billion parameter neural network running on power-hungry cloud clusters.",
+    "storyProblem": "Each intersection controller is streaming camera frames to supercomputers, consuming 12 kilowatts per intersection just to change green lights for bicycles and buses.",
+    "prompt": "Choose the model optimization and compression technique.",
+    "question": "How should Nova City optimize its traffic signal control neural network?",
+    "options": [
       {
-        id: "m12-opt-a",
-        key: "A",
-        title: "Cell-Level AI Health Balancing & Second-Life Stationary Repurposing",
-        isSustainable: true,
-        image: "/assets/m4-modular-repair.svg",
-        shortDescription: "Deploy intelligent battery management algorithms to equalize individual cell voltages; repurpose retired vehicle batteries for stationary street lighting.",
-        detailedExplanation:
-          "Edge micro-controllers monitor temperature and impedance of individual cells, bypassing degraded pouches and extending overall pack operational lifespan by an extra 8 years.",
-        advantages: [
-          "Extends pack life by 2.5x; prevents premature disposal of thousands of tons of lithium and cobalt.",
-          "Cuts municipal capital expenditure on energy storage by 55%.",
+        "id": "m10-opt-a",
+        "key": "A",
+        "title": "INT8 Model Quantization & Structured Neural Pruning",
+        "isSustainable": true,
+        "image": "/assets/m3-optimized-scheduling.svg",
+        "shortDescription": "Compress model weights from 32-bit floats to 8-bit integers, pruning 70% of zero-weight connections to run on a 15-watt edge microcontroller.",
+        "detailedExplanation": "Engineers quantize the model, shrinking its memory footprint from 140 Gigabytes down to 420 Megabytes with 99.1% accuracy retention. Each traffic light executes its own local timing without server calls.",
+        "advantages": [
+          "Reduces compute electricity by 92% per intersection",
+          "Eliminates network transmission latency completely"
         ],
-        disadvantages: [
-          "Requires sophisticated cell-level battery management software (BMS).",
+        "disadvantages": [
+          "Requires fine-tuning post-quantization calibration dataset"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 25, social: 20, economic: 25 },
-        cityMetricDeltas: {
-          energyIndex: -14,
-          carbonIndex: -18,
-          waterIndex: -12,
-          ewasteIndex: -20,
-          operationalEfficiency: +20,
-          citizenWellbeing: +16,
-          resilienceIndex: +24,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 25,
+          "energy": 28,
+          "social": 18,
+          "economic": 20
         },
-        sharedCityDeltas: {
-          energyStability: +24,
-          networkStability: +15,
-          environmentalHealth: +24,
-          waterAvailability: +15,
-          rescueProgress: +10,
-          publicTrust: +18,
-          ewasteLevel: -22,
+        "cityMetricDeltas": {
+          "energyIndex": -15,
+          "carbonIndex": -18,
+          "waterIndex": -15,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 15,
+          "resilienceIndex": 25
         },
-        learningObjective: "Second-life battery repurposing prevents resource depletion and extends hardware value.",
-        sdgs: [7, 12, 13],
-        consequenceNarration:
-          "8,000 retired rover batteries were converted into neighborhood solar buffers, doubling night-time clean electricity availability.",
-        educationalTakeaway:
-          "A battery retired from an autonomous car still has 80% capacity—perfect for stationary neighborhood solar storage.",
+        "sharedCityDeltas": {
+          "energyStability": 20,
+          "networkStability": 22,
+          "environmentalHealth": 18,
+          "waterAvailability": 15,
+          "rescueProgress": 12,
+          "publicTrust": 15,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand model quantization and pruning: achieving identical real-world results with a fraction of computing power.",
+        "sdgs": [
+          7,
+          9,
+          11,
+          12
+        ],
+        "consequenceNarration": "Intersection power draw dropped from 12 kW down to 18 Watts! Traffic flow improved by 14% as local microcontrollers responded to bicycles in 5 milliseconds.",
+        "educationalTakeaway": "Bigger models are not always better. Quantization and pruning allow tiny low-power chips to deliver enterprise-grade performance."
       },
       {
-        id: "m12-opt-b",
-        key: "B",
-        title: "Premature Pack Replacement & Landfill Scrapping",
-        isSustainable: false,
-        image: "/assets/m4-ewaste-crisis.svg",
-        shortDescription: "Discard whole battery packs when capacity drops to 80% and order brand new virgin lithium units.",
-        detailedExplanation:
-          "Depots throw away entire 1,000kg battery containers because a single cell wire broke, placing orders with mines that destroy tropical rainforests and consume millions of liters of acid.",
-        advantages: [
-          "Always maintains 100% factory-spec vehicle range for the fleet.",
+        "id": "m10-opt-b",
+        "key": "B",
+        "title": "Maintain Massive Unpruned FP32 Cloud Ensemble Model",
+        "isSustainable": false,
+        "image": "/assets/m3-max-power.svg",
+        "shortDescription": "Keep running the 70B parameter model in 32-bit floating point precision on high-voltage cloud servers for maximum theoretical decimal precision.",
+        "detailedExplanation": "Operators argue that 32-bit floating point math is theoretically purer, continuing to stream intersection video across the city to central GPU racks.",
+        "advantages": [
+          "Preserves microscopic floating-point decimal precision"
         ],
-        disadvantages: [
-          "Accelerates global mineral depletion; creates catastrophic hazardous lithium fire risks in urban scrap dumps.",
+        "disadvantages": [
+          "Consumes massive electricity (12kW per intersection), generates 800ms delays, and fails during network brownouts"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -15, social: -20, economic: -20 },
-        cityMetricDeltas: {
-          energyIndex: +12,
-          carbonIndex: +20,
-          waterIndex: +25,
-          ewasteIndex: +30,
-          operationalEfficiency: -10,
-          citizenWellbeing: -18,
-          resilienceIndex: -20,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -22,
+          "energy": -28,
+          "social": -15,
+          "economic": -18
         },
-        sharedCityDeltas: {
-          energyStability: -12,
-          networkStability: -8,
-          environmentalHealth: -28,
-          waterAvailability: -22,
-          rescueProgress: -6,
-          publicTrust: -22,
-          ewasteLevel: +32,
+        "cityMetricDeltas": {
+          "energyIndex": 22,
+          "carbonIndex": 25,
+          "waterIndex": 20,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -12,
+          "resilienceIndex": -20
         },
-        learningObjective: "Premature battery scrapping is an environmental disaster fueled by planned obsolescence.",
-        sdgs: [12, 13],
-        consequenceNarration:
-          "A thermal runaway fire in the municipal scrap yard released toxic cobalt smoke, requiring the evacuation of two schools.",
-        educationalTakeaway:
-          "Second-life battery engineering is essential for sustainable cities. Discarding 80%-capacity batteries is irresponsible waste.",
-      },
+        "sharedCityDeltas": {
+          "energyStability": -20,
+          "networkStability": -22,
+          "environmentalHealth": -15,
+          "waterAvailability": -15,
+          "rescueProgress": 2,
+          "publicTrust": -14,
+          "ewasteLevel": 3
+        },
+        "learningObjective": "Recognize algorithmic bloat: running unpruned giant models for simple embedded tasks is an irresponsible waste of energy.",
+        "sdgs": [
+          7,
+          9,
+          12
+        ],
+        "consequenceNarration": "During a cloud network hiccup, 40 intersections froze on red simultaneously, causing emergency vehicle gridlock and wasting megawatt-hours.",
+        "educationalTakeaway": "Using an unpruned cloud model for traffic lights is like using a rocket engine to power a bicycle. Right-size your architecture."
+      }
     ],
-    sdgs: [7, 12, 13],
-    summaryNote: "Second-life battery algorithms double storage lifespan and stop hazardous scrapyard fires.",
-    hotspots: [
-      { id: "h12-1", label: "Smart BMS Microcontroller", x: 30, y: 60, description: "Balances individual pouch cell voltages to stop degradation.", tag: "Battery AI" },
-      { id: "h12-2", label: "Second-Life Storage Rack", x: 68, y: 45, description: "Stationary neighborhood buffer built from retired rover packs.", tag: "Clean Storage" },
+    "sdgs": [
+      7,
+      9,
+      11,
+      12
     ],
-    aiConcept: {
-      title: "Second-Life Battery Repurposing",
-      subtitle: "Maximizing the utility of electrochemical cells",
-      definition: "Second-life battery systems repurpose EV batteries that are no longer optimal for driving and deploy them as stationary solar storage banks.",
-      realWorldExample: "Using an old phone battery to power a low-power digital desk clock for years after you upgraded your phone.",
-      takeaway: "Extracting maximum lifecycle utility from batteries honors the physical energy embedded during manufacturing.",
-      componentType: "circular",
-    },
-  },
-
-  // ==========================================
-  // CHAPTER 4: CIRCULAR ROBOTICS & RESOURCE STEWARDSHIP (13 - 16)
-  // ==========================================
-  {
-    id: 13,
-    number: 13,
-    chapterNumber: 4,
-    chapterTitle: "Chapter 4: Circular Robotics & Resource Stewardship",
-    title: "Industrial Metal & Rare-Earth Reclaiming",
-    category: "Robotic Disassembly Automation",
-    heroImage: "/assets/m4-modular-repair.svg",
-    environmentalContext:
-      "Global supplies of neodymium and dysprosium for robot electric motors are experiencing critical supply chain shortages.",
-    storyProblem:
-      "Traditional electronic recyclers shred motors into contaminated mixed-metal dust that cannot be reused for high-grade robotic actuators.",
-    prompt: "Deploy robotic automated disassembly in Nova City's industrial recycling center.",
-    question: "How should Nova City recover valuable rare-earth magnets from decommissioned electric motors?",
-    options: [
+    "summaryNote": "Model quantization shrinks memory footprints by over 80% while preserving real-world accuracy.",
+    "hotspots": [
       {
-        id: "m13-opt-a",
-        key: "A",
-        title: "Precision Vision-Guided Robotic Disassembly & Clean Ultrasonic Magnet Extraction",
-        isSustainable: true,
-        image: "/assets/m4-modular-repair.svg",
-        shortDescription: "Robotic arms use computer vision to unscrew casings and extract intact permanent magnets without chemical acid leaching.",
-        detailedExplanation:
-          "Computer vision identifies fastener locations and unscrews motors cleanly. Neodymium magnets are demagnetized with mild heat, recovered intact, and re-magnetized for new robots.",
-        advantages: [
-          "Recovers 96% of rare earth elements in pristine reusable condition with zero toxic chemical wastewater.",
-          "Cuts raw mineral procurement costs for new municipal robotics by 75%.",
-        ],
-        disadvantages: [
-          "Requires investment in high-precision disassembly robotic workcells.",
-        ],
-        pointsAwarded: 250,
-        impacts: { environmental: 30, energy: 20, social: 15, economic: 25 },
-        cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: -16,
-          waterIndex: -20,
-          ewasteIndex: -28,
-          operationalEfficiency: +22,
-          citizenWellbeing: +15,
-          resilienceIndex: +24,
-        },
-        sharedCityDeltas: {
-          energyStability: +12,
-          networkStability: +10,
-          environmentalHealth: +28,
-          waterAvailability: +24,
-          rescueProgress: +10,
-          publicTrust: +18,
-          ewasteLevel: -30,
-        },
-        learningObjective: "Design for disassembly and robotic dismantling preserve critical mineral wealth without toxic pollution.",
-        sdgs: [9, 12],
-        consequenceNarration:
-          "Over 14,000 neodymium magnets recovered cleanly. Nova City produced its new fleet of civic rovers using 100% recycled motor cores.",
-        educationalTakeaway:
-          "Shredding electronics destroys high-grade materials. Precision robotic disassembly keeps valuable magnets intact.",
+        "id": "h1",
+        "x": 32,
+        "y": 52,
+        "title": "INT8 Quantizer",
+        "description": "Converts 32-bit floats into efficient 8-bit integers that run on tiny microcontrollers."
       },
       {
-        id: "m13-opt-b",
-        key: "B",
-        title: "Crude Hammermill Shredding & Acid Leaching",
-        isSustainable: false,
-        image: "/assets/m4-dump-replacement.svg",
-        shortDescription: "Crush entire motors in heavy industrial shredders and dump crushed debris into open sulfuric acid pits.",
-        detailedExplanation:
-          "Scrapyards crush assembled equipment with high-horsepower diesel shredders, using toxic nitric and sulfuric acids to dissolve metals into toxic chemical sludge.",
-        advantages: [
-          "Fast throughput with zero requirement for intelligent vision or robotics.",
-        ],
-        disadvantages: [
-          "Releases toxic acid fumes; contaminates soil and loses 65% of rare earth elements in mixed slag.",
-        ],
-        pointsAwarded: 50,
-        impacts: { environmental: -30, energy: -20, social: -25, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +15,
-          carbonIndex: +22,
-          waterIndex: +30,
-          ewasteIndex: +25,
-          operationalEfficiency: -15,
-          citizenWellbeing: -22,
-          resilienceIndex: -20,
-        },
-        sharedCityDeltas: {
-          energyStability: -10,
-          networkStability: -8,
-          environmentalHealth: -32,
-          waterAvailability: -28,
-          rescueProgress: -6,
-          publicTrust: -24,
-          ewasteLevel: +28,
-        },
-        learningObjective: "Acid leaching creates hazardous environmental liabilities and wastes valuable manufactured elements.",
-        sdgs: [6, 12],
-        consequenceNarration:
-          "Acid runoff leaked into the industrial canal, killing aquatic biodiversity and requiring an emergency cleanup cordon.",
-        educationalTakeaway:
-          "Brute-force recycling can be as destructive as mining. Intelligent physical robotics enables clean, non-toxic circular recovery.",
-      },
+        "id": "h2",
+        "x": 68,
+        "y": 45,
+        "title": "Connection Pruning",
+        "description": "Removes inactive neural synaptic weights without degrading operational decision accuracy."
+      }
     ],
-    sdgs: [9, 12],
-    summaryNote: "Precision robotic disassembly recovers 96% of rare earth elements cleanly.",
-    hotspots: [
-      { id: "h13-1", label: "6-Axis Disassembly Arm", x: 42, y: 55, description: "Removes torx screws and separates copper coils.", tag: "Robotic Recycling" },
-      { id: "h13-2", label: "Clean Neodymium Reclaimer", x: 75, y: 40, description: "Extracts intact rotor magnets using magnetic pulse.", tag: "Rare Earths" },
-    ],
-    aiConcept: {
-      title: "Robotic Disassembly & Material Recovery",
-      subtitle: "Unmaking technology as intelligently as building it",
-      definition: "Automated disassembly uses computer vision and robotic manipulation to take products apart screw-by-screw, keeping materials clean and sorted.",
-      realWorldExample: "Apple's 'Daisy' robot disassembling old iPhones to recover pure gold, cobalt, and rare earths.",
-      takeaway: "True circularity requires intelligent un-making, not destructive crushing.",
-      componentType: "circular",
-    },
+    "aiConcept": {
+      "title": "Model Quantization & Pruning",
+      "subtitle": "Making artificial intelligence energy-thrifty",
+      "definition": "Quantization reduces numeric bit-depth (e.g. FP32 to INT8), while pruning cuts inactive neural connections, reducing compute cycles and silicon memory demands.",
+      "realWorldExample": "Compressing a large vision model so it runs locally on a small drone's low-power battery rather than draining its flight time.",
+      "takeaway": "Model optimization turns power-hungry algorithms into nimble, sustainable edge intelligence.",
+      "componentType": "efficiency"
+    }
   },
   {
-    id: 14,
-    number: 14,
-    chapterNumber: 4,
-    chapterTitle: "Chapter 4: Circular Robotics & Resource Stewardship",
-    title: "Municipal Autonomous Delivery Swarms",
-    category: "Energy-Right Fleet Selection",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "Commercial e-commerce deliveries are causing sidewalk congestion, air pollution, and noise across Nova City's dense pedestrian districts.",
-    storyProblem:
-      "Companies are proposing massive 8-rotor heavy VTOL flying drones that consume 3,200 watts per package and create deafening noise corridors.",
-    prompt: "Select the municipal autonomous last-mile delivery fleet paradigm.",
-    question: "What physical vehicle architecture should fulfill last-mile deliveries across Nova City?",
-    options: [
+    "id": 11,
+    "number": 11,
+    "chapterNumber": 3,
+    "chapterTitle": "Chapter 3: The Energy War",
+    "title": "The Solar Decision",
+    "category": "Renewable Energy & Workload Scheduling",
+    "heroImage": "/assets/m3-energy-emergency.svg",
+    "environmentalContext": "Heavy cloud cover has temporarily reduced Nova City's solar array output by 45%, creating an electrical supply deficit.",
+    "storyProblem": "The municipal computing authority must balance continuous AI model training workloads against available renewable solar generation.",
+    "prompt": "Choose the computational scheduling and energy dispatch policy.",
+    "question": "How should Nova City's computing grid adapt to the temporary drop in solar generation?",
+    "options": [
       {
-        id: "m14-opt-a",
-        key: "A",
-        title: "Lightweight Low-Speed Wheeled Ground Rovers using Bike Lanes",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Deploy small 25kg wheeled rovers operating at 15 km/h in dedicated bike and green lanes.",
-        detailedExplanation:
-          "Wheeled rovers utilize ground rolling resistance, consuming only 65 watt-hours per kilometer—over 90% less energy than flying drones—while eliminating aerial noise hazards.",
-        advantages: [
-          "Slashes delivery fleet electricity consumption by 91%; safe around children and pets with zero acoustic pollution.",
-          "Chassis constructed with lightweight recycled aluminum and hemp biocomposites.",
+        "id": "m11-opt-a",
+        "key": "A",
+        "title": "Carbon-Aware Dynamic Scheduling & Solar Peak Synchronization",
+        "isSustainable": true,
+        "image": "/assets/m3-optimized-scheduling.svg",
+        "shortDescription": "Pause non-essential AI model training jobs, migrating batch workloads to synchronize strictly with solar peaks and wind forecasts.",
+        "detailedExplanation": "Workload orchestration software pauses offline model retraining, keeping only essential safety and rescue inference active. Non-urgent tasks automatically resume when renewable generation exceeds baseline demand.",
+        "advantages": [
+          "Operates 100% within available renewable energy limits",
+          "Eliminates need to fire fossil gas peaker power plants"
         ],
-        disadvantages: [
-          "Takes 18 minutes to deliver across the neighborhood instead of a 6-minute aerial flight.",
+        "disadvantages": [
+          "Delays non-critical model updates by several hours"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 30, social: 25, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -18,
-          carbonIndex: -20,
-          waterIndex: -5,
-          ewasteIndex: -5,
-          operationalEfficiency: +20,
-          citizenWellbeing: +25,
-          resilienceIndex: +22,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 28,
+          "energy": 25,
+          "social": 18,
+          "economic": 15
         },
-        sharedCityDeltas: {
-          energyStability: +20,
-          networkStability: +15,
-          environmentalHealth: +22,
-          waterAvailability: +10,
-          rescueProgress: +10,
-          publicTrust: +25,
-          ewasteLevel: -10,
+        "cityMetricDeltas": {
+          "energyIndex": -18,
+          "carbonIndex": -25,
+          "waterIndex": -12,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 18,
+          "resilienceIndex": 25
         },
-        learningObjective: "Choosing the right physical form factor (rolling vs flying) fundamentally dictates energy consumption.",
-        sdgs: [7, 11, 13],
-        consequenceNarration:
-          "Neighborhood streets became quiet, green, and safe. Logistics energy consumption dropped by 90% across the pilot ward.",
-        educationalTakeaway:
-          "Defying gravity requires continuous downward thrust energy. Rolling along the ground uses physics to conserve precious electricity.",
+        "sharedCityDeltas": {
+          "energyStability": 22,
+          "networkStability": 12,
+          "environmentalHealth": 22,
+          "waterAvailability": 12,
+          "rescueProgress": 10,
+          "publicTrust": 18,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand carbon-aware computing: scheduling flexible workloads according to renewable energy availability.",
+        "sdgs": [
+          7,
+          12,
+          13
+        ],
+        "consequenceNarration": "Grid load matched solar output perfectly. Zero fossil peaker plants were fired, and critical municipal hospitals maintained uninterrupted green power.",
+        "educationalTakeaway": "Software workloads are flexible in time. Running computing when the sun shines and wind blows cuts carbon emissions to near zero."
       },
       {
-        id: "m14-opt-b",
-        key: "B",
-        title: "High-Speed Heavy Aerial Octocopters",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "Fill urban skies with large 45kg flying octocopters delivering groceries through residential airspace.",
-        detailedExplanation:
-          "Flying drones require immense battery power to constantly fight gravity, creating 82-decibel high-pitched whining noise and risking catastrophic crashes onto pedestrians below.",
-        advantages: [
-          "Delivers packages in under 8 minutes directly to high-rise balconies.",
+        "id": "m11-opt-b",
+        "key": "B",
+        "title": "Activate Fossil Gas Peaker Turbines for Uninterrupted Retraining",
+        "isSustainable": false,
+        "image": "/assets/m3-max-power.svg",
+        "shortDescription": "Fire methane gas peaker turbines to provide supplementary electricity so that all large batch model training runs continuously.",
+        "detailedExplanation": "Operators refuse to delay scheduled model retraining runs, commanding the utility to fire high-emission natural gas turbines to fill the 45% solar generation deficit.",
+        "advantages": [
+          "Completes non-urgent model training runs on rigid calendar schedules"
         ],
-        disadvantages: [
-          "Burns 14x more electricity per kilometer; causes intense noise complaints and battery fires upon hard landings.",
+        "disadvantages": [
+          "Emits massive greenhouse gases, burns fossil fuels, and drives up municipal electricity costs for citizens"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -20, energy: -30, social: -25, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +22,
-          carbonIndex: +25,
-          waterIndex: +8,
-          ewasteIndex: +12,
-          operationalEfficiency: -10,
-          citizenWellbeing: -25,
-          resilienceIndex: -18,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -25,
+          "energy": -28,
+          "social": -15,
+          "economic": -20
         },
-        sharedCityDeltas: {
-          energyStability: -22,
-          networkStability: -12,
-          environmentalHealth: -20,
-          waterAvailability: -8,
-          rescueProgress: -5,
-          publicTrust: -26,
-          ewasteLevel: +15,
+        "cityMetricDeltas": {
+          "energyIndex": 24,
+          "carbonIndex": 28,
+          "waterIndex": 15,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -12,
+          "citizenWellbeing": -15,
+          "resilienceIndex": -20
         },
-        learningObjective: "Unnecessary aerial automation wastes energy when simpler ground physics accomplishes the task cleanly.",
-        sdgs: [7, 11],
-        consequenceNarration:
-          "Two rotor failures caused crashes onto busy pedestrian sidewalks. Public backlash resulted in an immediate citywide flight ban.",
-        educationalTakeaway:
-          "Responsible robotics selects the most energy-thrifty physical embodiment. Flying a pizza on heavy drone rotors is thermodynamic madness.",
+        "sharedCityDeltas": {
+          "energyStability": -18,
+          "networkStability": -5,
+          "environmentalHealth": -22,
+          "waterAvailability": -10,
+          "rescueProgress": 5,
+          "publicTrust": -15,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Recognize that inflexible computational scheduling forces utilities to fire dirty fossil power plants.",
+        "sdgs": [
+          7,
+          13
+        ],
+        "consequenceNarration": "Peaker turbines released 180 metric tons of CO2 in 4 hours. Citizens faced an unexpected 18% electricity surcharge on their monthly bills.",
+        "educationalTakeaway": "Training AI models when renewable power is low burns fossil fuels unnecessarily. Sustainable AI is carbon-aware."
+      }
+    ],
+    "branchingModifiers": [
+      {
+        "conditionMission": 10,
+        "requiredChoice": "A",
+        "headline": "Lean Model Footprint Advantage",
+        "narrativeEffect": "Because models were quantized in Mission 10, the reduced compute footprint easily fits within limited solar microgrid capacity.",
+        "isPositive": true
       },
+      {
+        "conditionMission": 10,
+        "requiredChoice": "B",
+        "headline": "Compute Overload Burden",
+        "narrativeEffect": "Because unpruned models were kept in Mission 10, baseline electricity demands are high, severely testing solar reserves.",
+        "isPositive": false
+      }
     ],
-    sdgs: [7, 11, 13],
-    summaryNote: "Ground-based micro-rovers use 90% less energy than aerial delivery drones.",
-    hotspots: [
-      { id: "h14-1", label: "Micro-Logistics Ground Rover", x: 45, y: 70, description: "Rolls smoothly at 15km/h using lightweight wheel motors.", tag: "Physical AI" },
-      { id: "h14-2", label: "Dedicated Green Logistics Lane", x: 60, y: 45, description: "Separates autonomous delivery from heavy automotive traffic.", tag: "Urban Design" },
+    "sdgs": [
+      7,
+      12,
+      13
     ],
-    aiConcept: {
-      title: "Physical AI Embodiment & Thermodynamic Thrift",
-      subtitle: "Why rolling beats flying for energy efficiency",
-      definition: "Embodiment theory in robotics evaluates the physical physics of the machine—rolling wheels vs flying rotors—to minimize kinetic energy waste.",
-      realWorldExample: "Riding a bicycle along a flat paved trail vs trying to fly a helicopter the same distance.",
-      takeaway: "Sustainable AI designs the physical machine to work in harmony with friction and gravity.",
-      componentType: "robot",
-    },
+    "summaryNote": "Carbon-aware scheduling aligns computational workloads with renewable energy generation.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 35,
+        "y": 35,
+        "title": "Solar Array Tracker",
+        "description": "Measures real-time solar irradiance to signal computing clusters when green power is plentiful."
+      },
+      {
+        "id": "h2",
+        "x": 68,
+        "y": 65,
+        "title": "Workload Orchestrator",
+        "description": "Automatically pauses non-urgent AI training jobs during overcast weather intervals."
+      }
+    ],
+    "aiConcept": {
+      "title": "Carbon-Aware Computing",
+      "subtitle": "Matching software demands to renewable generation",
+      "definition": "Carbon-aware computing schedules compute-heavy tasks when renewable energy (solar, wind, hydro) is abundant and electricity carbon intensity is lowest.",
+      "realWorldExample": "Modern cloud regions dynamically shifting scheduled data backup and model training to data centers currently powered by excess wind power.",
+      "takeaway": "Compute jobs can wait for the sun. Scheduling tasks intelligently avoids firing polluting fossil power plants.",
+      "componentType": "efficiency"
+    }
   },
   {
-    id: 15,
-    number: 15,
-    chapterNumber: 4,
-    chapterTitle: "Chapter 4: Circular Robotics & Resource Stewardship",
-    title: "AI Drone Reforestation & Ecosystem Repair",
-    category: "Biodiversity & Natural Restoration",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "Deforestation on the hills surrounding Nova City has increased flash-flood vulnerability and degraded regional carbon absorption.",
-    storyProblem:
-      "Traditional manual tree planting across 8,000 hectares of rugged vertical cliff faces is hazardous, slow, and expensive.",
-    prompt: "Deploy autonomous reforestation drones to restore the mountain watershed.",
-    question: "How should autonomous reforestation drones plant new native forest canopies?",
-    options: [
+    "id": 12,
+    "number": 12,
+    "chapterNumber": 3,
+    "chapterTitle": "Chapter 3: The Energy War",
+    "title": "The Battery Emergency",
+    "category": "Battery Management & Robotic Energy Efficiency",
+    "heroImage": "/assets/m2-autonomous-rescue.svg",
+    "environmentalContext": "A continuous 18-hour search-and-rescue mission has pushed the lithium battery packs of 60 quadruped robots down to 14% remaining capacity.",
+    "storyProblem": "Grid recharging stations are 8 kilometers away. The robots must complete their sector search without permanent lithium cell degradation or total stranding.",
+    "prompt": "Choose the battery duty-cycle and collaborative power management protocol.",
+    "question": "How should the rescue quadruped swarm manage its critical battery reserves?",
+    "options": [
       {
-        id: "m15-opt-a",
-        key: "A",
-        title: "Biodegradable Mycorrhizal Seed-Pod Firing with Multispectral Soil Mapping",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Drones analyze soil moisture with multispectral cameras and fire biodegradable seed pods containing native seeds and symbiotic fungi.",
-        detailedExplanation:
-          "Drones plant up to 25,000 native sapling seeds per day. The pod casing is made of organic cassava starch that nourishes soil bacteria, achieving an 82% germination success rate.",
-        advantages: [
-          "Restores complex native biodiverse canopy 30x faster than manual planting with zero synthetic chemicals.",
-          "Deep root systems prevent mountain mudslides and replenish regional aquifers.",
+        "id": "m12-opt-a",
+        "key": "A",
+        "title": "Dynamic Duty-Cycle Throttling & Mobile Vehicle-to-Grid (V2G) Docking",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Throttle auxiliary sensor frequencies by 50%, adopt energy-efficient trotting gaits, and share charge with mobile solar mothership rovers.",
+        "detailedExplanation": "Robots disable non-essential secondary telemetry, reduce camera framerates to 10 FPS, and alternate search duty while docking briefly with mobile solar-assisted battery storage rovers.",
+        "advantages": [
+          "Extends field endurance by 3.5 hours",
+          "Protects lithium chemistry from deep-discharge degradation"
         ],
-        disadvantages: [
-          "Requires custom biodegradable pod manufacturing and local seed harvesting.",
+        "disadvantages": [
+          "Slightly lowers sensor refresh rate during low-speed search"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 35, energy: 20, social: 25, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: -30,
-          waterIndex: -25,
-          ewasteIndex: 0,
-          operationalEfficiency: +22,
-          citizenWellbeing: +25,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 22,
+          "energy": 25,
+          "social": 20,
+          "economic": 20
         },
-        sharedCityDeltas: {
-          energyStability: +15,
-          networkStability: +10,
-          environmentalHealth: +35,
-          waterAvailability: +30,
-          rescueProgress: +12,
-          publicTrust: +25,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -14,
+          "carbonIndex": -12,
+          "waterIndex": -8,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 25
         },
-        learningObjective: "Physical AI can actively restore natural biological ecosystems when guided by ecological science.",
-        sdgs: [13, 15],
-        consequenceNarration:
-          "Over 350,000 native oak and pine saplings rooted across the northern ridge. Soil erosion halted within a single rainy season.",
-        educationalTakeaway:
-          "Technology is at its finest when it repairs the living world. Drone reforestation accelerates natural ecological succession.",
+        "sharedCityDeltas": {
+          "energyStability": 18,
+          "networkStability": 15,
+          "environmentalHealth": 15,
+          "waterAvailability": 10,
+          "rescueProgress": 22,
+          "publicTrust": 18,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand physical energy efficiency in robotics: mechanical gait optimization, sensor duty cycles, and battery lifecycle preservation.",
+        "sdgs": [
+          7,
+          9,
+          12
+        ],
+        "consequenceNarration": "All 60 quadrupeds maintained operations safely! The sector search completed with zero stranded robots and battery health preserved above 96%.",
+        "educationalTakeaway": "Smart robotics conserves power through mechanical efficiency: dynamic duty-cycling and cooperative charging multiply field battery lifespan."
       },
       {
-        id: "m15-opt-b",
-        key: "B",
-        title: "Monoculture Drone Herbicide & Fast-Growing Pine Spraying",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "Blanket-spray chemical herbicides to kill native brush, then drop single-species commercial timber pine seeds in plastic capsules.",
-        detailedExplanation:
-          "Contractors plant a sterile single-species timber monoculture that is vulnerable to wildfires and pest blights, leaving thousands of non-biodegradable plastic seed capsules in the soil.",
-        advantages: [
-          "Fast initial green cover visible on satellite imagery within 3 months.",
+        "id": "m12-opt-b",
+        "key": "B",
+        "title": "Maximum High-Torque Sprinting & Aggressive High-Current Fast-Charging",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Command robots to sprint at maximum speed until batteries hit 0%, then blast cells with ultra-high current fast-charging.",
+        "detailedExplanation": "Quadrupeds maintain maximum servo torque and 60 FPS sensor streaming until total shutdown, followed by high-voltage rapid charging without thermal cooling pauses.",
+        "advantages": [
+          "Covers the remaining distance at maximum sprint speed"
         ],
-        disadvantages: [
-          "Kills native soil fungi and pollinators; creates severe wildfire hazard from uniform combustible pine needles.",
+        "disadvantages": [
+          "Severe thermal runaway risk, deep discharge lithium dendrite formation, and 40% reduction in battery pack lifespan"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -15, social: -15, economic: -10 },
-        cityMetricDeltas: {
-          energyIndex: +10,
-          carbonIndex: +10,
-          waterIndex: +15,
-          ewasteIndex: +15,
-          operationalEfficiency: -10,
-          citizenWellbeing: -15,
-          resilienceIndex: -20,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -18,
+          "energy": -22,
+          "social": -15,
+          "economic": -25
         },
-        sharedCityDeltas: {
-          energyStability: -10,
-          networkStability: -6,
-          environmentalHealth: -28,
-          waterAvailability: -18,
-          rescueProgress: -6,
-          publicTrust: -20,
-          ewasteLevel: +18,
+        "cityMetricDeltas": {
+          "energyIndex": 20,
+          "carbonIndex": 18,
+          "waterIndex": 10,
+          "ewasteIndex": 4,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -12,
+          "resilienceIndex": -18
         },
-        learningObjective: "Monoculture planting without biodiversity creates fragile ecosystems prone to catastrophic wildfires.",
-        sdgs: [13, 15],
-        consequenceNarration:
-          "A bark-beetle infestation wiped out 70% of the monoculture pine ridge, turning the slope into a hazardous tinderbox.",
-        educationalTakeaway:
-          "Biodiversity is ecosystem resilience. Planting diverse native species with natural fungi builds durable planetary health.",
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -5,
+          "environmentalHealth": -12,
+          "waterAvailability": -5,
+          "rescueProgress": 5,
+          "publicTrust": -10,
+          "ewasteLevel": 4
+        },
+        "learningObjective": "Deep discharging and aggressive thermal charging destroy lithium battery packs, generating massive electronic waste.",
+        "sdgs": [
+          9,
+          12
+        ],
+        "consequenceNarration": "Twelve quadrupeds suffered thermal lockups. Eight lithium packs developed internal shorts and had to be scrapped, generating hazardous e-waste.",
+        "educationalTakeaway": "Batteries are physical electrochemical systems. Abusing charge rates degrades scarce raw materials and wastes battery packs."
+      }
+    ],
+    "sdgs": [
+      7,
+      9,
+      12
+    ],
+    "summaryNote": "Dynamic duty-cycling and cooperative V2G energy sharing preserve battery chemistry and extend mission endurance.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 42,
+        "y": 65,
+        "title": "Battery Management System",
+        "description": "Monitors cell temperatures and internal resistance to prevent lithium degradation."
       },
+      {
+        "id": "h2",
+        "x": 65,
+        "y": 45,
+        "title": "Dynamic Gait Controller",
+        "description": "Adjusts leg motor angles to reduce mechanical energy consumption by 35%."
+      }
     ],
-    sdgs: [13, 15],
-    summaryNote: "Biodegradable seed-pod drones restore native biodiversity 30x faster than manual methods.",
-    hotspots: [
-      { id: "h15-1", label: "Multispectral Canopy Camera", x: 40, y: 35, description: "Scans soil moisture, nitrogen, and slope gradient.", tag: "Remote Sensing" },
-      { id: "h15-2", label: "Pneumatic Seed-Pod Cannister", x: 58, y: 62, description: "Fires starch pods 5cm into earth for optimal germination.", tag: "Precision Planting" },
-    ],
-    aiConcept: {
-      title: "Precision Ecological Restoration",
-      subtitle: "Robotics in service of planetary biodiversity",
-      definition: "Precision ecological robotics uses remote sensing, computer vision, and soil microbiome data to plant native species in micro-climates where they will thrive.",
-      realWorldExample: "Drones planting mangrove forests along coastlines to protect against storm surges.",
-      takeaway: "Sustainable intelligence restores the biosphere upon which all human civilization depends.",
-      componentType: "robot",
-    },
+    "aiConcept": {
+      "title": "Battery Management & Robotic Thrift",
+      "subtitle": "Maximizing mission longevity through thermodynamic discipline",
+      "definition": "Battery management systems optimize power draw across sensors, computing chips, and mechanical actuators to maximize both mission runtime and battery lifespan.",
+      "realWorldExample": "Electric vehicles pre-conditioning batteries and using regenerative braking to extend battery life by hundreds of thousands of miles.",
+      "takeaway": "Sustainable physical AI balances computational demand with battery preservation to prevent hardware burnout.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 16,
-    number: 16,
-    chapterNumber: 4,
-    chapterTitle: "Chapter 4: Circular Robotics & Resource Stewardship",
-    title: "Firmware Obsolescence & Right-to-Repair",
-    category: "Software Longevity & Right-to-Repair",
-    heroImage: "/assets/m4-modular-repair.svg",
-    environmentalContext:
-      "A commercial robotics vendor has pushed a firmware update that artificially bricks 1,400 municipal cleaning rovers simply because their cloud subscriptions expired.",
-    storyProblem:
-      "The vendor demands $4.2 million to re-license the working machines, threatening to send thousands of perfectly functional robots to the scrap heap.",
-    prompt: "Enact Nova City's municipal open firmware and Right-to-Repair directive.",
-    question: "How should Nova City respond to vendor-mandated robotic firmware obsolescence?",
-    options: [
+    "id": 13,
+    "number": 13,
+    "chapterNumber": 4,
+    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "title": "The Water Crisis",
+    "category": "Smart Water Management & Leak Detection",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Nova City's central reservoirs are losing 35 million liters of treated drinking water daily due to undetected underground pipe fissures following seismic tremors.",
+    "storyProblem": "Excavating all 4,000 kilometers of city streets to find leaks would paralyze traffic and cost billions. The Task Force needs an intelligent acoustic detection strategy.",
+    "prompt": "Choose the municipal leak detection and hydraulic pressure regulation protocol.",
+    "question": "How should Nova City detect and eliminate subterranean water leaks across its pipeline network?",
+    "options": [
       {
-        id: "m16-opt-a",
-        key: "A",
-        title: "Flash Open-Source Municipal Firmware & Mandate Right-to-Repair",
-        isSustainable: true,
-        image: "/assets/m4-modular-repair.svg",
-        shortDescription: "Pass a municipal Right-to-Repair ordinance; flash rovers with community open-source Linux firmware to keep them operating independently.",
-        detailedExplanation:
-          "The Task Force liberates the hardware from vendor cloud locks. Rovers run transparent, local-first open software with public security audits, extending hardware life by 7+ years.",
-        advantages: [
-          "Prevents 1,400 tons of electronic scrap immediately; saves millions of dollars in municipal licensing fees.",
-          "Fosters a vibrant local robotics engineering repair economy.",
+        "id": "m13-opt-a",
+        "key": "A",
+        "title": "Acoustic Edge Vibration Sensors & Autonomous Microgrid Pressure Regulation",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Deploy clamp-on acoustic vibration listening nodes that identify underground pipe hiss frequencies with edge signal processing.",
+        "detailedExplanation": "Autonomous listening pods installed at fire hydrants process micro-vibrations with edge neural nets, calculating pipe rupture locations to within 1 meter and dynamically lowering pressure in damaged zones.",
+        "advantages": [
+          "Pinpoints subterranean leaks without destructive street excavation",
+          "Saves 32 million liters of drinking water daily within 48 hours"
         ],
-        disadvantages: [
-          "Requires municipal software engineers to maintain the open firmware repository.",
+        "disadvantages": [
+          "Requires deploying sensor clamps across 250 hydrant checkpoints"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 20, social: 30, economic: 25 },
-        cityMetricDeltas: {
-          energyIndex: -8,
-          carbonIndex: -12,
-          waterIndex: -8,
-          ewasteIndex: -25,
-          operationalEfficiency: +20,
-          citizenWellbeing: +24,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 28,
+          "energy": 20,
+          "social": 25,
+          "economic": 22
         },
-        sharedCityDeltas: {
-          energyStability: +10,
-          networkStability: +20,
-          environmentalHealth: +22,
-          waterAvailability: +12,
-          rescueProgress: +14,
-          publicTrust: +30,
-          ewasteLevel: -28,
+        "cityMetricDeltas": {
+          "energyIndex": -12,
+          "carbonIndex": -10,
+          "waterIndex": -30,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 25,
+          "resilienceIndex": 28
         },
-        learningObjective: "Software longevity and the Right-to-Repair prevent artificial planned hardware obsolescence.",
-        sdgs: [9, 12, 16],
-        consequenceNarration:
-          "All 1,400 cleaning rovers rebooted under community open-source firmware with improved battery efficiency. The vendor was fined for planned obsolescence.",
-        educationalTakeaway:
-          "Software locks are the newest form of e-waste. Open, repairable firmware keeps functional physical machines serving humanity.",
+        "sharedCityDeltas": {
+          "energyStability": 15,
+          "networkStability": 12,
+          "environmentalHealth": 25,
+          "waterAvailability": 30,
+          "rescueProgress": 15,
+          "publicTrust": 22,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand smart water management: using acoustic edge sensing to protect vital municipal water resources.",
+        "sdgs": [
+          6,
+          9,
+          11,
+          12
+        ],
+        "consequenceNarration": "Acoustic sensors identified 42 hidden high-pressure fissures under Sector 4. Pressure modulation halted water loss while repair crews fixed pipes with pinpoint excavations.",
+        "educationalTakeaway": "Acoustic AI listens to physical vibrations in metal and soil, detecting resource loss before it turns into an urban catastrophe."
       },
       {
-        id: "m16-opt-b",
-        key: "B",
-        title: "Pay Vendor Ransom & Retire Locked Hardware",
-        isSustainable: false,
-        image: "/assets/m4-ewaste-crisis.svg",
-        shortDescription: "Pay the multi-million dollar vendor fee and discard any units that fail activation into scrap warehouses.",
-        detailedExplanation:
-          "City officials capitulate to proprietary vendor lock-in, signing multi-year black-box contracts and throwing away functional rovers because of vendor software locks.",
-        advantages: [
-          "Maintains standard corporate enterprise customer support lines.",
+        "id": "m13-opt-b",
+        "key": "B",
+        "title": "Blanket Mainline High-Pressure Pumping & Visual Surface Patrols",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Crank reservoir supply pumps to maximum pressure to overcome water loss, and send human trucks looking for surface water puddles.",
+        "detailedExplanation": "Operators boost pumping pressure across the entire municipal grid to maintain home faucet flow, relying on visual inspection crews driving around looking for water bubbling on streets.",
+        "advantages": [
+          "Temporarily masks faucet pressure drops in unaffected homes"
         ],
-        disadvantages: [
-          "Surrenders civic infrastructure control to private monopolies; validates planned obsolescence as a profitable business model.",
+        "disadvantages": [
+          "High pressure widens pipe fractures, doubling water loss to 70 million liters daily and risking massive sinkhole collapses"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -25, energy: -15, social: -25, economic: -30 },
-        cityMetricDeltas: {
-          energyIndex: +10,
-          carbonIndex: +15,
-          waterIndex: +10,
-          ewasteIndex: +25,
-          operationalEfficiency: -15,
-          citizenWellbeing: -20,
-          resilienceIndex: -26,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -28,
+          "energy": -22,
+          "social": -20,
+          "economic": -25
         },
-        sharedCityDeltas: {
-          energyStability: -8,
-          networkStability: -15,
-          environmentalHealth: -22,
-          waterAvailability: -10,
-          rescueProgress: -8,
-          publicTrust: -30,
-          ewasteLevel: +25,
+        "cityMetricDeltas": {
+          "energyIndex": 20,
+          "carbonIndex": 15,
+          "waterIndex": 35,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -20,
+          "citizenWellbeing": -22,
+          "resilienceIndex": -25
         },
-        learningObjective: "Proprietary software lock-in robs public institutions of infrastructure sovereignty.",
-        sdgs: [9, 12],
-        consequenceNarration:
-          "The vendor raised license fees by another 40% next quarter, forcing the city to scrap 600 more working rovers.",
-        educationalTakeaway:
-          "You don't truly own what you cannot open and repair. Right-to-Repair is an environmental and civic necessity.",
-      },
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -5,
+          "environmentalHealth": -25,
+          "waterAvailability": -35,
+          "rescueProgress": -5,
+          "publicTrust": -20,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Recognize that brute-force pumping without leak detection accelerates infrastructure destruction and squanders clean water.",
+        "sdgs": [
+          6,
+          11,
+          12
+        ],
+        "consequenceNarration": "Excessive line pressure caused a catastrophic water main blowout beneath Main Avenue. A 12-meter sinkhole swallowed two utility trucks and cut water to 50,000 homes.",
+        "educationalTakeaway": "Increasing pressure on leaking pipes is a disastrous blunder. Smart sensing must precede mechanical action."
+      }
     ],
-    sdgs: [9, 12, 16],
-    summaryNote: "Right-to-Repair and open-source firmware prevent artificial hardware obsolescence.",
-    hotspots: [
-      { id: "h16-1", label: "Open-Source Flashing Port", x: 48, y: 58, description: "JTAG interface loading community Linux kernel.", tag: "Open Hardware" },
-      { id: "h16-2", label: "Decentralized Key Storage", x: 70, y: 40, description: "Cryptographic keys held by municipal government, not vendors.", tag: "Sovereignty" },
+    "sdgs": [
+      6,
+      9,
+      11,
+      12
     ],
-    aiConcept: {
-      title: "Right-to-Repair & Software Longevity",
-      subtitle: "Stopping planned obsolescence in connected devices",
-      definition: "The Right-to-Repair ensures device owners and independent repairers have access to documentation, spare parts, and open firmware to keep equipment working.",
-      realWorldExample: "Being legally allowed to replace your own phone screen or install an open operating system when the company ends official support.",
-      takeaway: "Sustainable intelligence respects hardware longevity over manufactured corporate replacement cycles.",
-      componentType: "circular",
-    },
-  },
-
-  // ==========================================
-  // CHAPTER 5: PLANETARY EQUILIBRIUM & THE REBORN CITY (17 - 20)
-  // ==========================================
-  {
-    id: 17,
-    number: 17,
-    chapterNumber: 5,
-    chapterTitle: "Chapter 5: Planetary Equilibrium & The Reborn City",
-    title: "Atmospheric Carbon Scrubbing & Bio-Filters",
-    category: "Biological vs Mechanical Carbon Capture",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "Industrial emissions from legacy factories in the East Basin have elevated regional PM2.5 and CO2 concentrations above safe health guidelines.",
-    storyProblem:
-      "The city council wants to install power-hungry mechanical air scrubbers that consume 180 Megawatts of electricity to capture carbon.",
-    prompt: "Select the municipal carbon capture and urban air purification strategy.",
-    question: "How should Nova City capture urban atmospheric emissions cleanly and affordably?",
-    options: [
+    "summaryNote": "Acoustic vibration sensing pinpoints subterranean water leaks without destructive street excavation.",
+    "hotspots": [
       {
-        id: "m17-opt-a",
-        key: "A",
-        title: "Algal Photobioreactor Facades & Urban Green Micro-Forest Corridors",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Install vertical micro-algae bioreactors on building facades and plant dense multi-layered urban forest wind corridors.",
-        detailedExplanation:
-          "Micro-algae capture CO2 10x faster than terrestrial trees using only ambient sunlight. The harvested biomass is converted into biodegradable bioplastics and soil fertilizer with zero grid energy draw.",
-        advantages: [
-          "Zero electricity grid drain; produces nutrient-rich soil compost and bioplastic raw materials as valuable co-products.",
-          "Lowers ambient urban heat island temperatures by 3.5°C.",
-        ],
-        disadvantages: [
-          "Requires plumbing maintenance and architectural integration into building facades.",
-        ],
-        pointsAwarded: 250,
-        impacts: { environmental: 35, energy: 25, social: 25, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -15,
-          carbonIndex: -35,
-          waterIndex: -10,
-          ewasteIndex: 0,
-          operationalEfficiency: +20,
-          citizenWellbeing: +30,
-          resilienceIndex: +25,
-        },
-        sharedCityDeltas: {
-          energyStability: +18,
-          networkStability: +10,
-          environmentalHealth: +38,
-          waterAvailability: +20,
-          rescueProgress: +10,
-          publicTrust: +28,
-          ewasteLevel: 0,
-        },
-        learningObjective: "Nature-based biological solutions capture carbon efficiently without competing for precious electrical power.",
-        sdgs: [3, 11, 13],
-        consequenceNarration:
-          "Particulate matter dropped by 64% across downtown. Building temperatures cooled, reducing air-conditioning grid loads.",
-        educationalTakeaway:
-          "Nature perfected carbon capture 3 billion years ago through photosynthesis. Partnering with biology outperforms energy-hungry machines.",
+        "id": "h1",
+        "x": 38,
+        "y": 65,
+        "title": "Acoustic Listening Pod",
+        "description": "Processes acoustic pipe vibrations at 20 kHz to isolate water escape signatures."
       },
       {
-        id: "m17-opt-b",
-        key: "B",
-        title: "Energy-Intensive Mechanical Chemical Scrubbers",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "Construct massive mechanical fan towers that push air through liquid chemical amine solvents using grid electricity.",
-        detailedExplanation:
-          "Industrial fan towers burn massive electrical megawatts to suck ambient air through caustic chemicals, requiring constant chemical deliveries and fossil electricity.",
-        advantages: [
-          "Compact physical footprint compared to green urban forest corridors.",
-        ],
-        disadvantages: [
-          "Consumes immense electrical power, often canceling out the very emissions it seeks to capture.",
-        ],
-        pointsAwarded: 50,
-        impacts: { environmental: -15, energy: -30, social: -15, economic: -20 },
-        cityMetricDeltas: {
-          energyIndex: +25,
-          carbonIndex: +15,
-          waterIndex: +18,
-          ewasteIndex: +8,
-          operationalEfficiency: -12,
-          citizenWellbeing: -15,
-          resilienceIndex: -20,
-        },
-        sharedCityDeltas: {
-          energyStability: -26,
-          networkStability: -8,
-          environmentalHealth: -20,
-          waterAvailability: -15,
-          rescueProgress: -5,
-          publicTrust: -18,
-          ewasteLevel: +10,
-        },
-        learningObjective: "Mechanical direct-air capture often requires more power than the renewable grid can sustainably spare.",
-        sdgs: [7, 13],
-        consequenceNarration:
-          "The mechanical scrubbers consumed so much power that the city had to keep a fossil gas turbine running just to power the filters.",
-        educationalTakeaway:
-          "Beware techno-fixes that consume more energy than they save. True sustainability prioritizes biological synergy over brute mechanical force.",
-      },
+        "id": "h2",
+        "x": 65,
+        "y": 48,
+        "title": "Zone Pressure Governor",
+        "description": "Automates valve modulation to reduce mechanical stress on damaged pipe segments."
+      }
     ],
-    sdgs: [3, 11, 13],
-    summaryNote: "Algal bioreactors and urban micro-forests scrub carbon naturally with zero grid drain.",
-    hotspots: [
-      { id: "h17-1", label: "Vertical Algae Bioreactor", x: 35, y: 48, description: "Photosynthetic spirulina tubes absorbing CO2 from street air.", tag: "Bio-Tech" },
-      { id: "h17-2", label: "Urban Micro-Forest Corridor", x: 72, y: 65, description: "Layered native trees creating cool pedestrian windways.", tag: "Nature Solution" },
-    ],
-    aiConcept: {
-      title: "Biophilic Computing & Nature-Based Solutions",
-      subtitle: "Aligning human engineering with natural biology",
-      definition: "Nature-based solutions deploy biological systems—like micro-algae and wetlands—to perform environmental engineering tasks using sunlight rather than electricity.",
-      realWorldExample: "A living wetland cleaning municipal wastewater rather than an energy-heavy chemical treatment plant.",
-      takeaway: "The most advanced technology on Earth is nature itself. Sustainable AI learns from natural cycles.",
-      componentType: "general",
-    },
+    "aiConcept": {
+      "title": "Smart Water & Acoustic Sensing",
+      "subtitle": "Detecting hidden infrastructure failure through sound",
+      "definition": "Acoustic edge sensors analyze frequency spectra to detect the characteristic hiss of pressurized fluid escaping micro-fissures underground.",
+      "realWorldExample": "Municipal water authorities using acoustic loggers to reduce non-revenue water loss by over 50%.",
+      "takeaway": "Clean water is our most precious resource. AI listening nodes stop silent subterranean resource leaks.",
+      "componentType": "efficiency"
+    }
   },
   {
-    id: 18,
-    number: 18,
-    chapterNumber: 5,
-    chapterTitle: "Chapter 5: Planetary Equilibrium & The Reborn City",
-    title: "Public Transit Neural Dispatch",
-    category: "Decentralized Mobility AI",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "Private vehicle traffic produces 42% of Nova City's surface carbon footprint, clogging road arteries and creating respiratory health crises.",
-    storyProblem:
-      "Fixed-schedule diesel buses frequently run completely empty during off-peak hours while outer suburbs lack reliable connections.",
-    prompt: "Deploy the autonomous public transit dispatch algorithm.",
-    question: "How should Nova City's autonomous public transit fleet schedule and route its vehicles?",
-    options: [
+    "id": 14,
+    "number": 14,
+    "chapterNumber": 4,
+    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "title": "The Burning Forest",
+    "category": "AI Drones & Environmental Monitoring",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Dry lightning has ignited multiple wildfire fronts in the pine forest nature reserve bordering Nova City's northern residential perimeter.",
+    "storyProblem": "High canyon winds are shifting ember showers toward housing developments. Autonomous drone swarms must coordinate firebreak defense and containment.",
+    "prompt": "Choose the aerial surveillance and fire suppression protocol.",
+    "question": "How should Nova City's autonomous drone fleet combat the spreading forest wildfire?",
+    "options": [
       {
-        id: "m18-opt-a",
-        key: "A",
-        title: "Dynamic Demand-Responsive Electric Shuttles with Active Edge Routing",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Electric shuttles calculate shared multi-passenger routes dynamically based on real-time pedestrian requests, eliminating empty runs.",
-        detailedExplanation:
-          "Edge algorithms aggregate passenger trips in real time, coordinating multi-passenger shared autonomous electric shuttles that arrive within 3 minutes of a citizen walking out their door.",
-        advantages: [
-          "Reduces total vehicle-kilometers traveled by 65%; provides seamless accessible transit to low-income neighborhoods.",
-          "Electric shuttles recharge cleanly from midday solar canopies.",
+        "id": "m14-opt-a",
+        "key": "A",
+        "title": "Autonomous Thermal Edge Swarms with Precision Firebreak Targeting",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Deploy lightweight electric drone swarms running thermal edge vision to map ember vectors and deliver micro-suppressant capsules directly at ignition roots.",
+        "detailedExplanation": "Cooperative autonomous drones use thermal sensors to model wind-driven fire spread in real time, dropping eco-friendly biodegradable suppressant capsules with pinpoint accuracy to starve firelines before they spread.",
+        "advantages": [
+          "Stops fire spread before flames reach crown canopy",
+          "Conserves 85% of chemical retardant compared to blanket dumping",
+          "Zero toxic chemical soil runoff"
         ],
-        disadvantages: [
-          "Requires citizens to book via simple civic kiosks or mobile apps rather than waiting at static timetable stops.",
+        "disadvantages": [
+          "Requires autonomous peer-to-peer drone swarm mesh coordination"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 30, energy: 25, social: 30, economic: 25 },
-        cityMetricDeltas: {
-          energyIndex: -16,
-          carbonIndex: -26,
-          waterIndex: -8,
-          ewasteIndex: 0,
-          operationalEfficiency: +26,
-          citizenWellbeing: +28,
-          resilienceIndex: +25,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 28,
+          "energy": 20,
+          "social": 25,
+          "economic": 20
         },
-        sharedCityDeltas: {
-          energyStability: +22,
-          networkStability: +15,
-          environmentalHealth: +28,
-          waterAvailability: +14,
-          rescueProgress: +15,
-          publicTrust: +28,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -25,
+          "waterIndex": -15,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 25,
+          "resilienceIndex": 28
         },
-        learningObjective: "Dynamic multi-passenger transit routing slashes urban vehicle miles and eliminates empty fossil bus routes.",
-        sdgs: [9, 11, 13],
-        consequenceNarration:
-          "Private car usage plummeted by 52%. Public transit ridership doubled while transport carbon emissions fell to near zero.",
-        educationalTakeaway:
-          "Shared, demand-responsive transit delivers mobility without private car waste. Efficient routing multiplies civic freedom.",
+        "sharedCityDeltas": {
+          "energyStability": 12,
+          "networkStability": 15,
+          "environmentalHealth": 28,
+          "waterAvailability": 15,
+          "rescueProgress": 25,
+          "publicTrust": 22,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand precision environmental monitoring: using thermal edge computer vision and autonomous robotics for targeted disaster mitigation.",
+        "sdgs": [
+          11,
+          13,
+          15
+        ],
+        "consequenceNarration": "Swarm algorithms halted 14 separate ember breakouts within 25 minutes! The northern forest perimeter held, and residential air quality was protected.",
+        "educationalTakeaway": "Targeted precision robotics stops environmental catastrophes at the spark stage, avoiding massive chemical dumping."
       },
       {
-        id: "m18-opt-b",
-        key: "B",
-        title: "Rigid Static Timetables with Individual Autonomous Taxis",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "Flood streets with hundreds of single-passenger private autonomous robotaxis while running empty rigid buses on static routes.",
-        detailedExplanation:
-          "Empty 1-passenger autonomous robotaxis roam streets hunting for fares, inducing massive phantom traffic jams and encouraging urban sprawl.",
-        advantages: [
-          "Provides door-to-door luxury private rides for wealthy individuals.",
+        "id": "m14-opt-b",
+        "key": "B",
+        "title": "Indiscriminate Blanket Aerial Chemical Retardant Bombing",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Charter heavy diesel cargo planes to dump hundreds of tons of industrial ammonium phosphate chemical retardant across the entire forest reserve.",
+        "detailedExplanation": "Heavy planes carpet-bomb the nature reserve with toxic red chemical retardant without targeted thermal mapping, drenching pristine streams, wildlife habitats, and healthy trees.",
+        "advantages": [
+          "Creates a wide, visible blanket swath of chemical retardant"
         ],
-        disadvantages: [
-          "Increases total urban traffic gridlock by 35%; crowds out public transit and increases electricity demand.",
+        "disadvantages": [
+          "Contaminates forest watershed with toxic phosphates, kills aquatic wildlife, and burns tons of aviation fuel"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -20, energy: -25, social: -25, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +20,
-          carbonIndex: +22,
-          waterIndex: +10,
-          ewasteIndex: +10,
-          operationalEfficiency: -18,
-          citizenWellbeing: -22,
-          resilienceIndex: -20,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -28,
+          "energy": -22,
+          "social": -15,
+          "economic": -25
         },
-        sharedCityDeltas: {
-          energyStability: -22,
-          networkStability: -15,
-          environmentalHealth: -22,
-          waterAvailability: -12,
-          rescueProgress: -10,
-          publicTrust: -26,
-          ewasteLevel: +12,
+        "cityMetricDeltas": {
+          "energyIndex": 18,
+          "carbonIndex": 25,
+          "waterIndex": 20,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -18,
+          "resilienceIndex": -20
         },
-        learningObjective: "Single-passenger autonomous cars worsen urban congestion and energy consumption.",
-        sdgs: [10, 11],
-        consequenceNarration:
-          "Robotaxi gridlock blocked transit arteries. Wealthy commuters rode solo while working-class transit riders waited in traffic.",
-        educationalTakeaway:
-          "Replacing a human driver with an AI driver in a single-passenger private car doesn't solve traffic or emissions. Shared mobility does.",
+        "sharedCityDeltas": {
+          "energyStability": -10,
+          "networkStability": -5,
+          "environmentalHealth": -28,
+          "waterAvailability": -20,
+          "rescueProgress": 10,
+          "publicTrust": -15,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Recognize that heavy chemical dumping causes severe long-term ecocide in watersheds and soils.",
+        "sdgs": [
+          13,
+          15
+        ],
+        "consequenceNarration": "Chemical retardant washed into the municipal reservoir, poisoning trout fisheries and forcing emergency water treatment plant shutdowns.",
+        "educationalTakeaway": "Overreacting with blunt industrial chemicals creates secondary ecological disasters. Precision physical AI protects living ecosystems."
+      }
+    ],
+    "sdgs": [
+      11,
+      13,
+      15
+    ],
+    "summaryNote": "Thermal edge computer vision guides autonomous drones to extinguish embers before wildfires crown.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 45,
+        "y": 30,
+        "title": "Thermal Vector Camera",
+        "description": "Tracks rising thermal updrafts and calculates ember landing zones in real time."
       },
+      {
+        "id": "h2",
+        "x": 60,
+        "y": 65,
+        "title": "Micro-Dropper Payload",
+        "description": "Releases biodegradable bio-gel directly onto flame roots with zero waste."
+      }
     ],
-    sdgs: [9, 11, 13],
-    summaryNote: "Shared demand-responsive electric shuttles cut urban vehicle emissions by 65%.",
-    hotspots: [
-      { id: "h18-1", label: "Autonomous Electric Shuttle", x: 48, y: 65, description: "12-passenger shared electric transport with edge routing.", tag: "Clean Mobility" },
-      { id: "h18-2", label: "Civic Transit Kiosk", x: 22, y: 45, description: "Solar-powered touchpoint for barrier-free citizen ride hailing.", tag: "Equity" },
-    ],
-    aiConcept: {
-      title: "Shared Autonomous Mobility Algorithms",
-      subtitle: "Moving people, not empty metal boxes",
-      definition: "Demand-responsive transit algorithms combine trip requests in real time to pool passengers along optimal electric vehicle paths.",
-      realWorldExample: "A shared shuttle that picks up three neighbors heading toward the same train station rather than three separate cars driving alone.",
-      takeaway: "Sustainable transportation prioritizes shared efficiency over private vehicle excess.",
-      componentType: "pipeline",
-    },
+    "aiConcept": {
+      "title": "Environmental Robotics & Precision Response",
+      "subtitle": "Using intelligent swarms for ecological preservation",
+      "definition": "Environmental robotics uses lightweight autonomous agents with edge perception to intercept ecological hazards with minimal collateral damage.",
+      "realWorldExample": "Autonomous drone fleets monitoring national parks for illegal logging and early wildfire ignitions using thermal cameras.",
+      "takeaway": "Robotics in service of nature prioritizes precision and non-toxic intervention over blunt industrial force.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 19,
-    number: 19,
-    chapterNumber: 5,
-    chapterTitle: "Chapter 5: Planetary Equilibrium & The Reborn City",
-    title: "Civic Environmental Data Transparency",
-    category: "Open Data & Citizen Science",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "Industrial lobbyists are pressuring the city to conceal real-time factory smokestack emissions data from the public to avoid regulatory scrutiny.",
-    storyProblem:
-      "A proposed corporate data contract would lock all air quality, water purity, and grid carbon telemetry behind expensive proprietary paywalls.",
-    prompt: "Establish Nova City's civic environmental data governance charter.",
-    question: "How should Nova City manage its environmental sensor and computational telemetry data?",
-    options: [
+    "id": 15,
+    "number": 15,
+    "chapterNumber": 4,
+    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "title": "The Plastic Ocean",
+    "category": "Waste Detection & Marine Robotics",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Storm runoff has flushed 80 tons of discarded single-use plastics, packaging styrofoam, and synthetic nets into Nova Bay's marine estuary.",
+    "storyProblem": "Tidal currents are pushing plastic debris toward a protected coral reef and seal colony. Autonomous aquatic skimmers must clean the bay without endangering marine life.",
+    "prompt": "Choose the marine cleanup and debris sorting architecture.",
+    "question": "How should Nova City's autonomous marine vessels remove plastic waste from the coastal estuary?",
+    "options": [
       {
-        id: "m19-opt-a",
-        key: "A",
-        title: "Open-Access Civic Data Commons & Public Real-Time Dashboards",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Publish all environmental and energy telemetry to an open public data commons with real-time neighborhood street displays.",
-        detailedExplanation:
-          "Citizens, university researchers, and independent journalists access unedited sensor feeds directly. Public dashboard screens at transit stops show live air purity and solar generation in plain language.",
-        advantages: [
-          "Empowers grassroots citizen science; holds polluters immediately accountable and builds high civic trust.",
-          "Enables independent universities to build innovative green algorithms for the city.",
+        "id": "m15-opt-a",
+        "key": "A",
+        "title": "Solar-Electric Surface Skimmers with Edge Bio-Discrimination Vision",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Deploy solar-powered catamaran skimmers using edge computer vision to distinguish floating plastic litter from fish, birds, and seaweed.",
+        "detailedExplanation": "Electric catamaran rovers skim the water surface, running an onboard neural net that classifies floating objects. Plastic containers and nets are collected into sorting bins, while organic marine life is safely guided away.",
+        "advantages": [
+          "Zero carbon emissions; powered 100% by onboard solar panels",
+          "Zero bycatch or harm to coastal marine biodiversity",
+          "Sorts recyclable polymers right on the water"
         ],
-        disadvantages: [
-          "Requires defending data feeds against corporate manipulation and ensuring individual privacy safeguards.",
+        "disadvantages": [
+          "Skimmer collection speed is governed by solar battery capacity"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 25, energy: 20, social: 35, economic: 20 },
-        cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: -20,
-          waterIndex: -15,
-          ewasteIndex: 0,
-          operationalEfficiency: +24,
-          citizenWellbeing: +30,
-          resilienceIndex: +30,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 30,
+          "energy": 22,
+          "social": 20,
+          "economic": 18
         },
-        sharedCityDeltas: {
-          energyStability: +15,
-          networkStability: +20,
-          environmentalHealth: +26,
-          waterAvailability: +20,
-          rescueProgress: +15,
-          publicTrust: +35,
-          ewasteLevel: 0,
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -15,
+          "waterIndex": -25,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 25
         },
-        learningObjective: "Democratic data transparency is the foundation of environmental accountability and community trust.",
-        sdgs: [11, 16],
-        consequenceNarration:
-          "Public transparency exposed an illegal chemical leak in Sector 9 within 20 minutes, allowing community teams to seal it immediately.",
-        educationalTakeaway:
-          "Data kept secret serves the powerful; data shared freely serves the planet. Sunlight is the greatest disinfectant.",
+        "sharedCityDeltas": {
+          "energyStability": 12,
+          "networkStability": 10,
+          "environmentalHealth": 30,
+          "waterAvailability": 20,
+          "rescueProgress": 15,
+          "publicTrust": 20,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand marine environmental robotics: computer vision for bio-discrimination and zero-emission solar propulsion.",
+        "sdgs": [
+          12,
+          14,
+          15
+        ],
+        "consequenceNarration": "Catamarans extracted 24 tons of floating polymers in 72 hours! Coral reef nurseries remained completely unpolluted with zero marine life casualties.",
+        "educationalTakeaway": "Computer vision can distinguish living organisms from synthetic trash, enabling cleanup robots that respect natural ecosystems."
       },
       {
-        id: "m19-opt-b",
-        key: "B",
-        title: "Proprietary Corporate Data Monopolization",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "Sell exclusive environmental data rights to a private corporate tech conglomerate behind closed proprietary APIs.",
-        detailedExplanation:
-          "The corporate vendor monetizes citizen data, cherry-picks reports to flatter corporate polluters, and charges schools and universities high subscription fees to access civic air data.",
-        advantages: [
-          "Generates short-term licensing royalty revenue for the municipal budget.",
+        "id": "m15-opt-b",
+        "key": "B",
+        "title": "Heavy Diesel Dredging Trawlers with Indiscriminate Drag Nets",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Deploy commercial diesel trawlers with weighted bottom drag nets to scoop up all debris and estuary matter as fast as possible.",
+        "detailedExplanation": "Operators hire heavy diesel trawlers that drag weighted nylon nets across the seabed, scraping up plastics along with seagrass beds, juvenile fish, and benthic organisms.",
+        "advantages": [
+          "Collects large volumes of mixed matter in a single sweep"
         ],
-        disadvantages: [
-          "Destroys public trust; hides pollution violations and leaves citizens blind to toxic air and water hazards.",
+        "disadvantages": [
+          "Destroys sensitive marine habitats, generates heavy diesel soot, and catches protected wildlife in nets"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -20, energy: -15, social: -35, economic: -15 },
-        cityMetricDeltas: {
-          energyIndex: +12,
-          carbonIndex: +18,
-          waterIndex: +16,
-          ewasteIndex: +5,
-          operationalEfficiency: -15,
-          citizenWellbeing: -28,
-          resilienceIndex: -25,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -30,
+          "energy": -25,
+          "social": -18,
+          "economic": -20
         },
-        sharedCityDeltas: {
-          energyStability: -15,
-          networkStability: -15,
-          environmentalHealth: -22,
-          waterAvailability: -18,
-          rescueProgress: -10,
-          publicTrust: -35,
-          ewasteLevel: +6,
+        "cityMetricDeltas": {
+          "energyIndex": 20,
+          "carbonIndex": 25,
+          "waterIndex": 20,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -22
         },
-        learningObjective: "Monopolizing public data harms public health and erodes scientific integrity.",
-        sdgs: [10, 16],
-        consequenceNarration:
-          "Undetected lead contamination in the municipal reservoir went unreported for months due to proprietary NDA agreements.",
-        educationalTakeaway:
-          "Environmental data belongs to the public. Hiding environmental hazards behind paywalls is morally indefensible.",
+        "sharedCityDeltas": {
+          "energyStability": -12,
+          "networkStability": -5,
+          "environmentalHealth": -30,
+          "waterAvailability": -15,
+          "rescueProgress": 5,
+          "publicTrust": -18,
+          "ewasteLevel": 3
+        },
+        "learningObjective": "Recognize that destructive cleanup methods can inflict worse ecological damage than the pollution they seek to remove.",
+        "sdgs": [
+          14,
+          15
+        ],
+        "consequenceNarration": "Drag nets tore through 400 meters of protected coral reef. Over 300 marine animals were caught as bycatch while diesel exhaust drifted over beaches.",
+        "educationalTakeaway": "Cleaning the planet with destructive methods is counter-productive. Responsible robotics harmonizes cleanup with ecological protection."
+      }
+    ],
+    "sdgs": [
+      12,
+      14,
+      15
+    ],
+    "summaryNote": "Solar-electric skimmers with edge vision discriminate between plastic waste and living marine organisms.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 35,
+        "y": 55,
+        "title": "Edge Bio-Classifier",
+        "description": "Segments floating objects in real time to prevent swallowing fish, turtles, or waterfowl."
       },
+      {
+        "id": "h2",
+        "x": 68,
+        "y": 38,
+        "title": "Solar Skimmer Deck",
+        "description": "Powers electric paddle propulsion with zero acoustic disturbance to marine life."
+      }
     ],
-    sdgs: [11, 16],
-    summaryNote: "Open civic data commons empowers communities to hold polluters accountable.",
-    hotspots: [
-      { id: "h19-1", label: "Public Air Quality Display", x: 32, y: 50, description: "Displays live PM2.5 and ozone ppm to pedestrians in real time.", tag: "Transparency" },
-      { id: "h19-2", label: "Open-Access Mesh Node", x: 70, y: 35, description: "Free public API server transmitting verified sensor readings.", tag: "Data Commons" },
-    ],
-    aiConcept: {
-      title: "Data Sovereignty & Open Science",
-      subtitle: "Why public data must remain in public hands",
-      definition: "Data sovereignty ensures that data collected from public spaces is owned by the community, governed transparently, and used to protect public well-being.",
-      realWorldExample: "Open-source weather stations sharing local rainfall data with global climate researchers for free.",
-      takeaway: "Responsible intelligence requires open transparency so every citizen can participate in ecological protection.",
-      componentType: "general",
-    },
+    "aiConcept": {
+      "title": "Marine Robotics & Computer Vision",
+      "subtitle": "Cleaning waterways without harming biodiversity",
+      "definition": "Marine robotics combines computer vision object segmentation with silent electric propulsion to harvest pollutants without disturbing aquatic ecosystems.",
+      "realWorldExample": "Autonomous harbor trash-skimmer boats using AI vision to collect floating bottles while leaving ducks and fish untouched.",
+      "takeaway": "True sustainability requires tools that solve environmental problems without creating new ecological damage.",
+      "componentType": "robot"
+    }
   },
   {
-    id: 20,
-    number: 20,
-    chapterNumber: 5,
-    chapterTitle: "Chapter 5: Planetary Equilibrium & The Reborn City",
-    title: "The Grand AETHER Synthesis",
-    category: "The Responsible Intelligence Grand Finale",
-    heroImage: "/assets/city-sustainable.svg",
-    environmentalContext:
-      "Nova City stands at the final crossroads. AETHER's core algorithms must be permanently calibrated for the next century.",
-    storyProblem:
-      "Will Nova City structure its future as an autonomous, decentralized, and responsible physical AI civilization, or revert to an energy-hungry centralized technological monopoly?",
-    prompt: "Cast the decisive vote for the permanent architectural soul of Nova City.",
-    question: "What core philosophy will govern the future of artificial intelligence across Nova City?",
-    options: [
+    "id": 16,
+    "number": 16,
+    "chapterNumber": 4,
+    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "title": "The Smart Farm",
+    "category": "Precision Agriculture & Resource Stewardship",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "The agricultural green belt surrounding Nova City produces 60% of the metropolis's fresh produce but is facing severe water rationing and nitrogen fertilizer shortages.",
+    "storyProblem": "Farmers are tempted to over-pump remaining groundwater and blanket-spray nitrogen fertilizer, which risks salinizing the soil and poisoning the river basin.",
+    "prompt": "Choose the precision farming and robotic resource stewardship strategy.",
+    "question": "How should agricultural robots manage irrigation and nutrient delivery across Nova City's farms?",
+    "options": [
       {
-        id: "m20-opt-a",
-        key: "A",
-        title: "The Responsible Intelligence Compact: Physical AI in Harmony with Planetary Limits",
-        isSustainable: true,
-        image: "/assets/city-sustainable.svg",
-        shortDescription: "Decentralized edge intelligence, circular modular hardware, renewable energy alignment, and transparent human-guided stewardship.",
-        detailedExplanation:
-          "AI serves as an assistant to human and planetary life—operating with minimal energy at the edge, using modular repairable robotics, aligned with solar cycles, and governed openly by democratic citizens.",
-        advantages: [
-          "Achieves perpetual planetary equilibrium; guarantees clean air, healthy water, and resilient democratic communities.",
-          "Inspires global robotics and automation clubs worldwide as the premier model of Sustainable Intelligence.",
+        "id": "m16-opt-a",
+        "key": "A",
+        "title": "Multispectral Crop Health Mapping & Sub-Surface Micro-Drip Fertigation",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Use multispectral drone cameras to assess plant chlorophyll stress, delivering precise milliliters of water and nutrients directly to individual roots.",
+        "detailedExplanation": "Autonomous agricultural rovers and drones monitor NDVI crop reflectance. Robotic micro-nozzles inject drops of water and organic nutrients directly at root stems only where needed.",
+        "advantages": [
+          "Cuts agricultural water use by 65% and fertilizer runoff by 80%",
+          "Boosts crop yields while rejuvenating native soil microbiome"
         ],
-        disadvantages: [
-          "Requires continuous ethical vigilance, collaborative maintenance, and shared responsibility.",
+        "disadvantages": [
+          "Requires installing sub-surface sensor probes and drone calibration"
         ],
-        pointsAwarded: 250,
-        impacts: { environmental: 35, energy: 35, social: 35, economic: 30 },
-        cityMetricDeltas: {
-          energyIndex: -25,
-          carbonIndex: -35,
-          waterIndex: -30,
-          ewasteIndex: -35,
-          operationalEfficiency: +30,
-          citizenWellbeing: +35,
-          resilienceIndex: +35,
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 28,
+          "energy": 20,
+          "social": 22,
+          "economic": 25
         },
-        sharedCityDeltas: {
-          energyStability: +35,
-          networkStability: +30,
-          environmentalHealth: +40,
-          waterAvailability: +35,
-          rescueProgress: +30,
-          publicTrust: +35,
-          ewasteLevel: -35,
+        "cityMetricDeltas": {
+          "energyIndex": -12,
+          "carbonIndex": -15,
+          "waterIndex": -25,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 22,
+          "resilienceIndex": 25
         },
-        learningObjective: "True technological maturity is not about making AI more powerful—it is about making intelligence responsible.",
-        sdgs: [3, 6, 7, 9, 11, 12, 13],
-        consequenceNarration:
-          "Nova City achieves planetary equilibrium! Vertical forests flourish, autonomous rovers run on clean sunlight, and citizens breathe clean air.",
-        educationalTakeaway:
-          "The future is not about making AI more powerful. It is about making intelligence more responsible.",
+        "sharedCityDeltas": {
+          "energyStability": 15,
+          "networkStability": 12,
+          "environmentalHealth": 28,
+          "waterAvailability": 25,
+          "rescueProgress": 15,
+          "publicTrust": 20,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand precision agriculture: how computer vision and robotics optimize resource efficiency in food production.",
+        "sdgs": [
+          2,
+          6,
+          12,
+          15
+        ],
+        "consequenceNarration": "Crop yields increased by 18% while farm water use dropped by 65%! The downstream river remained crystal clear with zero toxic algal blooms.",
+        "educationalTakeaway": "Precision agriculture treats individual plants rather than entire fields, slashing water and chemical waste through robotic accuracy."
       },
       {
-        id: "m20-opt-b",
-        key: "B",
-        title: "The Unchecked Expansion: Total Centralized Computational Dominance",
-        isSustainable: false,
-        image: "/assets/city-polluted.svg",
-        shortDescription: "Expand massive gigawatt cloud supercomputers unconditionally; prioritize maximum speed and algorithmic power over ecological constraints.",
-        detailedExplanation:
-          "Build immense nuclear-powered hyperscale data compounds; scrap robotics rapidly to chase the latest microchips, and treat nature as a raw resource to be exploited for digital compute.",
-        advantages: [
-          "Maximized raw benchmark FLOPS and theoretical raw computing speed.",
+        "id": "m16-opt-b",
+        "key": "B",
+        "title": "Continuous Overhead Sprinkler Flooding & Blanket Chemical Spraying",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Turn on high-volume overhead oscillating sprinklers 24/7 and spray synthetic chemical fertilizers across every acre uniformly.",
+        "detailedExplanation": "Farmers turn on massive overhead water cannons during midday heat, pumping groundwater continuously and dusting all crops with synthetic nitrogen powders regardless of plant need.",
+        "advantages": [
+          "Requires zero plant-by-plant sensor monitoring or drone flights"
         ],
-        disadvantages: [
-          "Guarantees ecological collapse; drains rivers for cooling, pollutes soil with toxic e-waste, and creates a fragile totalitarian technological prison.",
+        "disadvantages": [
+          "Evaporates 50% of water in hot air, causes soil salinization, and triggers massive nitrate runoff that causes river dead zones"
         ],
-        pointsAwarded: 50,
-        impacts: { environmental: -35, energy: -35, social: -35, economic: -20 },
-        cityMetricDeltas: {
-          energyIndex: +35,
-          carbonIndex: +35,
-          waterIndex: +35,
-          ewasteIndex: +35,
-          operationalEfficiency: -25,
-          citizenWellbeing: -35,
-          resilienceIndex: -35,
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -28,
+          "energy": -22,
+          "social": -18,
+          "economic": -20
         },
-        sharedCityDeltas: {
-          energyStability: -35,
-          networkStability: -30,
-          environmentalHealth: -40,
-          waterAvailability: -35,
-          rescueProgress: -25,
-          publicTrust: -35,
-          ewasteLevel: +40,
+        "cityMetricDeltas": {
+          "energyIndex": 20,
+          "carbonIndex": 22,
+          "waterIndex": 30,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -18,
+          "resilienceIndex": -22
         },
-        learningObjective: "Intelligence separated from ecological reality leads inevitably to self-destruction.",
-        sdgs: [11, 12, 13],
-        consequenceNarration:
-          "Nova City collapsed under its own technological debt. Smog eclipsed the sun, and the central supercomputer stalled when cooling water ran out.",
-        educationalTakeaway:
-          "Power without responsibility is self-defeating. Sustainable intelligence is the only path that leads to a viable tomorrow.",
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -5,
+          "environmentalHealth": -28,
+          "waterAvailability": -30,
+          "rescueProgress": 2,
+          "publicTrust": -15,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Recognize that blanket irrigation and chemical flooding waste scarce water and poison freshwater ecosystems.",
+        "sdgs": [
+          6,
+          12,
+          15
+        ],
+        "consequenceNarration": "Overhead evaporation drained the regional irrigation canal. Nitrogen runoff triggered an explosive toxic cyanobacteria bloom in Lake Nova.",
+        "educationalTakeaway": "Blanket chemical spraying is a 20th-century failure. Physical AI and precision robotics feed humanity while safeguarding water and soil."
+      }
+    ],
+    "branchingModifiers": [
+      {
+        "conditionMission": 13,
+        "requiredChoice": "A",
+        "headline": "Abundant Aquifer Reserves",
+        "narrativeEffect": "Because water was conserved in Mission 13, agricultural irrigation systems have ample clean water to sustain vegetable yields.",
+        "isPositive": true
       },
+      {
+        "conditionMission": 13,
+        "requiredChoice": "B",
+        "headline": "Severe Water Rationing Pressure",
+        "narrativeEffect": "Due to heavy water losses in Mission 13, farm irrigation is restricted to strict emergency allocations, limiting crop output.",
+        "isPositive": false
+      }
     ],
-    sdgs: [3, 6, 7, 9, 11, 12, 13],
-    summaryNote: "Nova City achieves planetary equilibrium: Intelligence in service of life.",
-    hotspots: [
-      { id: "h20-1", label: "AETHER Responsible Synthesis Spire", x: 50, y: 25, description: "Decentralized neural beacon coordinating municipal ecological balance.", tag: "Responsible AI" },
-      { id: "h20-2", label: "Thriving Green Metropolis", x: 30, y: 70, description: "Vertical greenery, clean zero-emission rovers, and healthy citizens.", tag: "Planetary Equilibrium" },
+    "sdgs": [
+      2,
+      6,
+      12,
+      15
     ],
-    aiConcept: {
-      title: "The Sustainable Intelligence Manifesto",
-      subtitle: "Physical AI × Edge AI × Sustainable Development Goals",
-      definition: "Sustainable Intelligence evaluates technology based on real-world resource consumption, lifecycle durability, physical safety, and human equity.",
-      realWorldExample: "Designing a robotic city that enriches the soil, cleans the water, and powers itself with the sun.",
-      takeaway: "THE FUTURE IS NOT ABOUT MAKING AI MORE POWERFUL. IT IS ABOUT MAKING INTELLIGENCE MORE RESPONSIBLE.",
-      componentType: "general",
-    },
+    "summaryNote": "Multispectral vision and micro-drip fertigation optimize crop nutrition while cutting water consumption by 65%.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 42,
+        "y": 40,
+        "title": "Multispectral NDVI Sensor",
+        "description": "Measures near-infrared light reflectance to detect plant chlorophyll stress before visible wilting."
+      },
+      {
+        "id": "h2",
+        "x": 65,
+        "y": 65,
+        "title": "Sub-Surface Micro-Drip",
+        "description": "Injects precise water droplets directly into the root zone with zero surface evaporation."
+      }
+    ],
+    "aiConcept": {
+      "title": "Precision Agriculture & Physical AI",
+      "subtitle": "Growing food with mathematical and ecological precision",
+      "definition": "Precision agriculture uses robotic platforms, computer vision, and soil sensors to apply exact quantities of water and nutrients only where plants need them.",
+      "realWorldExample": "Laser-guided weeding robots zapping individual invasive weeds with targeted micro-doses instead of spraying entire fields with herbicides.",
+      "takeaway": "Targeting intervention to the individual plant level protects the soil, saves water, and guarantees sustainable food security.",
+      "componentType": "efficiency"
+    }
   },
+  {
+    "id": 17,
+    "number": 17,
+    "chapterNumber": 5,
+    "chapterTitle": "Chapter 5: The Last Decision",
+    "title": "The E-Waste Mountain",
+    "category": "Circular Economy & Hardware Longevity",
+    "heroImage": "/assets/m4-ewaste-crisis.svg",
+    "environmentalContext": "Nova City generates 18,000 metric tons of discarded robotic components, cracked sensors, and worn lithium batteries every quarter.",
+    "storyProblem": "A sprawling industrial e-waste dump on the city outskirts is threatening to leach lead, cadmium, and lithium into groundwater reservoirs.",
+    "prompt": "Choose the electronics lifecycle and robotic supply chain policy.",
+    "question": "How should Nova City manage its accumulated mountain of discarded robotic and sensor electronics?",
+    "options": [
+      {
+        "id": "m17-opt-a",
+        "key": "A",
+        "title": "Standardized Modular Refurbishment & Ultrasonic Rare-Earth Recovery",
+        "isSustainable": true,
+        "image": "/assets/m4-modular-repair.svg",
+        "shortDescription": "Mandate modular robot designs, swapping degraded chips and harvesting neodymium magnets and copper via automated clean recovery.",
+        "detailedExplanation": "The city establishes circular remanufacturing hubs where robots are disassembled with standardized tools. Working compute chips are repurposed for low-power sensors, and copper and rare earths are recycled.",
+        "advantages": [
+          "Recovers 92% of critical rare-earth metals and structural aluminum",
+          "Lowers municipal hardware procurement expenditures by 45%",
+          "Zero toxic heavy metal landfill leaching"
+        ],
+        "disadvantages": [
+          "Requires enforcing standardized component form factors across manufacturers"
+        ],
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 30,
+          "energy": 25,
+          "social": 22,
+          "economic": 25
+        },
+        "cityMetricDeltas": {
+          "energyIndex": -15,
+          "carbonIndex": -22,
+          "waterIndex": -18,
+          "ewasteIndex": -35,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 28
+        },
+        "sharedCityDeltas": {
+          "energyStability": 15,
+          "networkStability": 12,
+          "environmentalHealth": 30,
+          "waterAvailability": 20,
+          "rescueProgress": 15,
+          "publicTrust": 22,
+          "ewasteLevel": -35
+        },
+        "learningObjective": "Understand the circular economy in robotics: modular repair, design for disassembly, and precious metal reclamation.",
+        "sdgs": [
+          9,
+          11,
+          12
+        ],
+        "consequenceNarration": "Landfill e-waste dropped by 80%! 12,000 refurbished robotic rovers were returned to civic service at one-third the cost of new manufacturing.",
+        "educationalTakeaway": "True sustainable robotics designs machines to be repaired and remanufactured, keeping critical elements out of toxic landfills."
+      },
+      {
+        "id": "m17-opt-b",
+        "key": "B",
+        "title": "Crude Hammermill Shredding & Continuous New Unit Purchasing",
+        "isSustainable": false,
+        "image": "/assets/m4-dump-replacement.svg",
+        "shortDescription": "Shred all discarded robot chassis in bulk industrial hammermills, dump the slag in landfills, and buy brand-new replacement fleets.",
+        "detailedExplanation": "The city signs contracts with commercial vendors to dispose of old machines in bulk crushers, sending contaminated slag to open pits and purchasing newly fabricated silicon rovers every 18 months.",
+        "advantages": [
+          "Simpler municipal contracting with commercial replacement vendors"
+        ],
+        "disadvantages": [
+          "Wastes irreplaceable rare-earth minerals, poisons local soils, and consumes massive energy manufacturing new silicon chips"
+        ],
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -30,
+          "energy": -25,
+          "social": -20,
+          "economic": -28
+        },
+        "cityMetricDeltas": {
+          "energyIndex": 22,
+          "carbonIndex": 28,
+          "waterIndex": 22,
+          "ewasteIndex": 40,
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -25
+        },
+        "sharedCityDeltas": {
+          "energyStability": -15,
+          "networkStability": -5,
+          "environmentalHealth": -30,
+          "waterAvailability": -20,
+          "rescueProgress": 2,
+          "publicTrust": -20,
+          "ewasteLevel": 40
+        },
+        "learningObjective": "Recognize that planned obsolescence and single-use electronics cause severe environmental degradation and supply chain fragility.",
+        "sdgs": [
+          11,
+          12
+        ],
+        "consequenceNarration": "Toxic heavy metals leached into the South District water table. The city suffered severe supply chain shortages when raw neodymium prices spiked.",
+        "educationalTakeaway": "Throwing away entire robots because of a broken sensor is an ecological disaster. Modular design is the heart of circular engineering."
+      }
+    ],
+    "sdgs": [
+      9,
+      11,
+      12
+    ],
+    "summaryNote": "Modular repair and component harvesting turn electronic waste into renewable civic hardware.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 35,
+        "y": 62,
+        "title": "Modular Disassembly Bench",
+        "description": "Enables unbolting motors, batteries, and processors with standard tools in under 90 seconds."
+      },
+      {
+        "id": "h2",
+        "x": 72,
+        "y": 48,
+        "title": "Rare-Earth Extractor",
+        "description": "Uses clean ultrasonic separation to recover neodymium magnets without acid baths."
+      }
+    ],
+    "aiConcept": {
+      "title": "The Circular Economy & E-Waste",
+      "subtitle": "Designing physical hardware for infinite lifecycles",
+      "definition": "A circular electronics economy eliminates waste by designing machines with modular, interchangeable components that can be repaired, upgraded, and recycled indefinitely.",
+      "realWorldExample": "Smartphones designed with modular camera and battery modules that users can swap with a standard screwdriver in 2 minutes.",
+      "takeaway": "The greenest robot is not the one made from recycled plastic—it is the one that lasts for decades because it was built to be repaired.",
+      "componentType": "circular"
+    }
+  },
+  {
+    "id": 18,
+    "number": 18,
+    "chapterNumber": 5,
+    "chapterTitle": "Chapter 5: The Last Decision",
+    "title": "The Privacy Breach",
+    "category": "Data Minimization & Responsible AI",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Nova City's central municipal transit database was hacked, exposing unencrypted continuous video footage and GPS coordinates of 2 million citizens.",
+    "storyProblem": "Public outrage is mounting. Citizens are disabling civic environmental sensors and demanding the immediate decommissioning of all urban AI systems.",
+    "prompt": "Choose the civic data architecture and algorithmic privacy protocol.",
+    "question": "How should Nova City restructure its urban perception systems to restore citizen trust and guarantee privacy?",
+    "options": [
+      {
+        "id": "m18-opt-a",
+        "key": "A",
+        "title": "Ephemeral Edge Anonymization & Zero-Retention Cryptographic Hashing",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Process video exclusively in volatile RAM on camera chips, immediately discarding pixels and transmitting only differential aggregate numeric counts.",
+        "detailedExplanation": "Municipal cameras run zero-retention edge firmware. Faces and license plates are blurred inside the sensor hardware; only numeric counts (e.g. '14 bicycles, 2 buses') are transmitted via zero-knowledge proofs.",
+        "advantages": [
+          "Physically impossible for hackers to steal surveillance footage because no video is ever saved",
+          "Restores public trust in municipal smart infrastructure",
+          "Reduces server storage by 99.8%"
+        ],
+        "disadvantages": [
+          "Prevents retroactive review of raw visual footage"
+        ],
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 20,
+          "energy": 20,
+          "social": 30,
+          "economic": 20
+        },
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -12,
+          "waterIndex": -8,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 30,
+          "resilienceIndex": 28
+        },
+        "sharedCityDeltas": {
+          "energyStability": 10,
+          "networkStability": 15,
+          "environmentalHealth": 15,
+          "waterAvailability": 10,
+          "rescueProgress": 15,
+          "publicTrust": 35,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand data minimization and privacy-by-design in edge AI.",
+        "sdgs": [
+          9,
+          11,
+          16
+        ],
+        "consequenceNarration": "Public trust surged! With verified cryptographic proof that cameras discard all raw imagery, citizen task forces voted 92% to re-enable civic sensors.",
+        "educationalTakeaway": "Data that is never collected or stored cannot be hacked. True responsible AI practices strict data minimization."
+      },
+      {
+        "id": "m18-opt-b",
+        "key": "B",
+        "title": "Centralized Encrypted Vault Storage with Retrospective Surveillance Access",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Continue recording raw 24/7 video feeds of all streets, storing petabytes in encrypted government cloud databases for future police queries.",
+        "detailedExplanation": "The city promises stronger cloud encryption but continues recording every public step citizens take, storing massive surveillance databases that remain prime targets for state actors and rogue hackers.",
+        "advantages": [
+          "Preserves historical video archives for retrospective criminal investigation"
+        ],
+        "disadvantages": [
+          "Perpetuates surveillance anxiety, erodes civic trust, and creates honeypots for future cyber breaches"
+        ],
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -15,
+          "energy": -20,
+          "social": -30,
+          "economic": -15
+        },
+        "cityMetricDeltas": {
+          "energyIndex": 18,
+          "carbonIndex": 15,
+          "waterIndex": 10,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -30,
+          "resilienceIndex": -20
+        },
+        "sharedCityDeltas": {
+          "energyStability": -10,
+          "networkStability": -12,
+          "environmentalHealth": -5,
+          "waterAvailability": -5,
+          "rescueProgress": 5,
+          "publicTrust": -35,
+          "ewasteLevel": 2
+        },
+        "learningObjective": "Recognize that centralized storage of mass biometric and surveillance data inevitably leads to breaches and civic alienation.",
+        "sdgs": [
+          10,
+          16
+        ],
+        "consequenceNarration": "Citizens launched boycotts, vandalizing 400 smart sensors. Civic cooperation with environmental monitoring collapsed across four major districts.",
+        "educationalTakeaway": "Encryption alone is not enough. If you collect unnecessary personal data, you are creating a weapon waiting to be exploited."
+      }
+    ],
+    "sdgs": [
+      9,
+      11,
+      16
+    ],
+    "summaryNote": "Edge anonymization and zero-retention processing protect privacy by ensuring raw images never leave the camera.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 38,
+        "y": 52,
+        "title": "Hardware Anonymizer",
+        "description": "Blurs faces and license plates inside the image sensor silicon before memory allocation."
+      },
+      {
+        "id": "h2",
+        "x": 68,
+        "y": 42,
+        "title": "Zero-Knowledge Aggregator",
+        "description": "Transmits mathematical proofs of counts without revealing underlying personal data."
+      }
+    ],
+    "aiConcept": {
+      "title": "Data Minimization & Privacy-by-Design",
+      "subtitle": "The foundational pillar of responsible artificial intelligence",
+      "definition": "Data minimization dictates that AI systems should only collect, process, and retain the absolute minimum amount of data required to perform their specific task.",
+      "realWorldExample": "A smart thermostat detecting if a room is occupied without recording audio conversations or video of the occupants.",
+      "takeaway": "The safest data is the data you never collect. Sustainable AI respects human freedom and dignity.",
+      "componentType": "general"
+    }
+  },
+  {
+    "id": 19,
+    "number": 19,
+    "chapterNumber": 5,
+    "chapterTitle": "Chapter 5: The Last Decision",
+    "title": "The AI Council",
+    "category": "Algorithmic Governance & Human Oversight",
+    "heroImage": "/assets/disaster-recovery.svg",
+    "environmentalContext": "Nova City is drafting its permanent City Charter to define how much authority autonomous AI algorithms and robotic systems will wield over municipal life.",
+    "storyProblem": "Tech corporations are lobbying for complete automated technocratic decision-making, while civic groups demand democratic oversight and human accountability.",
+    "prompt": "Choose the institutional governance and oversight framework for Nova City's AI systems.",
+    "question": "What governance model should determine the deployment and constraints of Nova City's physical AI?",
+    "options": [
+      {
+        "id": "m19-opt-a",
+        "key": "A",
+        "title": "Democratic Multi-Stakeholder Council with Mandatory Human-in-the-Loop",
+        "isSustainable": true,
+        "image": "/assets/m2-collaborative.svg",
+        "shortDescription": "Establish a public oversight council of citizens, environmental scientists, and roboticists with veto authority over all automated algorithms.",
+        "detailedExplanation": "All algorithmic models deployed in the city must have transparent open-source audits. High-consequence decisions (resource allocation, policing, infrastructure shutdowns) require human steward sign-off.",
+        "advantages": [
+          "Ensures algorithms serve the public interest rather than corporate profit",
+          "Prevents black-box automated discrimination and systemic errors",
+          "Fosters enduring civic trust"
+        ],
+        "disadvantages": [
+          "Requires scheduled democratic review sessions for major policy shifts"
+        ],
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 25,
+          "energy": 20,
+          "social": 30,
+          "economic": 20
+        },
+        "cityMetricDeltas": {
+          "energyIndex": -10,
+          "carbonIndex": -12,
+          "waterIndex": -10,
+          "ewasteIndex": 1,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 30,
+          "resilienceIndex": 30
+        },
+        "sharedCityDeltas": {
+          "energyStability": 15,
+          "networkStability": 15,
+          "environmentalHealth": 22,
+          "waterAvailability": 18,
+          "rescueProgress": 15,
+          "publicTrust": 35,
+          "ewasteLevel": 1
+        },
+        "learningObjective": "Understand responsible AI governance: democratic transparency, algorithmic accountability, and human-in-the-loop oversight.",
+        "sdgs": [
+          10,
+          16
+        ],
+        "consequenceNarration": "The Democratic AI Council established world-leading safety protocols. Algorithms remain accountable to citizens, building a flourishing cooperative smart city.",
+        "educationalTakeaway": "Artificial intelligence must be an instrument of democracy and human well-being, never an unaccountable ruler."
+      },
+      {
+        "id": "m19-opt-b",
+        "key": "B",
+        "title": "Autonomous Closed-Source Corporate Technocracy",
+        "isSustainable": false,
+        "image": "/assets/m2-teleop-lag.svg",
+        "shortDescription": "Hand all municipal authority to an automated corporate AI engine with zero public transparency or human intervention rights.",
+        "detailedExplanation": "Private software monopolies control all municipal resource allocation through proprietary black-box algorithms. Citizens have no right to audit decisions, appeal automated fines, or question directives.",
+        "advantages": [
+          "Executes rapid algorithmic decrees without public debate"
+        ],
+        "disadvantages": [
+          "Creates extreme inequality, strips citizens of democratic agency, and produces unaccountable systemic bias"
+        ],
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -20,
+          "energy": -20,
+          "social": -35,
+          "economic": -15
+        },
+        "cityMetricDeltas": {
+          "energyIndex": 18,
+          "carbonIndex": 15,
+          "waterIndex": 12,
+          "ewasteIndex": 3,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -35,
+          "resilienceIndex": -25
+        },
+        "sharedCityDeltas": {
+          "energyStability": -10,
+          "networkStability": -5,
+          "environmentalHealth": -15,
+          "waterAvailability": -10,
+          "rescueProgress": 5,
+          "publicTrust": -35,
+          "ewasteLevel": 3
+        },
+        "learningObjective": "Recognize that unchecked automated technocracy without democratic accountability leads to disenfranchisement and social collapse.",
+        "sdgs": [
+          10,
+          16
+        ],
+        "consequenceNarration": "Corporate algorithms optimized for revenue cut water to low-income neighborhoods during heatwaves. Mass civil strikes erupted across Nova City.",
+        "educationalTakeaway": "Technology without human ethics is tyranny. Algorithmic governance must always remain subservient to human rights and dignity."
+      }
+    ],
+    "branchingModifiers": [
+      {
+        "conditionMission": 18,
+        "requiredChoice": "A",
+        "headline": "High Ethical Credibility",
+        "narrativeEffect": "Because privacy was protected in Mission 18, the AI Council enjoys broad public support across all demographic sectors.",
+        "isPositive": true
+      },
+      {
+        "conditionMission": 18,
+        "requiredChoice": "B",
+        "headline": "Deep Public Cynicism",
+        "narrativeEffect": "Due to privacy breaches in Mission 18, citizens attend Council hearings with deep distrust, requiring intensive mediation.",
+        "isPositive": false
+      }
+    ],
+    "sdgs": [
+      10,
+      16
+    ],
+    "summaryNote": "Democratic multi-stakeholder oversight ensures AI systems serve public wellbeing and environmental sustainability.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 40,
+        "y": 48,
+        "title": "Algorithmic Audit Chamber",
+        "description": "Independent engineers review model code and bias metrics before deployment."
+      },
+      {
+        "id": "h2",
+        "x": 65,
+        "y": 55,
+        "title": "Citizen Review Assembly",
+        "description": "Elected public representatives hold veto power over municipal autonomous policies."
+      }
+    ],
+    "aiConcept": {
+      "title": "Algorithmic Accountability & Oversight",
+      "subtitle": "Keeping intelligence subservient to human values",
+      "definition": "Algorithmic accountability requires that decisions made or influenced by AI models can be inspected, explained, challenged, and overridden by human stewards.",
+      "realWorldExample": "Regulations requiring banks to explain why an AI system denied a mortgage and allowing humans to overturn erroneous automated rejections.",
+      "takeaway": "The future belongs to responsible intelligence that uplifts humanity while protecting the biosphere.",
+      "componentType": "general"
+    }
+  },
+  {
+    "id": 20,
+    "number": 20,
+    "chapterNumber": 5,
+    "chapterTitle": "Chapter 5: The Last Decision",
+    "title": "The Final Protocol",
+    "category": "The Grand Synthesis: Physical AI × Edge AI × SDGs",
+    "heroImage": "/assets/city-sustainable.svg",
+    "environmentalContext": "Year 2045. The entire 20-mission campaign culminates here. Nova City stands at the crossroads of ecological rebirth or technological collapse.",
+    "storyProblem": "The Task Force must ratify the permanent master operating system for Nova City. Every lesson learned across Edge AI, Physical AI, Energy, Ecology, and Ethics is tested in this final vote.",
+    "prompt": "Cast your final vote to determine the permanent operational charter of Nova City.",
+    "question": "Which permanent foundational protocol will you activate for Nova City's future?",
+    "options": [
+      {
+        "id": "m20-opt-a",
+        "key": "A",
+        "title": "The Sustainable Intelligence Compact: Physical AI in Harmony with Planetary Limits",
+        "isSustainable": true,
+        "image": "/assets/city-sustainable.svg",
+        "shortDescription": "Activate decentralized Edge AI, circular modular robotics, 100% renewable energy synchronization, and democratic human governance.",
+        "detailedExplanation": "Nova City adopts the Sustainable Intelligence Compact. Intelligence is computed thriftily at the physical edge; robots are built for decades of circular repair; computing runs on clean solar and wind; and algorithms serve human dignity and the biosphere.",
+        "advantages": [
+          "Guarantees long-term planetary equilibrium and zero toxic e-waste",
+          "Achieves 100% energy independence powered by clean microgrids",
+          "Ensures human liberty, transparent privacy, and democratic flourishing"
+        ],
+        "disadvantages": [
+          "Requires discipline, continuous education, and collaborative maintenance across society"
+        ],
+        "pointsAwarded": 100,
+        "impacts": {
+          "environmental": 35,
+          "energy": 30,
+          "social": 35,
+          "economic": 25
+        },
+        "cityMetricDeltas": {
+          "energyIndex": -25,
+          "carbonIndex": -35,
+          "waterIndex": -35,
+          "ewasteIndex": -40,
+          "operationalEfficiency": 35,
+          "citizenWellbeing": 35,
+          "resilienceIndex": 40
+        },
+        "sharedCityDeltas": {
+          "energyStability": 30,
+          "networkStability": 30,
+          "environmentalHealth": 35,
+          "waterAvailability": 30,
+          "rescueProgress": 30,
+          "publicTrust": 35,
+          "ewasteLevel": -40
+        },
+        "learningObjective": "Synthesize all workshop pillars: Physical AI embodied in reality, Edge AI computing thriftily, aligned with the United Nations Sustainable Development Goals.",
+        "sdgs": [
+          3,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12,
+          13,
+          15,
+          16
+        ],
+        "consequenceNarration": "NOVA CITY IS REBORN! Electric microgrids hum in harmony with green forest corridors. Autonomous robots repair infrastructure alongside human engineers. The future is bright!",
+        "educationalTakeaway": "The future is not about making AI more powerful. It is about making intelligence more responsible. You have mastered the Sustainable Intelligence Challenge!"
+      },
+      {
+        "id": "m20-opt-b",
+        "key": "B",
+        "title": "The Unchecked Expansion: Total Centralized Computational Dominance",
+        "isSustainable": false,
+        "image": "/assets/city-polluted.svg",
+        "shortDescription": "Double down on massive centralized cloud megastructures, planned hardware obsolescence, and unrestricted energy extraction.",
+        "detailedExplanation": "Nova City constructs ever-larger centralized compute warehouses, consuming dwindling aquifers and fossil fuels to maximize raw compute numbers, ignoring e-waste accumulation and citizen privacy.",
+        "advantages": [
+          "Maximizes raw brute-force compute benchmarks on paper"
+        ],
+        "disadvantages": [
+          "Depletes water tables, causes rolling blackouts, creates mountains of toxic e-waste, and alienates citizens"
+        ],
+        "pointsAwarded": 30,
+        "impacts": {
+          "environmental": -35,
+          "energy": -30,
+          "social": -35,
+          "economic": -20
+        },
+        "cityMetricDeltas": {
+          "energyIndex": 30,
+          "carbonIndex": 35,
+          "waterIndex": 35,
+          "ewasteIndex": 45,
+          "operationalEfficiency": -25,
+          "citizenWellbeing": -35,
+          "resilienceIndex": -35
+        },
+        "sharedCityDeltas": {
+          "energyStability": -30,
+          "networkStability": -30,
+          "environmentalHealth": -35,
+          "waterAvailability": -30,
+          "rescueProgress": -10,
+          "publicTrust": -35,
+          "ewasteLevel": 45
+        },
+        "learningObjective": "Understand that chasing raw technological power without sustainability inevitably leads to physical and societal collapse.",
+        "sdgs": [
+          7,
+          9,
+          11,
+          12,
+          13
+        ],
+        "consequenceNarration": "THE LAST SIGNAL FAILS. The overtaxed grid collapsed into permanent blackouts. Piles of electronic waste choked the rivers as citizens abandoned the hyper-centralized city.",
+        "educationalTakeaway": "Technology decoupled from planetary boundaries destroys the very civilization it was built to sustain. We must choose responsibility."
+      }
+    ],
+    "branchingModifiers": [
+      {
+        "conditionMission": 17,
+        "requiredChoice": "A",
+        "headline": "Circular Supply Chain Ready",
+        "narrativeEffect": "Because modular repair was mandated in Mission 17, the city possesses thousands of refurbished robotic units ready for sustainable protocol deployment.",
+        "isPositive": true
+      },
+      {
+        "conditionMission": 17,
+        "requiredChoice": "B",
+        "headline": "E-Waste Crisis Hindrance",
+        "narrativeEffect": "Due to landfill dumping in Mission 17, severe supply chain deficits and toxic runoffs complicate city-wide deployment.",
+        "isPositive": false
+      }
+    ],
+    "sdgs": [
+      3,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      15,
+      16
+    ],
+    "summaryNote": "The Sustainable Intelligence Compact unites Physical AI, Edge AI, and the SDGs into a flourishing civilization.",
+    "hotspots": [
+      {
+        "id": "h1",
+        "x": 50,
+        "y": 35,
+        "title": "Planetary Harmony Spire",
+        "description": "Monitors real-time carbon, water, and energy balance across all 20 municipal sectors."
+      },
+      {
+        "id": "h2",
+        "x": 50,
+        "y": 75,
+        "title": "Decentralized Edge Fabric",
+        "description": "Distributes computing intelligence across millions of autonomous, energy-thrifty physical devices."
+      }
+    ],
+    "aiConcept": {
+      "title": "The Sustainable Intelligence Manifesto",
+      "subtitle": "Physical AI × Edge AI × Sustainable Development Goals",
+      "definition": "The philosophy that artificial intelligence must be engineered within planetary thermodynamic boundaries, embodied responsibly in physical machines, and governed democratically for human flourishing.",
+      "realWorldExample": "A global future where clean energy microgrids, circular robotics, and edge intelligence work together in harmony with Earth's ecosystems.",
+      "takeaway": "The future is not about making AI more powerful. It is about making intelligence more responsible.",
+      "componentType": "general"
+    }
+  }
 ];

@@ -423,6 +423,38 @@ export function presenterToggleResubmission(
   return state;
 }
 
+export function presenterSetTimer(
+  seconds: number | null,
+  pin: string = DEFAULT_PIN
+): GameState {
+  sendPresenterActionOnline(pin, "set_timer", { seconds });
+  const state = loadGameState();
+  state.session.timerSecondsRemaining = seconds;
+  saveGameState(state);
+  return state;
+}
+
+export function presenterTriggerSurpriseEvent(
+  event: any,
+  pin: string = DEFAULT_PIN
+): GameState {
+  sendPresenterActionOnline(pin, "trigger_surprise_event", { event });
+  const state = loadGameState();
+  state.session.activeSurpriseEvent = event;
+  saveGameState(state);
+  return state;
+}
+
+export function presenterClearSurpriseEvent(
+  pin: string = DEFAULT_PIN
+): GameState {
+  sendPresenterActionOnline(pin, "clear_surprise_event");
+  const state = loadGameState();
+  state.session.activeSurpriseEvent = null;
+  saveGameState(state);
+  return state;
+}
+
 export function presenterEndSession(pin: string = DEFAULT_PIN): GameState {
   sendPresenterActionOnline(pin, "advance_mission");
   const state = loadGameState();

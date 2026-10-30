@@ -12,6 +12,8 @@ import {
   Users,
   Trees,
   Shield,
+  Sprout,
+  Waves,
 } from "lucide-react";
 
 interface SDGBadgeProps {
@@ -21,6 +23,7 @@ interface SDGBadgeProps {
 }
 
 const SDG_ICONS: Record<SDGNumber, React.ReactNode> = {
+  2: <Sprout className="w-3.5 h-3.5" />,
   3: <HeartPulse className="w-3.5 h-3.5" />,
   6: <Droplets className="w-3.5 h-3.5" />,
   7: <Zap className="w-3.5 h-3.5" />,
@@ -29,6 +32,7 @@ const SDG_ICONS: Record<SDGNumber, React.ReactNode> = {
   11: <Building2 className="w-3.5 h-3.5" />,
   12: <Recycle className="w-3.5 h-3.5" />,
   13: <Globe className="w-3.5 h-3.5" />,
+  14: <Waves className="w-3.5 h-3.5" />,
   15: <Trees className="w-3.5 h-3.5" />,
   16: <Shield className="w-3.5 h-3.5" />,
 };

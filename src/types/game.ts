@@ -1,4 +1,4 @@
-export type SDGNumber = 3 | 6 | 7 | 9 | 10 | 11 | 12 | 13 | 15 | 16;
+export type SDGNumber = 2 | 3 | 6 | 7 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
 
 export interface SDGInfo {
   number: SDGNumber;
@@ -8,13 +8,43 @@ export interface SDGInfo {
   iconName: string;
 }
 
+export type TeamName = "TEAM TITAN" | "TEAM NOVA" | "TEAM ORBIT" | "TEAM PHOENIX" | string;
+
+export interface TeamScore {
+  name: string;
+  teamName?: string;
+  totalScore: number;
+  memberCount: number;
+  averageScore: number;
+  sustainablePct: number;
+}
+
+export type BadgeId =
+  | "edge_ai_explorer"
+  | "physical_ai_engineer"
+  | "rescue_strategist"
+  | "energy_guardian"
+  | "water_protector"
+  | "circular_economy_champion"
+  | "responsible_ai_defender"
+  | "nova_city_saviour";
+
+export interface BadgeInfo {
+  id: BadgeId;
+  title: string;
+  description: string;
+  iconName: string;
+  unlocked: boolean;
+}
+
 export interface LearningHotspot {
   id: string;
-  label: string;
+  label?: string;
+  title?: string;
   x: number; // percentage 0-100
   y: number; // percentage 0-100
   description: string;
-  tag: string;
+  tag?: string;
 }
 
 export interface DecisionOption {
@@ -27,7 +57,7 @@ export interface DecisionOption {
   detailedExplanation: string;
   advantages: string[];
   disadvantages: string[];
-  pointsAwarded: number; // 250 for sustainable, 50 for unsustainable
+  pointsAwarded: number; // 100 for sustainable, 30 for unsustainable (20 missions x 100 = 2000 base max)
   impacts: {
     environmental: number; // delta
     energy: number;
@@ -77,6 +107,24 @@ export interface Chapter {
   missionRange: [number, number];
 }
 
+export interface BranchingModifier {
+  conditionMission: number;
+  requiredChoice: "A" | "B";
+  headline: string;
+  narrativeEffect: string;
+  isPositive: boolean;
+}
+
+export interface SurpriseEvent {
+  id: string;
+  title: string;
+  description: string;
+  severity: "warning" | "critical" | "info";
+  affectedMetric: keyof SharedCityMetrics;
+  delta: number;
+  recommendedAction: string;
+}
+
 export interface Mission {
   id: number;
   number: number; // 1 to 20
@@ -93,6 +141,7 @@ export interface Mission {
   sdgs: SDGNumber[];
   summaryNote: string;
   hotspots: LearningHotspot[];
+  branchingModifiers?: BranchingModifier[];
   aiConcept: {
     title: string;
     subtitle: string;
@@ -104,14 +153,15 @@ export interface Mission {
 }
 
 export interface ParticipantScore {
-  environmental: number; // 0 - 1000 base
-  energy: number;        // 0 - 1000 base
-  social: number;        // 0 - 1000 base
-  economic: number;      // 0 - 1000 base
-  total: number;         // accumulated points
+  environmental: number; // 0 - 2000 base
+  energy: number;        // 0 - 2000 base
+  social: number;        // 0 - 2000 base
+  economic: number;      // 0 - 2000 base
+  total: number;         // accumulated points (max 2000 base)
   rating: string;
   sustainableCount: number;
   unsustainableCount: number;
+  badges?: BadgeId[];
 }
 
 // 7 Collective Room Simulation Indicators (Section 8)
@@ -147,7 +197,7 @@ export interface Participant {
   id: string;
   workshopId: string;
   fullName: string;
-  teamName?: string;
+  teamName: TeamName;
   joinedAt: string;
   connectionStatus: "online" | "offline";
   currentMission: number;
@@ -168,6 +218,8 @@ export interface WorkshopSession {
   registrationOpen: boolean;
   createdAt: string;
   sharedCityMetrics: SharedCityMetrics;
+  timerSecondsRemaining?: number | null; // Mission countdown timer
+  activeSurpriseEvent?: SurpriseEvent | null;
 }
 
 export interface SubmissionRecord {
@@ -175,7 +227,7 @@ export interface SubmissionRecord {
   workshopId: string;
   participantId: string;
   participantName: string;
-  teamName?: string;
+  teamName: TeamName;
   missionNumber: number;
   optionKey: "A" | "B";
   optionTitle: string;

@@ -17,6 +17,9 @@ import {
   presenterToggleResubmission,
   presenterEndSession,
   presenterResetWorkshop,
+  presenterSetTimer,
+  presenterTriggerSurpriseEvent,
+  presenterClearSurpriseEvent,
   awardParticipantBonus,
   DEFAULT_PIN,
 } from "@/lib/sync-engine";
@@ -136,6 +139,18 @@ export function useGameState() {
     return presenterResetWorkshop(gameState.session.pin || DEFAULT_PIN);
   }, [gameState.session.pin]);
 
+  const handlePresenterSetTimer = useCallback((seconds: number | null) => {
+    return presenterSetTimer(seconds, gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
+
+  const handlePresenterTriggerSurprise = useCallback((event: any) => {
+    return presenterTriggerSurpriseEvent(event, gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
+
+  const handlePresenterClearSurprise = useCallback(() => {
+    return presenterClearSurpriseEvent(gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
+
   const logoutParticipant = useCallback(() => {
     localStorage.removeItem(PARTICIPANT_KEY);
     setCurrentParticipantId(null);
@@ -167,5 +182,8 @@ export function useGameState() {
     toggleResubmission: handlePresenterToggleResubmission,
     endSession: handlePresenterEndSession,
     resetWorkshop: handlePresenterReset,
+    setTimer: handlePresenterSetTimer,
+    triggerSurpriseEvent: handlePresenterTriggerSurprise,
+    clearSurpriseEvent: handlePresenterClearSurprise,
   };
 }

@@ -10,7 +10,9 @@ import { PresenterDecisionMonitor } from "@/components/PresenterDecisionMonitor"
 import { SharedCityHUD } from "@/components/SharedCityHUD";
 import { QRCodeSVG } from "qrcode.react";
 import { sound } from "@/lib/audio";
-import { MISSIONS } from "@/lib/game-data";
+import { MISSIONS, SURPRISE_EVENTS } from "@/lib/game-data";
+import { TeamLeaderboard } from "@/components/TeamLeaderboard";
+import { TeamScore } from "@/types/game";
 import {
   Play,
   Pause,
@@ -46,6 +48,9 @@ export default function PresenterDashboardPage() {
     toggleRegistration,
     toggleResubmission,
     resetWorkshop,
+    setTimer,
+    triggerSurpriseEvent,
+    clearSurpriseEvent,
   } = useGameState();
 
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
@@ -86,16 +91,27 @@ export default function PresenterDashboardPage() {
     (a, b) => b.score.total - a.score.total
   );
 
-  // Team aggregated scores
-  const teamScores = participants.reduce((acc, p) => {
-    const t = p.teamName || "Independent";
-    if (!acc[t]) acc[t] = { name: t, total: 0, count: 0 };
-    acc[t].total += p.score.total;
-    acc[t].count += 1;
+  // Team aggregated scores for TeamLeaderboard
+  const teamScoresMap = participants.reduce((acc, p) => {
+    const t = (p.teamName || "Independent").toUpperCase();
+    if (!acc[t]) {
+      acc[t] = { name: t, teamName: t, totalScore: 0, memberCount: 0, sustainableCount: 0, totalAnswered: 0 };
+    }
+    acc[t].totalScore += p.score.total;
+    acc[t].memberCount += 1;
+    acc[t].sustainableCount += p.score.sustainableCount;
+    acc[t].totalAnswered += (p.score.sustainableCount + p.score.unsustainableCount);
     return acc;
-  }, {} as Record<string, { name: string; total: number; count: number }>);
+  }, {} as Record<string, any>);
 
-  const sortedTeamScores = Object.values(teamScores).sort((a, b) => b.total - a.total);
+  const calculatedTeams: TeamScore[] = Object.values(teamScoresMap).map((t: any) => ({
+    name: t.name,
+    teamName: t.name,
+    totalScore: t.totalScore,
+    memberCount: t.memberCount,
+    averageScore: t.memberCount ? Math.round(t.totalScore / t.memberCount) : 0,
+    sustainablePct: t.totalAnswered ? Math.round((t.sustainableCount / t.totalAnswered) * 100) : 0,
+  }));
 
   const joinUrl =
     typeof window !== "undefined"
@@ -278,6 +294,64 @@ export default function PresenterDashboardPage() {
         {/* Room Collective Shared Simulation Telemetry */}
         <SharedCityHUD metrics={sharedCityMetrics} />
 
+        {/* Workshop Event & Countdown Trigger Deck (Sections 6 & 10) */}
+        <div className="glass-panel p-4 rounded-2xl border border-white/10 bg-[#070D1B] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+          {/* Left: Mission Countdown Timer Controls */}
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-amber-400" />
+            <span className="text-white/70 font-bold uppercase">Decision Timer:</span>
+            {[30, 60, 90, 120].map((sec) => (
+              <button
+                key={sec}
+                type="button"
+                onClick={() => setTimer(sec)}
+                className={`px-2.5 py-1 rounded-lg border font-bold text-xs transition-colors ${
+                  session.timerSecondsRemaining === sec
+                    ? "bg-amber-400 text-black border-amber-400"
+                    : "border-white/10 bg-[#0B1528] text-amber-300 hover:bg-amber-500/20"
+                }`}
+              >
+                {sec}s
+              </button>
+            ))}
+            {session.timerSecondsRemaining !== null && session.timerSecondsRemaining !== undefined && (
+              <button
+                type="button"
+                onClick={() => setTimer(null)}
+                className="px-2.5 py-1 rounded-lg border border-red-500/40 bg-red-950/40 text-red-300 hover:bg-red-900/40 font-bold text-xs"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          {/* Right: Surprise Events Injector */}
+          <div className="flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 text-red-400" />
+            <span className="text-white/70 font-bold uppercase">Surprise Event:</span>
+            <select
+              value={session.activeSurpriseEvent?.id || ""}
+              onChange={(e) => {
+                const eventId = e.target.value;
+                if (!eventId) {
+                  clearSurpriseEvent();
+                } else {
+                  const ev = SURPRISE_EVENTS.find((s) => s.id === eventId);
+                  if (ev) triggerSurpriseEvent(ev);
+                }
+              }}
+              className="px-3 py-1.5 rounded-lg border border-white/20 bg-[#0B1528] text-white font-mono text-xs focus:outline-none focus:border-cyan-400"
+            >
+              <option value="">No Active Event</option>
+              {SURPRISE_EVENTS.map((ev) => (
+                <option key={ev.id} value={ev.id}>
+                  {ev.title} ({ev.severity.toUpperCase()})
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
         {/* 20-Mission Quick-Jump Rail for Presenter Pacing */}
         <div className="glass-panel p-4 rounded-2xl border border-white/10 bg-[#070D1B] space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
@@ -433,28 +507,9 @@ export default function PresenterDashboardPage() {
               </table>
             </div>
 
-            {/* Team Standings Summary */}
+            {/* Team Battle Mode Standings (Section 6) */}
             <div className="pt-3 border-t border-white/10">
-              <h4 className="text-xs font-mono font-bold uppercase text-[#35D5FF] mb-2">
-                Team Standings
-              </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {sortedTeamScores.map((t, idx) => (
-                  <div
-                    key={t.name}
-                    className="p-2.5 rounded-xl bg-[#070D1B] border border-white/5 font-mono text-xs space-y-1"
-                  >
-                    <div className="flex items-center justify-between text-[#98A8BD]">
-                      <span className="font-bold text-white truncate">{t.name}</span>
-                      <span>#{idx + 1}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] text-[#98A8BD]">{t.count} cadets</span>
-                      <span className="font-black text-[#38E58B]">{t.total} pts</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <TeamLeaderboard teams={calculatedTeams} />
             </div>
           </div>
 

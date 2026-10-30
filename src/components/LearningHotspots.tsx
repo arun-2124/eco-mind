@@ -36,7 +36,7 @@ export function LearningHotspots({ hotspots, heroImage }: LearningHotspotsProps)
               type="button"
               onClick={() => setActiveHotspot(hs)}
               className="relative flex items-center justify-center w-8 h-8 rounded-full bg-[#35D5FF]/20 border border-[#35D5FF] text-[#35D5FF] hover:scale-125 transition-all shadow-lg shadow-[#35D5FF]/30 group/btn"
-              title={hs.label}
+              title={hs.label || hs.title}
             >
               {/* Pulsating ring */}
               <span className="absolute -inset-1 rounded-full bg-[#35D5FF]/30 animate-ping pointer-events-none" />
@@ -61,7 +61,7 @@ export function LearningHotspots({ hotspots, heroImage }: LearningHotspotsProps)
           <div className="p-4 rounded-xl bg-[#091322]/95 border-2 border-[#35D5FF] shadow-2xl backdrop-blur-md space-y-2 font-mono">
             <div className="flex items-center justify-between">
               <span className="text-[10px] px-2 py-0.5 rounded bg-[#35D5FF]/20 text-[#35D5FF] font-bold uppercase tracking-wider">
-                {activeHotspot.tag}
+                {activeHotspot.tag || "Telemetry Node"}
               </span>
               <button
                 type="button"
@@ -72,7 +72,7 @@ export function LearningHotspots({ hotspots, heroImage }: LearningHotspotsProps)
               </button>
             </div>
             <h4 className="font-bold text-white text-sm">
-              {activeHotspot.label}
+              {activeHotspot.label || activeHotspot.title}
             </h4>
             <p className="text-xs text-[#98A8BD] leading-relaxed">
               {activeHotspot.description}

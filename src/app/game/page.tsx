@@ -18,6 +18,8 @@ import { InteractiveEfficiency } from "@/components/InteractiveEfficiency";
 import { InteractiveCircularEconomy } from "@/components/InteractiveCircularEconomy";
 import { DecisionOption } from "@/types/game";
 import { sound } from "@/lib/audio";
+import { getMissionSituationalIntelligence } from "@/lib/branching";
+import { ChapterModal } from "@/components/ChapterModal";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
@@ -30,6 +32,9 @@ import {
   HelpCircle,
   Activity,
   Layers,
+  AlertTriangle,
+  Info,
+  Compass,
 } from "lucide-react";
 
 export default function GamePage() {
@@ -49,6 +54,14 @@ export default function GamePage() {
   const [stagedOption, setStagedOption] = useState<DecisionOption | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showChapterModal, setShowChapterModal] = useState(false);
+
+  // Situational intelligence & branching narrative alerts
+  const situationalIntel = getMissionSituationalIntelligence(
+    session.currentMission,
+    currentParticipant?.decisions || {},
+    sharedCityMetrics
+  );
 
   // Check if participant is registered
   useEffect(() => {
@@ -136,13 +149,22 @@ export default function GamePage() {
             </div>
           </div>
 
-          {/* Center: Mission Progress (01 / 20) */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0C172E] border border-white/10">
-            <span className="text-[10px] text-[#98A8BD] uppercase">Mission:</span>
-            <span className="text-sm font-black text-[#35D5FF]">
-              {String(session.currentMission).padStart(2, "0")}{" "}
-              <span className="text-[#98A8BD] font-normal text-xs">/ 20</span>
-            </span>
+          {/* Center: Mission Progress (01 / 20) & Optional Countdown */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#0C172E] border border-white/10">
+              <span className="text-[10px] text-[#98A8BD] uppercase">Mission:</span>
+              <span className="text-sm font-black text-[#35D5FF]">
+                {String(session.currentMission).padStart(2, "0")}{" "}
+                <span className="text-[#98A8BD] font-normal text-xs">/ 20</span>
+              </span>
+            </div>
+
+            {session.timerSecondsRemaining !== undefined && session.timerSecondsRemaining !== null && (
+              <div className="px-3 py-1.5 rounded-xl border border-amber-500/50 bg-amber-950/60 font-mono text-amber-300 font-bold text-xs flex items-center gap-1.5 animate-pulse">
+                <Clock className="w-3.5 h-3.5 text-amber-400" />
+                <span>{session.timerSecondsRemaining}s</span>
+              </div>
+            )}
           </div>
 
           {/* Right: Session PIN & Cadet Standing */}
@@ -176,6 +198,57 @@ export default function GamePage() {
 
       {/* Main Campaign Canvas */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+        {/* Surprise Event Broadcast (Section 10) */}
+        {session.activeSurpriseEvent && (
+          <div className="p-4 rounded-2xl border-2 border-red-500 bg-red-950/70 text-red-200 font-mono text-xs flex items-start gap-3 shadow-2xl animate-pulse">
+            <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="font-black text-sm uppercase tracking-wider text-red-400">
+                  SURPRISE SECTOR EVENT: {session.activeSurpriseEvent.title}
+                </span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/40 font-bold">
+                  {session.activeSurpriseEvent.severity.toUpperCase()}
+                </span>
+              </div>
+              <p className="text-white/90 text-xs">{session.activeSurpriseEvent.description}</p>
+              <p className="text-[11px] text-amber-300 font-bold">
+                Impact: {String(session.activeSurpriseEvent.affectedMetric)} ({session.activeSurpriseEvent.delta > 0 ? "+" : ""}{session.activeSurpriseEvent.delta}) — {session.activeSurpriseEvent.recommendedAction}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Situational Intelligence & Branching Story Alerts (Section 9) */}
+        <div className="p-4 rounded-2xl border border-white/10 bg-[#070E1F] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs shadow-lg">
+          <div className="flex flex-wrap items-center gap-2">
+            <Compass className="w-4 h-4 text-cyan-400 shrink-0" />
+            <span className="text-white/60">Tactical Status:</span>
+            <span
+              className="px-2 py-0.5 rounded font-bold text-[10px] border"
+              style={{
+                color: situationalIntel.statusColor,
+                borderColor: `${situationalIntel.statusColor}40`,
+                backgroundColor: `${situationalIntel.statusColor}15`,
+              }}
+            >
+              {situationalIntel.systemStatus}
+            </span>
+            <span className="text-white/80 text-[11px] hidden sm:inline truncate max-w-lg">
+              {situationalIntel.tacticalNote}
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setShowChapterModal(true)}
+            className="text-[11px] text-cyan-400 hover:text-cyan-300 font-mono flex items-center gap-1.5 px-3 py-1 rounded-lg border border-cyan-500/20 bg-cyan-950/40 shrink-0 hover:bg-cyan-900/40 transition-colors"
+          >
+            <Activity className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Chapter {activeMission.chapterNumber} Debrief</span>
+          </button>
+        </div>
+
         {/* =========================================================================
             SECTION 7: CENTER — CINEMATIC BRIEFING & EMERGENCY CONTEXT
             - Large cinematic mission illustration
@@ -353,6 +426,15 @@ export default function GamePage() {
           </div>
         </section>
       </main>
+
+      {/* Chapter Completion Debrief Modal (Section 14) */}
+      <ChapterModal
+        chapterNumber={activeMission.chapterNumber}
+        isOpen={showChapterModal}
+        onClose={() => setShowChapterModal(false)}
+        playerDecisions={currentParticipant.decisions}
+        playerScore={currentParticipant.score.total}
+      />
     </div>
   );
 }

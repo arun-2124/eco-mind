@@ -291,6 +291,30 @@ export function updateServerPresenterAction(
       room.session.allowResubmission = !room.session.allowResubmission;
       break;
 
+    case "set_timer":
+      room.session.timerSecondsRemaining = payload?.seconds !== undefined ? payload.seconds : null;
+      break;
+
+    case "trigger_surprise_event": {
+      const event = payload?.event || null;
+      room.session.activeSurpriseEvent = event;
+      if (event && event.affectedMetric) {
+        // Apply delta to shared metric
+        const metricKey = event.affectedMetric as keyof SharedCityMetrics;
+        if (typeof room.session.sharedCityMetrics[metricKey] === "number") {
+          (room.session.sharedCityMetrics as any)[metricKey] = Math.max(
+            5,
+            Math.min(100, (room.session.sharedCityMetrics as any)[metricKey] + event.delta)
+          );
+        }
+      }
+      break;
+    }
+
+    case "clear_surprise_event":
+      room.session.activeSurpriseEvent = null;
+      break;
+
     case "reset_room":
       room.session.currentMission = 1;
       room.session.consequencesRevealed = false;

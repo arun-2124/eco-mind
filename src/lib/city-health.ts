@@ -142,7 +142,7 @@ export function getCityCondition(metrics: CityMetrics): {
   if (netBalance >= 25) {
     return {
       status: "Thriving",
-      color: "#38E58B",
+      color: "#10B981",
       summary: "Nova City is a beacon of ecological balance, clean energy autonomy, and responsible robotics.",
       visualLevel: 5,
     };
@@ -150,7 +150,7 @@ export function getCityCondition(metrics: CityMetrics): {
   if (netBalance >= 5) {
     return {
       status: "Sustainable",
-      color: "#35D5FF",
+      color: "#00F0FF",
       summary: "Stable computational overhead, clean power transitions, and healthy community ecosystems.",
       visualLevel: 4,
     };
@@ -158,7 +158,7 @@ export function getCityCondition(metrics: CityMetrics): {
   if (netBalance >= -15) {
     return {
       status: "Recovering",
-      color: "#FCC30B",
+      color: "#FBBF24",
       summary: "Systemic collapse averted. Vital services functioning with active green retrofits underway.",
       visualLevel: 3,
     };
@@ -166,79 +166,117 @@ export function getCityCondition(metrics: CityMetrics): {
   if (netBalance >= -35) {
     return {
       status: "Unstable",
-      color: "#F6B94A",
+      color: "#F97316",
       summary: "Frequent brownouts, lingering e-waste hazards, and volatile edge-cloud infrastructure.",
       visualLevel: 2,
     };
   }
   return {
     status: "Critical",
-    color: "#FF5B65",
+    color: "#EF4444",
     summary: "Catastrophic environmental degradation, resource depletion, and grid failure across Nova City.",
     visualLevel: 1,
   };
 }
 
-export function determineCityEnding(
-  totalScore: number,
-  sustainableCount: number,
-  metrics: CityMetrics
-): {
-  key: "GREEN_FUTURE" | "TECH_WITHOUT_BALANCE" | "FRAGILE_CITY" | "RECOVERY_IN_PROGRESS";
+export interface CityEnding {
+  key: "GREEN_HORIZON" | "FRAGILE_TOMORROW" | "THE_LAST_WARNING";
   title: string;
   subtitle: string;
   description: string;
   badge: string;
   color: string;
   image: string;
-} {
-  if (sustainableCount >= 3 || totalScore >= 750) {
+  actionPlan: string[];
+}
+
+/**
+ * Three Final Endings (Section 15 of Master Build Prompt)
+ */
+export function determineCityEnding(
+  totalScore: number,
+  sustainableCount: number,
+  metrics?: CityMetrics
+): CityEnding {
+  // Ending 1: GREEN HORIZON (Sustainable >= 14 or Score >= 1500)
+  if (sustainableCount >= 14 || totalScore >= 1500) {
     return {
-      key: "GREEN_FUTURE",
-      title: "1. GREEN FUTURE",
-      subtitle: "The Eco-Intelligent Metropolis",
+      key: "GREEN_HORIZON",
+      title: "ENDING 1 — GREEN HORIZON",
+      subtitle: "The Eco-Intelligent Metropolis in Planetary Equilibrium",
       description:
-        "Nova City thrives as an inspiring global model of responsible technology. Through local edge AI, collaborative physical robotics, workload optimization, and modular circular repairs, human well-being and natural ecosystems flourish in planetary equilibrium.",
-      badge: "Planetary Equilibrium Achieved",
-      color: "#38E58B",
+        "NOVA CITY becomes a sustainable and resilient smart city! Responsible AI, embodied robotics, renewable energy microgrids, and citizen governance work together in harmony. Clean water flows freely, electronic waste is eliminated through circular repair hubs, and edge intelligence guards civic wellbeing.",
+      badge: "Planetary Equilibrium Champion",
+      color: "#10B981",
       image: "/assets/city-sustainable.svg",
+      actionPlan: [
+        "Maintain decentralized edge computing across all municipal sensors",
+        "Expand closed-loop dielectric immersion cooling to regional compute hubs",
+        "Foster citizen-led democratic AI oversight councils for ongoing algorithmic audits",
+        "Scale circular remanufacturing to ensure 100% hardware component reuse",
+      ],
     };
   }
 
-  if (metrics.operationalEfficiency >= 60 && (metrics.carbonIndex > 50 || metrics.ewasteIndex > 50)) {
+  // Ending 2: FRAGILE TOMORROW (Moderate performance: Score 900 - 1490 or Sustainable 8 - 13)
+  if (sustainableCount >= 8 || totalScore >= 900) {
     return {
-      key: "TECH_WITHOUT_BALANCE",
-      title: "2. TECHNOLOGY WITHOUT BALANCE",
-      subtitle: "Peak Silicon, Strained Planet",
+      key: "FRAGILE_TOMORROW",
+      title: "ENDING 2 — FRAGILE TOMORROW",
+      subtitle: "Survival with Ongoing Environmental Scars",
       description:
-        "The city achieved high technological convenience and fast automation, but at the cost of depleted water reservoirs and mounting electronic scrap. Innovation marches on, yet ecological debt looms heavy over future generations.",
-      badge: "High Velocity, High Ecological Cost",
-      color: "#35D5FF",
-      image: "/assets/city-polluted.svg",
+        "Nova City survives the catastrophic breakdown, but continues to face serious environmental challenges. The electrical grid experiences intermittent strain, pockets of electronic scrap require hazardous containment, and water supplies remain tightly rationed. The Task Force is issued an urgent urban recovery roadmap.",
+      badge: "Resilience Recovery Unit",
+      color: "#FBBF24",
+      image: "/assets/disaster-recovery.svg",
+      actionPlan: [
+        "Execute immediate INT8 quantization across all municipal traffic and surveillance nodes",
+        "Halt open groundwater extraction for data centers and convert to dry cooling",
+        "Deploy modular repair workshops to rehabilitate discarded robot chassis",
+        "Enforce strict data minimization to rebuild frayed civic public trust",
+      ],
     };
   }
 
-  if (sustainableCount <= 1 || totalScore <= 350) {
-    return {
-      key: "FRAGILE_CITY",
-      title: "3. FRAGILE CITY",
-      subtitle: "Complex Systems, Fragile Margins",
-      description:
-        "Nova City remained entrapped by centralized dependencies and planned obsolescence. Power fluctuations regularly stall civic transport, and community trust in automated systems has eroded.",
-      badge: "Vulnerable Network Architecture",
-      color: "#FF5B65",
-      image: "/assets/city-polluted.svg",
-    };
-  }
-
+  // Ending 3: THE LAST WARNING (Score < 900 or Sustainable < 8)
   return {
-    key: "RECOVERY_IN_PROGRESS",
-    title: "4. RECOVERY IN PROGRESS",
-    subtitle: "Rebuilding Foundations with Purpose",
+    key: "THE_LAST_WARNING",
+    title: "ENDING 3 — THE LAST WARNING",
+    subtitle: "Ecological Breakdown & The Urgent Recovery Challenge",
     description:
-      "Averted total blackout and halted hazardous landfill expansion. While several legacy challenges remain, the Task Force laid durable ground for circular repair, energy thrift, and collaborative robotics.",
-    badge: "Steadfast Resiliency Transition",
-    color: "#FCC30B",
-    image: "/assets/city-sustainable.svg",
+      "Nova City experiences severe resource exhaustion, rolling power blackouts, and critical environmental degradation. Centralized servers evaporated municipal drinking water, mountains of toxic electronic waste poisoned local soils, and citizens dismantled surveillance grids in anger. The Task Force faces a mandatory rebuilding protocol.",
+    badge: "Crisis Remediator Corps",
+    color: "#EF4444",
+    image: "/assets/city-polluted.svg",
+    actionPlan: [
+      "Mandate an immediate moratorium on unpruned hyperscale model deployments",
+      "Decommission open-cycle evaporative cooling towers in favor of ambient liquid loops",
+      "Pass the Right-to-Repair ordinance and ban planned hardware obsolescence",
+      "Re-architect civic intelligence from centralized monopolies into open, community-governed edge nodes",
+    ],
   };
+}
+
+/**
+ * Determines ending based on collective room metrics
+ */
+export function determineCollectiveEnding(sharedMetrics: SharedCityMetrics): CityEnding {
+  const avgPositive =
+    (sharedMetrics.energyStability +
+      sharedMetrics.networkStability +
+      sharedMetrics.environmentalHealth +
+      sharedMetrics.waterAvailability +
+      sharedMetrics.rescueProgress +
+      sharedMetrics.publicTrust) /
+    6;
+
+  const netBalance = avgPositive - sharedMetrics.ewasteLevel;
+
+  if (netBalance >= 15 || avgPositive >= 70) {
+    return determineCityEnding(1800, 18);
+  } else if (netBalance >= -15 || avgPositive >= 45) {
+    return determineCityEnding(1200, 11);
+  } else {
+    return determineCityEnding(600, 5);
+  }
 }

@@ -185,19 +185,48 @@ function JoinForm() {
                 />
               </div>
 
-              {/* Team Name (Optional) */}
+              {/* Team Name / Battle Mode Selection */}
               <div>
-                <label className="text-xs font-mono font-semibold tracking-wider uppercase text-[#98A8BD] flex items-center gap-1.5 mb-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#FCC30B]" />
-                  Team / Subsystem Group (Optional)
+                <label className="text-xs font-mono font-semibold tracking-wider uppercase text-[#98A8BD] flex items-center justify-between mb-1.5">
+                  <span className="flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#FCC30B]" />
+                    Select Team Division (Team Battle Mode)
+                  </span>
+                  <span className="text-[10px] text-[#35D5FF]/80 font-mono">Optional</span>
                 </label>
+
+                {/* Quick Select Buttons */}
+                <div className="grid grid-cols-2 gap-2 mb-2.5">
+                  {[
+                    { name: "TEAM TITAN", label: "TITAN", color: "hover:border-amber-400 text-amber-300", active: "border-amber-400 bg-amber-500/20 text-amber-300" },
+                    { name: "TEAM NOVA", label: "NOVA", color: "hover:border-cyan-400 text-cyan-300", active: "border-cyan-400 bg-cyan-500/20 text-cyan-300" },
+                    { name: "TEAM ORBIT", label: "ORBIT", color: "hover:border-blue-400 text-blue-300", active: "border-blue-400 bg-blue-500/20 text-blue-300" },
+                    { name: "TEAM PHOENIX", label: "PHOENIX", color: "hover:border-orange-400 text-orange-300", active: "border-orange-400 bg-orange-500/20 text-orange-300" },
+                  ].map((t) => {
+                    const isSelected = teamName.toUpperCase() === t.name;
+                    return (
+                      <button
+                        key={t.name}
+                        type="button"
+                        onClick={() => setTeamName(t.name)}
+                        className={`py-2 px-3 rounded-lg border font-mono text-xs font-bold transition-all text-left flex items-center justify-between ${
+                          isSelected ? t.active : `border-white/10 bg-[#080E1A] ${t.color}`
+                        }`}
+                      >
+                        <span>{t.label}</span>
+                        {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />}
+                      </button>
+                    );
+                  })}
+                </div>
+
                 <input
                   type="text"
                   value={teamName}
                   onChange={(e) => setTeamName(e.target.value)}
-                  placeholder="e.g. Robotics Section B"
+                  placeholder="Or enter custom team name (e.g. Robotics Section A)"
                   maxLength={60}
-                  className="w-full px-4 py-3 rounded-xl bg-[#080E1A] border border-[#35D5FF]/20 text-white font-mono placeholder-[#98A8BD]/40 focus:outline-none focus:border-[#35D5FF] focus:ring-1 focus:ring-[#35D5FF] transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#080E1A] border border-[#35D5FF]/20 text-white font-mono text-xs placeholder-[#98A8BD]/40 focus:outline-none focus:border-[#35D5FF] focus:ring-1 focus:ring-[#35D5FF] transition-all"
                 />
               </div>
 
