@@ -64,17 +64,32 @@ export interface LearningHotspot {
   tag?: string;
 }
 
+export interface CharacterDialogue {
+  speaker: string;
+  role: string;
+  avatar: string;
+  text: string;
+  mood?: "urgent" | "concerned" | "determined" | "grave" | "hopeful" | "conflicted";
+  accentColor?: string;
+}
+
 export interface DecisionOption {
   id: string; // e.g. "m1-opt-a"
   key: "A" | "B";
   title: string;
-  isSustainable: boolean; // Option A = true, Option B = false
+  isSustainable: boolean; // Option A = Sustainable/Responsible, Option B = Unsustainable/High-Risk
   image: string;
   shortDescription: string;
   detailedExplanation: string;
+  characterReaction?: {
+    speaker: string;
+    quote: string;
+  };
+  consequenceNarration: string;
+  nextSceneTeaser?: string;
   advantages: string[];
   disadvantages: string[];
-  pointsAwarded: number; // 100 for sustainable, 30 for unsustainable (20 missions x 100 = 2000 base max)
+  pointsAwarded: number; // 100 for sustainable, 30 for unsustainable
   impacts: {
     environmental: number; // delta
     energy: number;
@@ -99,10 +114,9 @@ export interface DecisionOption {
     publicTrust: number;
     ewasteLevel: number;
   };
-  learningObjective: string;
-  sdgs: SDGNumber[];
-  consequenceNarration: string;
-  educationalTakeaway: string;
+  learningObjective?: string;
+  sdgs?: SDGNumber[];
+  educationalTakeaway?: string;
 }
 
 export interface AIExplainerTopic {
@@ -150,6 +164,10 @@ export interface Mission {
   title: string;
   category: string;
   heroImage: string;
+  environmentName?: string;
+  storyScene?: string;
+  dialogue?: CharacterDialogue[];
+  situation?: string;
   environmentalContext: string;
   storyProblem: string;
   prompt: string;
@@ -159,7 +177,7 @@ export interface Mission {
   summaryNote: string;
   hotspots: LearningHotspot[];
   branchingModifiers?: BranchingModifier[];
-  aiConcept: {
+  aiConcept?: {
     title: string;
     subtitle: string;
     definition: string;

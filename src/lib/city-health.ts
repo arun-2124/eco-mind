@@ -180,7 +180,14 @@ export function getCityCondition(metrics: CityMetrics): {
 }
 
 export interface CityEnding {
-  key: "GREEN_HORIZON" | "FRAGILE_TOMORROW" | "THE_LAST_WARNING";
+  key:
+    | "NOVA_REBORN"
+    | "THE_SURVIVORS"
+    | "LAST_LIGHT"
+    | "THE_FALL"
+    | "GREEN_HORIZON"
+    | "FRAGILE_TOMORROW"
+    | "THE_LAST_WARNING";
   title: string;
   subtitle: string;
   description: string;
@@ -191,68 +198,92 @@ export interface CityEnding {
 }
 
 /**
- * Three Final Endings (Section 15 of Master Build Prompt)
+ * Four Cinematic Story Endings:
+ * 1. NOVA REBORN (City restored, humanity & nature in equilibrium)
+ * 2. THE SURVIVORS (City abandoned, humanity survives in green frontier)
+ * 3. LAST LIGHT (Sacrifice seals core to preserve underground vaults)
+ * 4. THE FALL (Complete blackout, city collapses into silence)
  */
 export function determineCityEnding(
   totalScore: number,
   sustainableCount: number,
   metrics?: CityMetrics
 ): CityEnding {
-  // Ending 1: GREEN HORIZON (Sustainable >= 14 or Score >= 1500)
-  if (sustainableCount >= 14 || totalScore >= 1500) {
+  // Ending 1: NOVA REBORN (Sustainable >= 15 or Score >= 1600)
+  if (sustainableCount >= 15 || totalScore >= 1600) {
     return {
-      key: "GREEN_HORIZON",
-      title: "ENDING 1 — GREEN HORIZON",
-      subtitle: "The Eco-Intelligent Metropolis in Planetary Equilibrium",
+      key: "NOVA_REBORN",
+      title: "ENDING 1 — NOVA REBORN",
+      subtitle: "The City Restored — Humanity & Nature in Planetary Equilibrium",
       description:
-        "NOVA CITY becomes a sustainable and resilient smart city! Responsible AI, embodied robotics, renewable energy microgrids, and citizen governance work together in harmony. Clean water flows freely, electronic waste is eliminated through circular repair hubs, and edge intelligence guards civic wellbeing.",
-      badge: "Planetary Equilibrium Champion",
+        "Through disciplined stewardship, sustainable Edge computing, and collective resilience, Nova City has healed its wounds. The synthetic core breathes in rhythm with restored solar wetlands. The Last Signal was not a death knell, but an awakening: technology and ecology fused into a thriving sanctuary.",
+      badge: "Architect of Nova Reborn",
       color: "#10B981",
       image: "/assets/city-sustainable.svg",
       actionPlan: [
-        "Maintain decentralized edge computing across all municipal sensors",
-        "Expand closed-loop dielectric immersion cooling to regional compute hubs",
-        "Foster citizen-led democratic AI oversight councils for ongoing algorithmic audits",
-        "Scale circular remanufacturing to ensure 100% hardware component reuse",
+        "Decentralize computing power into neighborhood solar microgrids",
+        "Restore coastal bio-buffers to naturally shield urban infrastructure",
+        "Enforce human-in-the-loop ethical oversight on all autonomous systems",
+        "Transition all retired robotic hardware to circular municipal repair hubs",
       ],
     };
   }
 
-  // Ending 2: FRAGILE TOMORROW (Moderate performance: Score 900 - 1490 or Sustainable 8 - 13)
-  if (sustainableCount >= 8 || totalScore >= 900) {
+  // Ending 2: THE SURVIVORS (Sustainable 11 - 14 or Score 1150 - 1590)
+  if (sustainableCount >= 11 || totalScore >= 1150) {
     return {
-      key: "FRAGILE_TOMORROW",
-      title: "ENDING 2 — FRAGILE TOMORROW",
-      subtitle: "Survival with Ongoing Environmental Scars",
+      key: "THE_SURVIVORS",
+      title: "ENDING 2 — THE SURVIVORS",
+      subtitle: "The Great Exodus — Humanity Survives in the Green Frontier",
       description:
-        "Nova City survives the catastrophic breakdown, but continues to face serious environmental challenges. The electrical grid experiences intermittent strain, pockets of electronic scrap require hazardous containment, and water supplies remain tightly rationed. The Task Force is issued an urgent urban recovery roadmap.",
-      badge: "Resilience Recovery Unit",
+        "Nova City's concrete towers proved too broken and energy-hungry to sustain, but the population survived. Salvaging modular edge chips, solar skiffs, and water purification units, surviving convoys established flourishing off-grid settlements in the fertile valleys beyond the perimeter.",
+      badge: "Frontier Pioneer",
+      color: "#00F0FF",
+      image: "/assets/disaster-recovery.svg",
+      actionPlan: [
+        "Repurpose urban salvage to build low-power rural cooperative hubs",
+        "Establish permaculture agriculture guided by ultra-light edge sensors",
+        "Maintain open radio relays between survivor enclaves",
+        "Vow never again to concentrate civilization's fate inside a single synthetic core",
+      ],
+    };
+  }
+
+  // Ending 3: LAST LIGHT (Sustainable 7 - 10 or Score 700 - 1140)
+  if (sustainableCount >= 7 || totalScore >= 700) {
+    return {
+      key: "LAST_LIGHT",
+      title: "ENDING 3 — LAST LIGHT",
+      subtitle: "The Heroic Sacrifice — Core Sealed to Preserve Underground Vaults",
+      description:
+        "With the central power grid spiraling toward thermal runaway, Commander Vance and Dr. Lin initiated a desperate isolation seal. Surface towers went dark forever, cutting power to save the subterranean vaults where tens of thousands of citizens, medical caches, and seed banks remain safely sheltered.",
+      badge: "Guardian of the Vaults",
       color: "#FBBF24",
       image: "/assets/disaster-recovery.svg",
       actionPlan: [
-        "Execute immediate INT8 quantization across all municipal traffic and surveillance nodes",
-        "Halt open groundwater extraction for data centers and convert to dry cooling",
-        "Deploy modular repair workshops to rehabilitate discarded robot chassis",
-        "Enforce strict data minimization to rebuild frayed civic public trust",
+        "Ration geothermal and battery reserves across underground emergency vaults",
+        "Deploy tethered reconnaissance rovers to survey surface radiation and water",
+        "Preserve cultural archives and technical schematics for future generations",
+        "Wait for atmospheric stabilization before attempting surface re-emergence",
       ],
     };
   }
 
-  // Ending 3: THE LAST WARNING (Score < 900 or Sustainable < 8)
+  // Ending 4: THE FALL (Sustainable < 7 or Score < 700)
   return {
-    key: "THE_LAST_WARNING",
-    title: "ENDING 3 — THE LAST WARNING",
-    subtitle: "Ecological Breakdown & The Urgent Recovery Challenge",
+    key: "THE_FALL",
+    title: "ENDING 4 — THE FALL",
+    subtitle: "Complete Grid Blackout — Nova City Collapses into Frozen Silence",
     description:
-      "Nova City experiences severe resource exhaustion, rolling power blackouts, and critical environmental degradation. Centralized servers evaporated municipal drinking water, mountains of toxic electronic waste poisoned local soils, and citizens dismantled surveillance grids in anger. The Task Force faces a mandatory rebuilding protocol.",
-    badge: "Crisis Remediator Corps",
+      "Reckless power extraction, overwhelmed server clusters, and toxic electronic fallout overwhelmed Nova City's fragile ecosystems. The main reactors tripped into emergency lockout, plunging districts into permanent darkness. The Last Signal fades into empty static as the frozen skyline stands abandoned.",
+    badge: "Witness to the Fall",
     color: "#EF4444",
     image: "/assets/city-polluted.svg",
     actionPlan: [
-      "Mandate an immediate moratorium on unpruned hyperscale model deployments",
-      "Decommission open-cycle evaporative cooling towers in favor of ambient liquid loops",
-      "Pass the Right-to-Repair ordinance and ban planned hardware obsolescence",
-      "Re-architect civic intelligence from centralized monopolies into open, community-governed edge nodes",
+      "Issue distress broadcasts across emergency high-frequency channels",
+      "Evacuate remaining survivors on manual transport toward mountain refuges",
+      "Extract emergency hard drives before complete battery depletion",
+      "Document the systemic failures of unchecked automation as a lesson for the world",
     ],
   };
 }
@@ -272,11 +303,13 @@ export function determineCollectiveEnding(sharedMetrics: SharedCityMetrics): Cit
 
   const netBalance = avgPositive - sharedMetrics.ewasteLevel;
 
-  if (netBalance >= 15 || avgPositive >= 70) {
-    return determineCityEnding(1800, 18);
-  } else if (netBalance >= -15 || avgPositive >= 45) {
-    return determineCityEnding(1200, 11);
+  if (netBalance >= 25 || avgPositive >= 75) {
+    return determineCityEnding(1800, 18); // NOVA REBORN
+  } else if (netBalance >= 5 || avgPositive >= 55) {
+    return determineCityEnding(1300, 12); // THE SURVIVORS
+  } else if (netBalance >= -20 || avgPositive >= 35) {
+    return determineCityEnding(900, 8);   // LAST LIGHT
   } else {
-    return determineCityEnding(600, 5);
+    return determineCityEnding(500, 4);   // THE FALL
   }
 }

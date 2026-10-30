@@ -12,10 +12,6 @@ import { DecisionCard } from "@/components/DecisionCard";
 import { ConsequenceReveal } from "@/components/ConsequenceReveal";
 import { SharedCityHUD } from "@/components/SharedCityHUD";
 import { SustainabilityScore } from "@/components/SustainabilityScore";
-import { InteractivePipeline } from "@/components/InteractivePipeline";
-import { InteractiveRobot } from "@/components/InteractiveRobot";
-import { InteractiveEfficiency } from "@/components/InteractiveEfficiency";
-import { InteractiveCircularEconomy } from "@/components/InteractiveCircularEconomy";
 import { DecisionOption } from "@/types/game";
 import { sound } from "@/lib/audio";
 import { getMissionSituationalIntelligence } from "@/lib/branching";
@@ -385,22 +381,6 @@ export default function GamePage() {
               onAwardBonusPoints={(pts) => awardBonus(pts)}
             />
           )}
-
-          {/* Interactive Learning Lab Simulator */}
-          <div className="space-y-4 pt-4 border-t border-white/10">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#35D5FF]" />
-              <h3 className="font-mono font-bold text-xs uppercase tracking-wider text-[#35D5FF]">
-                Interactive Simulation Lab: {activeMission.aiConcept.title}
-              </h3>
-            </div>
-
-            {activeMission.aiConcept.componentType === "pipeline" && <InteractivePipeline />}
-            {activeMission.aiConcept.componentType === "robot" && <InteractiveRobot />}
-            {activeMission.aiConcept.componentType === "efficiency" && <InteractiveEfficiency />}
-            {activeMission.aiConcept.componentType === "circular" && <InteractiveCircularEconomy />}
-            {activeMission.aiConcept.componentType === "general" && <InteractiveEfficiency />}
-          </div>
         </section>
 
         {/* =========================================================================

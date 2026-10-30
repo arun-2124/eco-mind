@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bgLyra" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E0E2B" />
+      <stop offset="100%" stop-color="#381850" />
+    </linearGradient>
+    <linearGradient id="suitLyra" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#7E22CE" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="24" fill="url(#bgLyra)" stroke="#C084FC" stroke-width="2"/>
+  <circle cx="60" cy="46" r="21" fill="#221133" stroke="#C084FC" stroke-width="1.5"/>
+  <!-- Headphone Audio Rig -->
+  <path d="M 38 46 C 38 28, 82 28, 82 46" stroke="#E9D5FF" stroke-width="3" fill="none"/>
+  <rect x="34" y="40" width="6" height="14" rx="2" fill="#A855F7"/>
+  <rect x="80" y="40" width="6" height="14" rx="2" fill="#A855F7"/>
+  <!-- Eyes -->
+  <circle cx="53" cy="45" r="3" fill="#E9D5FF"/>
+  <circle cx="67" cy="45" r="3" fill="#E9D5FF"/>
+  <!-- Tech Collar -->
+  <path d="M 32 96 C 32 75, 44 70, 60 70 C 76 70, 88 75, 88 96 Z" fill="url(#suitLyra)"/>
+  <circle cx="60" cy="80" r="3" fill="#F472B6"/>
+  <text x="60" y="112" font-family="monospace" font-size="9" font-weight="bold" fill="#F3E8FF" text-anchor="middle" letter-spacing="1">LYRA</text>
+</svg>

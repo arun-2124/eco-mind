@@ -118,7 +118,7 @@ export function ChapterModal({
                   <span className="font-mono text-cyan-400 font-bold">M{String(m.number).padStart(2, "0")}</span>
                   <span className="font-medium text-white/90">{m.title}</span>
                 </div>
-                <span className="text-[11px] font-mono text-white/50">{m.aiConcept.title}</span>
+                <span className="text-[11px] font-mono text-white/50">{m.aiConcept?.title || m.category}</span>
               </div>
             ))}
           </div>

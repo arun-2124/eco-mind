@@ -100,11 +100,11 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-sm sm:text-base font-mono font-bold tracking-widest uppercase text-[#38E58B]">
-              THE SUSTAINABLE INTELLIGENCE CHALLENGE • 2045
+              THE LAST SIGNAL • CINEMATIC MULTIPLAYER STORY GAME • 2045
             </p>
 
             <p className="text-sm sm:text-lg text-[#98A8BD] max-w-3xl mx-auto leading-relaxed">
-              Nova City is facing a catastrophic infrastructure and environmental crisis. Step into the shoes of the Robotics &amp; AI Sustainability Task Force to command rovers, balance energy grids, and rebuild the future.
+              Nova City is collapsing after a mysterious environmental disaster. Step into an immersive sci-fi narrative alongside Commander Vance, Dr. Lin, Scout Kael, and Operator Lyra. Make moral survivor choices to decide whether Nova City is reborn or falls forever.
             </p>
           </div>
 
