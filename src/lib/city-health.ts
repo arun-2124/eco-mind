@@ -1,5 +1,5 @@
 import { MISSIONS } from "./game-data";
-import { CityCondition, CityMetrics } from "@/types/game";
+import { CityCondition, CityMetrics, SharedCityMetrics, SubmissionRecord } from "@/types/game";
 
 export const INITIAL_CITY_METRICS: CityMetrics = {
   energyIndex: 78,          // high initial strain
@@ -9,6 +9,16 @@ export const INITIAL_CITY_METRICS: CityMetrics = {
   operationalEfficiency: 52,// degraded by latency and grid
   citizenWellbeing: 48,     // stressed by pollution & brownouts
   resilienceIndex: 35,      // fragile centralized bottlenecks
+};
+
+export const INITIAL_SHARED_CITY_METRICS: SharedCityMetrics = {
+  energyStability: 42,      // 0 - 100
+  networkStability: 38,     // 0 - 100
+  environmentalHealth: 35,  // 0 - 100
+  waterAvailability: 45,    // 0 - 100
+  rescueProgress: 15,       // 0 - 100
+  publicTrust: 50,          // 0 - 100
+  ewasteLevel: 65,          // 0 - 100 (high is bad)
 };
 
 export function calculateCityMetrics(
@@ -42,6 +52,79 @@ export function calculateCityMetrics(
     operationalEfficiency: Math.max(5, Math.min(100, current.operationalEfficiency)),
     citizenWellbeing: Math.max(5, Math.min(100, current.citizenWellbeing)),
     resilienceIndex: Math.max(5, Math.min(100, current.resilienceIndex)),
+  };
+}
+
+/**
+ * Calculates the collective Nova City shared metrics based on all participant submissions across missions.
+ * (Section 5 & 8: Collective Decision System & Shared City Simulation)
+ */
+export function calculateCollectiveCityMetrics(
+  submissions: SubmissionRecord[],
+  currentMissionNumber: number,
+  consequencesRevealed: boolean
+): SharedCityMetrics {
+  const metrics: SharedCityMetrics = { ...INITIAL_SHARED_CITY_METRICS };
+
+  // Only aggregate missions that have been revealed or past missions
+  const maxMission = consequencesRevealed ? currentMissionNumber : currentMissionNumber - 1;
+
+  for (let m = 1; m <= maxMission; m++) {
+    const missionSubmissions = submissions.filter((s) => s.missionNumber === m);
+    if (missionSubmissions.length === 0) continue;
+
+    const countA = missionSubmissions.filter((s) => s.optionKey === "A").length;
+    const countB = missionSubmissions.filter((s) => s.optionKey === "B").length;
+    const total = countA + countB;
+    if (total === 0) continue;
+
+    const mission = MISSIONS.find((item) => item.number === m);
+    if (!mission) continue;
+
+    const optA = mission.options[0]; // Sustainable
+    const optB = mission.options[1]; // Unsustainable
+
+    const ratioA = countA / total;
+    const ratioB = countB / total;
+
+    // Weighted delta from room votes
+    const deltasA = optA.sharedCityDeltas || {
+      energyStability: 15,
+      networkStability: 15,
+      environmentalHealth: 15,
+      waterAvailability: 15,
+      rescueProgress: 15,
+      publicTrust: 15,
+      ewasteLevel: -10,
+    };
+
+    const deltasB = optB.sharedCityDeltas || {
+      energyStability: -15,
+      networkStability: -15,
+      environmentalHealth: -15,
+      waterAvailability: -15,
+      rescueProgress: -5,
+      publicTrust: -15,
+      ewasteLevel: +15,
+    };
+
+    metrics.energyStability += Math.round(deltasA.energyStability * ratioA + deltasB.energyStability * ratioB);
+    metrics.networkStability += Math.round(deltasA.networkStability * ratioA + deltasB.networkStability * ratioB);
+    metrics.environmentalHealth += Math.round(deltasA.environmentalHealth * ratioA + deltasB.environmentalHealth * ratioB);
+    metrics.waterAvailability += Math.round(deltasA.waterAvailability * ratioA + deltasB.waterAvailability * ratioB);
+    metrics.rescueProgress += Math.round(deltasA.rescueProgress * ratioA + deltasB.rescueProgress * ratioB);
+    metrics.publicTrust += Math.round(deltasA.publicTrust * ratioA + deltasB.publicTrust * ratioB);
+    metrics.ewasteLevel += Math.round(deltasA.ewasteLevel * ratioA + deltasB.ewasteLevel * ratioB);
+  }
+
+  return {
+    energyStability: Math.max(5, Math.min(100, metrics.energyStability)),
+    networkStability: Math.max(5, Math.min(100, metrics.networkStability)),
+    environmentalHealth: Math.max(5, Math.min(100, metrics.environmentalHealth)),
+    waterAvailability: Math.max(5, Math.min(100, metrics.waterAvailability)),
+    rescueProgress: Math.max(5, Math.min(100, metrics.rescueProgress)),
+    publicTrust: Math.max(5, Math.min(100, metrics.publicTrust)),
+    ewasteLevel: Math.max(5, Math.min(100, metrics.ewasteLevel)),
   };
 }
 

@@ -46,7 +46,7 @@ function JoinForm() {
     router.push("/game");
   };
 
-  const handleJoin = (e: React.FormEvent) => {
+  const handleJoin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -63,7 +63,7 @@ function JoinForm() {
     setLoading(true);
 
     try {
-      const res = register(pin, fullName, teamName);
+      const res = await register(pin, fullName, teamName);
       if (!res.success) {
         setError(res.error || "Failed to join session.");
         setLoading(false);

@@ -5,6 +5,7 @@ import { useGameState } from "@/hooks/useGameState";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { Navbar } from "@/components/Navbar";
 import { PresenterNav } from "@/components/PresenterNav";
+import { SharedCityHUD } from "@/components/SharedCityHUD";
 import {
   Radar,
   RadarChart,
@@ -32,7 +33,7 @@ import {
 } from "lucide-react";
 
 export default function PresenterAnalyticsPage() {
-  const { participants } = useGameState();
+  const { participants, sharedCityMetrics } = useGameState();
 
   const total = participants.length;
 
@@ -117,6 +118,9 @@ export default function PresenterAnalyticsPage() {
             Aggregated cross-cadet intelligence and macro environmental telemetry
           </p>
         </div>
+
+        {/* Collective Shared Simulation Telemetry */}
+        <SharedCityHUD metrics={sharedCityMetrics} />
 
         {/* 4 Dimension Summary Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

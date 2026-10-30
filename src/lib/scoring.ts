@@ -12,13 +12,17 @@ export const INITIAL_SCORE: ParticipantScore = {
   unsustainableCount: 0,
 };
 
-export function getRating(totalScore: number): {
+export function getRating(totalScore: number, totalMissionsAnswered: number = 4): {
   rating: string;
   badge: string;
   description: string;
   color: string;
 } {
-  if (totalScore >= 900) {
+  // If ratio-based scoring:
+  const maxPossible = Math.max(1000, totalMissionsAnswered * 250);
+  const percentage = Math.min(100, Math.round((totalScore / maxPossible) * 100));
+
+  if (percentage >= 85 || totalScore >= 900) {
     return {
       rating: "SUSTAINABILITY VISIONARY",
       badge: "Emerald Luminary",
@@ -27,7 +31,7 @@ export function getRating(totalScore: number): {
       color: "#38E58B",
     };
   }
-  if (totalScore >= 700) {
+  if (percentage >= 65 || totalScore >= 700) {
     return {
       rating: "GREEN INNOVATOR",
       badge: "Eco-Architect",
@@ -36,7 +40,7 @@ export function getRating(totalScore: number): {
       color: "#35D5FF",
     };
   }
-  if (totalScore >= 500) {
+  if (percentage >= 45 || totalScore >= 500) {
     return {
       rating: "RESPONSIBLE DEVELOPER",
       badge: "Pragmatic Engineer",
@@ -45,7 +49,7 @@ export function getRating(totalScore: number): {
       color: "#FCC30B",
     };
   }
-  if (totalScore >= 300) {
+  if (percentage >= 25 || totalScore >= 300) {
     return {
       rating: "EMERGING SUSTAINABILITY LEADER",
       badge: "Transition Pioneer",
@@ -63,13 +67,6 @@ export function getRating(totalScore: number): {
   };
 }
 
-/**
- * Calculates current score based on chosen decisions.
- * Each mission is worth up to 250 points:
- * Sustainable choice: +250 points
- * Unsustainable choice: +50 points (never 0 points)
- * Max score across 4 missions = 1000 points.
- */
 export function calculateParticipantScore(
   decisions: Record<number, string>
 ): ParticipantScore {
@@ -106,16 +103,15 @@ export function calculateParticipantScore(
     }
   }
 
-  // If no decisions yet, set cadet baseline
-  const total = Math.max(0, Math.min(1000, totalPoints));
+  const answeredCount = sustainableCount + unsustainableCount;
 
   return {
     environmental: Math.round(envScore),
     energy: Math.round(energyScore),
     social: Math.round(socialScore),
     economic: Math.round(econScore),
-    total,
-    rating: getRating(total).rating,
+    total: totalPoints,
+    rating: getRating(totalPoints, Math.max(1, answeredCount)).rating,
     sustainableCount,
     unsustainableCount,
   };

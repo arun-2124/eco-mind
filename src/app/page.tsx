@@ -1,364 +1,322 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { CityVisualizer } from "@/components/CityVisualizer";
+import { SharedCityHUD } from "@/components/SharedCityHUD";
 import { SDGBadge } from "@/components/SDGBadge";
-import { SDG_DETAILS } from "@/lib/game-data";
-import { SDGNumber } from "@/types/game";
+import { CHAPTERS, MISSIONS } from "@/lib/game-data";
+import { useGameState } from "@/hooks/useGameState";
+import { sound } from "@/lib/audio";
 import {
   Cpu,
   Zap,
   Bot,
   Recycle,
-  ShieldCheck,
-  ChevronRight,
   Sparkles,
   ArrowRight,
-  Sliders,
-  Globe2,
-  Leaf,
+  ShieldAlert,
+  Radio,
   Layers,
+  Users,
+  Compass,
+  QrCode,
+  Flame,
 } from "lucide-react";
 
 export default function LandingPage() {
-  const featuredSdgs: SDGNumber[] = [7, 9, 11, 12, 13, 3, 6];
+  const router = useRouter();
+  const { session, sharedCityMetrics } = useGameState();
+  const [quickPin, setQuickPin] = useState(session.pin || "ECO2045");
+
+  const handleQuickJoin = (e: React.FormEvent) => {
+    e.preventDefault();
+    sound.playConfirm();
+    router.push(`/join?pin=${encodeURIComponent(quickPin.trim().toUpperCase())}`);
+  };
 
   const pillarCards = [
     {
       title: "Physical Artificial Intelligence",
+      tag: "Robotics Embodiment",
       icon: <Bot className="w-6 h-6 text-[#35D5FF]" />,
-      desc: "AI systems that perceive, reason, and actuate inside the physical world. Analyzing sensor energy, mechanical wear, and kinetic safety.",
+      desc: "Intelligent systems that perceive, reason, and actuate inside physical reality. Evaluating mechanical friction, inertia, sensor wear, and kinetic safety.",
       color: "#35D5FF",
     },
     {
       title: "Edge Artificial Intelligence",
+      tag: "Local Inference",
       icon: <Cpu className="w-6 h-6 text-[#38E58B]" />,
-      desc: "Local inference without continuous cloud telemetry. Weighing instant latency against on-device battery drain and silicon manufacturing.",
+      desc: "Zero-latency local neural processing on rovers and drones. Eliminating continuous radio transmission while accounting for device battery budgets.",
       color: "#38E58B",
     },
     {
       title: "Sustainable Computing",
+      tag: "Algorithmic Efficiency",
       icon: <Zap className="w-6 h-6 text-[#FCC30B]" />,
-      desc: "Model quantization, pruned architectures, carbon-aware temporal job scheduling, and clean renewable microgrid integration.",
+      desc: "INT8 model quantization, pruned neural architectures, carbon-aware temporal scheduling, and clean renewable solar microgrid synchronization.",
       color: "#FCC30B",
     },
     {
-      title: "Responsible Robotics & Lifecycle",
+      title: "Circular Robotics & E-Waste",
+      tag: "5R Closed-Loop Lifecycle",
       icon: <Recycle className="w-6 h-6 text-[#F6B94A]" />,
-      desc: "Curbing electronic waste through circular repair, modular compute retrofits, and confronting the hidden embodied carbon in silicon.",
+      desc: "Curbing toxic landfill runoff through standardized modular repair, open-source firmware longevity, and non-destructive rare-earth reclaiming.",
       color: "#F6B94A",
     },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070B16] text-[#F4F7FC]">
+    <div className="min-h-screen flex flex-col bg-[#050811] text-[#F4F7FC] relative selection:bg-[#35D5FF] selection:text-[#050811]">
       <DemoModeBanner />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
-        {/* Glow Spheres */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#35D5FF]/10 via-[#38E58B]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/3 -left-32 w-96 h-96 bg-[#35D5FF]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/2 -right-32 w-96 h-96 bg-[#38E58B]/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Cyberpunk Scanlines & Holographic Ambient Lights */}
+      <div className="fixed inset-0 pointer-events-none z-10 scanlines opacity-25" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-[#35D5FF]/10 via-[#38E58B]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto space-y-6">
-            {/* Tagline Pill */}
+      {/* HERO: FUTURISTIC MISSION CONTROL COMMAND PORTAL */}
+      <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-[#35D5FF]/15">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          {/* Top Mission Directive Banner */}
+          <div className="text-center max-w-4xl mx-auto space-y-4">
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#35D5FF]/30 bg-[#0D1424]/80 backdrop-blur-md shadow-sm"
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#35D5FF]/40 bg-[#0A172B]/90 backdrop-blur-md shadow-lg font-mono text-xs text-[#35D5FF]"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#38E58B]" />
-              <span className="font-mono text-xs tracking-widest uppercase text-[#35D5FF] font-semibold">
-                Robotics & Automation Club • Flagship Workshop 2045
+              <Radio className="w-3.5 h-3.5 text-[#38E58B] animate-pulse" />
+              <span className="font-bold tracking-widest uppercase">
+                ROBOTICS &amp; AUTOMATION CLUB • GLOBAL SIMULATION WORKSHOP
               </span>
             </motion.div>
 
-            {/* Main Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white leading-[1.1]"
-            >
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-black tracking-tight text-white uppercase leading-none">
               ECO<span className="text-[#35D5FF]">//</span>MIND
-              <span className="block text-2xl sm:text-4xl lg:text-5xl font-mono font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#35D5FF] via-[#38E58B] to-[#F6B94A] mt-2">
-                THE SUSTAINABLE INTELLIGENCE CHALLENGE
-              </span>
-            </motion.h1>
+            </h1>
 
-            {/* Core Message & Pitch */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="space-y-4"
-            >
-              <blockquote className="font-mono text-base sm:text-lg text-[#35D5FF] font-semibold italic border-y border-[#35D5FF]/20 py-2 inline-block max-w-2xl">
-                &ldquo;Every decision shapes the future. Every innovation has a consequence.&rdquo;
-              </blockquote>
+            <p className="text-sm sm:text-base font-mono font-bold tracking-widest uppercase text-[#38E58B]">
+              THE SUSTAINABLE INTELLIGENCE CHALLENGE • 2045
+            </p>
 
-              <p className="text-base sm:text-xl text-[#98A8BD] leading-relaxed max-w-3xl mx-auto">
-                Enter <strong className="text-white">NOVA CITY</strong>, a futuristic world facing an environmental crisis. 
-                Your technological decisions will determine whether humanity builds a sustainable intelligent future or creates another crisis.
-              </p>
-            </motion.div>
-
-            {/* Primary Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4"
-            >
-              <Link
-                href="/join"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-sm tracking-wider shadow-xl shadow-[#35D5FF]/25 hover:scale-105 hover:shadow-[#38E58B]/30 transition-all flex items-center justify-center gap-2 group"
-              >
-                <span>ENTER THE MISSION</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-
-              <Link
-                href="/presenter/dashboard"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl border border-[#35D5FF]/30 bg-[#0D1424]/90 text-white font-mono font-bold text-sm tracking-wider hover:bg-[#111C30] hover:border-[#35D5FF] transition-all flex items-center justify-center gap-2"
-              >
-                <Sliders className="w-4 h-4 text-[#35D5FF]" />
-                <span>PRESENTER CONTROL CENTER</span>
-              </Link>
-            </motion.div>
-
-            {/* Core Quote */}
-            <p className="text-xs font-mono uppercase tracking-widest text-[#98A8BD]/70 pt-2">
-              &ldquo;The future is not about making AI more powerful. It is about making intelligence more responsible.&rdquo;
+            <p className="text-sm sm:text-lg text-[#98A8BD] max-w-3xl mx-auto leading-relaxed">
+              Nova City is facing a catastrophic infrastructure and environmental crisis. Step into the shoes of the Robotics &amp; AI Sustainability Task Force to command rovers, balance energy grids, and rebuild the future.
             </p>
           </div>
 
-          {/* Interactive City Scene */}
-          <div className="mt-14 max-w-5xl mx-auto">
-            <div className="mb-3 flex items-center justify-between px-2">
-              <span className="text-xs font-mono text-[#98A8BD] flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-[#35D5FF]" />
-                SIMULATION PREVIEW: NOVA CITY METABOLISM
-              </span>
-              <span className="text-[11px] font-mono text-[#38E58B]">
-                Interactive Environmental State Machine
-              </span>
+          {/* Holographic Tactical Command Entry Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Left: Participant Mission Access Terminal (7 cols) */}
+            <div className="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl border-2 border-[#35D5FF]/30 bg-[#070D1B]/95 shadow-2xl space-y-6 relative overflow-hidden">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-3 h-3 rounded-full bg-[#38E58B] animate-ping" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+                    MISSION UPLINK TERMINAL
+                  </span>
+                </div>
+                <span className="text-xs font-mono text-[#35D5FF] px-2.5 py-0.5 rounded bg-[#35D5FF]/10 border border-[#35D5FF]/30">
+                  MULTIPLAYER LIVE ROOM
+                </span>
+              </div>
+
+              {/* Quick Join Terminal Form */}
+              <form onSubmit={handleQuickJoin} className="space-y-4 font-mono">
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-wider text-[#98A8BD] block font-bold">
+                    ENTER WORKSHOP SESSION PIN
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="text"
+                      value={quickPin}
+                      onChange={(e) => setQuickPin(e.target.value.toUpperCase())}
+                      placeholder="ECO2045"
+                      maxLength={10}
+                      className="flex-1 px-4 py-3.5 rounded-xl bg-[#0B1528] border-2 border-[#35D5FF]/40 text-lg font-black text-white tracking-widest focus:outline-none focus:border-[#38E58B] transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#050811] font-black text-xs tracking-wider shadow-lg shadow-[#35D5FF]/25 hover:scale-105 transition-all flex items-center gap-2 shrink-0"
+                    >
+                      <span>DEPLOY CADET</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <p className="text-[11px] text-[#98A8BD]">
+                  Default demo code: <strong className="text-white">ECO2045</strong>. Enter the PIN displayed on the presenter screen to join your cohort.
+                </p>
+              </form>
+
+              {/* Quick Action Matrix */}
+              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 font-mono text-xs">
+                <Link
+                  href={`/join?pin=${encodeURIComponent(quickPin)}`}
+                  className="p-3.5 rounded-xl bg-[#0B1528] border border-white/10 hover:border-[#35D5FF] text-white hover:text-[#35D5FF] transition-all flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <Compass className="w-4 h-4 text-[#35D5FF]" />
+                    <span>Join Mission</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+
+                <Link
+                  href="/presenter/dashboard"
+                  className="p-3.5 rounded-xl bg-[#081F19] border border-[#38E58B]/30 hover:border-[#38E58B] text-white hover:text-[#38E58B] transition-all flex items-center justify-between"
+                >
+                  <div className="flex items-center gap-2">
+                    <ShieldAlert className="w-4 h-4 text-[#38E58B]" />
+                    <span>Presenter Deck</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#38E58B]" />
+                </Link>
+              </div>
             </div>
-            <CityVisualizer level={3} interactive={true} />
+
+            {/* Right: Live Holographic City Preview (5 cols) */}
+            <div className="lg:col-span-5 glass-panel p-5 rounded-3xl border border-[#35D5FF]/20 bg-[#08101F] space-y-4">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2.5 font-mono text-xs">
+                <span className="text-[#35D5FF] font-bold flex items-center gap-1.5">
+                  <Flame className="w-3.5 h-3.5 text-[#F6B94A]" /> NOVA CITY SIMULATOR
+                </span>
+                <span className="text-[10px] text-[#98A8BD]">Live Visual Feed</span>
+              </div>
+              <div className="rounded-2xl overflow-hidden border border-white/10">
+                <CityVisualizer level={3} interactive={false} />
+              </div>
+              <p className="text-[11px] font-mono text-[#98A8BD] text-center">
+                Collective cadet decisions physically alter the skyline, power grid, and environmental purity in real time.
+              </p>
+            </div>
           </div>
+
+          {/* Room Collective Shared Telemetry */}
+          <SharedCityHUD metrics={sharedCityMetrics} />
         </div>
       </section>
 
-      {/* 4 Pillars Section */}
-      <section className="py-16 bg-[#0D1424]/60 border-y border-[#35D5FF]/10 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#35D5FF]">
-              Core Curriculum & Technology Matrix
+      {/* 20-MISSION CAMPAIGN & 5 CHAPTERS ROADMAP */}
+      <section className="py-16 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <span className="text-xs font-mono font-bold text-[#35D5FF] uppercase tracking-wider block mb-1">
+              FULL MULTIPLAYER CAMPAIGN MATRIX
             </span>
-            <h2 className="text-3xl font-display font-bold text-white mt-1">
-              Four Pillars of Responsible Engineering
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase">
+              5 Chapters • 20 Tactical Missions
             </h2>
-            <p className="text-sm text-[#98A8BD] mt-2">
-              Sustainable technology demands navigating trade-offs. Edge AI isn&apos;t automatically the answer in every scenario, and cloud computing isn&apos;t inherently wasteful when properly optimized.
-            </p>
+          </div>
+          <span className="text-xs font-mono text-[#98A8BD]">
+            Every mission features 2 contrasting technological choices with real environmental consequences.
+          </span>
+        </div>
+
+        {/* Chapters Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {CHAPTERS.map((ch) => {
+            const chMissions = MISSIONS.filter(
+              (m) => m.number >= ch.missionRange[0] && m.number <= ch.missionRange[1]
+            );
+
+            return (
+              <div
+                key={ch.number}
+                className="glass-panel p-6 rounded-2xl border border-white/10 bg-[#070D1B] space-y-4 hover:border-[#35D5FF]/40 transition-all flex flex-col justify-between"
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between font-mono text-xs">
+                    <span className="px-2.5 py-0.5 rounded bg-[#35D5FF]/15 text-[#35D5FF] font-bold">
+                      CHAPTER {ch.number}
+                    </span>
+                    <span className="text-[#98A8BD]">
+                      M{ch.missionRange[0]} – M{ch.missionRange[1]}
+                    </span>
+                  </div>
+                  <h3 className="font-display font-bold text-lg text-white">
+                    {ch.title}
+                  </h3>
+                  <p className="text-xs text-[#98A8BD] leading-relaxed font-sans">
+                    {ch.description}
+                  </p>
+                </div>
+
+                <div className="space-y-1.5 pt-3 border-t border-white/5 font-mono text-xs">
+                  {chMissions.map((m) => (
+                    <div
+                      key={m.id}
+                      className="flex items-center justify-between p-2 rounded-lg bg-[#0B1528] text-[11px] text-[#F4F7FC]"
+                    >
+                      <span className="truncate">
+                        {String(m.number).padStart(2, "0")}. {m.title}
+                      </span>
+                      <span className="text-[10px] text-[#38E58B] shrink-0 ml-2">
+                        +250 pts
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* CORE PEDAGOGICAL PILLARS */}
+      <section className="py-16 bg-[#04060E] border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <span className="text-xs font-mono font-bold text-[#38E58B] uppercase tracking-wider">
+              CURRICULUM ARCHITECTURE
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase">
+              The 4 Pillars of Sustainable Intelligence
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pillarCards.map((card, idx) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="glass-panel rounded-2xl p-6 border border-[#35D5FF]/15 hover:border-[#35D5FF]/40 transition-all hover:-translate-y-1 group"
+            {pillarCards.map((p, idx) => (
+              <div
+                key={idx}
+                className="glass-panel p-6 rounded-2xl border border-white/10 bg-[#070D1B] space-y-3"
               >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
-                  style={{
-                    backgroundColor: `${card.color}15`,
-                    border: `1px solid ${card.color}40`,
-                  }}
-                >
-                  {card.icon}
+                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                  {p.icon}
                 </div>
-                <h3 className="font-display font-bold text-lg text-white mb-2">
-                  {card.title}
-                </h3>
+                <div>
+                  <span className="text-[10px] font-mono text-[#98A8BD] uppercase tracking-wider block">
+                    {p.tag}
+                  </span>
+                  <h4 className="font-display font-bold text-base text-white mt-0.5">
+                    {p.title}
+                  </h4>
+                </div>
                 <p className="text-xs text-[#98A8BD] leading-relaxed">
-                  {card.desc}
+                  {p.desc}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* UN Sustainable Development Goals Integration */}
-      <section className="py-16 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-8">
-            <div>
-              <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#38E58B]">
-                United Nations Framework
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mt-1">
-                Direct SDG Alignment
-              </h2>
-              <p className="text-xs sm:text-sm text-[#98A8BD] mt-1 max-w-2xl">
-                Every mission in ECO//MIND maps directly to UN Sustainable Development Goals. Learn how physical robotics, edge silicon, and municipal policy impact real global targets.
-              </p>
-            </div>
-            <Link
-              href="/about"
-              className="text-xs font-mono text-[#35D5FF] hover:underline flex items-center gap-1"
-            >
-              <span>Explore full pedagogical matrix</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="flex flex-wrap gap-2.5 items-center justify-center sm:justify-start">
-            {featuredSdgs.map((sdgNum) => (
-              <SDGBadge key={sdgNum} sdg={sdgNum} showTitle={true} size="lg" />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Workshop Workflow Overview */}
-      <section className="py-16 bg-[#0B1220] border-t border-[#35D5FF]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
-              The Mission Progression
-            </h2>
-            <p className="text-xs sm:text-sm text-[#98A8BD] mt-2">
-              Four interconnected missions with server-side weighted scoring and presenter-orchestrated consequence reveals.
+          {/* Grand Workshop Closing Banner */}
+          <div className="glass-panel p-8 rounded-3xl border-2 border-[#38E58B]/30 bg-[#071F18] text-center space-y-3 max-w-4xl mx-auto shadow-2xl">
+            <span className="text-xs font-mono font-bold text-[#38E58B] uppercase tracking-widest block">
+              THE SUSTAINABLE INTELLIGENCE CREED
+            </span>
+            <blockquote className="text-lg sm:text-2xl font-display font-extrabold text-white leading-snug">
+              &ldquo;The future is not about making AI more powerful. It is about making intelligence more responsible.&rdquo;
+            </blockquote>
+            <p className="text-xs font-mono text-[#98A8BD]">
+              Robotics and Automation Club • United Nations SDGs 3, 6, 7, 9, 11, 12, 13
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="glass-panel rounded-2xl border border-[#35D5FF]/20 overflow-hidden flex flex-col group">
-              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/m1-infrastructure-crisis.svg"
-                  alt="Mission 1"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-[#35D5FF] font-bold">MISSION 01</span>
-                  <h4 className="font-bold text-white text-sm mt-0.5">The AI Infrastructure Crisis</h4>
-                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
-                    Local Edge AI Processing vs Unnecessary Continuous Cloud Streaming.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-panel rounded-2xl border border-[#38E58B]/20 overflow-hidden flex flex-col group">
-              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/m2-autonomous-rescue.svg"
-                  alt="Mission 2"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-[#38E58B] font-bold">MISSION 02</span>
-                  <h4 className="font-bold text-white text-sm mt-0.5">The Autonomous Rescue</h4>
-                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
-                    Physical AI: Local perception &amp; autonomous navigation vs Tele-operation video lag.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-panel rounded-2xl border border-[#FCC30B]/20 overflow-hidden flex flex-col group">
-              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/m3-energy-emergency.svg"
-                  alt="Mission 3"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-[#FCC30B] font-bold">MISSION 03</span>
-                  <h4 className="font-bold text-white text-sm mt-0.5">The Energy Emergency</h4>
-                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
-                    INT8 model quantization &amp; carbon-aware scheduling vs Maximum fossil power.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-panel rounded-2xl border border-[#F6B94A]/20 overflow-hidden flex flex-col group">
-              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/m4-ewaste-crisis.svg"
-                  alt="Mission 4"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-[#F6B94A] font-bold">MISSION 04</span>
-                  <h4 className="font-bold text-white text-sm mt-0.5">The E-Waste Crisis</h4>
-                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
-                    Modular silicon retrofits &amp; civic repair vs Planned obsolescence disposal.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              href="/join"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#35D5FF]/20 hover:opacity-90"
-            >
-              <span>JOIN WITH SESSION PIN</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="mt-auto border-t border-[#35D5FF]/15 bg-[#070B16] py-8 text-xs font-mono text-[#98A8BD]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <span className="text-white font-bold">ECO//MIND</span> — Robotics & Automation Club Sustainable AI Workshop.
-          </div>
-          <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-white transition-colors">
-              About & SDGs
-            </Link>
-            <Link href="/join" className="hover:text-white transition-colors">
-              Participant Join
-            </Link>
-            <Link href="/presenter/dashboard" className="hover:text-white transition-colors">
-              Presenter Console
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

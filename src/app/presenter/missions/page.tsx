@@ -81,7 +81,7 @@ export default function PresenterMissionsPage() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Mission Selector Tabs */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#35D5FF]/15 pb-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-thin">
             {MISSIONS.map((m) => {
               const isActive = m.number === activeTabMission;
               const isCurrentSessionMission = m.number === session.currentMission;
@@ -90,15 +90,15 @@ export default function PresenterMissionsPage() {
                 <button
                   key={m.id}
                   onClick={() => setActiveTabMission(m.number)}
-                  className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-2 ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 shrink-0 ${
                     isActive
                       ? "bg-[#35D5FF]/20 text-[#35D5FF] border border-[#35D5FF] shadow-sm"
                       : "bg-[#0D1424] text-[#98A8BD] border border-white/5 hover:text-white"
                   }`}
                 >
-                  <span>M0{m.number}</span>
+                  <span>M{String(m.number).padStart(2, "0")}</span>
                   {isCurrentSessionMission && (
-                    <span className="w-2 h-2 rounded-full bg-[#38E58B] animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#38E58B] animate-pulse" />
                   )}
                 </button>
               );
@@ -108,9 +108,9 @@ export default function PresenterMissionsPage() {
           {activeTabMission !== session.currentMission && (
             <button
               onClick={() => startMission(activeTabMission)}
-              className="px-4 py-2 rounded-xl bg-[#111C30] hover:bg-[#16243D] text-[#35D5FF] border border-[#35D5FF]/30 text-xs font-mono font-bold transition-colors"
+              className="px-4 py-2 rounded-xl bg-[#111C30] hover:bg-[#16243D] text-[#35D5FF] border border-[#35D5FF]/30 text-xs font-mono font-bold transition-colors shrink-0"
             >
-              Activate M0{activeTabMission} as Live Workshop Mission
+              Activate M{String(activeTabMission).padStart(2, "0")} as Live Workshop Mission
             </button>
           )}
         </div>

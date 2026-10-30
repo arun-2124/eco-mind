@@ -9,6 +9,9 @@ import {
   Building2,
   Recycle,
   Globe,
+  Users,
+  Trees,
+  Shield,
 } from "lucide-react";
 
 interface SDGBadgeProps {
@@ -22,9 +25,12 @@ const SDG_ICONS: Record<SDGNumber, React.ReactNode> = {
   6: <Droplets className="w-3.5 h-3.5" />,
   7: <Zap className="w-3.5 h-3.5" />,
   9: <Cpu className="w-3.5 h-3.5" />,
+  10: <Users className="w-3.5 h-3.5" />,
   11: <Building2 className="w-3.5 h-3.5" />,
   12: <Recycle className="w-3.5 h-3.5" />,
   13: <Globe className="w-3.5 h-3.5" />,
+  15: <Trees className="w-3.5 h-3.5" />,
+  16: <Shield className="w-3.5 h-3.5" />,
 };
 
 export function SDGBadge({ sdg, showTitle = false, size = "md" }: SDGBadgeProps) {

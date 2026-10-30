@@ -1,4 +1,4 @@
-export type SDGNumber = 3 | 6 | 7 | 9 | 11 | 12 | 13;
+export type SDGNumber = 3 | 6 | 7 | 9 | 10 | 11 | 12 | 13 | 15 | 16;
 
 export interface SDGInfo {
   number: SDGNumber;
@@ -43,6 +43,15 @@ export interface DecisionOption {
     citizenWellbeing: number;
     resilienceIndex: number;
   };
+  sharedCityDeltas?: {
+    energyStability: number;
+    networkStability: number;
+    environmentalHealth: number;
+    waterAvailability: number;
+    rescueProgress: number;
+    publicTrust: number;
+    ewasteLevel: number;
+  };
   learningObjective: string;
   sdgs: SDGNumber[];
   consequenceNarration: string;
@@ -60,9 +69,19 @@ export interface AIExplainerTopic {
   tag: string;
 }
 
+export interface Chapter {
+  number: 1 | 2 | 3 | 4 | 5;
+  title: string;
+  theme: string;
+  description: string;
+  missionRange: [number, number];
+}
+
 export interface Mission {
   id: number;
-  number: number;
+  number: number; // 1 to 20
+  chapterNumber: 1 | 2 | 3 | 4 | 5;
+  chapterTitle: string;
   title: string;
   category: string;
   heroImage: string;
@@ -70,7 +89,7 @@ export interface Mission {
   storyProblem: string;
   prompt: string;
   question: string;
-  options: DecisionOption[];
+  options: [DecisionOption, DecisionOption]; // strictly two choices
   sdgs: SDGNumber[];
   summaryNote: string;
   hotspots: LearningHotspot[];
@@ -80,7 +99,7 @@ export interface Mission {
     definition: string;
     realWorldExample: string;
     takeaway: string;
-    componentType: "pipeline" | "robot" | "efficiency" | "circular";
+    componentType: "pipeline" | "robot" | "efficiency" | "circular" | "general";
   };
 }
 
@@ -89,12 +108,24 @@ export interface ParticipantScore {
   energy: number;        // 0 - 1000 base
   social: number;        // 0 - 1000 base
   economic: number;      // 0 - 1000 base
-  total: number;         // 0 - 1000 weighted
+  total: number;         // accumulated points
   rating: string;
   sustainableCount: number;
   unsustainableCount: number;
 }
 
+// 7 Collective Room Simulation Indicators (Section 8)
+export interface SharedCityMetrics {
+  energyStability: number;      // 0 - 100 (high is good)
+  networkStability: number;     // 0 - 100 (high is good)
+  environmentalHealth: number;  // 0 - 100 (high is good)
+  waterAvailability: number;    // 0 - 100 (high is good)
+  rescueProgress: number;       // 0 - 100 (high is good)
+  publicTrust: number;          // 0 - 100 (high is good)
+  ewasteLevel: number;          // 0 - 100 (low is good)
+}
+
+// Individual Telemetry Metrics
 export interface CityMetrics {
   energyIndex: number;          // 0 - 100
   carbonIndex: number;          // 0 - 100
@@ -123,7 +154,7 @@ export interface Participant {
   hasSubmittedCurrentMission: boolean;
   score: ParticipantScore;
   cityMetrics: CityMetrics;
-  decisions: Record<number, string>; // missionNumber -> "A" | "B"
+  decisions: Record<number, "A" | "B">; // missionNumber -> "A" | "B"
 }
 
 export interface WorkshopSession {
@@ -131,11 +162,12 @@ export interface WorkshopSession {
   pin: string;
   title: string;
   status: "registration" | "in_progress" | "paused" | "completed";
-  currentMission: number; // 1 to 4
+  currentMission: number; // 1 to 20
   consequencesRevealed: boolean;
   allowResubmission: boolean;
   registrationOpen: boolean;
   createdAt: string;
+  sharedCityMetrics: SharedCityMetrics;
 }
 
 export interface SubmissionRecord {

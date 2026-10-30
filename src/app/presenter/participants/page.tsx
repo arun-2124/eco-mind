@@ -128,10 +128,7 @@ export default function PresenterParticipantsPage() {
                   <th className="py-3 px-4">Team</th>
                   <th className="py-3 px-4">Total Score</th>
                   <th className="py-3 px-4">Env / Energy / Soc / Econ</th>
-                  <th className="py-3 px-4 text-center">M1</th>
-                  <th className="py-3 px-4 text-center">M2</th>
-                  <th className="py-3 px-4 text-center">M3</th>
-                  <th className="py-3 px-4 text-center">M4</th>
+                  <th className="py-3 px-4 text-center">Campaign Progress</th>
                   <th className="py-3 px-4 text-right">Inspect</th>
                 </tr>
               </thead>
@@ -167,16 +164,10 @@ export default function PresenterParticipantsPage() {
                       <span className="text-[#F6B94A]">{p.score.economic}</span>
                     </td>
                     <td className="py-3 px-4 text-center font-bold text-white">
-                      {p.decisions[1] || "—"}
-                    </td>
-                    <td className="py-3 px-4 text-center font-bold text-white">
-                      {p.decisions[2] || "—"}
-                    </td>
-                    <td className="py-3 px-4 text-center font-bold text-white">
-                      {p.decisions[3] || "—"}
-                    </td>
-                    <td className="py-3 px-4 text-center font-bold text-white">
-                      {p.decisions[4] || "—"}
+                      <span className="text-[#35D5FF]">
+                        {Object.keys(p.decisions).length}
+                      </span>
+                      <span className="text-[#98A8BD] font-normal text-[10px]"> / 20</span>
                     </td>
                     <td className="py-3 px-4 text-right">
                       <button

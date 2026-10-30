@@ -5,6 +5,9 @@ import {
   GameState,
   loadGameState,
   subscribeToSync,
+  fetchRemoteRoom,
+  registerParticipantOnline,
+  submitDecisionOnline,
   presenterStartWorkshop,
   presenterStartMission,
   presenterRevealConsequences,
@@ -14,9 +17,7 @@ import {
   presenterToggleResubmission,
   presenterEndSession,
   presenterResetWorkshop,
-  submitParticipantDecision,
   awardParticipantBonus,
-  registerParticipant,
   DEFAULT_PIN,
 } from "@/lib/sync-engine";
 import { MISSIONS } from "@/lib/game-data";
@@ -38,14 +39,28 @@ export function useGameState() {
     setGameState(loadGameState());
     setIsLoaded(true);
 
+    // Initial server fetch
+    fetchRemoteRoom(DEFAULT_PIN).then((remote) => {
+      if (remote) setGameState(remote);
+    });
+
+    // Realtime subscription (BroadcastChannel + window events)
     const unsubscribe = subscribeToSync((newState) => {
       setGameState(newState);
     });
 
+    // Background server heartbeat polling (every 1.8 seconds) for cross-device multiplayer
+    const interval = setInterval(() => {
+      fetchRemoteRoom(gameState.session.pin || DEFAULT_PIN).then((remote) => {
+        if (remote) setGameState(remote);
+      });
+    }, 1800);
+
     return () => {
       unsubscribe();
+      clearInterval(interval);
     };
-  }, []);
+  }, [gameState.session.pin]);
 
   const currentParticipant = useMemo<Participant | null>(() => {
     if (!currentParticipantId) return null;
@@ -59,8 +74,8 @@ export function useGameState() {
 
   // Actions
   const handleRegister = useCallback(
-    (pin: string, name: string, team?: string) => {
-      const res = registerParticipant(pin, name, team);
+    async (pin: string, name: string, team?: string) => {
+      const res = await registerParticipantOnline(pin, name, team);
       if (res.success && res.participant) {
         localStorage.setItem(PARTICIPANT_KEY, res.participant.id);
         setCurrentParticipantId(res.participant.id);
@@ -71,50 +86,55 @@ export function useGameState() {
   );
 
   const handleSubmitDecision = useCallback(
-    (missionNum: number, optionKey: "A" | "B") => {
+    async (missionNum: number, optionKey: "A" | "B") => {
       if (!currentParticipantId) {
         return { success: false, error: "Participant not logged in" };
       }
-      return submitParticipantDecision(currentParticipantId, missionNum, optionKey);
+      return await submitDecisionOnline(
+        gameState.session.pin || DEFAULT_PIN,
+        currentParticipantId,
+        missionNum,
+        optionKey
+      );
     },
-    [currentParticipantId]
+    [currentParticipantId, gameState.session.pin]
   );
 
   const handlePresenterStartWorkshop = useCallback(() => {
-    return presenterStartWorkshop(DEFAULT_PIN);
-  }, []);
+    return presenterStartWorkshop(gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterStartMission = useCallback((missionNum: number) => {
-    return presenterStartMission(missionNum, DEFAULT_PIN);
-  }, []);
+    return presenterStartMission(missionNum, gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterReveal = useCallback(() => {
-    return presenterRevealConsequences(DEFAULT_PIN);
-  }, []);
+    return presenterRevealConsequences(gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterAdvance = useCallback(() => {
-    return presenterAdvanceMission(DEFAULT_PIN);
-  }, []);
+    return presenterAdvanceMission(gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterTogglePause = useCallback((pause: boolean) => {
-    return presenterTogglePause(pause, DEFAULT_PIN);
-  }, []);
+    return presenterTogglePause(pause, gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterToggleReg = useCallback((open: boolean) => {
-    return presenterToggleRegistration(open, DEFAULT_PIN);
-  }, []);
+    return presenterToggleRegistration(open, gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterToggleResubmission = useCallback((allow: boolean) => {
-    return presenterToggleResubmission(allow, DEFAULT_PIN);
-  }, []);
+    return presenterToggleResubmission(allow, gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterEndSession = useCallback(() => {
-    return presenterEndSession(DEFAULT_PIN);
-  }, []);
+    return presenterEndSession(gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const handlePresenterReset = useCallback(() => {
-    return presenterResetWorkshop(DEFAULT_PIN);
-  }, []);
+    return presenterResetWorkshop(gameState.session.pin || DEFAULT_PIN);
+  }, [gameState.session.pin]);
 
   const logoutParticipant = useCallback(() => {
     localStorage.removeItem(PARTICIPANT_KEY);
@@ -126,6 +146,7 @@ export function useGameState() {
     session: gameState.session,
     participants: gameState.participants,
     submissions: gameState.submissions,
+    sharedCityMetrics: gameState.session.sharedCityMetrics,
     currentParticipant,
     activeMission,
     // Methods

@@ -4,8 +4,14 @@ import {
   ParticipantScore,
   SubmissionRecord,
   WorkshopSession,
+  SharedCityMetrics,
 } from "@/types/game";
-import { INITIAL_CITY_METRICS, calculateCityMetrics } from "./city-health";
+import {
+  INITIAL_CITY_METRICS,
+  INITIAL_SHARED_CITY_METRICS,
+  calculateCityMetrics,
+  calculateCollectiveCityMetrics,
+} from "./city-health";
 import { calculateParticipantScore, INITIAL_SCORE } from "./scoring";
 import { MISSIONS } from "./game-data";
 
@@ -21,12 +27,13 @@ const DEFAULT_SESSION: WorkshopSession = {
   id: "session-demo-01",
   pin: DEFAULT_PIN,
   title: "Nova City Sustainability Summit 2045",
-  status: "registration",
+  status: "in_progress",
   currentMission: 1,
   consequencesRevealed: false,
   allowResubmission: false,
   registrationOpen: true,
   createdAt: new Date().toISOString(),
+  sharedCityMetrics: { ...INITIAL_SHARED_CITY_METRICS },
 };
 
 const SAMPLE_PARTICIPANTS: Participant[] = [
@@ -97,7 +104,7 @@ const SAMPLE_PARTICIPANTS: Participant[] = [
   },
 ];
 
-const STORAGE_KEY = "ecomind_gamestate_v1";
+const STORAGE_KEY = "ecomind_gamestate_v2";
 let broadcastChannel: BroadcastChannel | null = null;
 
 if (typeof window !== "undefined" && "BroadcastChannel" in window) {
@@ -122,6 +129,9 @@ export function loadGameState(): GameState {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && parsed.session && parsed.participants) {
+        if (!parsed.session.sharedCityMetrics) {
+          parsed.session.sharedCityMetrics = { ...INITIAL_SHARED_CITY_METRICS };
+        }
         return parsed;
       }
     }
@@ -141,11 +151,17 @@ export function loadGameState(): GameState {
 export function saveGameState(state: GameState): void {
   if (typeof window === "undefined") return;
   try {
+    // Recalculate room's collective shared city metrics
+    state.session.sharedCityMetrics = calculateCollectiveCityMetrics(
+      state.submissions,
+      state.session.currentMission,
+      state.session.consequencesRevealed
+    );
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     if (broadcastChannel) {
       broadcastChannel.postMessage({ type: "SYNC_STATE", state });
     }
-    // Also trigger window event for same-tab hooks
     window.dispatchEvent(new CustomEvent("ecomind_sync_event", { detail: state }));
   } catch (err) {
     console.error("Failed to save state:", err);
@@ -193,17 +209,129 @@ export function subscribeToSync(callback: (state: GameState) => void): () => voi
 }
 
 // -------------------------------------------------------------
-// Presenter Actions
+// Online Cross-Device Server API Sync
+// -------------------------------------------------------------
+
+export async function fetchRemoteRoom(pin: string = DEFAULT_PIN): Promise<GameState | null> {
+  try {
+    const res = await fetch(`/api/session?pin=${encodeURIComponent(pin)}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data.success && data.session) {
+      const remoteState: GameState = {
+        session: data.session,
+        participants: data.participants || [],
+        submissions: data.submissions || [],
+      };
+      saveGameState(remoteState);
+      return remoteState;
+    }
+  } catch {
+    // fallback to local state
+  }
+  return null;
+}
+
+export async function registerParticipantOnline(
+  pin: string,
+  fullName: string,
+  teamName?: string
+): Promise<{ success: boolean; participant?: Participant; error?: string }> {
+  try {
+    const res = await fetch("/api/session/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pin, fullName, teamName }),
+    });
+    const data = await res.json();
+    if (data.success && data.participant) {
+      // also update local cache
+      const state = loadGameState();
+      if (!state.participants.some((p) => p.id === data.participant.id)) {
+        state.participants.push(data.participant);
+      }
+      if (data.session) state.session = data.session;
+      saveGameState(state);
+      return { success: true, participant: data.participant };
+    }
+    return { success: false, error: data.error };
+  } catch {
+    // Fallback to local registration
+    return registerParticipant(pin, fullName, teamName);
+  }
+}
+
+export async function submitDecisionOnline(
+  pin: string,
+  participantId: string,
+  missionNumber: number,
+  optionKey: "A" | "B"
+): Promise<{ success: boolean; error?: string; participant?: Participant }> {
+  try {
+    const res = await fetch("/api/session/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pin, participantId, missionNumber, optionKey }),
+    });
+    const data = await res.json();
+    if (data.success && data.participant) {
+      // update local cache
+      const state = loadGameState();
+      const pIndex = state.participants.findIndex((p) => p.id === participantId);
+      if (pIndex >= 0) {
+        state.participants[pIndex] = data.participant;
+      }
+      if (data.session) state.session = data.session;
+      saveGameState(state);
+      return { success: true, participant: data.participant };
+    }
+    return { success: false, error: data.error };
+  } catch {
+    // Fallback to local submit
+    return submitParticipantDecision(participantId, missionNumber, optionKey);
+  }
+}
+
+export async function sendPresenterActionOnline(
+  pin: string,
+  action: string,
+  payload?: any,
+  passcode?: string
+): Promise<GameState | null> {
+  try {
+    const res = await fetch("/api/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ pin, action, payload, passcode }),
+    });
+    const data = await res.json();
+    if (data.success && data.session) {
+      const state: GameState = {
+        session: data.session,
+        participants: data.participants || [],
+        submissions: data.submissions || [],
+      };
+      saveGameState(state);
+      return state;
+    }
+  } catch {
+    // local fallback
+  }
+  return null;
+}
+
+// -------------------------------------------------------------
+// Presenter Actions (Local + Optimistic)
 // -------------------------------------------------------------
 
 export function presenterStartWorkshop(pin: string = DEFAULT_PIN): GameState {
+  sendPresenterActionOnline(pin, "start_campaign");
   const state = loadGameState();
   state.session.status = "in_progress";
   state.session.currentMission = 1;
   state.session.consequencesRevealed = false;
   state.session.registrationOpen = false;
 
-  // Prompt bots to answer if needed
   simulateBotDecisions(state, 1);
   saveGameState(state);
   return state;
@@ -213,6 +341,7 @@ export function presenterToggleRegistration(
   open: boolean,
   pin: string = DEFAULT_PIN
 ): GameState {
+  sendPresenterActionOnline(pin, "toggle_registration");
   const state = loadGameState();
   state.session.registrationOpen = open;
   saveGameState(state);
@@ -223,12 +352,12 @@ export function presenterStartMission(
   missionNumber: number,
   pin: string = DEFAULT_PIN
 ): GameState {
+  sendPresenterActionOnline(pin, "set_mission", { missionNumber });
   const state = loadGameState();
   state.session.currentMission = missionNumber;
   state.session.consequencesRevealed = false;
   state.session.status = "in_progress";
 
-  // Reset current mission submission flag for all participants
   state.participants.forEach((p) => {
     p.currentMission = missionNumber;
     p.hasSubmittedCurrentMission = !!p.decisions[missionNumber];
@@ -240,10 +369,10 @@ export function presenterStartMission(
 }
 
 export function presenterRevealConsequences(pin: string = DEFAULT_PIN): GameState {
+  sendPresenterActionOnline(pin, "reveal_consequences");
   const state = loadGameState();
   state.session.consequencesRevealed = true;
 
-  // Re-calculate all scores and city metrics for participants who submitted
   state.participants.forEach((p) => {
     p.score = calculateParticipantScore(p.decisions);
     p.cityMetrics = calculateCityMetrics(p.decisions);
@@ -254,8 +383,9 @@ export function presenterRevealConsequences(pin: string = DEFAULT_PIN): GameStat
 }
 
 export function presenterAdvanceMission(pin: string = DEFAULT_PIN): GameState {
+  sendPresenterActionOnline(pin, "advance_mission");
   const state = loadGameState();
-  if (state.session.currentMission < 4) {
+  if (state.session.currentMission < 20) {
     state.session.currentMission += 1;
     state.session.consequencesRevealed = false;
     state.participants.forEach((p) => {
@@ -275,6 +405,7 @@ export function presenterTogglePause(
   pause: boolean,
   pin: string = DEFAULT_PIN
 ): GameState {
+  sendPresenterActionOnline(pin, "toggle_pause");
   const state = loadGameState();
   state.session.status = pause ? "paused" : "in_progress";
   saveGameState(state);
@@ -285,6 +416,7 @@ export function presenterToggleResubmission(
   allow: boolean,
   pin: string = DEFAULT_PIN
 ): GameState {
+  sendPresenterActionOnline(pin, "toggle_resubmission");
   const state = loadGameState();
   state.session.allowResubmission = allow;
   saveGameState(state);
@@ -292,6 +424,7 @@ export function presenterToggleResubmission(
 }
 
 export function presenterEndSession(pin: string = DEFAULT_PIN): GameState {
+  sendPresenterActionOnline(pin, "advance_mission");
   const state = loadGameState();
   state.session.status = "completed";
   state.session.consequencesRevealed = true;
@@ -300,6 +433,7 @@ export function presenterEndSession(pin: string = DEFAULT_PIN): GameState {
 }
 
 export function presenterResetWorkshop(pin: string = DEFAULT_PIN): GameState {
+  sendPresenterActionOnline(pin, "reset_room");
   const fresh: GameState = {
     session: {
       ...DEFAULT_SESSION,
@@ -343,7 +477,6 @@ export function registerParticipant(
     return { success: false, error: "Participant name cannot be blank." };
   }
 
-  // Check for existing participant to reconnect
   const existing = state.participants.find(
     (p) => p.fullName.toLowerCase() === trimmedName.toLowerCase()
   );
@@ -354,12 +487,11 @@ export function registerParticipant(
     return { success: true, participant: existing };
   }
 
-  // Create new participant
   const newPart: Participant = {
     id: `part-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
     workshopId: state.session.id,
     fullName: trimmedName,
-    teamName: teamName?.trim() || "Independent Task Force",
+    teamName: teamName?.trim() || "Alpha Vanguard",
     joinedAt: new Date().toISOString(),
     connectionStatus: "online",
     currentMission: state.session.currentMission,
@@ -408,7 +540,6 @@ export function submitParticipantDecision(
   participant.decisions[missionNumber] = optionKey;
   participant.hasSubmittedCurrentMission = true;
 
-  // Record submission
   const subIndex = state.submissions.findIndex(
     (s) => s.participantId === participantId && s.missionNumber === missionNumber
   );
@@ -431,7 +562,6 @@ export function submitParticipantDecision(
     state.submissions.push(record);
   }
 
-  // Pre-calculate score so it reveals instantly when presenter unlocks
   participant.score = calculateParticipantScore(participant.decisions);
   participant.cityMetrics = calculateCityMetrics(participant.decisions);
 
@@ -447,54 +577,19 @@ export function awardParticipantBonus(
   const participant = state.participants.find((p) => p.id === participantId);
   if (!participant) return { success: false };
 
-  participant.score.total = Math.min(1000, participant.score.total + bonusPoints);
+  participant.score.total += bonusPoints;
   saveGameState(state);
   return { success: true, participant };
 }
 
-// -------------------------------------------------------------
-// Bot Simulation for Realistic Workshop Demo
-// -------------------------------------------------------------
-
 function simulateBotDecisions(state: GameState, missionNum: number): void {
-  const sampleChoices: Record<number, Record<string, "A" | "B">> = {
-    1: {
-      "Aria Vance": "A", // Edge AI (Sustainable)
-      "Kaelen Chen": "A", // Edge AI
-      "Dr. Mira Soren": "A", // Edge AI
-      "Tarek Al-Mansoor": "B", // Continuous Cloud (Unsustainable)
-      "Elena Rostova": "A", // Edge AI
-    },
-    2: {
-      "Aria Vance": "A", // Local autonomy + human supervision (Sustainable)
-      "Kaelen Chen": "A", // Local autonomy
-      "Dr. Mira Soren": "A", // Local autonomy
-      "Tarek Al-Mansoor": "B", // Continuous streaming (Unsustainable)
-      "Elena Rostova": "B", // Continuous streaming
-    },
-    3: {
-      "Aria Vance": "A", // Quantization & scheduling (Sustainable)
-      "Kaelen Chen": "A", // Quantization & scheduling
-      "Dr. Mira Soren": "A", // Quantization & scheduling
-      "Tarek Al-Mansoor": "B", // Max power continuous (Unsustainable)
-      "Elena Rostova": "A", // Quantization & scheduling
-    },
-    4: {
-      "Aria Vance": "A", // Modular repair (Sustainable)
-      "Kaelen Chen": "A", // Modular repair
-      "Dr. Mira Soren": "A", // Modular repair
-      "Tarek Al-Mansoor": "B", // Full replacement (Unsustainable)
-      "Elena Rostova": "A", // Modular repair
-    },
-  };
-
   const mission = MISSIONS.find((m) => m.number === missionNum);
   if (!mission) return;
 
-  state.participants.forEach((part) => {
-    // Only auto-submit for the predefined sample bot participants
+  state.participants.forEach((part, idx) => {
     if (SAMPLE_PARTICIPANTS.some((sp) => sp.fullName === part.fullName)) {
-      const choice = sampleChoices[missionNum]?.[part.fullName] || "A";
+      // 80% choose sustainable Option A, 20% choose Option B
+      const choice: "A" | "B" = (idx + missionNum) % 4 === 0 ? "B" : "A";
       part.decisions[missionNum] = choice;
       part.hasSubmittedCurrentMission = true;
       part.score = calculateParticipantScore(part.decisions);

@@ -5,6 +5,7 @@ import { useGameState } from "@/hooks/useGameState";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { Navbar } from "@/components/Navbar";
 import { PresenterNav } from "@/components/PresenterNav";
+import { SharedCityHUD } from "@/components/SharedCityHUD";
 import confetti from "canvas-confetti";
 import {
   Award,
@@ -18,7 +19,7 @@ import {
 } from "lucide-react";
 
 export default function PresenterResultsPage() {
-  const { participants, session, resetWorkshop } = useGameState();
+  const { participants, session, sharedCityMetrics, resetWorkshop } = useGameState();
 
   useEffect(() => {
     try {
@@ -44,6 +45,7 @@ export default function PresenterResultsPage() {
   const handleExportCSV = () => {
     if (!participants.length) return;
 
+    const missionHeaders = Array.from({ length: 20 }, (_, i) => `M${i + 1} Choice`);
     const headers = [
       "Participant ID",
       "Full Name",
@@ -54,29 +56,26 @@ export default function PresenterResultsPage() {
       "Energy Score",
       "Social Score",
       "Economic Score",
-      "M1 Choice",
-      "M2 Choice",
-      "M3 Choice",
-      "M4 Choice",
+      ...missionHeaders,
       "Joined At",
     ];
 
-    const rows = sorted.map((p) => [
-      p.id,
-      `"${p.fullName.replace(/"/g, '""')}"`,
-      `"${(p.teamName || "Independent").replace(/"/g, '""')}"`,
-      p.score.total,
-      `"${p.score.rating}"`,
-      p.score.environmental,
-      p.score.energy,
-      p.score.social,
-      p.score.economic,
-      p.decisions[1] || "",
-      p.decisions[2] || "",
-      p.decisions[3] || "",
-      p.decisions[4] || "",
-      p.joinedAt,
-    ]);
+    const rows = sorted.map((p) => {
+      const missionChoices = Array.from({ length: 20 }, (_, i) => p.decisions[i + 1] || "");
+      return [
+        p.id,
+        `"${p.fullName.replace(/"/g, '""')}"`,
+        `"${(p.teamName || "Independent").replace(/"/g, '""')}"`,
+        p.score.total,
+        `"${p.score.rating}"`,
+        p.score.environmental,
+        p.score.energy,
+        p.score.social,
+        p.score.economic,
+        ...missionChoices,
+        p.joinedAt,
+      ];
+    });
 
     const csvContent =
       "data:text/csv;charset=utf-8," +

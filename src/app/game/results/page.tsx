@@ -206,12 +206,13 @@ export default function GameResultsPage() {
             <div className="glass-panel p-6 rounded-2xl border border-[#35D5FF]/20 space-y-4">
               <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider flex items-center gap-2">
                 <Layers className="w-4 h-4 text-[#35D5FF]" />
-                Four Mission Decisions Log
+                Campaign Decisions Log ({Object.keys(currentParticipant.decisions).length} Completed)
               </h3>
 
-              <div className="space-y-3">
+              <div className="space-y-3 max-h-[460px] overflow-y-auto pr-1">
                 {MISSIONS.map((m) => {
                   const choiceKey = currentParticipant.decisions[m.number];
+                  if (!choiceKey && m.number > session.currentMission) return null;
                   const opt = m.options.find((o) => o.key === choiceKey);
                   const isSust = opt?.isSustainable;
 
@@ -222,7 +223,7 @@ export default function GameResultsPage() {
                     >
                       <div>
                         <span className="text-[#35D5FF] font-bold">
-                          M0{m.number}: {m.title}
+                          M{String(m.number).padStart(2, "0")}: {m.title}
                         </span>
                         <p className="text-white font-semibold mt-0.5">
                           {opt ? `Option ${opt.key} — ${opt.title}` : "Not submitted"}
