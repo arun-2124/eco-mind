@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 
 export default function AboutPage() {
-  const sdgList: SDGNumber[] = [3, 6, 7, 9, 11, 12, 13];
+  const sdgList: SDGNumber[] = [2, 3, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#070B16] text-[#F4F7FC]">
@@ -117,6 +117,8 @@ export default function AboutPage() {
                     <span className="text-[10px] font-mono text-[#98A8BD]">Target Pillar</span>
                   </div>
                   <p className="text-xs text-[#98A8BD] leading-relaxed">
+                    {sdgNum === 2 &&
+                      "Precision agriculture with vision-guided micro-fertigation to optimize crop yields without soil salinization or water waste."}
                     {sdgNum === 3 &&
                       "Ensuring human physical safety in robot-assisted disaster extrication, avoiding toxic industrial dust and robotic kinetic hazards."}
                     {sdgNum === 6 &&
@@ -125,12 +127,20 @@ export default function AboutPage() {
                       "Decoupling physical AI fleets from strained urban grids through localized solar microgrids and smart battery swapping depots."}
                     {sdgNum === 9 &&
                       "Fostering resilient, fault-tolerant edge-cloud infrastructure that maintains public transit during power brownouts."}
+                    {sdgNum === 10 &&
+                      "Mitigating algorithmic bias and protecting marginalized communities from predatory automated surveillance."}
                     {sdgNum === 11 &&
                       "Building resilient, inclusive smart cities that do not leave peripheral wards vulnerable to communications disconnects."}
                     {sdgNum === 12 &&
                       "Ending planned obsolescence through circular civic repair workshops, open hardware schemas, and modular upgrades."}
                     {sdgNum === 13 &&
                       "Enforcing carbon-aware job scheduling to minimize fossil peaker turbine usage and slash computing greenhouse gas emissions."}
+                    {sdgNum === 14 &&
+                      "Deploying solar-electric surface skimmers with edge bio-discrimination to extract marine plastics without harming sea life."}
+                    {sdgNum === 15 &&
+                      "Autonomous drone swarms providing precision wildfire mitigation and reforestation without toxic chemical bombing."}
+                    {sdgNum === 16 &&
+                      "Enforcing democratic multi-stakeholder algorithmic accountability, data minimization, and protection of citizen privacy."}
                   </p>
                 </div>
               );

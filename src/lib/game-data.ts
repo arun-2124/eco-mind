@@ -1,12 +1,19 @@
 import { Mission, SDGInfo, SDGNumber, AIExplainerTopic, Chapter, SurpriseEvent } from "@/types/game";
 
 export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
+  1: {
+    number: 1,
+    title: "No Poverty",
+    shortName: "No Poverty",
+    color: "#E5243B",
+    iconName: "Coins",
+  },
   2: {
     number: 2,
     title: "Zero Hunger",
     shortName: "Zero Hunger",
     color: "#DDA63A",
-    iconName: "Wheat",
+    iconName: "Sprout",
   },
   3: {
     number: 3,
@@ -14,6 +21,20 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
     shortName: "Good Health",
     color: "#4C9F38",
     iconName: "HeartPulse",
+  },
+  4: {
+    number: 4,
+    title: "Quality Education",
+    shortName: "Quality Education",
+    color: "#C5192D",
+    iconName: "GraduationCap",
+  },
+  5: {
+    number: 5,
+    title: "Gender Equality",
+    shortName: "Gender Equality",
+    color: "#FF3A21",
+    iconName: "Scale",
   },
   6: {
     number: 6,
@@ -28,6 +49,13 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
     shortName: "Clean Energy",
     color: "#FCC30B",
     iconName: "Zap",
+  },
+  8: {
+    number: 8,
+    title: "Decent Work and Economic Growth",
+    shortName: "Decent Work",
+    color: "#A21942",
+    iconName: "TrendingUp",
   },
   9: {
     number: 9,
@@ -69,7 +97,7 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
     title: "Life Below Water",
     shortName: "Life Below Water",
     color: "#0A97D9",
-    iconName: "Fish",
+    iconName: "Waves",
   },
   15: {
     number: 15,
@@ -84,6 +112,13 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
     shortName: "Peace & Justice",
     color: "#00689D",
     iconName: "Shield",
+  },
+  17: {
+    number: 17,
+    title: "Partnerships for the Goals",
+    shortName: "Partnerships for Goals",
+    color: "#19486A",
+    iconName: "Handshake",
   },
 };
 

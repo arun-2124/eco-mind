@@ -2,18 +2,23 @@ import React from "react";
 import { SDGNumber } from "@/types/game";
 import { SDG_DETAILS } from "@/lib/game-data";
 import {
+  Coins,
+  Sprout,
   HeartPulse,
+  GraduationCap,
+  Scale,
   Droplets,
   Zap,
+  TrendingUp,
   Cpu,
+  Users,
   Building2,
   Recycle,
   Globe,
-  Users,
+  Waves,
   Trees,
   Shield,
-  Sprout,
-  Waves,
+  Handshake,
 } from "lucide-react";
 
 interface SDGBadgeProps {
@@ -23,10 +28,14 @@ interface SDGBadgeProps {
 }
 
 const SDG_ICONS: Record<SDGNumber, React.ReactNode> = {
+  1: <Coins className="w-3.5 h-3.5" />,
   2: <Sprout className="w-3.5 h-3.5" />,
   3: <HeartPulse className="w-3.5 h-3.5" />,
+  4: <GraduationCap className="w-3.5 h-3.5" />,
+  5: <Scale className="w-3.5 h-3.5" />,
   6: <Droplets className="w-3.5 h-3.5" />,
   7: <Zap className="w-3.5 h-3.5" />,
+  8: <TrendingUp className="w-3.5 h-3.5" />,
   9: <Cpu className="w-3.5 h-3.5" />,
   10: <Users className="w-3.5 h-3.5" />,
   11: <Building2 className="w-3.5 h-3.5" />,
@@ -35,6 +44,7 @@ const SDG_ICONS: Record<SDGNumber, React.ReactNode> = {
   14: <Waves className="w-3.5 h-3.5" />,
   15: <Trees className="w-3.5 h-3.5" />,
   16: <Shield className="w-3.5 h-3.5" />,
+  17: <Handshake className="w-3.5 h-3.5" />,
 };
 
 export function SDGBadge({ sdg, showTitle = false, size = "md" }: SDGBadgeProps) {
