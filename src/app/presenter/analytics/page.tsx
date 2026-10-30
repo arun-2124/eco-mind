@@ -68,41 +68,36 @@ export default function PresenterAnalyticsPage() {
 
   // AI Architecture Breakdown (Mission 1)
   const m1Choices = useMemo(() => {
-    let cloud = 0;
     let edge = 0;
-    let hybrid = 0;
+    let cloud = 0;
 
     participants.forEach((p) => {
       const c = p.decisions[1];
-      if (c === "A") cloud++;
-      if (c === "B") edge++;
-      if (c === "C") hybrid++;
+      if (c === "A") edge++;
+      if (c === "B") cloud++;
     });
 
     return [
-      { name: "Centralized Cloud AI", value: cloud, color: "#35D5FF" },
-      { name: "Pure Edge AI", value: edge, color: "#FCC30B" },
-      { name: "Dynamic Hybrid AI", value: hybrid, color: "#38E58B" },
+      { name: "Local Edge AI (Sustainable)", value: edge, color: "#38E58B" },
+      { name: "Continuous Cloud (Unsustainable)", value: cloud, color: "#FF5B65" },
     ];
   }, [participants]);
 
-  // Robotics Autonomy Breakdown (Mission 2)
-  const m2Choices = useMemo(() => {
-    let tele = 0;
-    let swarm = 0;
-    let centaur = 0;
+  // Overall Sustainable vs Unsustainable decisions across all missions
+  const overallDecisions = useMemo(() => {
+    let sustainable = 0;
+    let unsustainable = 0;
 
     participants.forEach((p) => {
-      const c = p.decisions[2];
-      if (c === "A") tele++;
-      if (c === "B") swarm++;
-      if (c === "C") centaur++;
+      Object.values(p.decisions).forEach((dec) => {
+        if (dec === "A") sustainable++;
+        if (dec === "B") unsustainable++;
+      });
     });
 
     return [
-      { name: "Tele-Operated", value: tele, color: "#35D5FF" },
-      { name: "Autonomous Swarm", value: swarm, color: "#FF5B65" },
-      { name: "Centaur Collaborative", value: centaur, color: "#38E58B" },
+      { name: "Sustainable Decisions", value: sustainable, color: "#38E58B" },
+      { name: "Unsustainable Decisions", value: unsustainable, color: "#FF5B65" },
     ];
   }, [participants]);
 
@@ -210,11 +205,11 @@ export default function PresenterAnalyticsPage() {
           {/* AI Architecture Preferences (6 cols) */}
           <div className="lg:col-span-6 glass-panel p-6 rounded-2xl border border-[#35D5FF]/20 space-y-4">
             <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider">
-              AI Architecture Paradigm Adoption (M01)
+              Overall Workshop Decision Trends
             </h3>
             <div className="w-full h-72">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={m1Choices} margin={{ top: 20, right: 20, left: -10, bottom: 0 }}>
+                <BarChart data={overallDecisions} margin={{ top: 20, right: 20, left: -10, bottom: 0 }}>
                   <XAxis dataKey="name" stroke="#98A8BD" fontSize={11} fontFamily="monospace" />
                   <YAxis stroke="#98A8BD" fontSize={11} />
                   <Tooltip
@@ -225,7 +220,7 @@ export default function PresenterAnalyticsPage() {
                     }}
                   />
                   <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                    {m1Choices.map((entry, index) => (
+                    {overallDecisions.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Bar>

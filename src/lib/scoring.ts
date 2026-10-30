@@ -2,12 +2,14 @@ import { MISSIONS } from "./game-data";
 import { ParticipantScore } from "@/types/game";
 
 export const INITIAL_SCORE: ParticipantScore = {
-  environmental: 250,
-  energy: 250,
-  social: 250,
-  economic: 250,
-  total: 1000,
-  rating: "RESPONSIBLE DEVELOPER",
+  environmental: 0,
+  energy: 0,
+  social: 0,
+  economic: 0,
+  total: 0,
+  rating: "CADET INDUCTEE",
+  sustainableCount: 0,
+  unsustainableCount: 0,
 };
 
 export function getRating(totalScore: number): {
@@ -21,11 +23,11 @@ export function getRating(totalScore: number): {
       rating: "SUSTAINABILITY VISIONARY",
       badge: "Emerald Luminary",
       description:
-        "Masterfully harmonized advanced computing with planetary limits. Exemplifies circular design, human dignity, and climate action.",
+        "Masterfully harmonized intelligent computing with planetary boundaries. Exemplifies circular design, edge thrift, and climate stewardship.",
       color: "#38E58B",
     };
   }
-  if (totalScore >= 750) {
+  if (totalScore >= 700) {
     return {
       rating: "GREEN INNOVATOR",
       badge: "Eco-Architect",
@@ -34,7 +36,7 @@ export function getRating(totalScore: number): {
       color: "#35D5FF",
     };
   }
-  if (totalScore >= 600) {
+  if (totalScore >= 500) {
     return {
       rating: "RESPONSIBLE DEVELOPER",
       badge: "Pragmatic Engineer",
@@ -43,7 +45,7 @@ export function getRating(totalScore: number): {
       color: "#FCC30B",
     };
   }
-  if (totalScore >= 400) {
+  if (totalScore >= 300) {
     return {
       rating: "EMERGING SUSTAINABILITY LEADER",
       badge: "Transition Pioneer",
@@ -63,19 +65,21 @@ export function getRating(totalScore: number): {
 
 /**
  * Calculates current score based on chosen decisions.
- * Base starting score is 1000 (250 across each dimension).
- * Each mission decision modifies dimensions.
- * Formula:
- * Final Score = (Environmental × 0.40) + (Energy × 0.25) + (Social × 0.20) + (Economic × 0.15)
- * Clamped strictly between 0 and 1000.
+ * Each mission is worth up to 250 points:
+ * Sustainable choice: +250 points
+ * Unsustainable choice: +50 points (never 0 points)
+ * Max score across 4 missions = 1000 points.
  */
 export function calculateParticipantScore(
   decisions: Record<number, string>
 ): ParticipantScore {
-  let env = 250;
-  let energy = 250;
-  let social = 250;
-  let econ = 250;
+  let totalPoints = 0;
+  let envScore = 0;
+  let energyScore = 0;
+  let socialScore = 0;
+  let econScore = 0;
+  let sustainableCount = 0;
+  let unsustainableCount = 0;
 
   for (const [missionNumStr, optionKey] of Object.entries(decisions)) {
     const missionNum = parseInt(missionNumStr, 10);
@@ -85,31 +89,34 @@ export function calculateParticipantScore(
     const option = mission.options.find((opt) => opt.key === optionKey);
     if (!option) continue;
 
-    // Scale impact multipliers to 0-1000 base
-    env += option.impacts.environmental * 3.5;
-    energy += option.impacts.energy * 3.5;
-    social += option.impacts.social * 3.5;
-    econ += option.impacts.economic * 3.5;
+    totalPoints += option.pointsAwarded;
+
+    if (option.isSustainable) {
+      sustainableCount += 1;
+      envScore += 250;
+      energyScore += 250;
+      socialScore += 250;
+      econScore += 250;
+    } else {
+      unsustainableCount += 1;
+      envScore += 50;
+      energyScore += 50;
+      socialScore += 50;
+      econScore += 50;
+    }
   }
 
-  // Clamp individual dimensions between 0 and 1000
-  env = Math.max(0, Math.min(1000, Math.round(env)));
-  energy = Math.max(0, Math.min(1000, Math.round(energy)));
-  social = Math.max(0, Math.min(1000, Math.round(social)));
-  econ = Math.max(0, Math.min(1000, Math.round(econ)));
-
-  // Weighted calculation
-  const weightedTotal = Math.round(
-    env * 0.4 + energy * 0.25 + social * 0.2 + econ * 0.15
-  );
-  const total = Math.max(0, Math.min(1000, weightedTotal));
+  // If no decisions yet, set cadet baseline
+  const total = Math.max(0, Math.min(1000, totalPoints));
 
   return {
-    environmental: env,
-    energy: energy,
-    social: social,
-    economic: econ,
+    environmental: Math.round(envScore),
+    energy: Math.round(energyScore),
+    social: Math.round(socialScore),
+    economic: Math.round(econScore),
     total,
     rating: getRating(total).rating,
+    sustainableCount,
+    unsustainableCount,
   };
 }

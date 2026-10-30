@@ -70,7 +70,7 @@ export function useGameState() {
   );
 
   const handleSubmitDecision = useCallback(
-    (missionNum: number, optionKey: "A" | "B" | "C" | "D") => {
+    (missionNum: number, optionKey: "A" | "B") => {
       if (!currentParticipantId) {
         return { success: false, error: "Participant not logged in" };
       }

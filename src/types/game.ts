@@ -8,22 +8,34 @@ export interface SDGInfo {
   iconName: string;
 }
 
+export interface LearningHotspot {
+  id: string;
+  label: string;
+  x: number; // percentage 0-100
+  y: number; // percentage 0-100
+  description: string;
+  tag: string;
+}
+
 export interface DecisionOption {
   id: string; // e.g. "m1-opt-a"
-  key: "A" | "B" | "C" | "D";
+  key: "A" | "B";
   title: string;
+  isSustainable: boolean; // Option A = true, Option B = false
+  image: string;
   shortDescription: string;
   detailedExplanation: string;
   advantages: string[];
   disadvantages: string[];
+  pointsAwarded: number; // 250 for sustainable, 50 for unsustainable
   impacts: {
-    environmental: number; // delta e.g. -15 to +20
+    environmental: number; // delta
     energy: number;
     social: number;
     economic: number;
   };
   cityMetricDeltas: {
-    energyIndex: number; // positive = worse consumption unless treated as efficiency
+    energyIndex: number;
     carbonIndex: number;
     waterIndex: number;
     ewasteIndex: number;
@@ -37,17 +49,39 @@ export interface DecisionOption {
   educationalTakeaway: string;
 }
 
+export interface AIExplainerTopic {
+  id: string;
+  title: string;
+  subtitle: string;
+  iconName: string;
+  definition: string;
+  realWorldExample: string;
+  takeaway: string;
+  tag: string;
+}
+
 export interface Mission {
   id: number;
   number: number;
   title: string;
   category: string;
+  heroImage: string;
   environmentalContext: string;
   storyProblem: string;
   prompt: string;
+  question: string;
   options: DecisionOption[];
   sdgs: SDGNumber[];
   summaryNote: string;
+  hotspots: LearningHotspot[];
+  aiConcept: {
+    title: string;
+    subtitle: string;
+    definition: string;
+    realWorldExample: string;
+    takeaway: string;
+    componentType: "pipeline" | "robot" | "efficiency" | "circular";
+  };
 }
 
 export interface ParticipantScore {
@@ -57,16 +91,18 @@ export interface ParticipantScore {
   economic: number;      // 0 - 1000 base
   total: number;         // 0 - 1000 weighted
   rating: string;
+  sustainableCount: number;
+  unsustainableCount: number;
 }
 
 export interface CityMetrics {
-  energyIndex: number;          // 0 - 100 (percentage stress)
+  energyIndex: number;          // 0 - 100
   carbonIndex: number;          // 0 - 100
   waterIndex: number;           // 0 - 100
   ewasteIndex: number;          // 0 - 100
-  operationalEfficiency: number;// 0 - 100 (higher is better)
-  citizenWellbeing: number;     // 0 - 100 (higher is better)
-  resilienceIndex: number;      // 0 - 100 (higher is better)
+  operationalEfficiency: number;// 0 - 100
+  citizenWellbeing: number;     // 0 - 100
+  resilienceIndex: number;      // 0 - 100
 }
 
 export type CityCondition =
@@ -87,7 +123,7 @@ export interface Participant {
   hasSubmittedCurrentMission: boolean;
   score: ParticipantScore;
   cityMetrics: CityMetrics;
-  decisions: Record<number, string>; // missionNumber -> optionKey ("A", "B", etc.)
+  decisions: Record<number, string>; // missionNumber -> "A" | "B"
 }
 
 export interface WorkshopSession {
@@ -109,7 +145,8 @@ export interface SubmissionRecord {
   participantName: string;
   teamName?: string;
   missionNumber: number;
-  optionKey: "A" | "B" | "C" | "D";
+  optionKey: "A" | "B";
   optionTitle: string;
+  isSustainable: boolean;
   submittedAt: string;
 }

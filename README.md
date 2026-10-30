@@ -1,153 +1,131 @@
 # ECO//MIND: The Sustainable Intelligence Challenge
 ### Physical AI × Edge AI × Sustainable Development Goals (SDGs)
 
-**"The future is not about making AI more powerful. It is about making intelligence more responsible."**
+**"Intelligence is not just about what machines can do. It is about what they should do responsibly."**
 
-ECO//MIND is a multiplayer educational story simulation and technology decision-making game built for the **Robotics and Automation Club**. The application is set in the year 2045 in **NOVA CITY**, a futuristic metropolis grappling with the environmental consequences of uncontrolled computing expansion, energy bottlenecks, electronic waste, and centralized automation vulnerabilities.
-
-Participants join as members of the **Robotics and AI Sustainability Task Force** to navigate four interconnected missions, balancing computational throughput with environmental, energy, social, and economic sustainability.
+ECO//MIND is an interactive, story-driven multiplayer educational simulation and technology decision-making game developed for the **Robotics and Automation Club**. The experience is set in the year 2045 in **NOVA CITY**, a futuristic metropolis confronting an environmental and infrastructure crisis caused by unchecked computing expansion, energy brownouts, data center water evaporation, and mounting electronic scrap.
 
 ---
 
-## 🌟 Core Pillars & Pedagogical Concepts
+## 🌟 The Upgraded Interactive Experience
 
-1. **Physical Artificial Intelligence**: AI systems that perceive, reason, and actuate in the physical world (sensors, actuators, perception, local inference, kinetic safety, mechanical fatigue).
-2. **Edge Artificial Intelligence**: Local inference without constant cloud transmission. Weighing zero latency against on-device battery drain and semiconductor manufacturing impacts. *Crucial principle: Edge AI is not automatically the right answer for every scenario.*
-3. **Sustainable Computing**: Algorithmic thrift (INT8/INT4 quantization, pruning, distillation), clean renewable robotic microgrids, and carbon-aware temporal job scheduling.
-4. **Responsible Robotics & Hardware Lifecycle**: Circular economy, civic right-to-repair workshops, modular compute retrofits, and confronting embodied carbon.
-5. **United Nations Sustainable Development Goals**:
-   - **SDG 3**: Good Health and Well-being
-   - **SDG 6**: Clean Water and Sanitation
-   - **SDG 7**: Affordable and Clean Energy
-   - **SDG 9**: Industry, Innovation and Infrastructure
-   - **SDG 11**: Sustainable Cities and Communities
-   - **SDG 12**: Responsible Consumption and Production
-   - **SDG 13**: Climate Action
+The game has been upgraded to provide a rich, visual, story-driven learning experience tailored for students with little or no prior AI background:
+
+$$\text{SEE THE PROBLEM} \longrightarrow \text{UNDERSTAND THE SITUATION} \longrightarrow \text{MAKE A CHOICE} \longrightarrow \text{EXPERIENCE CONSEQUENCES} \longrightarrow \text{LEARN THE AI CONCEPT} \longrightarrow \text{SEE ENVIRONMENTAL IMPACT}$$
+
+### 1. Two-Choice Contrast Paradigm per Mission
+Every mission presents two clear, contrasting choices:
+- **OPTION A: SUSTAINABLE APPROACH (+250 Points)**
+- **OPTION B: UNSUSTAINABLE APPROACH (+50 Points participation)**
+
+> Cadets evaluate large image-based decision cards without knowing beforehand which option is classified as sustainable. After committing, the presenter triggers the **Consequence Reveal**, unveiling the sustainability classification, score updates, educational takeaways, and city condition changes.
+
+### 2. Meaningful Visual Storytelling (`public/assets/`)
+Every mission includes wide **16:9 cinematic game artwork** featuring futuristic cybernetic styling, dark navy `#070B16`, electric cyan `#35D5FF`, green `#38E58B`, amber `#F6B94A`, and danger red `#FF5B65`:
+1. `m1-infrastructure-crisis.svg` — Monolithic data center with rows of server racks, glowing optical cables, and grid overload meters.
+2. `m1-edge-ai.svg` — Autonomous robot processing camera telemetry on an onboard neural chip with sub-5ms reflexes.
+3. `m1-cloud-heavy.svg` — Continuous raw video streaming creating network packet drops and server farm heat.
+4. `m2-autonomous-rescue.svg` — Earthquake rubble, collapsed solar canopy structures, and robot scanning for human survivors.
+5. `m2-collaborative.svg` — Physical AI robot using onboard sensors for terrain reflexes and sending low-bandwidth alerts for human authorization.
+6. `m2-teleop-lag.svg` — Continuous raw sensor streaming causing video buffering, high latency (850ms), and robot stalling.
+7. `m3-energy-emergency.svg` — Summer heatwave sun derating solar canopies while cooling towers evaporate drinking water reserves.
+8. `m3-optimized-scheduling.svg` — INT8 model quantization (-75% FLOPs) and carbon-aware scheduling to nocturnal wind power.
+9. `m3-max-power.svg` — Overheating GPU racks running 100% idle load powered by dirty fossil gas peakers (+340T CO2/hr).
+10. `m4-ewaste-crisis.svg` — Mountains of discarded robotic chassis, circuit boards, and toxic leachate threatening municipal aquifers.
+11. `m4-modular-repair.svg` — Circular repair workshop swapping modular NPU daughterboards while preserving 85% chassis aluminum.
+12. `m4-dump-replacement.svg` — Scrap bulldozers dumping functional robots into hazardous landfills.
+13. `city-polluted.svg` — Nova City under yellow smog, brownout warning lights, and cooling vapor plumes.
+14. `city-sustainable.svg` — Nova City in flourishing planetary equilibrium with vertical green forest towers and clean solar grids.
 
 ---
 
-## 🎮 The Four Missions
+## 🎮 The Four Core Missions
 
-- **Mission 1: The Intelligence Crisis (AI Infrastructure & Energy Architecture)**
-  - *Scenario*: NOVA CITY's centralized data centers are burning 4.2 GW and millions of liters of cooling water, while network latency paralyzes municipal systems.
-  - *Decisions*: Consolidate Centralized Hyperscale Cloud AI vs Decentralize Entirely to Pure Edge AI vs Deploy Dynamic Tiered Hybrid AI Architecture.
+- **Mission 1: The AI Infrastructure Crisis (AI Infrastructure & Edge vs Cloud)**
+  - *Question*: How should the city process the information collected by its autonomous robots?
+  - *Option A (Sustainable)*: Local Edge AI Processing (+250 pts).
+  - *Option B (Unsustainable)*: Unnecessary Continuous Cloud Transmission (+50 pts).
+  - *Interactive Lab*: **Cloud vs Edge Data Pipeline Simulator** (Comparing latency, bandwidth, and outage resilience).
 - **Mission 2: The Autonomous Rescue (Physical AI & Responsible Robotics)**
-  - *Scenario*: A 6.8 seismic tremor has collapsed solar canopy structures with survivors trapped in unstable rubble where wireless communications are heavily degraded.
-  - *Decisions*: Tele-Operated Remote Control with Full Human Drivers vs Fully Autonomous Swarm with Local AI vs Human-Supervised Collaborative Autonomy (Centaur Fleet).
+  - *Question*: How should the rescue robot navigate through the damaged building?
+  - *Option A (Sustainable)*: Local perception and autonomous navigation with human supervision (+250 pts).
+  - *Option B (Unsustainable)*: Continuously stream all sensor data to a remote operator for every minor movement (+50 pts).
+  - *Interactive Lab*: **Physical AI Robot Sensor Rig** (Clickable Camera, LiDAR, NPU Processor, and All-Terrain Motor Actuators).
 - **Mission 3: The Energy Emergency (Energy & Sustainable Computing)**
-  - *Scenario*: Extreme summer heatwave degrades solar efficiency while compute spikes threaten a city-wide blackout within 350 megawatts of margin.
-  - *Decisions*: Maximum Performance with Reserve Fossil Turbines vs Mandatory Dynamic Model Compression & Quantization vs Off-Grid Solar & Battery Microgrid Robot Hubs vs Carbon-Aware Temporal Workload Scheduling.
-- **Mission 4: The E-Waste Trap (Responsible Robotics & Hardware Lifecycle)**
-  - *Scenario*: 120,000 legacy municipal robots face end-of-life as scrap piles threaten water aquifers with toxic heavy metals.
-  - *Decisions*: Complete Fleet Replacement with State-of-the-Art Silicon vs Comprehensive Civic Repair & Community Refurbishment vs Standardized Modular Compute Retrofit.
+  - *Question*: How should the city reduce the energy required to operate its intelligent infrastructure?
+  - *Option A (Sustainable)*: Optimize AI models (INT8 quantization) and use intelligent workload scheduling (+250 pts).
+  - *Option B (Unsustainable)*: Run oversized AI models continuously at maximum capacity for every task (+50 pts).
+  - *Interactive Lab*: **Algorithmic Efficiency & Carbon Scheduling Meter** (Dynamic FLOPs, wattage, and CO2 calculation).
+- **Mission 4: The E-Waste Crisis (Responsible Robotics & Hardware Lifecycle)**
+  - *Question*: What should the city do with outdated robotic systems?
+  - *Option A (Sustainable)*: Repair, reuse, and upgrade modular components (+250 pts).
+  - *Option B (Unsustainable)*: Replace the entire robot whenever one component becomes outdated (+50 pts).
+  - *Interactive Lab*: **The 5R Circular Robotics Loop** (Reduce → Reuse → Repair → Refurbish → Recycle).
 
 ---
 
-## 📊 Transparent Sustainability Scoring System
+## 💡 Beginner AI Learning Center (10 Topics)
 
-- Every participant starts with **1000 base points** (250 points across four dimensions).
-- Decisions apply server-validated multipliers to each dimension:
-  $$\text{Final Score} = (\text{Environmental} \times 0.40) + (\text{Energy} \times 0.25) + (\text{Social} \times 0.20) + (\text{Economic} \times 0.15)$$
-- Normalized strictly to a **0–1000** scale.
-- **Ratings**:
+Accessible directly from the navigation bar or within the missions, this interactive learning center explains core concepts in simple English:
+1. What is Artificial Intelligence?
+2. What is Edge AI?
+3. What is Cloud AI?
+4. What is Physical AI?
+5. What is Computer Vision?
+6. What are Sensors?
+7. What is LiDAR?
+8. What is Local Inference?
+9. What is Energy-Efficient AI?
+10. What is Electronic Waste (E-Waste)?
+
+---
+
+## 🎯 Educational Scoring System
+
+- 4 Missions × 250 points = **1000 Maximum Points**.
+- **Sustainable Choice**: `+250 points`.
+- **Unsustainable Choice**: `+50 points` for participation (cadets are never given zero!).
+- **Rankings**:
   - `900–1000`: SUSTAINABILITY VISIONARY (Emerald Luminary)
-  - `750–899`: GREEN INNOVATOR (Eco-Architect)
-  - `600–749`: RESPONSIBLE DEVELOPER (Pragmatic Engineer)
-  - `400–599`: EMERGING SUSTAINABILITY LEADER (Transition Pioneer)
-  - `0–399`: FUTURE NEEDS REWORK (Crisis Remediator)
+  - `700–899`: GREEN INNOVATOR (Eco-Architect)
+  - `500–699`: RESPONSIBLE DEVELOPER (Pragmatic Engineer)
+  - `300–499`: EMERGING SUSTAINABILITY LEADER (Transition Pioneer)
+  - `0–299`: FUTURE NEEDS REWORK (Crisis Remediator)
 
 ---
 
-## 🏙️ City Health Simulation & Four Final Endings
+## 🏙️ Four Final City Endings
 
-Tracks seven macro city telemetry metrics (Energy Stress, Carbon Emissions, Cooling Water Draw, E-Waste Scrap, Operational Efficiency, Citizen Well-being, Network Resilience).
+At the summit conclusion, cadets view their final Nova City outcome:
+1. **1. GREEN FUTURE**: Thriving metropolis achieved through edge thrift, circular repairs, and collaborative robotics.
+2. **2. TECHNOLOGY WITHOUT BALANCE**: High technological convenience burdened by mounting ecological debt and water depletion.
+3. **3. FRAGILE CITY**: Complex monolithic dependencies resulting in network brownouts and structural vulnerabilities.
+4. **4. RECOVERY IN PROGRESS**: Halting crises and rebuilding durable foundations with civic purpose.
 
-At the summit conclusion, cadets unlock one of four cinematic city endings:
-- **ENDING A: THE SUSTAINABLE FUTURE** — Eco-Intelligent Metropolis in planetary equilibrium.
-- **ENDING B: THE TECHNOLOGICAL GIANT** — Peak silicon convenience burdened by mounting ecological debt.
-- **ENDING C: THE FRAGILE FUTURE** — Complex monolithic dependencies causing vulnerable network margins.
-- **ENDING D: THE RECOVERY PATH** — Halting crises and rebuilding durable foundations with purpose.
-
----
-
-## 🚀 Application Routes
-
-### Public & Participant Routes:
-- `/` — Cinematic Landing Page with animated transitioning city skyline and SDG matrix.
-- `/join` — Instant participant registration with PIN validation, reconnect support, and mobile QR code generator.
-- `/game` — Participant game interface: AETHER cinematic story prologue, mission telemetry, interactive decision cards, real-time waiting state, animated consequence reveal, and city health meters.
-- `/game/results` — Participant final results ceremony with ending scenario, dimension radar chart, awards, and decision history.
-- `/about` — Workshop curriculum, Physical AI vs Edge AI, and UN SDG mappings.
-
-### Presenter / Director Routes:
-- `/presenter/login` — Presenter authentication gate (passcode: `ecomind2045`).
-- `/presenter/dashboard` — Live director command center: session stats, live leaderboard, mission control buttons (Start, Pause, Reveal Consequences, Advance Mission, Reset).
-- `/presenter/participants` — Real-time participant roster with search, team filtering, score details, and decision inspector.
-- `/presenter/missions` — Mission-by-mission control with live Recharts choice distribution graphs.
-- `/presenter/analytics` — Cohort-wide sustainability radar charts and AI paradigm breakdowns.
-- `/presenter/results` — Final workshop podium celebration and one-click **CSV Roster Export**.
+> **"Intelligence is not just about what machines can do. It is about what they should do responsibly."**
 
 ---
 
-## ⚡ Local Demo Mode (Zero Setup Required)
+## 🖥️ Presenter Command Center & Projector Mode
 
-ECO//MIND contains a built-in **Local Demo Engine**:
-- No external database is needed for local workshops or demonstrations!
-- Uses `BroadcastChannel` and `localStorage` to synchronize state **in real-time across browser tabs**.
-- Comes preloaded with default session PIN `ECO2045` and simulated AI participants (Aria Vance, Kaelen Chen, Dr. Mira Soren, Tarek Al-Mansoor, Elena Rostova) who realistically respond to presenter actions.
-- **To test the multiplayer experience on one computer**:
-  1. Open `/presenter/dashboard` in your main browser tab.
-  2. Open `/join` in an Incognito window or secondary tab with PIN `ECO2045`.
-  3. Submit a choice in the cadet tab, and watch the Presenter Decision Monitor update instantly!
-  4. Click "Reveal Consequences" in the Presenter tab, and the cadet tab immediately triggers the consequence reveal!
+- **Live Question Display**: Active question displayed prominently with Option A and Option B vote counts and percentages.
+- **Projector Mode**: One-click fullscreen toggle with high-contrast text and enlarged charts for auditorium presentations.
+- **Consequence Reveal**: Synchronizes across all connected participant screens with audio-visual feedback.
+- **CSV Roster Export**: Downloads full participant decision histories and scores with one click.
+- **Zero-Setup Local Demo Engine**: Uses `BroadcastChannel` and `localStorage` for cross-tab multiplayer sync without needing an external cloud server.
 
 ---
 
-## 🛠️ Production Supabase Setup
-
-When deploying for wide multi-device workshops:
-1. Create a Supabase project at [supabase.com](https://supabase.com).
-2. Run the SQL migration located in `supabase/migrations/01_init_ecomind.sql` in the Supabase SQL Editor.
-3. Configure your environment variables in `.env.local` or Vercel:
-   ```env
-   NEXT_PUBLIC_SUPABASE_URL=https://your-supabase-project.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-   NEXT_PUBLIC_PRESENTER_PASSCODE=ecomind2045
-   NEXT_PUBLIC_APP_URL=https://your-deployment-url.vercel.app
-   ```
-
----
-
-## 📦 Tech Stack
-
-- **Framework**: Next.js (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS, Custom Neon Glow Utilities
-- **Animations**: Framer Motion, Canvas Confetti
-- **Icons**: Lucide React
-- **Data Visualizations**: Recharts (Radar, Bar, Responsive Charts)
-- **Database / Realtime**: Supabase (PostgreSQL, RLS) + Local Cross-Tab Synchronizer
-- **QR Codes**: `qrcode.react`
-- **Deployment**: Vercel
-
----
-
-## 🏃 Getting Started
+## 🚀 Running the Application
 
 ```bash
-# 1. Install dependencies
+# Install dependencies
 npm install
 
-# 2. Run the development server
+# Run development server
 npm run dev
 
-# 3. Open in browser
-http://localhost:3000
-```
-
-To build for production:
-```bash
-npm run build
-npm start
+# Open in browser:
+# Participant Interface: http://localhost:3000/join (PIN: ECO2045)
+# Presenter Dashboard:   http://localhost:3000/presenter/dashboard (Passcode: ecomind2045)
 ```

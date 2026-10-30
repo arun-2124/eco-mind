@@ -1,4 +1,4 @@
-import { Mission, SDGInfo, SDGNumber } from "@/types/game";
+import { Mission, SDGInfo, SDGNumber, AIExplainerTopic } from "@/types/game";
 
 export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
   3: {
@@ -52,149 +52,285 @@ export const SDG_DETAILS: Record<SDGNumber, SDGInfo> = {
   },
 };
 
+export const AI_EXPLAINER_TOPICS: AIExplainerTopic[] = [
+  {
+    id: "what-is-ai",
+    title: "1. What is Artificial Intelligence?",
+    subtitle: "Machines that learn patterns to make decisions",
+    iconName: "Bot",
+    definition:
+      "Artificial Intelligence (AI) refers to computer software designed to perform tasks that typically require human intelligence—such as recognizing faces, understanding spoken words, or navigating a street.",
+    realWorldExample:
+      "A music app predicting which song you might like next based on your past listening habits.",
+    takeaway:
+      "AI is not magic thinking; it is math and statistical pattern recognition running on physical computing hardware.",
+    tag: "Foundational AI",
+  },
+  {
+    id: "what-is-edge-ai",
+    title: "2. What is Edge AI?",
+    subtitle: "Running intelligence directly on physical devices",
+    iconName: "Cpu",
+    definition:
+      "Edge AI means processing artificial intelligence models locally on or near the physical machine (like a robot or phone) rather than sending all information across the internet to a distant server.",
+    realWorldExample:
+      "Your smartphone unlocking instantly using Face ID without needing a Wi-Fi or cellular internet connection.",
+    takeaway:
+      "Edge AI eliminates latency and protects data privacy, though device batteries and manufacturing must be balanced.",
+    tag: "Edge Computing",
+  },
+  {
+    id: "what-is-cloud-ai",
+    title: "3. What is Cloud AI?",
+    subtitle: "Massive computing in remote data centres",
+    iconName: "Cloud",
+    definition:
+      "Cloud AI processes tasks in large warehouse-sized data centers equipped with thousands of interconnected graphics processing units (GPUs).",
+    realWorldExample:
+      "Asking a large language model a complex multi-paragraph question where massive supercomputers compute the answer.",
+    takeaway:
+      "Cloud AI delivers unmatched horsepower, but data transmission radio power and data center cooling water add real environmental costs.",
+    tag: "Cloud Infrastructure",
+  },
+  {
+    id: "what-is-physical-ai",
+    title: "4. What is Physical AI?",
+    subtitle: "AI that perceives, reasons, and acts in the physical world",
+    iconName: "Activity",
+    definition:
+      "Physical AI refers to intelligent systems embodied in physical machines (like autonomous vehicles or rescue quadrupeds) that interact with physical objects, friction, gravity, and unpredictable real-world terrain.",
+    realWorldExample:
+      "A robotic vacuum navigating around chair legs and avoiding falling down stairs.",
+    takeaway:
+      "Physical AI bridges digital math with mechanical force, motors, and human physical safety.",
+    tag: "Robotics",
+  },
+  {
+    id: "what-is-computer-vision",
+    title: "5. What is Computer Vision?",
+    subtitle: "Enabling machines to see and interpret pixels",
+    iconName: "Eye",
+    definition:
+      "Computer Vision is the branch of AI that teaches computers to interpret visual information from camera frames, identifying objects, boundaries, obstacles, and people.",
+    realWorldExample:
+      "An autonomous car recognizing a red stop sign and a pedestrian crossing the road.",
+    takeaway:
+      "Vision transforms raw grid pixels into meaningful spatial understanding in milliseconds.",
+    tag: "Perception",
+  },
+  {
+    id: "what-are-sensors",
+    title: "6. What are Sensors?",
+    subtitle: "The sensory organs of modern robots",
+    iconName: "Radio",
+    definition:
+      "Sensors are electronic components that detect physical changes in the environment—such as light, heat, pressure, ultrasonic echoes, or motion—and convert them into digital signals.",
+    realWorldExample:
+      "A thermometer on your wall measuring room temperature and turning on the thermostat.",
+    takeaway:
+      "Robots cannot make intelligent decisions without accurate sensors reading the physical world.",
+    tag: "Hardware",
+  },
+  {
+    id: "what-is-lidar",
+    title: "7. What is LiDAR?",
+    subtitle: "Light Detection and Ranging: Seeing with laser pulses",
+    iconName: "Radar",
+    definition:
+      "LiDAR shoots millions of invisible eye-safe laser beams per second and measures the time it takes for them to bounce back, creating a dense 3D point-cloud map of surrounding geometry.",
+    realWorldExample:
+      "Emergency rescue drones mapping a collapsed stadium in complete darkness to find pathways.",
+    takeaway:
+      "LiDAR operates in total darkness and smoke where normal optical cameras fail.",
+    tag: "Sensors",
+  },
+  {
+    id: "what-is-local-inference",
+    title: "8. What is Local Inference?",
+    subtitle: "Computing a neural network without the web",
+    iconName: "Zap",
+    definition:
+      "Inference is the step where a trained AI model takes live inputs and calculates an answer. Local inference executes that computation entirely on the device's own microchip.",
+    realWorldExample:
+      "A drone calculating its stabilization motors 500 times per second while flying under an overpass.",
+    takeaway:
+      "Local inference prevents robots from crashing when communication tunnels get cut.",
+    tag: "Edge Computing",
+  },
+  {
+    id: "what-is-energy-efficient-ai",
+    title: "9. What is Energy-Efficient AI?",
+    subtitle: "Delivering intelligence with minimal electricity",
+    iconName: "Leaf",
+    definition:
+      "Energy-efficient AI utilizes algorithmic compression (like quantization from 32-bit to 8-bit numbers) and clever scheduling to slash electricity draw by over 60% without sacrificing accuracy.",
+    realWorldExample:
+      "Shrinking a high-resolution photo file into a compact format that still looks sharp but downloads in a split second.",
+    takeaway:
+      "How an algorithm is written directly dictates how many watts of power it burns.",
+    tag: "Sustainable Computing",
+  },
+  {
+    id: "what-is-ewaste",
+    title: "10. What is Electronic Waste (E-Waste)?",
+    subtitle: "Discarded electronic equipment and the circular solution",
+    iconName: "Trash2",
+    definition:
+      "E-waste refers to discarded electronic devices, circuit boards, batteries, and robots. It contains toxic heavy metals (lead, mercury, cadmium) that can poison soil and groundwater if sent to landfills.",
+    realWorldExample:
+      "Replacing your working mobile phone every single year instead of repairing the cracked glass.",
+    takeaway:
+      "Responsible robotics embraces modularity: replace the worn chip, not the entire machine.",
+    tag: "Circular Economy",
+  },
+];
+
 export const MISSIONS: Mission[] = [
   {
     id: 1,
     number: 1,
-    title: "The Intelligence Crisis",
-    category: "AI Infrastructure & Energy Architecture",
+    title: "The AI Infrastructure Crisis",
+    category: "AI Infrastructure & Edge vs Cloud",
+    heroImage: "/assets/m1-infrastructure-crisis.svg",
     environmentalContext:
-      "NOVA CITY's centralized data centers are burning through 4.2 gigawatts of grid energy and evaporating millions of liters of potable water for evaporative cooling towers. Network latency has surged to 420ms, stalling autonomous transit and smart grid synchronization.",
+      "NOVA CITY has built thousands of service robots that continuously stream high-definition sensor video to a monolithic cloud data center. The regional power grid is experiencing brownouts, and evaporative cooling towers are draining millions of liters of scarce city reservoir water.",
     storyProblem:
-      "Every robotic courier, surveillance drone, environmental sensor, and hospital system sends raw high-resolution telemetry to a monolithic central compute cluster. The central AI, AETHER, reports catastrophic grid congestion. You must redesign the compute distribution architecture.",
+      "Network bandwidth is choked with 420ms latency delays. Autonomous transit vehicles are stalling because simple obstacle navigation decisions get stuck in remote server queues. The Task Force must choose how data is processed.",
     prompt:
-      "Select the technological architecture to resolve the intelligence bottleneck while safeguarding urban energy stability.",
+      "Select the processing architecture for Nova City's robotic fleet.",
+    question:
+      "How should the city process the information collected by its autonomous robots?",
     sdgs: [7, 9, 12, 13],
     summaryNote:
-      "Sustainable intelligence is not just about raw model accuracy; it encompasses transmission energy, cooling water, and hardware lifecycles.",
+      "Sustainable intelligence is not just about model size; transmission radio energy and data center cooling water have immense environmental impacts.",
+    hotspots: [
+      {
+        id: "m1-hs-datacenter",
+        label: "Monolithic Data Center",
+        x: 48,
+        y: 28,
+        description:
+          "Thousands of high-power server racks consuming 4.2 Gigawatts and evaporating drinking water for cooling.",
+        tag: "Cloud Overhead",
+      },
+      {
+        id: "m1-hs-robot",
+        label: "Autonomous Courier Rover",
+        x: 50,
+        y: 78,
+        description:
+          "Equipped with cameras and distance sensors. Awaiting instruction whether to compute on-device or transmit.",
+        tag: "Physical Edge",
+      },
+      {
+        id: "m1-hs-gridload",
+        label: "Grid Stress Telemetry",
+        x: 48,
+        y: 45,
+        description:
+          "Grid headroom is down to 5.2%. Transmission lines are sparking from heavy continuous RF broadcasts.",
+        tag: "Energy Crisis",
+      },
+    ],
+    aiConcept: {
+      title: "WHAT IS EDGE AI?",
+      subtitle: "Running intelligence directly on physical devices",
+      definition:
+        "Edge AI means running artificial intelligence calculations directly on or near the physical machine that gathers the data—rather than uploading everything across the internet to a remote cloud server.",
+      realWorldExample:
+        "Your smartphone unlocking with facial recognition in 0.1 seconds, completely offline without needing cellular data or Wi-Fi.",
+      takeaway:
+        "Edge AI eliminates network latency and avoids huge server-farm cooling water draw, but engineers must account for device battery consumption and chip manufacturing.",
+      componentType: "pipeline",
+    },
     options: [
       {
         id: "m1-opt-a",
         key: "A",
-        title: "Consolidate Centralized Hyper-Scale Cloud AI",
+        title: "Local Edge AI Processing",
+        isSustainable: true,
+        image: "/assets/m1-edge-ai.svg",
+        pointsAwarded: 250,
         shortDescription:
-          "Keep computing centralized in massive high-efficiency hyperscale data centers with unified liquid cooling.",
+          "Run compressed quantized AI models directly on the robot's onboard microcomputer.",
         detailedExplanation:
-          "Route all processing through optimized regional computing clusters. Centralization maximizes GPU cluster utilization, allows rapid deployment of state-of-the-art foundation models, and simplifies maintenance, but requires unbroken gigabit wireless bandwidth.",
+          "Instead of continuously uploading every video frame to a distant server, the robot processes sensor readings locally on its onboard neural chip. It detects obstacles and makes immediate navigation decisions in under 5ms.",
         advantages: [
-          "Maximum GPU efficiency and unified infrastructure pooling",
-          "Seamless centralized model security updates and debugging",
-          "Access to frontier-scale trillion-parameter reasoning models",
-          "Lower per-device silicon cost and manufacturing overhead",
+          "Less unnecessary data transmission and radio power draw",
+          "Zero reliance on continuous cellular internet connectivity",
+          "Ultra-fast local reflexes preventing collisions during outages",
+          "Protects citizen visual privacy by keeping raw camera frames on-device",
         ],
         disadvantages: [
-          "Extreme data center electricity demand and localized water draw",
-          "Heavy telemetry radio-frequency energy consumption",
-          "High network latency during weather and grid fluctuations",
-          "Complete single-point-of-failure vulnerability for city services",
+          "Local hardware consumes on-device battery electricity",
+          "Requires model compression (quantization) to fit compact silicon",
         ],
         impacts: {
-          environmental: -40,
-          energy: -50,
-          social: 20,
+          environmental: 50,
+          energy: 45,
+          social: 35,
           economic: 30,
         },
         cityMetricDeltas: {
-          energyIndex: 25,
-          carbonIndex: 20,
-          waterIndex: 30,
+          energyIndex: -30,
+          carbonIndex: -25,
+          waterIndex: -35,
           ewasteIndex: -10,
-          operationalEfficiency: 15,
-          citizenWellbeing: -5,
-          resilienceIndex: -25,
+          operationalEfficiency: 35,
+          citizenWellbeing: 30,
+          resilienceIndex: 45,
         },
         learningObjective:
-          "Understand the massive hidden environmental cost of centralized data centers, network transmission power, and water cooling.",
-        sdgs: [7, 9, 13],
+          "Discover how Edge AI slashes network transmission overhead and data center cooling water draw.",
+        sdgs: [7, 9, 12, 13],
         consequenceNarration:
-          "Centralized processing maintained high model intelligence, but regional power substations experienced rolling brownouts and cooling towers drew scarce reservoir water. When a fiber conduit severed, 34% of municipal transit stalled.",
+          "EXCELLENT SUSTAINABLE CHOICE! By shifting obstacle detection to onboard edge chips, radio transmission queues cleared instantly. Data center water cooling draw dropped by 65%, and municipal robots responded safely without lag.",
         educationalTakeaway:
-          "Cloud AI delivers unrivaled computational power, but data center electricity and network transmission have substantial carbon and freshwater footprints. Centralization also introduces severe systemic fragility.",
+          "Edge AI avoids the massive hidden energy and water costs of continuous cloud uploads. Computing locally gives machines immediate physical reflexes while conserving shared urban grid infrastructure.",
       },
       {
         id: "m1-opt-b",
         key: "B",
-        title: "Decentralize Entirely to Pure Edge AI",
+        title: "Unnecessary Continuous Cloud Transmission",
+        isSustainable: false,
+        image: "/assets/m1-cloud-heavy.svg",
+        pointsAwarded: 50,
         shortDescription:
-          "Fit every robot, traffic sensor, and municipal device with dedicated local neural processing silicon.",
+          "Continuously upload every raw camera frame and sensor bit to a distant cloud server.",
         detailedExplanation:
-          "Eliminate centralized transmission by running compressed quantized neural networks directly on edge microcontrollers and onboard NPUs. Devices operate autonomously with zero latency, but each unit requires specialized onboard hardware.",
+          "The robot depends entirely on remote centralized cloud infrastructure for basic navigation. Every minor movement sends gigabytes of video telemetry across congested radio waves.",
         advantages: [
-          "Zero telemetry transmission latency (sub-5ms immediate response)",
-          "Total operational resilience even during city-wide communications blackout",
-          "Eliminates server farm water cooling requirements",
-          "Superior citizen data privacy as raw video stays strictly on-device",
+          "Can query frontier large models with billions of parameters",
+          "Lower compute silicon needed on the robot chassis itself",
         ],
         disadvantages: [
-          "Massive surge in onboard battery drain and hardware manufacturing",
-          "Embedded NPUs have strictly constrained memory and reasoning power",
-          "Difficult decentralized firmware deployment and diagnostics",
-          "Accelerated device hardware obsolescence across 500,000 nodes",
+          "Massive continuous radio transmission electricity consumption",
+          "Severe data center cooling water evaporation and carbon footprint",
+          "Catastrophic failure if network signal drops under concrete or bad weather",
+          "Single point of failure: entire city fleet freezes if data center stumbles",
         ],
         impacts: {
-          environmental: -15,
-          energy: 15,
-          social: 25,
-          economic: -35,
+          environmental: -45,
+          energy: -50,
+          social: -15,
+          economic: -25,
         },
         cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: -15,
-          waterIndex: -35,
-          ewasteIndex: 35,
-          operationalEfficiency: 5,
-          citizenWellbeing: 15,
-          resilienceIndex: 35,
+          energyIndex: 35,
+          carbonIndex: 30,
+          waterIndex: 40,
+          ewasteIndex: 5,
+          operationalEfficiency: -20,
+          citizenWellbeing: -20,
+          resilienceIndex: -35,
         },
         learningObjective:
-          "Recognize that Edge AI solves communication latency and data center cooling, but transfers energy burden to local batteries and accelerates hardware manufacturing cycles.",
-        sdgs: [9, 11, 12],
+          "Identify the severe environmental and reliability penalties of unnecessary continuous cloud streaming.",
+        sdgs: [7, 13],
         consequenceNarration:
-          "Streetlights and robots operated flawlessly without network latency. However, municipal maintenance teams were overwhelmed servicing depleted batteries across thousands of distributed devices, and procurement costs ballooned.",
+          "UNSUSTAINABLE APPROACH. Continuous raw video uploads overwhelmed cell towers. Latency spiked to 650ms, causing four autonomous delivery rovers to stall. Data centers consumed 3.8 million liters of cooling water in peak heat.",
         educationalTakeaway:
-          "Edge AI dramatically reduces data transmission and eliminates centralized water cooling, but distributed compute shifts the environmental footprint to silicon fabrication, battery wear, and physical servicing.",
-      },
-      {
-        id: "m1-opt-c",
-        key: "C",
-        title: "Deploy Dynamic Tiered Hybrid AI Architecture",
-        shortDescription:
-          "Execute split-inference: lightweight edge models handle real-time safety, cloud handles complex planning.",
-        detailedExplanation:
-          "Physical devices run ultra-compact 8-bit quantized models for instantaneous obstacle detection and emergency response. Only contextual anomalies and aggregated optimization summaries are dispatched asynchronously to renewable-powered cloud clusters.",
-        advantages: [
-          "Optimal balance between instant physical safety and deep analytical reasoning",
-          "82% reduction in continuous telemetry bandwidth consumption",
-          "Graceful degradation: units remain safe and functional if network drops",
-          "Prolongs hardware lifespan by avoiding bloated edge computing specifications",
-        ],
-        disadvantages: [
-          "Significant architectural complexity in model partitioning and synchronization",
-          "Requires sophisticated edge-cloud orchestration middleware",
-          "Initial software engineering and integration expenses are high",
-        ],
-        impacts: {
-          environmental: 45,
-          energy: 40,
-          social: 35,
-          economic: 15,
-        },
-        cityMetricDeltas: {
-          energyIndex: -25,
-          carbonIndex: -20,
-          waterIndex: -25,
-          ewasteIndex: -15,
-          operationalEfficiency: 30,
-          citizenWellbeing: 25,
-          resilienceIndex: 40,
-        },
-        learningObjective:
-          "Grasp how hybrid AI architectures deliver the sustainable sweet spot: minimal edge power for reflexes, centralized intelligence for macro-coordination.",
-        sdgs: [7, 9, 11, 13],
-        consequenceNarration:
-          "NOVA CITY achieved a stable equilibrium. Edge devices navigated physical traffic with zero lag, while central cooling loads dropped by 68%. Data queues cleared and overall urban energy consumption dropped sharply.",
-        educationalTakeaway:
-          "Sustainable computing requires pragmatic balance. Dynamic hybrid architectures avoid both the extreme power overhead of monolithic clouds and the silicon obsolescence of oversized edge units.",
+          "Transmitting raw data across the internet is energy-intensive. When robots depend on distant servers for basic reflexes, systems become fragile and waste vast amounts of electricity and cooling water.",
       },
     ],
   },
@@ -203,142 +339,145 @@ export const MISSIONS: Mission[] = [
     number: 2,
     title: "The Autonomous Rescue",
     category: "Physical AI & Responsible Robotics",
+    heroImage: "/assets/m2-autonomous-rescue.svg",
     environmentalContext:
-      "A 6.8 magnitude seismic tremor has ruptured utility conduits in the Old Industrial District. Chemical dust, severed fiber lines, and unstable structural rubble prevent human emergency crews from entering safely.",
+      "A 6.8 magnitude seismic tremor has ruptured utility conduits in Nova City's Old Industrial District. Toxic chemical dust, downed power cables, and unstable rubble prevent human emergency teams from safely entering.",
     storyProblem:
-      "Survivor signals have been detected beneath collapsed solar canopy structures. The Task Force must deploy search-and-rescue robotics into an unpredictable physical environment with degraded radio signals and toxic debris.",
+      "Human survivor signals have been detected beneath collapsed solar canopy structures. Wireless radio signals in the rubble are glitchy and drop frequently. The Task Force must deploy search-and-rescue robotics into this harsh physical environment.",
     prompt:
-      "Determine the robotic autonomy paradigm for the emergency fleet operating under severe physical constraints.",
+      "Select the robotic navigation paradigm for the disaster recovery fleet.",
+    question:
+      "How should the rescue robot navigate through the damaged building?",
     sdgs: [3, 9, 11],
     summaryNote:
-      "Physical AI bridges digital intelligence and physical mechanical action. Sensing, perception, and autonomy have profound human safety and energy implications.",
+      "Physical AI acts directly in the physical world. Sensing, perception, and autonomy have direct human safety and energy consequences.",
+    hotspots: [
+      {
+        id: "m2-hs-lidar",
+        label: "Spinning LiDAR Puck",
+        x: 33,
+        y: 60,
+        description:
+          "Emits laser pulses to create a 3D structural point-cloud in zero-visibility smoke.",
+        tag: "Perception Sensor",
+      },
+      {
+        id: "m2-hs-survivor",
+        label: "Trapped Survivor Signature",
+        x: 82,
+        y: 60,
+        description:
+          "Infrared thermal sensor registers human body heat beneath collapsed concrete.",
+        tag: "Detection Target",
+      },
+      {
+        id: "m2-hs-rubble",
+        label: "Unstable Concrete Girder",
+        x: 35,
+        y: 45,
+        description:
+          "Physical hazard. Miscalculated kinetic force could cause structural collapse.",
+        tag: "Physical Risk",
+      },
+    ],
+    aiConcept: {
+      title: "WHAT IS PHYSICAL AI?",
+      subtitle: "Intelligent systems that perceive, reason, and actuate in reality",
+      definition:
+        "Physical AI refers to artificial intelligence embodied inside physical machines (like robots and drones) that must perceive physical terrain, make decisions about physics and balance, and actuate motors and limbs safely.",
+      realWorldExample:
+        "A robotic rover scanning rubble, detecting an unstable boulder, and calculating a safe path around it to reach a trapped survivor.",
+      takeaway:
+        "Physical AI involves three interconnected stages: PERCEPTION (sensors) → DECISION (algorithms) → ACTION (actuators/motors).",
+      componentType: "robot",
+    },
     options: [
       {
         id: "m2-opt-a",
         key: "A",
-        title: "Tele-Operated Remote Control with Full Human Drivers",
+        title: "Local Perception & Autonomous Navigation with Human Supervision",
+        isSustainable: true,
+        image: "/assets/m2-collaborative.svg",
+        pointsAwarded: 250,
         shortDescription:
-          "Keep robots strictly dependent on real-time human operator piloting over wireless links.",
+          "Robot uses onboard sensors for instant local reflexes, alerting human directors for critical rescue actions.",
         detailedExplanation:
-          "Every actuator, track movement, and robotic arm gesture is driven by human rescue specialists via high-definition camera streams and haptic feedback rigs. Zero autonomous risk, but demands pristine communications.",
+          "The robot independently maneuvers over uneven terrain, maintains mechanical balance, and identifies survivors using low-power onboard computer vision and LiDAR. When a life-critical decision is reached, it sends a low-bandwidth beacon for human verification.",
         advantages: [
-          "Maximum human ethical oversight and accountable judgment",
-          "Minimal onboard robotic compute hardware needed",
-          "High adaptability for unexpected nuanced mechanical manipulation",
+          "Fast autonomous navigation without freezing when radio signals drop",
+          "Ethical human accountability for every life-critical extraction decision",
+          "Low-bandwidth data consumption: only sends essential alerts, not raw video",
+          "One rescue operator can safely supervise up to 12 robotic units at once",
         ],
         disadvantages: [
-          "Complete paralysis whenever radio signals glitch through concrete rubble",
-          "High operator cognitive fatigue limiting concurrent fleet deployment",
-          "Substantial bandwidth overhead transmitting 4K multi-angle video feeds",
-          "Slow response times when rapid structural shifts threaten survivors",
+          "Brief pause while waiting for human authorization on critical moves",
         ],
         impacts: {
-          environmental: 5,
-          energy: -20,
-          social: 10,
-          economic: 10,
+          environmental: 45,
+          energy: 40,
+          social: 55,
+          economic: 35,
         },
         cityMetricDeltas: {
-          energyIndex: 5,
-          carbonIndex: 0,
+          energyIndex: -20,
+          carbonIndex: -15,
           waterIndex: 0,
-          ewasteIndex: -5,
-          operationalEfficiency: -15,
-          citizenWellbeing: -10,
-          resilienceIndex: -20,
+          ewasteIndex: -10,
+          operationalEfficiency: 40,
+          citizenWellbeing: 50,
+          resilienceIndex: 45,
         },
         learningObjective:
-          "Understand the critical limitations of tele-operation in degraded physical environments and its high bandwidth requirements.",
-        sdgs: [3, 9],
+          "Appreciate the superior efficacy of human-in-the-loop Physical AI: reflex autonomy for physics, human wisdom for ethics.",
+        sdgs: [3, 9, 11],
         consequenceNarration:
-          "Human operators piloted with great care, but underground radio interference froze three robots mid-collapse. Two survivors were rescued, but response delays compromised deeper sector access.",
+          "OUTSTANDING SUSTAINABLE DECISION! The collaborative fleet navigated unstable concrete effortlessly with onboard reflexes. Human supervisors validated safe extraction pathways, and all 48 trapped citizens were recovered with zero robotic accidents.",
         educationalTakeaway:
-          "Tele-operation keeps humans firmly in the loop, but in physical disasters where connectivity fails, pure tele-operation creates fatal operational bottlenecks.",
+          "Responsible robotics balances autonomous reflexes with deliberate human oversight. This hybrid 'Centaur' model minimizes computational transmission power while maximizing physical human safety.",
       },
       {
         id: "m2-opt-b",
         key: "B",
-        title: "Fully Autonomous Swarm with Unconstrained Onboard AI",
+        title: "Continuously Stream All Raw Sensor Data for Every Single Step",
+        isSustainable: false,
+        image: "/assets/m2-teleop-lag.svg",
+        pointsAwarded: 50,
         shortDescription:
-          "Unleash autonomous robotic quadruped swarms powered by onboard spatial perception and predictive pathfinding.",
+          "Transmit high-resolution 4K video feeds and raw LiDAR point clouds to a remote operator for every step.",
         detailedExplanation:
-          "Robots map collapsed voids using LiDAR and thermal vision, calculating structural stability and extricating obstacles without waiting for human approval. The swarm shares mesh topology locally without central coordination.",
+          "The robot has zero autonomous reflexes. A distant human pilot must steer every single tread rotation and arm angle over wireless radio links.",
         advantages: [
-          "Ultra-fast rapid traversal across unstable rubble without latency",
-          "Completely immune to cellular and radio network jamming",
-          "Autonomous swarm self-reorganizes if individual units are damaged",
-          "Rescues trapped victims in fraction of conventional deployment time",
+          "Direct continuous human steering",
+          "Less autonomous software complexity on the robot",
         ],
         disadvantages: [
-          "Extremely high onboard computational energy drain depleting batteries rapidly",
-          "Risks unpredictable robotic interactions or accidental force escalation near victims",
-          "Sensor suite manufacturing involves rare earth elements and fragile optics",
-          "Zero human verification before initiating destructive obstacle clearance",
+          "Complete paralysis whenever radio signals fade through thick rubble",
+          "High transmission power quickly drains limited battery reserves",
+          "Severe operator cognitive fatigue: one person can only pilot one robot",
+          "Sluggish 800ms reaction latency creates catastrophic collision risks",
         ],
         impacts: {
           environmental: -25,
           energy: -35,
-          social: 25,
+          social: -15,
           economic: -20,
         },
         cityMetricDeltas: {
-          energyIndex: 20,
-          carbonIndex: 10,
-          waterIndex: 5,
-          ewasteIndex: 20,
-          operationalEfficiency: 35,
-          citizenWellbeing: 10,
-          resilienceIndex: 15,
-        },
-        learningObjective:
-          "Analyze the trade-offs of unconstrained physical autonomy: high speed and resilience versus intense battery drain and unpredictable safety risks.",
-        sdgs: [3, 9, 11],
-        consequenceNarration:
-          "The autonomous swarm swept the disaster zone in record time, locating 42 survivors within hours. However, battery depletion forced units into emergency shutoff before clearing exits, and one robotic excavator caused structural vibration.",
-        educationalTakeaway:
-          "Physical AI acting with full autonomy offers unmatched speed, but demanding perception algorithms drain energy rapidly and autonomous mechanical forces can present physical safety hazards.",
-      },
-      {
-        id: "m2-opt-c",
-        key: "C",
-        title: "Human-Supervised Collaborative Autonomy (Centaur Fleet)",
-        shortDescription:
-          "Local edge vision executes reflex navigation while human supervisors authorize critical rescue actions.",
-        detailedExplanation:
-          "Robots independently handle local terrain traversal, footing stability, and obstacle avoidance using low-power neuromorphic vision sensors. When a survivor or critical structural hazard is identified, a low-bandwidth beacon alerts human directors for intervention.",
-        advantages: [
-          "Local autonomy prevents freezing during radio dropouts while saving radio bandwidth",
-          "Ethical human accountability for every life-critical intervention",
-          "Optimized sensor power profiles allow 300% longer battery endurance",
-          "One operator can supervise up to 12 collaborative robotic units simultaneously",
-        ],
-        disadvantages: [
-          "Requires rigorous human-machine interface communication protocols",
-          "Slight operational hesitation while queuing human authorizations",
-          "Higher initial training requirements for rescue dispatch personnel",
-        ],
-        impacts: {
-          environmental: 35,
-          energy: 30,
-          social: 50,
-          economic: 20,
-        },
-        cityMetricDeltas: {
-          energyIndex: -15,
-          carbonIndex: -10,
+          energyIndex: 25,
+          carbonIndex: 15,
           waterIndex: 0,
-          ewasteIndex: -10,
-          operationalEfficiency: 30,
-          citizenWellbeing: 40,
-          resilienceIndex: 40,
+          ewasteIndex: 15,
+          operationalEfficiency: -30,
+          citizenWellbeing: -25,
+          resilienceIndex: -35,
         },
         learningObjective:
-          "Appreciate the superior efficacy of human-in-the-loop Physical AI: reflex autonomy for physical physics, human judgment for ethical decisions.",
-        sdgs: [3, 9, 11],
+          "Understand how total dependency on continuous tele-operation causes fatal operational bottlenecks during physical disasters.",
+        sdgs: [3, 9],
         consequenceNarration:
-          "The collaborative fleet performed flawlessly. Low-power physical edge reflexes kept robots traversing rubble effortlessly, while human directors safely validated extraction procedures. All 48 trapped citizens were recovered with zero robotic casualties.",
+          "UNSUSTAINABLE APPROACH. Inside collapsed concrete basements, radio signals degraded. Three robots froze mid-pathway due to video buffering. Two units were crushed by shifting debris before remote pilots received the video feed.",
         educationalTakeaway:
-          "Responsible robotics balances autonomous physical reflexes with deliberate human oversight. This hybrid 'Centaur' model minimizes both computational energy and physical risk.",
+          "Human supervision is essential, but forcing continuous remote control for minor motor steps creates catastrophic latency. Physical AI needs local sensory reflexes to survive unpredictable real-world environments.",
       },
     ],
   },
@@ -347,321 +486,294 @@ export const MISSIONS: Mission[] = [
     number: 3,
     title: "The Energy Emergency",
     category: "Energy & Sustainable Computing",
+    heroImage: "/assets/m3-energy-emergency.svg",
     environmentalContext:
-      "A severe summer heatwave has degraded regional solar array output by 18% due to thermal derating. At the same time, urban automated air scrubbers and AI compute clusters have pushed the city electrical grid into Stage 4 Emergency Alert.",
+      "A severe summer heatwave has degraded regional solar array output by 18% due to thermal derating. At the same time, municipal computing clusters and autonomous robotic air scrubbers have pushed the city electrical grid into Stage 4 Emergency Alert.",
     storyProblem:
-      "NOVA CITY's electrical grid is 350 megawatts away from complete collapse. Continued uncurbed AI operations threaten to plunge hospitals and residential districts into darkness. The Task Force must enforce immediate energy containment strategies.",
+      "The electrical grid is 350 megawatts away from total blackout. Continued uncurbed AI operations threaten to shut off hospital life-support systems and residential cooling. The Task Force must enforce computational efficiency policies.",
     prompt:
-      "Implement the technological and workload management policy to avert blackout while preserving urban operations.",
+      "Select the energy management strategy for the city's AI and computing systems.",
+    question:
+      "How should the city reduce the energy required to operate its intelligent infrastructure?",
     sdgs: [7, 9, 12, 13],
     summaryNote:
-      "Computational efficiency is an environmental imperative. Model quantization, renewable integration, and temporal workload shifting are foundational sustainable AI practices.",
+      "Software efficiency is as impactful as clean hardware. Model quantization, architectural pruning, and temporal workload scheduling conserve immense electricity.",
+    hotspots: [
+      {
+        id: "m3-hs-sun",
+        label: "Thermal Heatwave Sun",
+        x: 50,
+        y: 20,
+        description:
+          "Record 44°C temperatures cause solar panel derating and drive up data center cooling demands.",
+        tag: "Climate Stress",
+      },
+      {
+        id: "m3-hs-towers",
+        label: "Data Center Cooling Plumes",
+        x: 35,
+        y: 50,
+        description:
+          "Evaporative cooling is burning 2.4 million liters of fresh potable water daily.",
+        tag: "Resource Drain",
+      },
+      {
+        id: "m3-hs-grid",
+        label: "Grid Headroom Dial",
+        x: 50,
+        y: 72,
+        description:
+          "350 MW margin. Any sudden computing spike will trigger cascading metropolitan blackouts.",
+        tag: "Stage 4 Alert",
+      },
+    ],
+    aiConcept: {
+      title: "WHAT IS ENERGY-EFFICIENT AI?",
+      subtitle: "Designing software algorithms to sip watts instead of guzzling megawatts",
+      definition:
+        "Energy-efficient AI optimizes how computations run. By converting bloated 32-bit floating numbers into compact 8-bit integers (quantization) and pruning inactive connections, algorithms can slash electricity use by 70%.",
+      realWorldExample:
+        "Compressing a massive 4K movie into a streamlined video format that looks identical on screen but uses a fraction of internet data and battery life.",
+      takeaway:
+        "Carbon-aware scheduling also plays a huge role: shift heavy, non-urgent batch jobs to run at night when wind turbines generate surplus clean electricity.",
+      componentType: "efficiency",
+    },
     options: [
       {
         id: "m3-opt-a",
         key: "A",
-        title: "Maintain Maximum Performance via Reserve Fossil Turbines",
+        title: "Optimize AI Models & Use Intelligent Workload Scheduling",
+        isSustainable: true,
+        image: "/assets/m3-optimized-scheduling.svg",
+        pointsAwarded: 250,
         shortDescription:
-          "Fire up decommissioned gas turbine peaker plants to guarantee unthrottled computing capacity.",
+          "Mandate INT8 model quantization and shift non-urgent AI model batch processing to clean nocturnal wind windows.",
         detailedExplanation:
-          "Preserve 100% compute throughput for all commercial and municipal AI models without code modifications or service degradation by burning natural gas reserves.",
+          "Compress neural networks using integer quantization, slashing computational FLOPs by 75% with under 2% accuracy loss. Simultaneously, intelligent schedulers pause non-urgent background training until nighttime renewable wind power peaks.",
         advantages: [
-          "Zero disruption to commercial AI services, digital finance, or model quality",
-          "No engineering resources needed for model compression or system refactoring",
-          "Guaranteed grid headroom for high-demand burst computing",
+          "Immediately cuts inference electricity draw by over 65% across all chips",
+          "Consumes otherwise wasted curtailed nocturnal wind power",
+          "Prevents transformer thermal stress with zero new physical infrastructure",
+          "Saves municipal emergency reserve funds",
         ],
         disadvantages: [
-          "Spikes city greenhouse gas emissions by 340 metric tons per hour",
-          "Directly contradicts UN SDG 13 Climate Commitments and triggers legal penalties",
-          "Exhaust particulate clouds aggravate respiratory illnesses in nearby communities",
-          "Fuel expenditures rapidly deplete city emergency treasury",
+          "Requires software re-validation of quantized models",
+          "Non-urgent analytics reports are deferred by 6 to 10 hours",
         ],
         impacts: {
-          environmental: -60,
-          energy: -55,
-          social: -20,
-          economic: -25,
+          environmental: 55,
+          energy: 60,
+          social: 35,
+          economic: 45,
         },
         cityMetricDeltas: {
-          energyIndex: 45,
-          carbonIndex: 50,
-          waterIndex: 20,
-          ewasteIndex: 0,
-          operationalEfficiency: 10,
-          citizenWellbeing: -35,
-          resilienceIndex: -30,
+          energyIndex: -40,
+          carbonIndex: -35,
+          waterIndex: -30,
+          ewasteIndex: -10,
+          operationalEfficiency: 35,
+          citizenWellbeing: 30,
+          resilienceIndex: 40,
         },
         learningObjective:
-          "Recognize the catastrophic environmental impact of brute-forcing computational demand with fossil generation peakers.",
-        sdgs: [7, 13],
+          "Master algorithmic efficiency: quantization and carbon-aware temporal scheduling deliver instant carbon reductions without buying a single solar panel.",
+        sdgs: [7, 9, 12, 13],
         consequenceNarration:
-          "Computing services ran without interruption, but thick smog settled over eastern residential wards. Public outcry erupted as asthma hospital admissions doubled, and the city carbon budget was exhausted for the entire quarter.",
+          "BRILLIANT SUSTAINABLE DECISION! INT8 model compression immediately shed 280 MW from the strained electrical grid. Pausing background batch jobs until 2 AM allowed models to train on 100% surplus clean wind energy.",
         educationalTakeaway:
-          "Powering inefficient algorithms with dirty energy defeats the purpose of intelligent systems. Technology must operate within planetary and biological boundaries.",
+          "When and how you compute matters as much as what you compute. Software efficiency is an environmental superpower that keeps cities resilient without firing up fossil fuel backup plants.",
       },
       {
         id: "m3-opt-b",
         key: "B",
-        title: "Mandate Dynamic Model Compression & Quantization",
+        title: "Run Oversized AI Models Continuously at Maximum Capacity",
+        isSustainable: false,
+        image: "/assets/m3-max-power.svg",
+        pointsAwarded: 50,
         shortDescription:
-          "Enforce automatic INT4/INT8 quantization and architectural pruning across all active AI models.",
+          "Fire up decommissioned gas turbine peaker plants to keep every model running at 100% throughput 24/7.",
         detailedExplanation:
-          "Compress models on the fly, replacing 32-bit floating point calculations with integer arithmetic. Drop non-critical precision layers, slashing inference FLOPs by 75% with less than 2.1% loss in task accuracy.",
+          "Preserve maximum floating-point computing throughput for all commercial and municipal models by burning fossil natural gas reserves. Run every GPU at peak power even when idle.",
         advantages: [
-          "Cuts inference electricity draw by over 65% across all municipal chips",
-          "Requires zero new physical infrastructure or capital equipment",
-          "Permits older legacy edge devices to run modern model weights efficiently",
-          "Immediately brings grid load back under emergency safety thresholds",
+          "Zero engineering effort needed for model compression or testing",
+          "No delays in non-urgent municipal batch reports",
         ],
         disadvantages: [
-          "Minor loss of precision in subtle image classification and natural language nuance",
-          "Temporary developer friction re-validating quantized models against safety benchmarks",
+          "Spikes greenhouse gas emissions by 340 metric tons of CO2 per hour",
+          "Exhaust particulate clouds aggravate respiratory and asthma illnesses",
+          "Exhausts the entire city quarterly carbon budget in under four days",
+          "High fuel procurement costs drain civic emergency treasuries",
         ],
         impacts: {
-          environmental: 45,
-          energy: 50,
-          social: 25,
-          economic: 35,
+          environmental: -60,
+          energy: -55,
+          social: -30,
+          economic: -35,
         },
         cityMetricDeltas: {
-          energyIndex: -35,
-          carbonIndex: -30,
-          waterIndex: -20,
-          ewasteIndex: -10,
-          operationalEfficiency: 25,
-          citizenWellbeing: 20,
-          resilienceIndex: 30,
+          energyIndex: 45,
+          carbonIndex: 50,
+          waterIndex: 25,
+          ewasteIndex: 0,
+          operationalEfficiency: 5,
+          citizenWellbeing: -40,
+          resilienceIndex: -35,
         },
         learningObjective:
-          "Master algorithmic efficiency: algorithmic compression (quantization, distillation, pruning) achieves massive energy savings with minimal accuracy trade-off.",
-        sdgs: [7, 9, 12, 13],
+          "Witness the severe climate and human health consequences of brute-forcing computational demand with fossil generation peakers.",
+        sdgs: [7, 13],
         consequenceNarration:
-          "Quantized workloads instantly trimmed 280 megawatts from the municipal grid. Robots and sensors operated smoothly with imperceptible behavioral differences, completely stabilizing the regional transformer substations.",
+          "UNSUSTAINABLE APPROACH. Firing up gas peakers averted an immediate blackout, but blanketed residential wards in thick yellow smog. Pediatric asthma hospital admissions doubled, and public fury erupted over soaring utility bills.",
         educationalTakeaway:
-          "Software efficiency is as powerful as hardware upgrades. Model quantization and architectural pruning deliver massive carbon reductions without purchasing a single solar panel.",
-      },
-      {
-        id: "m3-opt-c",
-        key: "C",
-        title: "Construct Off-Grid Solar & Battery Microgrid Robot Hubs",
-        shortDescription:
-          "Equip all municipal robot charging depots with dedicated rooftop bifacial solar and sodium-ion batteries.",
-        detailedExplanation:
-          "Isolate the robotics transportation fleet from the public grid. Drones and autonomous rovers recharge exclusively from local clean energy generation with automated battery-swapping pods.",
-        advantages: [
-          "Completely decouples municipal robotics fleet energy consumption from the municipal grid",
-          "100% clean solar-powered operations during daylight hours",
-          "Depot batteries can backfeed power to emergency hospitals during blackouts",
-        ],
-        disadvantages: [
-          "Substantial capital investment and construction timeline (months)",
-          "Requires significant physical land area in crowded urban districts",
-          "Subject to seasonal solar intermittency and battery degradation",
-        ],
-        impacts: {
-          environmental: 35,
-          energy: 30,
-          social: 20,
-          economic: -30,
-        },
-        cityMetricDeltas: {
-          energyIndex: -20,
-          carbonIndex: -25,
-          waterIndex: -5,
-          ewasteIndex: 15,
-          operationalEfficiency: 15,
-          citizenWellbeing: 15,
-          resilienceIndex: 35,
-        },
-        learningObjective:
-          "Evaluate renewable energy integration for Physical AI: localized microgrids guarantee operational independence but demand capital and battery lifecycle management.",
-        sdgs: [7, 9, 11],
-        consequenceNarration:
-          "The solar charging pods shielded the autonomous delivery fleet from grid instability. While initial construction costs sparked debate in city council, the depots successfully provided emergency backup power during peak heat hours.",
-        educationalTakeaway:
-          "Decoupling physical robotic operations from stressed municipal grids creates immense resilience, provided lifecycle impacts of battery chemistry are responsibly planned.",
-      },
-      {
-        id: "m3-opt-d",
-        key: "D",
-        title: "Enforce Carbon-Aware Temporal Workload Scheduling",
-        shortDescription:
-          "Shift non-urgent AI model training and data indexing to nighttime wind generation windows.",
-        detailedExplanation:
-          "Classify computational workloads into real-time critical vs delay-tolerant batch jobs. Defer large-scale model re-training, municipal video analytics archiving, and predictive simulation passes to hours when regional wind power is curtailed.",
-        advantages: [
-          "Zero capital cost; orchestrated purely through intelligent job queuing",
-          "Maximizes consumption of otherwise wasted curtailed renewable energy",
-          "Smooths grid peak-to-average ratio, preventing transformer thermal stress",
-        ],
-        disadvantages: [
-          "Delays municipal predictive reports and non-urgent civic analytics by 8 to 14 hours",
-          "Demands complex synchronization across multi-departmental workflows",
-        ],
-        impacts: {
-          environmental: 40,
-          energy: 45,
-          social: 15,
-          economic: 40,
-        },
-        cityMetricDeltas: {
-          energyIndex: -30,
-          carbonIndex: -35,
-          waterIndex: -15,
-          ewasteIndex: -5,
-          operationalEfficiency: 20,
-          citizenWellbeing: 15,
-          resilienceIndex: 25,
-        },
-        learningObjective:
-          "Discover carbon-aware computing: scheduling flexible computational workloads to match spatial and temporal availability of renewable green energy.",
-        sdgs: [7, 12, 13],
-        consequenceNarration:
-          "Intelligent schedulers paused overnight batch calculations, freeing up 190 megawatts during critical evening dinner hours. When wind turbines spun up at 2 AM, backlogged models trained on cheap, 100% clean surplus power.",
-        educationalTakeaway:
-          "When you compute is as vital as how you compute. Carbon-aware scheduling transforms computation from an erratic grid burden into an elastic clean energy buffer.",
+          "Powering inefficient algorithms with fossil fuel defeats the purpose of intelligent systems. Technology must operate within biological and planetary boundaries.",
       },
     ],
   },
   {
     id: 4,
     number: 4,
-    title: "The E-Waste Trap",
+    title: "The E-Waste Crisis",
     category: "Responsible Robotics & Hardware Lifecycle",
+    heroImage: "/assets/m4-ewaste-crisis.svg",
     environmentalContext:
-      "NOVA CITY's rapid adoption of AI has created 18,000 tons of discarded sensors, dead robotic chassis, obsolete server blades, and battery packs piled in edge-of-city salvage yards. Toxic lithium-cobalt leachate threatens the municipal water aquifer.",
+      "NOVA CITY has accumulated 18,000 tons of discarded sensors, dead robotic chassis, obsolete server blades, and battery packs piled in edge-of-city salvage yards. Toxic lithium-cobalt leachate threatens the municipal drinking aquifer.",
     storyProblem:
-      "A generation of early-model municipal service robots has reached end-of-life. Silicon vendors are aggressively lobbying the city to scrap all 120,000 units and purchase next-generation synthetic neural robots.",
+      "A generation of 120,000 early municipal service robots has reached end-of-life. Silicon hardware vendors are aggressively lobbying the city council to scrap every robot and buy new unrepairable models. The Task Force must decide.",
     prompt:
       "Formulate the city's hardware lifecycle and electronic waste governance strategy.",
+    question:
+      "What should the city do with outdated robotic systems?",
     sdgs: [9, 11, 12, 13],
     summaryNote:
-      "Responsible robotics requires cradle-to-cradle lifecycle design. The embodied carbon in silicon fabrication often surpasses total operational energy over its entire lifespan.",
+      "The embodied carbon in semiconductor manufacturing often exceeds total operating energy over its lifespan. Circular repair and modularity are essential.",
+    hotspots: [
+      {
+        id: "m4-hs-chassis",
+        label: "Durable Aluminum Chassis",
+        x: 25,
+        y: 65,
+        description:
+          "Structural frames, motors, and wheels that represent 85% of physical mass and remain in near-perfect mechanical condition.",
+        tag: "Salvage Asset",
+      },
+      {
+        id: "m4-hs-daughterboard",
+        label: "Modular Compute Bay",
+        x: 55,
+        y: 60,
+        description:
+          "Plug-and-play NPU slot. Upgrading just this 15% component delivers 100% modern AI capability.",
+        tag: "Modular Silicon",
+      },
+      {
+        id: "m4-hs-leachate",
+        label: "Toxic Landfill Leachate",
+        x: 50,
+        y: 88,
+        description:
+          "Heavy metals (lead, cadmium, cobalt) seeping from crushed batteries into groundwater.",
+        tag: "Ecological Hazard",
+      },
+    ],
+    aiConcept: {
+      title: "WHAT IS THE CIRCULAR ECONOMY?",
+      subtitle: "Moving from Take-Make-Waste to Reduce-Reuse-Repair-Recycle",
+      definition:
+        "The Circular Economy is an industrial system designed to keep materials, hardware, and components in use for as long as possible. In robotics, this means designing modular parts that can be repaired, swapped, and upgraded without discarding the robot.",
+      realWorldExample:
+        "Upgrading your computer's memory chip or graphic card with a single screwdriver instead of throwing away the entire laptop and monitor.",
+      takeaway:
+        "The greenest robot is the one that already exists! Modular hardware breaks the cycle of electronic waste and slashes embodied carbon.",
+      componentType: "circular",
+    },
     options: [
       {
         id: "m4-opt-a",
         key: "A",
-        title: "Complete Fleet Replacement with State-of-the-Art Silicon",
+        title: "Repair, Reuse & Upgrade Modular Components",
+        isSustainable: true,
+        image: "/assets/m4-modular-repair.svg",
+        pointsAwarded: 250,
         shortDescription:
-          "Scrap all 120,000 legacy robots and commission brand new 2nm ultra-efficient machines.",
+          "Preserve durable mechanical chassis and motors, swapping only the central NPU daughterboards and repairing components in civic workshops.",
         detailedExplanation:
-          "Sell existing hardware to scrap bulk traders and procure sleek unified robotic platforms with 35% higher runtime efficiency, integrated LiDAR, and cutting-edge tensor cores.",
+          "Adopt an open modular standard. Retain durable aluminum frames, servos, and hydraulics (85% of mass), replacing solely the plug-and-play neural computing board. Partner with vocational apprenticeships to repair batteries and sensors.",
         advantages: [
-          "Immediate 35% improvement in per-operation energy consumption",
-          "Uniform modern fleet architecture simplifies software maintenance",
-          "New manufacturer warranties and full remote telemetry support",
-        ],
-        disadvantages: [
-          "Massive embodied carbon footprint from mining, semiconductor lithography, and global shipping",
-          "Dumps 18,000 metric tons of hazardous electronic components into landfills",
-          "Exorbitant financial debt burden of $420 million charged to municipal taxpayers",
-          "Accelerates the global electronics scrap crisis",
-        ],
-        impacts: {
-          environmental: -65,
-          energy: 10,
-          social: -15,
-          economic: -50,
-        },
-        cityMetricDeltas: {
-          energyIndex: -10,
-          carbonIndex: 40,
-          waterIndex: 25,
-          ewasteIndex: 60,
-          operationalEfficiency: 35,
-          citizenWellbeing: -20,
-          resilienceIndex: -15,
-        },
-        learningObjective:
-          "Comprehend Embodied Carbon: discarding working hardware to acquire 'greener' hardware frequently creates vastly more net pollution than keeping existing hardware in service.",
-        sdgs: [11, 12],
-        consequenceNarration:
-          "The new robots were fast and sleek, but the municipal landfill began leaching heavy metals into the southern reservoir. Citizens protested the steep tax surcharges, and lifecycle audits revealed a net 28% increase in total carbon emissions.",
-        educationalTakeaway:
-          "Beware the 'efficiency paradox.' Upgrading hardware for minor operational efficiency gains ignores the colossal emissions released during semiconductor fabrication and raw mineral extraction.",
-      },
-      {
-        id: "m4-opt-b",
-        key: "B",
-        title: "Comprehensive Civic Repair & Community Refurbishment",
-        shortDescription:
-          "Establish municipal Right-to-Repair workshops to re-solder, patch, and keep legacy units running.",
-        detailedExplanation:
-          "Reject planned obsolescence. Partner with vocational engineering colleges and civic maker-spaces to harvest salvaged microcontrollers, rebuild servo motors, and patch legacy Linux kernels.",
-        advantages: [
-          "Zero new hardware manufacturing emissions and near-zero e-waste landfill additions",
-          "Creates high-skill civic repair jobs and youth apprenticeships in robotics",
+          "Achieves modern AI performance while eliminating 88% of landfill scrap",
           "Saves over $380 million in municipal procurement capital",
-          "Fosters deep urban technological self-reliance and community pride",
+          "Fosters civic engineering repair mastery and youth tech jobs",
+          "Cuts colossal embodied carbon emissions from raw mineral extraction",
         ],
         disadvantages: [
-          "Fleet contains fragmented hardware revisions requiring custom maintenance tracking",
-          "Older motors and microprocessors consume 20-30% more operational power than modern chips",
-          "Occasional mechanical breakdowns require frequent localized technician dispatches",
+          "Requires standardized connector protocols with hardware vendors",
+          "Mechanical frames still require periodic physical lubrication and care",
         ],
         impacts: {
-          environmental: 50,
-          energy: -10,
+          environmental: 60,
+          energy: 40,
           social: 55,
-          economic: 40,
-        },
-        cityMetricDeltas: {
-          energyIndex: 10,
-          carbonIndex: -35,
-          waterIndex: -30,
-          ewasteIndex: -50,
-          operationalEfficiency: 5,
-          citizenWellbeing: 45,
-          resilienceIndex: 35,
-        },
-        learningObjective:
-          "Learn Circular Economy principles in robotics: extending hardware lifespan via repairability, open documentation, and civic refurbishment.",
-        sdgs: [9, 11, 12],
-        consequenceNarration:
-          "Neighborhood workshops buzzed with activity. Students and veteran engineers rebuilt 92,000 service robots using salvage parts. While the robots looked eclectic, the community gained invaluable technical mastery and landfill piles vanished.",
-        educationalTakeaway:
-          "The greenest robot is the one that already exists. A vibrant repair culture creates local economic resilience while cutting e-waste and embodied emissions at the source.",
-      },
-      {
-        id: "m4-opt-c",
-        key: "C",
-        title: "Standardized Modular Compute Retrofit",
-        shortDescription:
-          "Keep existing mechanical chassis and motors, replacing only the central compute daughter-board.",
-        detailedExplanation:
-          "Adopt an open-hardware modular standard. Retain durable aluminum frames, wheels, and hydraulics (which represent 85% of physical mass), replacing solely the plug-and-play NPU daughterboard with low-cost modern edge accelerators.",
-        advantages: [
-          "Achieves 90% of the operational efficiency of new robots with only 12% of the material footprint",
-          "Dramatically slashes e-waste by preserving mechanical chassis and structural metals",
-          "Fast turnaround: modular plug-in swaps require under 20 minutes per robot",
-          "Establishes a future-proof standard for all upcoming municipal hardware procurements",
-        ],
-        disadvantages: [
-          "Requires negotiating unified connector standards with competing hardware vendors",
-          "Chassis wear and mechanical fatigue will still require ongoing structural maintenance",
-        ],
-        impacts: {
-          environmental: 55,
-          energy: 35,
-          social: 40,
-          economic: 45,
+          economic: 50,
         },
         cityMetricDeltas: {
           energyIndex: -20,
           carbonIndex: -40,
           waterIndex: -25,
-          ewasteIndex: -40,
+          ewasteIndex: -50,
           operationalEfficiency: 35,
-          citizenWellbeing: 35,
+          citizenWellbeing: 45,
           resilienceIndex: 45,
         },
         learningObjective:
-          "Master Modular Hardware Architecture: separating long-life mechanical structures from rapid-cycle computing silicon to maximize longevity and minimize waste.",
+          "Master circular engineering: extending hardware lifespans via modularity, open documentation, and right-to-repair.",
         sdgs: [9, 11, 12, 13],
         consequenceNarration:
-          "The modular retrofit program became an international gold standard. Technicians clicked modern edge AI accelerators into seasoned chassis. NOVA CITY achieved state-of-the-art computational performance with negligible landfill output.",
+          "VICTORY FOR CIRCULAR DESIGN! Technicians slotted modern edge neural boards into seasoned robotic frames in under 20 minutes per unit. Landfill scrap vanished, drinking water remained pure, and citizens celebrated local technical mastery.",
         educationalTakeaway:
-          "Modular design breaks the cycle of electronic waste. By decoupling fast-evolving compute silicon from slow-wearing mechanical bodies, engineers achieve both high performance and environmental stewardship.",
+          "Modular design breaks the destructive cycle of electronic waste. Decoupling fast-evolving compute silicon from slow-wearing mechanical bodies ensures peak technological performance with zero ecological wreckage.",
+      },
+      {
+        id: "m4-opt-b",
+        key: "B",
+        title: "Replace the Entire Robot Whenever One Component Outdates",
+        isSustainable: false,
+        image: "/assets/m4-dump-replacement.svg",
+        pointsAwarded: 50,
+        shortDescription:
+          "Scrap all 120,000 legacy robots and purchase brand new proprietary unified units from vendors.",
+        detailedExplanation:
+          "Sell existing hardware to scrap bulk traders and procure sleek unified robotic platforms. When a battery or motor wears out in two years, repeat the replacement cycle.",
+        advantages: [
+          "Immediate shiny modern fleet appearance",
+          "Unified manufacturer warranty and single customer support line",
+        ],
+        disadvantages: [
+          "Dumps 18,000 metric tons of hazardous electronic components into landfills",
+          "Heavy metals leach into the southern water reservoir",
+          "Massive embodied carbon from mining rare-earths and semiconductor fabrication",
+          "Exorbitant financial debt burden of $420 million charged to taxpayers",
+        ],
+        impacts: {
+          environmental: -65,
+          energy: -20,
+          social: -25,
+          economic: -55,
+        },
+        cityMetricDeltas: {
+          energyIndex: 10,
+          carbonIndex: 45,
+          waterIndex: 30,
+          ewasteIndex: 65,
+          operationalEfficiency: 20,
+          citizenWellbeing: -35,
+          resilienceIndex: -25,
+        },
+        learningObjective:
+          "Understand the 'efficiency paradox': discarding working hardware for new 'greener' hardware creates vastly more pollution than repairing existing hardware.",
+        sdgs: [11, 12],
+        consequenceNarration:
+          "UNSUSTAINABLE APPROACH. The new robots arrived, but the municipal landfill began leaching lead into drinking wells. Civic taxes spiked by $420M, and lifecycle audits revealed a 32% net surge in total city carbon emissions.",
+        educationalTakeaway:
+          "Beware planned obsolescence. Upgrading entire machines for minor component improvements ignores the colossal carbon footprint released during raw mineral mining and semiconductor manufacturing.",
       },
     ],
   },

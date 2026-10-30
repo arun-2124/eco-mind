@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="dump_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#250B0E" />
+      <stop offset="50%" stopColor="#1B0709" />
+      <stop offset="100%" stopColor="#070B16" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#dump_bg)" />
+
+  <!-- Scrap Bulldozer dumping working robots Left -->
+  <g transform="translate(100, 150)">
+    <!-- Heavy yellow bulldozer -->
+    <rect x="20" y="40" width="130" height="70" rx="10" fill="#2D210B" stroke="#F6B94A" stroke-width="2" />
+    <rect x="10" y="90" width="150" height="30" rx="8" fill="#0C0804" stroke="#98A8BD" stroke-width="2" />
+    <circle cx="35" cy="105" r="8" fill="#F6B94A" />
+    <circle cx="85" cy="105" r="8" fill="#F6B94A" />
+    <circle cx="135" cy="105" r="8" fill="#F6B94A" />
+
+    <!-- Dump Blade pushing working robot down cliff -->
+    <path d="M150,50 L200,90 L180,120 L140,110 Z" fill="#421417" stroke="#FF5B65" stroke-width="2" />
+    
+    <!-- Intact Robot falling into scrap pit -->
+    <g transform="translate(200, 80) rotate(25)">
+      <rect x="0" y="0" width="70" height="50" rx="8" fill="#1C090D" stroke="#FF5B65" stroke-width="2" />
+      <text x="35" y="28" fill="#FF5B65" font-family="monospace" font-size="8" text-anchor="middle">WORKING</text>
+    </g>
+  </g>
+
+  <!-- Landfill pit Right with embodied carbon emissions -->
+  <g transform="translate(450, 130)">
+    <rect x="0" y="0" width="250" height="180" rx="14" fill="#170608" stroke="#FF5B65" stroke-width="2" />
+    <text x="125" y="30" fill="#FF5B65" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">
+      EMBODIED CARBON TRAP
+    </text>
+
+    <text x="125" y="60" fill="#F6B94A" font-family="monospace" font-size="10" text-anchor="middle">
+      Mining &amp; Lithography Carbon:
+    </text>
+    <rect x="25" y="75" width="200" height="24" rx="4" fill="#2E0A0E" stroke="#FF5B65" stroke-width="1.5" />
+    <text x="125" y="91" fill="#FF5B65" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">
+      +420 Million $ Spent
+    </text>
+
+    <text x="125" y="125" fill="#98A8BD" font-family="monospace" font-size="10" text-anchor="middle">
+      120,000 Functional Units Scrapped
+    </text>
+    
+    <rect x="25" y="135" width="200" height="24" rx="4" fill="#2E0A0E" stroke="#F6B94A" stroke-width="1" />
+    <text x="125" y="151" fill="#F6B94A" font-family="monospace" font-size="10" text-anchor="middle">
+      Hazardous Metal Leachate Leaking
+    </text>
+  </g>
+
+  <!-- Metric Badges -->
+  <g transform="translate(100, 370)">
+    <rect x="0" y="0" width="280" height="45" rx="10" fill="#1C0609" stroke="#FF5B65" stroke-width="1.5" />
+    <text x="140" y="27" fill="#FF5B65" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">
+      ✘ +18,000 TONS TOXIC SCRAP
+    </text>
+  </g>
+
+  <g transform="translate(420, 370)">
+    <rect x="0" y="0" width="280" height="45" rx="10" fill="#1C0609" stroke="#F6B94A" stroke-width="1.5" />
+    <text x="140" y="27" fill="#F6B94A" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">
+      ✘ MASSIVE EMBODIED CARBON SPIKE
+    </text>
+  </g>
+
+  <!-- Title Banner -->
+  <rect x="150" y="20" width="500" height="38" rx="8" fill="#1A0508" stroke="#FF5B65" stroke-width="2" />
+  <text x="400" y="44" fill="#FF5B65" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    REPLACE ENTIRE FLEET EVERY CYCLE (UNSUSTAINABLE)
+  </text>
+</svg>

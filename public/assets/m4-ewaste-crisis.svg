@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="m4_sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#1A180E" />
+      <stop offset="60%" stopColor="#2A2412" />
+      <stop offset="100%" stopColor="#070B16" />
+    </linearGradient>
+    <linearGradient id="ewaste_mountain" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#3E341B" />
+      <stop offset="100%" stopColor="#15130A" />
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#m4_sky)" />
+
+  <!-- E-Waste Scrap Mountains (Background & Midground) -->
+  <polygon points="0,380 180,210 320,380" fill="url(#ewaste_mountain)" stroke="#F6B94A" stroke-width="1.5" />
+  <polygon points="260,380 440,160 620,380" fill="#2E2614" stroke="#F6B94A" stroke-width="2" />
+  <polygon points="540,380 680,230 800,380" fill="url(#ewaste_mountain)" stroke="#F6B94A" stroke-width="1.5" />
+
+  <!-- Discarded Robotic Arms & Chassis Piled Up -->
+  <g stroke="#98A8BD" stroke-width="2" fill="#181B24">
+    <!-- Broken Robotic Arm in Pile Left -->
+    <path d="M120,320 L160,270 L200,280" />
+    <circle cx="160" cy="270" r="6" fill="#F6B94A" />
+    <polygon points="200,275 220,270 215,290" fill="#98A8BD" />
+
+    <!-- Discarded Tread Unit -->
+    <rect x="280" y="320" width="90" height="30" rx="6" fill="#0C0E14" stroke="#F6B94A" />
+    <circle cx="300" cy="335" r="7" fill="#F6B94A" opacity="0.6" />
+    <circle cx="345" cy="335" r="7" fill="#F6B94A" opacity="0.6" />
+
+    <!-- Severed Circuit Board with Toxic Green Leachate -->
+    <rect x="420" y="300" width="80" height="60" rx="4" fill="#0A1D18" stroke="#38E58B" stroke-dasharray="3,3" />
+    <line x1="430" y1="315" x2="490" y2="315" stroke="#38E58B" />
+    <line x1="430" y1="330" x2="470" y2="330" stroke="#38E58B" />
+
+    <!-- Dead Robot Head / Visor Cracked -->
+    <rect x="520" y="290" width="50" height="40" rx="8" fill="#1C1822" stroke="#FF5B65" />
+    <circle cx="535" cy="305" r="5" fill="#FF5B65" opacity="0.5" />
+    <path d="M530,295 L545,315 L560,305" stroke="#FF5B65" fill="none" />
+  </g>
+
+  <!-- Hazardous Leachate Pool on Ground -->
+  <ellipse cx="400" cy="400" rx="350" ry="30" fill="#142616" stroke="#38E58B" stroke-width="1.5" opacity="0.8" />
+  <text x="400" y="420" fill="#38E58B" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">
+    ⚠️ 18,000 TONS TOXIC SCRAP • AQUIFER THREAT LEVEL: HIGH
+  </text>
+
+  <!-- Industrial Recycling Crane Silhouette (Dim in Distance) -->
+  <g transform="translate(620, 80)" stroke="#F6B94A" stroke-width="2" fill="none">
+    <line x1="40" y1="200" x2="40" y2="50" />
+    <line x1="0" y1="60" x2="100" y2="40" />
+    <line x1="80" y1="44" x2="80" y2="90" stroke-dasharray="3,3" />
+    <!-- Claw -->
+    <path d="M70,95 L80,110 L90,95" />
+  </g>
+
+  <!-- Banner Headline -->
+  <rect x="200" y="15" width="400" height="32" rx="8" fill="#1C180C" stroke="#F6B94A" stroke-width="1" />
+  <text x="400" y="36" fill="#F6B94A" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="2">
+    MISSION 04: THE E-WASTE TRAP
+  </text>
+</svg>

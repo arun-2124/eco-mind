@@ -9,7 +9,11 @@ import { CityVisualizer } from "@/components/CityVisualizer";
 import { CityMetricsBar } from "@/components/CityMetricsBar";
 import { SDGBadge } from "@/components/SDGBadge";
 import { ScoreRadarChart } from "@/components/ScoreRadarChart";
-import { MISSIONS } from "@/lib/game-data";
+import { LearningHotspots } from "@/components/LearningHotspots";
+import { InteractivePipeline } from "@/components/InteractivePipeline";
+import { InteractiveRobot } from "@/components/InteractiveRobot";
+import { InteractiveEfficiency } from "@/components/InteractiveEfficiency";
+import { InteractiveCircularEconomy } from "@/components/InteractiveCircularEconomy";
 import { DecisionOption } from "@/types/game";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -25,11 +29,10 @@ import {
   ChevronRight,
   Award,
   BookOpen,
-  Volume2,
-  VolumeX,
-  Clock,
+  HelpCircle,
   Shield,
   Activity,
+  XCircle,
 } from "lucide-react";
 
 export default function GamePage() {
@@ -43,10 +46,8 @@ export default function GamePage() {
   } = useGameState();
 
   const [prologueSeen, setPrologueSeen] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<DecisionOption | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [audioEnabled, setAudioEnabled] = useState(true);
 
   // Check if participant is registered
   useEffect(() => {
@@ -54,13 +55,6 @@ export default function GamePage() {
       router.push("/join");
     }
   }, [isLoaded, currentParticipant, router]);
-
-  // If workshop is completed, allow navigation to results
-  useEffect(() => {
-    if (session.status === "completed" || (session.currentMission >= 4 && session.consequencesRevealed)) {
-      // Participant can visit results
-    }
-  }, [session]);
 
   if (!isLoaded || !currentParticipant) {
     return (
@@ -74,7 +68,7 @@ export default function GamePage() {
   }
 
   // Submitted choice for active mission
-  const currentChoiceKey = currentParticipant.decisions[session.currentMission];
+  const currentChoiceKey = currentParticipant.decisions[session.currentMission] as "A" | "B" | undefined;
   const hasSubmitted = !!currentChoiceKey;
   const currentSubmittedOption = activeMission.options.find(
     (o) => o.key === currentChoiceKey
@@ -88,8 +82,6 @@ export default function GamePage() {
     const res = submitDecision(session.currentMission, option.key);
     if (!res.success) {
       setErrorMsg(res.error || "Submission failed");
-    } else {
-      setSelectedOption(option);
     }
     setSubmitting(false);
   };
@@ -109,7 +101,6 @@ export default function GamePage() {
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-xl p-4 sm:p-6"
           >
             <div className="glass-panel max-w-2xl w-full rounded-2xl border border-[#35D5FF]/30 p-6 sm:p-8 space-y-6 relative overflow-hidden shadow-2xl">
-              {/* Scanline backdrop */}
               <div className="absolute inset-0 scanlines opacity-40 pointer-events-none" />
 
               <div className="flex items-center justify-between border-b border-[#35D5FF]/20 pb-4">
@@ -127,7 +118,7 @@ export default function GamePage() {
                 </button>
               </div>
 
-              {/* City Hologram Scene */}
+              {/* City Scene */}
               <div className="rounded-xl overflow-hidden border border-[#35D5FF]/20">
                 <CityVisualizer level={2} interactive={false} />
               </div>
@@ -138,13 +129,13 @@ export default function GamePage() {
                   &ldquo;Welcome to NOVA CITY, the most intelligent city ever created.&rdquo;
                 </p>
                 <p className="text-[#98A8BD]">
-                  Our systems were engineered to eliminate disease, optimize energy, and guide automated transit. But intelligence without responsibility has engineered a silent crisis.
+                  Our systems were engineered to improve human life. But intelligence without responsibility has engineered a silent crisis.
                 </p>
                 <p className="text-[#98A8BD]">
-                  Electricity demand has doubled. Data centers evaporate millions of liters of potable water for cooling. Tens of thousands of obsolete robotic chassis choke peripheral landfills.
+                  Electricity demand is surging. Computing centers evaporate drinking water. Unregulated automation creates mountains of electronic waste.
                 </p>
                 <p className="text-[#38E58B] font-semibold">
-                  You have been inducted into the Robotics & AI Sustainability Task Force. Your technological decisions will dictate whether Nova City achieves ecological equilibrium or collapses under its own silicon weight.
+                  You are a member of the Robotics &amp; AI Sustainability Task Force. Your decisions will decide whether Nova City builds a sustainable future or collapses under its own technological overhead.
                 </p>
               </div>
 
@@ -156,7 +147,7 @@ export default function GamePage() {
                   onClick={() => setPrologueSeen(true)}
                   className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#35D5FF]/25 hover:opacity-90 transition-opacity flex items-center gap-2"
                 >
-                  <span>ACCEPT DIRECTIVE & COMMENCE MISSION 1</span>
+                  <span>ACCEPT DIRECTIVE &amp; COMMENCE MISSION 1</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -166,7 +157,7 @@ export default function GamePage() {
       </AnimatePresence>
 
       {/* Main HUD Bar */}
-      <div className="border-b border-[#35D5FF]/15 bg-[#0D1424]/80 px-4 py-3">
+      <div className="border-b border-[#35D5FF]/15 bg-[#0D1424]/80 px-4 py-3 sticky top-16 z-30 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           {/* Mission Progress Indicators */}
           <div className="flex items-center gap-2 sm:gap-3">
@@ -194,12 +185,12 @@ export default function GamePage() {
                   )}
                   <span className="hidden md:inline">
                     {num === 1
-                      ? "Crisis"
+                      ? "AI Infrastructure"
                       : num === 2
-                      ? "Rescue"
+                      ? "Autonomous Rescue"
                       : num === 3
-                      ? "Energy"
-                      : "E-Waste"}
+                      ? "Energy Emergency"
+                      : "E-Waste Crisis"}
                   </span>
                 </div>
               );
@@ -210,7 +201,7 @@ export default function GamePage() {
           <div className="flex items-center gap-4">
             <div className="text-right">
               <span className="text-[10px] font-mono uppercase tracking-wider text-[#98A8BD]">
-                Sustainability Rating
+                Cadet Standing
               </span>
               <p className="text-xs sm:text-sm font-mono font-bold text-[#38E58B]">
                 {currentParticipant.score.rating}
@@ -231,14 +222,14 @@ export default function GamePage() {
 
       {/* Main Body */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Mission & Decisions (8 cols) */}
-        <div className="lg:col-span-8 space-y-6">
-          {/* Mission Header Card */}
-          <div className="glass-panel p-6 rounded-2xl border border-[#35D5FF]/20 relative overflow-hidden">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+        {/* Left Column: Mission, Scenarios, Decisions, and Learning (8 cols) */}
+        <div className="lg:col-span-8 space-y-8">
+          {/* 1. SEE THE PROBLEM: 16:9 Cinematic Hero Scene with Clickable Hotspots */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-1 rounded bg-[#35D5FF]/15 border border-[#35D5FF]/40 text-[#35D5FF] font-mono font-bold text-xs uppercase tracking-wider">
-                  MISSION 0{activeMission.number}
+                  MISSION 0{activeMission.number} SCENE
                 </span>
                 <span className="text-xs font-mono text-[#98A8BD] uppercase tracking-wider">
                   {activeMission.category}
@@ -251,37 +242,137 @@ export default function GamePage() {
               </div>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white">
-              {activeMission.title}
-            </h2>
+            {/* Clickable Interactive Hero Illustration */}
+            <LearningHotspots
+              hotspots={activeMission.hotspots}
+              heroImage={activeMission.heroImage}
+            />
 
-            <div className="mt-4 p-3.5 rounded-xl bg-[#091120] border border-[#35D5FF]/15 text-xs sm:text-sm text-[#98A8BD] leading-relaxed">
-              <strong className="text-white block mb-1 font-mono uppercase text-[11px] text-[#F6B94A] flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5" /> Environmental Context:
-              </strong>
-              {activeMission.environmentalContext}
-            </div>
-
-            <p className="mt-4 text-xs sm:text-sm text-[#F4F7FC] leading-relaxed">
-              {activeMission.storyProblem}
-            </p>
-
-            <div className="mt-4 pt-3 border-t border-[#35D5FF]/15 font-mono text-xs font-semibold text-[#35D5FF]">
-              ⚡ DIRECTIVE: {activeMission.prompt}
+            {/* Scenario Narration */}
+            <div className="glass-panel p-6 rounded-2xl border border-[#35D5FF]/20 space-y-3">
+              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white">
+                {activeMission.title}
+              </h2>
+              <div className="p-3.5 rounded-xl bg-[#091120] border border-[#35D5FF]/15 text-xs sm:text-sm text-[#98A8BD] leading-relaxed">
+                <strong className="text-white block mb-1 font-mono uppercase text-[11px] text-[#F6B94A] flex items-center gap-1.5">
+                  <AlertTriangle className="w-3.5 h-3.5" /> Environmental Context:
+                </strong>
+                {activeMission.environmentalContext}
+              </div>
+              <p className="text-xs sm:text-sm text-[#F4F7FC] leading-relaxed">
+                {activeMission.storyProblem}
+              </p>
             </div>
           </div>
 
-          {/* Submission Status & Waiting Indicator */}
+          {/* 2. UNDERSTAND THE SITUATION: Clear Question Banner */}
+          <div className="p-5 rounded-2xl bg-gradient-to-r from-[#0C1D38] via-[#0D1424] to-[#0A221E] border border-[#35D5FF]/30 shadow-lg">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#35D5FF] block mb-1">
+              TASK FORCE DIRECTIVE — MAKE YOUR DECISION
+            </span>
+            <h3 className="text-lg sm:text-xl font-display font-bold text-white">
+              {activeMission.question}
+            </h3>
+          </div>
+
+          {/* 3. MAKE A CHOICE: Two Contrasting Cards (Option A vs Option B) */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#98A8BD]">
+                Select Technological Approach
+              </span>
+              <span className="text-[11px] font-mono text-[#35D5FF]">
+                Compare both paradigms carefully
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {activeMission.options.map((option) => {
+                const isSelected = currentChoiceKey === option.key;
+                const isLocked = hasSubmitted && !session.allowResubmission;
+
+                return (
+                  <motion.div
+                    key={option.id}
+                    whileHover={{ y: isLocked ? 0 : -3 }}
+                    className={`glass-panel rounded-2xl border overflow-hidden flex flex-col justify-between transition-all ${
+                      isSelected
+                        ? "border-[#35D5FF] ring-2 ring-[#35D5FF] shadow-2xl bg-[#11243D]"
+                        : "border-[#35D5FF]/20 bg-[#0D1424] hover:border-[#35D5FF]/50"
+                    }`}
+                  >
+                    {/* Visual Card Artwork */}
+                    <div className="relative aspect-[16/9] w-full border-b border-white/10 bg-[#070B16] overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={option.image}
+                        alt={option.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-[#070B16]/90 border border-white/20 text-xs font-mono font-bold text-white">
+                        OPTION {option.key}
+                      </div>
+                    </div>
+
+                    {/* Card Content */}
+                    <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="font-display font-bold text-base text-white">
+                          {option.title}
+                        </h4>
+                        <p className="text-xs text-[#98A8BD] mt-1.5 leading-relaxed">
+                          {option.detailedExplanation}
+                        </p>
+                      </div>
+
+                      {/* Benefits & Trade-offs */}
+                      <div className="space-y-2 pt-2 border-t border-white/5 text-[11px] font-mono">
+                        <div className="text-[#38E58B]">
+                          <strong className="block mb-0.5">Key Advantage:</strong>
+                          <span>• {option.advantages[0]}</span>
+                        </div>
+                        <div className="text-[#FF5B65]">
+                          <strong className="block mb-0.5">Trade-off / Risk:</strong>
+                          <span>• {option.disadvantages[0]}</span>
+                        </div>
+                      </div>
+
+                      {/* Select / Lock Button */}
+                      <div className="pt-3">
+                        {isSelected ? (
+                          <div className="w-full py-2.5 rounded-xl bg-[#38E58B]/20 border border-[#38E58B] text-[#38E58B] font-mono font-bold text-xs flex items-center justify-center gap-1.5">
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span>CHOICE COMMITTED (OPTION {option.key})</span>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled={isLocked || submitting}
+                            onClick={() => handleSubmit(option)}
+                            className="w-full py-3 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#35D5FF]/20 hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                          >
+                            SELECT OPTION {option.key}
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Waiting Status Banner (After submission, before presenter reveals) */}
           {hasSubmitted && !session.consequencesRevealed && (
-            <div className="p-4 rounded-xl border border-[#FCC30B]/30 bg-[#241C0A]/80 backdrop-blur-md flex items-center justify-between gap-4">
+            <div className="p-5 rounded-2xl border border-[#FCC30B]/40 bg-[#251C0A]/90 backdrop-blur-md flex items-center justify-between gap-4 shadow-xl">
               <div className="flex items-center gap-3">
                 <div className="w-4 h-4 rounded-full bg-[#FCC30B] animate-ping" />
                 <div>
                   <p className="font-mono font-bold text-xs text-[#FCC30B] uppercase tracking-wider">
-                    DECISION COMMITTED: OPTION {currentChoiceKey}
+                    YOUR DECISION HAS BEEN RECORDED (OPTION {currentChoiceKey})
                   </p>
-                  <p className="text-xs text-[#98A8BD]">
-                    Waiting for Task Force Director to reveal consequences...
+                  <p className="text-xs text-[#98A8BD] mt-0.5 font-mono">
+                    Stand by: Waiting for the Task Force Director to reveal workshop consequences...
                   </p>
                 </div>
               </div>
@@ -293,94 +384,50 @@ export default function GamePage() {
             </div>
           )}
 
-          {/* Consequence Reveal Card (Visible when presenter reveals) */}
+          {/* 4. EXPERIENCE THE CONSEQUENCE: Detailed Result Banner */}
           {session.consequencesRevealed && currentSubmittedOption && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.98, y: 10 }}
+              initial={{ opacity: 0, scale: 0.98, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="p-6 rounded-2xl border-2 border-[#38E58B]/50 bg-[#0A241C]/90 backdrop-blur-md shadow-2xl space-y-4"
+              className={`p-6 rounded-2xl border-2 backdrop-blur-md shadow-2xl space-y-4 ${
+                currentSubmittedOption.isSustainable
+                  ? "border-[#38E58B] bg-[#0A241C]/95 text-white"
+                  : "border-[#FF5B65] bg-[#240C12]/95 text-white"
+              }`}
             >
-              <div className="flex items-center justify-between border-b border-[#38E58B]/20 pb-3">
+              {/* Consequence Badge Header */}
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-[#38E58B]" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#38E58B]">
-                    MISSION CONSEQUENCE REVEALED
-                  </span>
+                  {currentSubmittedOption.isSustainable ? (
+                    <div className="flex items-center gap-2 text-[#38E58B] font-mono font-black text-sm uppercase">
+                      <Sparkles className="w-5 h-5 text-[#38E58B]" />
+                      <span>SUSTAINABLE DECISION (+250 PTS)</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 text-[#FF5B65] font-mono font-black text-sm uppercase">
+                      <AlertTriangle className="w-5 h-5 text-[#FF5B65]" />
+                      <span>UNSUSTAINABLE DECISION (+50 PTS)</span>
+                    </div>
+                  )}
                 </div>
-                <span className="text-xs font-mono text-[#35D5FF] font-bold">
-                  Chosen: Option {currentSubmittedOption.key}
+                <span className="text-xs font-mono font-bold text-white px-2.5 py-1 rounded bg-black/40 border border-white/10">
+                  Option {currentSubmittedOption.key} Chosen
                 </span>
               </div>
 
               <div>
-                <h3 className="font-display font-bold text-lg text-white">
+                <h3 className="font-display font-extrabold text-lg text-white">
                   {currentSubmittedOption.title}
                 </h3>
-                <p className="mt-2 text-xs sm:text-sm text-[#F4F7FC] leading-relaxed">
+                <p className="mt-2 text-xs sm:text-sm text-[#F4F7FC] leading-relaxed font-mono">
                   {currentSubmittedOption.consequenceNarration}
                 </p>
               </div>
 
-              {/* Score deltas summary */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
-                <div className="p-2.5 rounded-lg bg-[#070B16] border border-white/5 text-center">
-                  <span className="text-[10px] font-mono text-[#98A8BD] block">Environmental</span>
-                  <span
-                    className={`font-mono font-bold text-xs ${
-                      currentSubmittedOption.impacts.environmental >= 0
-                        ? "text-[#38E58B]"
-                        : "text-[#FF5B65]"
-                    }`}
-                  >
-                    {currentSubmittedOption.impacts.environmental >= 0 ? "+" : ""}
-                    {Math.round(currentSubmittedOption.impacts.environmental * 3.5)} pts
-                  </span>
-                </div>
-                <div className="p-2.5 rounded-lg bg-[#070B16] border border-white/5 text-center">
-                  <span className="text-[10px] font-mono text-[#98A8BD] block">Energy</span>
-                  <span
-                    className={`font-mono font-bold text-xs ${
-                      currentSubmittedOption.impacts.energy >= 0
-                        ? "text-[#38E58B]"
-                        : "text-[#FF5B65]"
-                    }`}
-                  >
-                    {currentSubmittedOption.impacts.energy >= 0 ? "+" : ""}
-                    {Math.round(currentSubmittedOption.impacts.energy * 3.5)} pts
-                  </span>
-                </div>
-                <div className="p-2.5 rounded-lg bg-[#070B16] border border-white/5 text-center">
-                  <span className="text-[10px] font-mono text-[#98A8BD] block">Social</span>
-                  <span
-                    className={`font-mono font-bold text-xs ${
-                      currentSubmittedOption.impacts.social >= 0
-                        ? "text-[#38E58B]"
-                        : "text-[#FF5B65]"
-                    }`}
-                  >
-                    {currentSubmittedOption.impacts.social >= 0 ? "+" : ""}
-                    {Math.round(currentSubmittedOption.impacts.social * 3.5)} pts
-                  </span>
-                </div>
-                <div className="p-2.5 rounded-lg bg-[#070B16] border border-white/5 text-center">
-                  <span className="text-[10px] font-mono text-[#98A8BD] block">Economic</span>
-                  <span
-                    className={`font-mono font-bold text-xs ${
-                      currentSubmittedOption.impacts.economic >= 0
-                        ? "text-[#38E58B]"
-                        : "text-[#FF5B65]"
-                    }`}
-                  >
-                    {currentSubmittedOption.impacts.economic >= 0 ? "+" : ""}
-                    {Math.round(currentSubmittedOption.impacts.economic * 3.5)} pts
-                  </span>
-                </div>
-              </div>
-
-              {/* Educational Takeaway */}
-              <div className="p-3.5 rounded-xl bg-[#071510] border border-[#38E58B]/30 text-xs text-[#98A8BD] leading-relaxed">
-                <strong className="text-[#38E58B] block mb-1 font-mono uppercase flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5" /> Educational Insight:
+              {/* Educational Explanation */}
+              <div className="p-4 rounded-xl bg-black/40 border border-white/10 text-xs text-[#98A8BD] leading-relaxed font-mono">
+                <strong className="text-[#35D5FF] block mb-1 font-bold uppercase flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5" /> Why this matters:
                 </strong>
                 {currentSubmittedOption.educationalTakeaway}
               </div>
@@ -389,7 +436,7 @@ export default function GamePage() {
                 <div className="pt-2 text-right">
                   <button
                     onClick={() => router.push("/game/results")}
-                    className="px-5 py-2.5 rounded-xl bg-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#38E58B]/25 hover:bg-[#38E58B]/90 transition-all inline-flex items-center gap-1.5"
+                    className="px-6 py-3 rounded-xl bg-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-xl shadow-[#38E58B]/30 hover:scale-105 transition-all inline-flex items-center gap-2"
                   >
                     <span>VIEW FINAL SUMMIT EVALUATION</span>
                     <ArrowRight className="w-4 h-4" />
@@ -399,123 +446,47 @@ export default function GamePage() {
             </motion.div>
           )}
 
-          {/* Decision Options Grid */}
+          {/* 5. LEARN THE AI CONCEPT: Dedicated Interactive Simulator for This Mission */}
           <div className="space-y-4">
-            <h3 className="text-xs font-mono font-bold tracking-widest uppercase text-[#98A8BD]">
-              Available Technological Options ({activeMission.options.length})
-            </h3>
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#35D5FF]" />
+              <h3 className="font-mono font-bold text-xs uppercase tracking-wider text-[#35D5FF]">
+                Core Learning Module: {activeMission.aiConcept.title}
+              </h3>
+            </div>
 
-            {activeMission.options.map((option) => {
-              const isSelected = currentChoiceKey === option.key;
-              const isLocked = hasSubmitted && !session.allowResubmission;
-
-              return (
-                <div
-                  key={option.id}
-                  className={`glass-panel p-5 sm:p-6 rounded-2xl border transition-all ${
-                    isSelected
-                      ? "border-[#35D5FF] bg-[#11243D] shadow-lg shadow-[#35D5FF]/10 ring-1 ring-[#35D5FF]"
-                      : "border-[#35D5FF]/15 hover:border-[#35D5FF]/40 bg-[#0D1424]"
-                  }`}
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`w-8 h-8 rounded-xl font-mono font-bold flex items-center justify-center text-sm border ${
-                          isSelected
-                            ? "bg-[#35D5FF] text-[#070B16] border-[#35D5FF]"
-                            : "bg-[#111C30] text-[#35D5FF] border-[#35D5FF]/30"
-                        }`}
-                      >
-                        {option.key}
-                      </span>
-                      <h4 className="font-display font-bold text-base sm:text-lg text-white">
-                        {option.title}
-                      </h4>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      {isSelected ? (
-                        <span className="px-3 py-1 rounded-full bg-[#38E58B]/20 text-[#38E58B] text-xs font-mono font-bold border border-[#38E58B]/40 flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5" /> Selected
-                        </span>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled={isLocked || submitting}
-                          onClick={() => handleSubmit(option)}
-                          className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
-                        >
-                          Select Option {option.key}
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-[#98A8BD] leading-relaxed mb-4">
-                    {option.detailedExplanation}
-                  </p>
-
-                  {/* Advantages & Disadvantages */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-white/5 text-xs font-mono">
-                    <div className="p-3 rounded-xl bg-[#081814] border border-[#38E58B]/20">
-                      <span className="text-[#38E58B] font-bold block mb-1.5 flex items-center gap-1">
-                        <TrendingUp className="w-3.5 h-3.5" /> Advantages:
-                      </span>
-                      <ul className="space-y-1 text-[#98A8BD]">
-                        {option.advantages.map((adv, i) => (
-                          <li key={i} className="flex items-start gap-1.5">
-                            <span className="text-[#38E58B]">•</span>
-                            <span>{adv}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-[#1F1014] border border-[#FF5B65]/20">
-                      <span className="text-[#FF5B65] font-bold block mb-1.5 flex items-center gap-1">
-                        <TrendingDown className="w-3.5 h-3.5" /> Trade-offs / Risks:
-                      </span>
-                      <ul className="space-y-1 text-[#98A8BD]">
-                        {option.disadvantages.map((dis, i) => (
-                          <li key={i} className="flex items-start gap-1.5">
-                            <span className="text-[#FF5B65]">•</span>
-                            <span>{dis}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {/* Embedded Specific Component */}
+            {activeMission.number === 1 && <InteractivePipeline />}
+            {activeMission.number === 2 && <InteractiveRobot />}
+            {activeMission.number === 3 && <InteractiveEfficiency />}
+            {activeMission.number === 4 && <InteractiveCircularEconomy />}
           </div>
         </div>
 
-        {/* Right Column: HUD, City Health, Scoring (4 cols) */}
+        {/* Right Column: Telemetry HUD, City Health, Scoring (4 cols) */}
         <div className="lg:col-span-4 space-y-6">
           {/* City Health Telemetry */}
           <CityMetricsBar metrics={currentParticipant.cityMetrics} />
 
-          {/* Sustainability Dimension Radar */}
+          {/* Sustainability Score & Dimension Radar */}
           <div className="glass-panel rounded-2xl p-4 border border-[#35D5FF]/15">
             <div className="flex items-center gap-2 mb-2 pb-2 border-b border-[#35D5FF]/10">
               <Shield className="w-4 h-4 text-[#38E58B]" />
               <h4 className="text-xs font-mono font-bold tracking-wider uppercase text-white">
-                Sustainability Dimensions
+                Cadet Sustainability Dimensions
               </h4>
             </div>
             <ScoreRadarChart score={currentParticipant.score} showRatingCard={true} />
           </div>
 
-          {/* Educational Concept Card */}
+          {/* Summary Learning Callout */}
           <div className="glass-panel rounded-2xl p-4 border border-[#35D5FF]/15 text-xs font-mono space-y-2">
             <div className="flex items-center gap-2 text-[#FCC30B] font-bold">
               <BookOpen className="w-4 h-4" />
-              <span>CORE WORKSHOP PRINCIPLE</span>
+              <span>WORKSHOP PRINCIPLE</span>
             </div>
             <p className="text-[#98A8BD] leading-relaxed">
-              &ldquo;Sustainable intelligence requires evaluating the full lifecycle: inference power, network transmission, semiconductor fabrication, and repairability.&rdquo;
+              &ldquo;The future is not about making AI more powerful. It is about making intelligence more responsible.&rdquo;
             </p>
           </div>
         </div>

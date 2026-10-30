@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="edge_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#071918" />
+      <stop offset="50%" stopColor="#0B2B28" />
+      <stop offset="100%" stopColor="#070B16" />
+    </linearGradient>
+    <linearGradient id="chip_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#38E58B" />
+      <stop offset="100%" stopColor="#35D5FF" />
+    </linearGradient>
+    <filter id="glow_green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#edge_bg)" />
+
+  <!-- Cybernetic Circuit Traces -->
+  <g stroke="#38E58B" stroke-opacity="0.3" stroke-width="2" fill="none">
+    <path d="M50,100 L250,100 L300,150 L500,150" />
+    <path d="M100,350 L280,350 L340,290 L600,290" />
+    <circle cx="50" cy="100" r="4" fill="#38E58B" />
+    <circle cx="500" cy="150" r="4" fill="#38E58B" />
+    <circle cx="100" cy="350" r="4" fill="#38E58B" />
+  </g>
+
+  <!-- Large Onboard Edge Neural Chip Representation -->
+  <g transform="translate(140, 100)">
+    <!-- Main Silicon Die -->
+    <rect x="0" y="0" width="220" height="220" rx="16" fill="#0A1E1C" stroke="#38E58B" stroke-width="3" filter="url(#glow_green)" />
+    <!-- Gold/Copper Pins -->
+    <g fill="#38E58B">
+      <rect x="20" y="-12" width="12" height="12" rx="2" />
+      <rect x="50" y="-12" width="12" height="12" rx="2" />
+      <rect x="80" y="-12" width="12" height="12" rx="2" />
+      <rect x="110" y="-12" width="12" height="12" rx="2" />
+      <rect x="140" y="-12" width="12" height="12" rx="2" />
+      <rect x="170" y="-12" width="12" height="12" rx="2" />
+
+      <rect x="20" y="220" width="12" height="12" rx="2" />
+      <rect x="50" y="220" width="12" height="12" rx="2" />
+      <rect x="80" y="220" width="12" height="12" rx="2" />
+      <rect x="110" y="220" width="12" height="12" rx="2" />
+      <rect x="140" y="220" width="12" height="12" rx="2" />
+      <rect x="170" y="220" width="12" height="12" rx="2" />
+    </g>
+
+    <!-- Inner Core Micro-Architecture -->
+    <rect x="30" y="30" width="160" height="160" rx="10" fill="#061412" stroke="#35D5FF" stroke-width="2" />
+    <circle cx="110" cy="110" r="40" fill="none" stroke="#38E58B" stroke-width="2" stroke-dasharray="6,4" />
+    <circle cx="110" cy="110" r="20" fill="#38E58B" fill-opacity="0.25" />
+    <text x="110" y="115" fill="#38E58B" font-family="monospace" font-size="16" font-weight="900" text-anchor="middle">
+      NPU
+    </text>
+    <text x="110" y="145" fill="#35D5FF" font-family="monospace" font-size="11" text-anchor="middle">
+      LOCAL INFERENCE
+    </text>
+  </g>
+
+  <!-- Physical Robot with Sensory Vision Cone -->
+  <g transform="translate(480, 80)">
+    <!-- Vision cone beam (local processing) -->
+    <polygon points="120,120 320,40 320,200" fill="#38E58B" fill-opacity="0.12" stroke="#38E58B" stroke-dasharray="4,4" />
+    <text x="240" y="125" fill="#38E58B" font-family="monospace" font-size="11" font-weight="bold">
+      Sub-5ms Vision Reflex
+    </text>
+
+    <!-- Autonomous Rover Body -->
+    <rect x="40" y="90" width="110" height="80" rx="14" fill="#0E2320" stroke="#38E58B" stroke-width="2.5" />
+    <!-- Tracks -->
+    <rect x="25" y="160" width="140" height="30" rx="8" fill="#05100E" stroke="#35D5FF" stroke-width="2" />
+    <circle cx="50" cy="175" r="8" fill="#38E58B" />
+    <circle cx="95" cy="175" r="8" fill="#38E58B" />
+    <circle cx="140" cy="175" r="8" fill="#38E58B" />
+
+    <!-- Sensor Head -->
+    <circle cx="120" cy="70" r="22" fill="#0A1816" stroke="#38E58B" stroke-width="2" />
+    <circle cx="128" cy="70" r="8" fill="#35D5FF" />
+
+    <!-- Local Decision Checkmark -->
+    <circle cx="95" cy="125" r="18" fill="#38E58B" />
+    <path d="M88,125 L93,130 L103,119" stroke="#070B16" stroke-width="3" fill="none" stroke-linecap="round" />
+  </g>
+
+  <!-- Metric Badges -->
+  <g transform="translate(100, 370)">
+    <rect x="0" y="0" width="280" height="45" rx="10" fill="#0A1F1B" stroke="#38E58B" stroke-width="1.5" />
+    <text x="140" y="27" fill="#38E58B" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">
+      ✔ ZERO INTERNET LATENCY (4ms)
+    </text>
+  </g>
+
+  <g transform="translate(420, 370)">
+    <rect x="0" y="0" width="280" height="45" rx="10" fill="#0A1F1B" stroke="#35D5FF" stroke-width="1.5" />
+    <text x="140" y="27" fill="#35D5FF" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">
+      ✔ 90% DATA TRANSMISSION SAVED
+    </text>
+  </g>
+
+  <!-- Option Title Banner -->
+  <rect x="180" y="20" width="440" height="38" rx="8" fill="#061816" stroke="#38E58B" stroke-width="2" />
+  <text x="400" y="44" fill="#38E58B" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    LOCAL EDGE AI PROCESSING (SUSTAINABLE)
+  </text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="m2_sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#1A1110" />
+      <stop offset="60%" stopColor="#2D1515" />
+      <stop offset="100%" stopColor="#070B16" />
+    </linearGradient>
+    <radialGradient id="thermal_survivor" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#38E58B" stopOpacity="0.9" />
+      <stop offset="50%" stopColor="#35D5FF" stopOpacity="0.5" />
+      <stop offset="100%" stopColor="transparent" />
+    </radialGradient>
+    <filter id="m2_glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#m2_sky)" />
+
+  <!-- Collapsed Ruined Structures & Concrete Slabs -->
+  <g fill="#161A22" stroke="#475569" stroke-width="2">
+    <!-- Broken Building Left -->
+    <polygon points="20,120 140,80 180,380 0,380" />
+    <polygon points="120,180 220,150 250,380 160,380" />
+    <!-- Collapsed Diagonal Girder -->
+    <polygon points="100,280 420,120 440,140 120,310" fill="#242B38" stroke="#F6B94A" stroke-width="1.5" />
+    <!-- Broken Wall Right -->
+    <polygon points="620,90 780,130 800,380 580,380" />
+    <polygon points="500,200 640,160 670,380 480,380" />
+  </g>
+
+  <!-- Crumbled Rubble Rocks on Floor -->
+  <g fill="#1E293B" stroke="#334155">
+    <polygon points="80,380 130,340 180,380" />
+    <polygon points="210,380 260,330 300,380" />
+    <polygon points="460,380 520,335 570,380" />
+    <polygon points="630,380 690,325 740,380" />
+  </g>
+
+  <!-- Ground Plane -->
+  <rect x="0" y="380" width="800" height="70" fill="#0C101A" />
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#35D5FF" stroke-width="1.5" stroke-dasharray="8,6" opacity="0.4" />
+
+  <!-- Survivor Trapped Under Concrete Slabs (Thermal Signature) -->
+  <g transform="translate(620, 240)">
+    <circle cx="40" cy="40" r="45" fill="url(#thermal_survivor)" />
+    <!-- Humanoid silhouette -->
+    <circle cx="40" cy="25" r="10" fill="#38E58B" />
+    <path d="M25,55 Q40,38 55,55" fill="#38E58B" />
+    <!-- Thermal HUD Box -->
+    <rect x="0" y="0" width="80" height="80" fill="none" stroke="#38E58B" stroke-width="1.5" stroke-dasharray="6,4" />
+    <text x="40" y="-8" fill="#38E58B" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">
+      SURVIVOR DETECTED
+    </text>
+  </g>
+
+  <!-- Physical AI Rescue Robot Center-Left -->
+  <g transform="translate(240, 240)">
+    <!-- LiDAR Scanning Cone & Waves -->
+    <path d="M70,40 L380,-30 L450,110 Z" fill="#35D5FF" fill-opacity="0.1" stroke="#35D5FF" stroke-width="1.5" stroke-dasharray="6,4" />
+    <path d="M120,40 A80,80 0 0,1 200,80" fill="none" stroke="#35D5FF" stroke-width="2" />
+    <path d="M160,40 A130,130 0 0,1 270,100" fill="none" stroke="#35D5FF" stroke-width="2" stroke-dasharray="8,4" />
+
+    <!-- Quadruped / Tread Rescue Robot -->
+    <!-- Chassis -->
+    <rect x="20" y="50" width="100" height="60" rx="12" fill="#0F172A" stroke="#35D5FF" stroke-width="2.5" />
+    <!-- Tracks -->
+    <rect x="5" y="95" width="130" height="30" rx="8" fill="#070B16" stroke="#98A8BD" stroke-width="2" />
+    <circle cx="25" cy="110" r="9" fill="#38E58B" />
+    <circle cx="70" cy="110" r="9" fill="#35D5FF" />
+    <circle cx="115" cy="110" r="9" fill="#38E58B" />
+
+    <!-- Articulated Robotic Camera & Sensor Turret -->
+    <polygon points="50,50 90,50 85,25 55,25" fill="#1E293B" stroke="#35D5FF" stroke-width="2" />
+    <!-- LiDAR Spinning Puck -->
+    <rect x="58" y="10" width="24" height="15" rx="3" fill="#38E58B" filter="url(#m2_glow)" />
+    <line x1="70" y1="10" x2="70" y2="2" stroke="#38E58B" stroke-width="2" />
+    <!-- Camera Eye -->
+    <circle cx="80" cy="36" r="6" fill="#35D5FF" />
+    <circle cx="80" cy="36" r="2" fill="#FFFFFF" />
+
+    <!-- Local Path Planner Display on Robot Side -->
+    <rect x="35" y="65" width="70" height="20" rx="4" fill="#070B16" stroke="#38E58B" stroke-width="1" />
+    <text x="70" y="79" fill="#38E58B" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">
+      PATH: CLEAR
+    </text>
+  </g>
+
+  <!-- Banner Headline -->
+  <rect x="200" y="15" width="400" height="32" rx="8" fill="#1E1412" stroke="#FF5B65" stroke-width="1" />
+  <text x="400" y="36" fill="#FF5B65" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="2">
+    MISSION 02: THE AUTONOMOUS RESCUE
+  </text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="polluted_sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#2A0B0E" />
+      <stop offset="50%" stopColor="#1F100A" />
+      <stop offset="100%" stopColor="#0B0E14" />
+    </linearGradient>
+  </defs>
+
+  <!-- Smog Sky -->
+  <rect width="800" height="450" fill="url(#polluted_sky)" />
+  
+  <!-- Smog Clouds -->
+  <path d="M50,120 Q120,60 200,100 Q280,40 380,80 Q480,50 600,110 Q700,60 780,120 L800,250 L0,250 Z" fill="#3D1812" opacity="0.6" />
+
+  <!-- Distant Dark Industrial Towers -->
+  <rect x="60" y="140" width="70" height="240" fill="#120D12" />
+  <rect x="180" y="110" width="80" height="270" fill="#140E14" />
+  <rect x="300" y="80" width="100" height="300" fill="#171017" />
+  <!-- Central AI Tower with red failure beacon -->
+  <polygon points="500,60 540,140 540,380 460,380 460,140" fill="#1B1118" stroke="#FF5B65" stroke-width="2" />
+  <circle cx="500" cy="50" r="7" fill="#FF5B65" />
+  <line x1="500" y1="50" x2="500" y2="20" stroke="#FF5B65" stroke-width="2" />
+
+  <!-- Exhaust stacks with red particulate emissions -->
+  <rect x="650" y="150" width="30" height="230" fill="#150E13" stroke="#F6B94A" />
+  <path d="M665,150 C640,110 680,70 650,30" stroke="#FF5B65" stroke-width="3" fill="none" opacity="0.6" />
+
+  <!-- Ground Plane with Brownout Lighting -->
+  <rect x="0" y="380" width="800" height="70" fill="#07090E" />
+  <line x1="0" y1="385" x2="800" y2="385" stroke="#FF5B65" stroke-dasharray="10,15" stroke-width="2" />
+
+  <!-- Floating Telemetry HUD warning -->
+  <rect x="220" y="30" width="360" height="34" rx="8" fill="#1D0A0D" stroke="#FF5B65" stroke-width="1.5" />
+  <text x="400" y="52" fill="#FF5B65" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    NOVA CITY: ENVIRONMENTAL DISTRESS (PHASE I)
+  </text>
+</svg>

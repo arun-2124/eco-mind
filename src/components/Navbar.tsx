@@ -14,12 +14,15 @@ import {
   Menu,
   X,
   Zap,
+  HelpCircle,
 } from "lucide-react";
+import { AIExplainerModal } from "./AIExplainerModal";
 
 export function Navbar() {
   const pathname = usePathname();
   const { currentParticipant, logoutParticipant } = useGameState();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [aiModalOpen, setAiModalOpen] = useState(false);
 
   const isPresenter = pathname.startsWith("/presenter");
 
@@ -75,6 +78,15 @@ export function Navbar() {
               <PlayCircle className="w-3.5 h-3.5 text-[#38E58B]" />
               {currentParticipant ? "MY MISSION" : "JOIN MISSION"}
             </Link>
+
+            <button
+              type="button"
+              onClick={() => setAiModalOpen(true)}
+              className="px-3 py-1.5 rounded-lg text-xs font-mono tracking-wider transition-colors flex items-center gap-1.5 text-[#35D5FF] hover:bg-[#35D5FF]/10 border border-[#35D5FF]/20"
+            >
+              <HelpCircle className="w-3.5 h-3.5" />
+              AI CONCEPTS
+            </button>
 
             <Link
               href="/about"
@@ -198,6 +210,11 @@ export function Navbar() {
           )}
         </div>
       )}
+      {/* AI Explainer Modal */}
+      <AIExplainerModal
+        isOpen={aiModalOpen}
+        onClose={() => setAiModalOpen(false)}
+      />
     </header>
   );
 }

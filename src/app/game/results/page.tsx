@@ -19,6 +19,7 @@ import {
   RotateCcw,
   Home,
   CheckCircle2,
+  XCircle,
   TrendingUp,
   AlertTriangle,
   Layers,
@@ -32,11 +33,10 @@ export default function GameResultsPage() {
   const { currentParticipant, isLoaded, session } = useGameState();
 
   useEffect(() => {
-    // Fire confetti for celebration
     try {
       confetti({
-        particleCount: 90,
-        spread: 70,
+        particleCount: 100,
+        spread: 80,
         origin: { y: 0.6 },
         colors: ["#35D5FF", "#38E58B", "#FCC30B"],
       });
@@ -63,6 +63,7 @@ export default function GameResultsPage() {
 
   const ending = determineCityEnding(
     currentParticipant.score.total,
+    currentParticipant.score.sustainableCount,
     currentParticipant.cityMetrics
   );
   const ratingInfo = getRating(currentParticipant.score.total);
@@ -88,14 +89,59 @@ export default function GameResultsPage() {
           <p className="text-sm sm:text-base font-mono text-[#35D5FF] font-semibold">
             {ending.subtitle}
           </p>
-          <p className="text-xs sm:text-sm text-[#98A8BD] leading-relaxed max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-[#98A8BD] leading-relaxed max-w-2xl mx-auto font-mono">
             {ending.description}
           </p>
         </div>
 
-        {/* City State Transition Visualizer */}
-        <div className="max-w-4xl mx-auto">
-          <CityVisualizer level={condition.visualLevel} interactive={false} />
+        {/* City Visual Scene Artwork */}
+        <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden border border-[#35D5FF]/30 shadow-2xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={ending.image}
+            alt={ending.title}
+            className="w-full h-auto aspect-[16/9] object-cover"
+          />
+        </div>
+
+        {/* 4 Overview Quick Stats (Score, Sustainable count, Unsustainable count, Condition) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+          <div className="glass-panel p-5 rounded-2xl border border-[#38E58B]/30 font-mono text-center">
+            <span className="text-[10px] text-[#98A8BD] uppercase block">Final Score</span>
+            <span className="text-3xl font-extrabold text-[#38E58B]">
+              {currentParticipant.score.total}
+            </span>
+            <span className="text-[10px] text-[#98A8BD] block">/1000 Points</span>
+          </div>
+
+          <div className="glass-panel p-5 rounded-2xl border border-[#38E58B]/30 font-mono text-center">
+            <span className="text-[10px] text-[#98A8BD] uppercase block">Sustainable Choices</span>
+            <span className="text-3xl font-extrabold text-[#38E58B] flex items-center justify-center gap-1">
+              <CheckCircle2 className="w-5 h-5 text-[#38E58B]" />
+              {currentParticipant.score.sustainableCount}
+            </span>
+            <span className="text-[10px] text-[#98A8BD] block">Across 4 Missions</span>
+          </div>
+
+          <div className="glass-panel p-5 rounded-2xl border border-[#FF5B65]/30 font-mono text-center">
+            <span className="text-[10px] text-[#98A8BD] uppercase block">Unsustainable Choices</span>
+            <span className="text-3xl font-extrabold text-[#FF5B65] flex items-center justify-center gap-1">
+              <XCircle className="w-5 h-5 text-[#FF5B65]" />
+              {currentParticipant.score.unsustainableCount}
+            </span>
+            <span className="text-[10px] text-[#98A8BD] block">Trade-offs Made</span>
+          </div>
+
+          <div className="glass-panel p-5 rounded-2xl border border-[#35D5FF]/30 font-mono text-center">
+            <span className="text-[10px] text-[#98A8BD] uppercase block">City Condition</span>
+            <span
+              className="text-2xl font-extrabold block mt-0.5"
+              style={{ color: condition.color }}
+            >
+              {condition.status}
+            </span>
+            <span className="text-[10px] text-[#98A8BD] block">Environmental State</span>
+          </div>
         </div>
 
         {/* Score & Dimensions Grid */}
@@ -135,7 +181,7 @@ export default function GameResultsPage() {
               </div>
               <div className="text-right">
                 <span className="text-xs font-mono text-[#98A8BD] uppercase">
-                  Final Score
+                  Evaluated Score
                 </span>
                 <p className="text-3xl font-extrabold font-mono text-[#38E58B]">
                   {currentParticipant.score.total}
@@ -154,7 +200,6 @@ export default function GameResultsPage() {
 
           {/* City Health & Decisions Log (6 cols) */}
           <div className="lg:col-span-6 space-y-6">
-            {/* City Health */}
             <CityMetricsBar metrics={currentParticipant.cityMetrics} />
 
             {/* Decisions Recap */}
@@ -168,11 +213,12 @@ export default function GameResultsPage() {
                 {MISSIONS.map((m) => {
                   const choiceKey = currentParticipant.decisions[m.number];
                   const opt = m.options.find((o) => o.key === choiceKey);
+                  const isSust = opt?.isSustainable;
 
                   return (
                     <div
                       key={m.id}
-                      className="p-3 rounded-xl bg-[#080E1C] border border-[#35D5FF]/15 text-xs font-mono flex items-start justify-between gap-3"
+                      className="p-3.5 rounded-xl bg-[#080E1C] border border-[#35D5FF]/15 text-xs font-mono flex items-start justify-between gap-3"
                     >
                       <div>
                         <span className="text-[#35D5FF] font-bold">
@@ -181,9 +227,24 @@ export default function GameResultsPage() {
                         <p className="text-white font-semibold mt-0.5">
                           {opt ? `Option ${opt.key} — ${opt.title}` : "Not submitted"}
                         </p>
+                        {opt && (
+                          <span
+                            className={`text-[10px] font-bold mt-1 inline-block ${
+                              isSust ? "text-[#38E58B]" : "text-[#FF5B65]"
+                            }`}
+                          >
+                            {isSust ? "✔ Sustainable Choice (+250 pts)" : "✘ Unsustainable Choice (+50 pts)"}
+                          </span>
+                        )}
                       </div>
-                      <span className="px-2 py-0.5 rounded bg-[#38E58B]/15 text-[#38E58B] font-bold text-[11px] shrink-0">
-                        {opt?.key || "—"}
+                      <span
+                        className={`px-2.5 py-1 rounded-lg font-black text-xs shrink-0 ${
+                          isSust
+                            ? "bg-[#38E58B]/20 text-[#38E58B] border border-[#38E58B]/40"
+                            : "bg-[#FF5B65]/20 text-[#FF5B65] border border-[#FF5B65]/40"
+                        }`}
+                      >
+                        Opt {opt?.key || "—"}
                       </span>
                     </div>
                   );
@@ -193,12 +254,12 @@ export default function GameResultsPage() {
           </div>
         </div>
 
-        {/* Closing Inspiring Motto */}
+        {/* Closing Inspiring Motto (Part 12) */}
         <div className="p-8 rounded-2xl border border-[#35D5FF]/30 bg-gradient-to-r from-[#0B1E2E] via-[#0D1424] to-[#0A201A] text-center space-y-4 max-w-3xl mx-auto shadow-2xl">
           <p className="font-mono text-sm sm:text-base font-bold text-[#35D5FF] tracking-wider uppercase">
-            &ldquo;THE FUTURE IS BUILT BY THE DECISIONS WE MAKE TODAY.&rdquo;
+            &ldquo;INTELLIGENCE IS NOT JUST ABOUT WHAT MACHINES CAN DO. IT IS ABOUT WHAT THEY SHOULD DO RESPONSIBLY.&rdquo;
           </p>
-          <p className="text-xs text-[#98A8BD] max-w-xl mx-auto">
+          <p className="text-xs text-[#98A8BD] max-w-xl mx-auto font-mono">
             Thank you for participating in the Robotics and Automation Club Sustainable Intelligence Challenge. Continue championing physical AI, edge thrift, and responsible engineering in all your projects.
           </p>
 

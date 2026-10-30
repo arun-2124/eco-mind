@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="collab_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#081816" />
+      <stop offset="50%" stopColor="#0C2522" />
+      <stop offset="100%" stopColor="#070B16" />
+    </linearGradient>
+    <filter id="m2_glow_grn" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#collab_bg)" />
+
+  <!-- Robot on the Left navigating locally -->
+  <g transform="translate(120, 140)">
+    <!-- Obstacle Avoidance Vector Grid -->
+    <path d="M70,40 L190,-10 L220,90 Z" fill="#38E58B" fill-opacity="0.1" stroke="#38E58B" stroke-dasharray="4,4" />
+    <rect x="180" y="20" width="30" height="40" fill="#1E293B" stroke="#F6B94A" stroke-width="1.5" />
+    <text x="195" y="45" fill="#F6B94A" font-family="monospace" font-size="9" text-anchor="middle">OBSTACLE</text>
+    <!-- Arrow dodging obstacle -->
+    <path d="M70,80 Q130,80 160,110" fill="none" stroke="#38E58B" stroke-width="3" />
+
+    <!-- Robot -->
+    <rect x="10" y="50" width="90" height="60" rx="10" fill="#0D201D" stroke="#38E58B" stroke-width="2.5" />
+    <rect x="0" y="95" width="110" height="25" rx="6" fill="#061210" stroke="#35D5FF" stroke-width="2" />
+    <circle cx="25" cy="107" r="7" fill="#38E58B" />
+    <circle cx="55" cy="107" r="7" fill="#38E58B" />
+    <circle cx="85" cy="107" r="7" fill="#38E58B" />
+    <circle cx="70" cy="35" r="14" fill="#0D201D" stroke="#38E58B" stroke-width="2" />
+    <circle cx="76" cy="35" r="5" fill="#35D5FF" />
+  </g>
+
+  <!-- Clean, Targeted Notification Link (Low Bandwidth Beacon) -->
+  <g transform="translate(320, 180)">
+    <path d="M0,50 C60,20 120,20 180,50" fill="none" stroke="#38E58B" stroke-width="3" stroke-dasharray="8,6" />
+    <rect x="40" y="0" width="100" height="24" rx="6" fill="#0A221D" stroke="#38E58B" stroke-width="1.5" />
+    <text x="90" y="16" fill="#38E58B" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">
+      SURVIVOR ALERT
+    </text>
+  </g>
+
+  <!-- Human Rescue Supervisor on Tablet (Right) -->
+  <g transform="translate(540, 120)">
+    <!-- Operator Tablet Rig -->
+    <rect x="20" y="20" width="160" height="200" rx="14" fill="#0F172A" stroke="#35D5FF" stroke-width="2.5" filter="url(#m2_glow_grn)" />
+    <!-- Screen -->
+    <rect x="30" y="32" width="140" height="150" rx="8" fill="#070B16" />
+    
+    <text x="100" y="55" fill="#38E58B" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">
+      COMMAND APPROVAL
+    </text>
+    
+    <!-- Camera snapshot of survivor -->
+    <rect x="45" y="65" width="110" height="60" rx="4" fill="#081816" stroke="#38E58B" stroke-width="1" />
+    <circle cx="100" cy="90" r="14" fill="#38E58B" fill-opacity="0.5" />
+    <text x="100" y="115" fill="#35D5FF" font-family="monospace" font-size="9" text-anchor="middle">
+      Sector 4B Found
+    </text>
+
+    <!-- Authorize Button -->
+    <rect x="45" y="135" width="110" height="28" rx="6" fill="#38E58B" />
+    <text x="100" y="153" fill="#070B16" font-family="monospace" font-size="11" font-weight="900" text-anchor="middle">
+      [ AUTHORIZE EXTRACT ]
+    </text>
+  </g>
+
+  <!-- Benefits Banner Footer -->
+  <g transform="translate(100, 370)">
+    <rect x="0" y="0" width="280" height="45" rx="10" fill="#0A201A" stroke="#38E58B" stroke-width="1.5" />
+    <text x="140" y="27" fill="#38E58B" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">
+      ✔ IMMUNE TO RADIO OUTAGES
+    </text>
+  </g>
+
+  <g transform="translate(420, 370)">
+    <rect x="0" y="0" width="280" height="45" rx="10" fill="#0A201A" stroke="#35D5FF" stroke-width="1.5" />
+    <text x="140" y="27" fill="#35D5FF" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">
+      ✔ HUMAN SAFETY OVERSIGHT
+    </text>
+  </g>
+
+  <!-- Option Title Banner -->
+  <rect x="160" y="20" width="480" height="38" rx="8" fill="#071916" stroke="#38E58B" stroke-width="2" />
+  <text x="400" y="44" fill="#38E58B" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="1">
+    LOCAL AUTONOMY + HUMAN SUPERVISION (SUSTAINABLE)
+  </text>
+</svg>

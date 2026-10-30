@@ -25,6 +25,7 @@ import {
   CheckCircle2,
   Users,
   AlertCircle,
+  HelpCircle,
 } from "lucide-react";
 
 export default function PresenterMissionsPage() {
@@ -42,13 +43,13 @@ export default function PresenterMissionsPage() {
 
   const mission = MISSIONS.find((m) => m.number === activeTabMission) || MISSIONS[0];
 
-  // Calculate choice counts
-  const choiceCounts: Record<string, number> = { A: 0, B: 0, C: 0, D: 0 };
+  // Calculate choice counts (A vs B)
+  const choiceCounts: Record<string, number> = { A: 0, B: 0 };
   let totalSubmissionsForTab = 0;
 
   participants.forEach((p) => {
     const choice = p.decisions[activeTabMission];
-    if (choice && choiceCounts[choice] !== undefined) {
+    if (choice && (choice === "A" || choice === "B")) {
       choiceCounts[choice] += 1;
       totalSubmissionsForTab += 1;
     }
@@ -61,14 +62,15 @@ export default function PresenterMissionsPage() {
       : 0;
 
     return {
-      key: `Opt ${opt.key}`,
+      key: `Option ${opt.key}`,
       optionTitle: opt.title,
+      isSustainable: opt.isSustainable,
       votes: count,
       percentage: pct,
     };
   });
 
-  const barColors = ["#35D5FF", "#38E58B", "#FCC30B", "#F6B94A"];
+  const barColors = ["#38E58B", "#FF5B65"];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#070B16] text-[#F4F7FC]">
@@ -77,7 +79,7 @@ export default function PresenterMissionsPage() {
       <PresenterNav />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        {/* Mission Tabs */}
+        {/* Mission Selector Tabs */}
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#35D5FF]/15 pb-4">
           <div className="flex items-center gap-2">
             {MISSIONS.map((m) => {
@@ -103,7 +105,6 @@ export default function PresenterMissionsPage() {
             })}
           </div>
 
-          {/* Action to switch session's active mission */}
           {activeTabMission !== session.currentMission && (
             <button
               onClick={() => startMission(activeTabMission)}
@@ -114,9 +115,9 @@ export default function PresenterMissionsPage() {
           )}
         </div>
 
-        {/* Mission Detail & Real-Time Votes */}
+        {/* Question & Real-Time Answer Distribution */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Mission Description & Talking Points (6 cols) */}
+          {/* Left Column: Mission Description & Question (6 cols) */}
           <div className="lg:col-span-6 space-y-6">
             <div className="glass-panel p-6 rounded-2xl border border-[#35D5FF]/20 space-y-4">
               <div className="flex items-center justify-between">
@@ -134,34 +135,49 @@ export default function PresenterMissionsPage() {
                 {mission.title}
               </h2>
 
-              <p className="text-xs sm:text-sm text-[#98A8BD] leading-relaxed">
-                {mission.storyProblem}
-              </p>
-
-              <div className="p-3 rounded-xl bg-[#091120] border border-[#35D5FF]/15 text-xs font-mono text-[#35D5FF]">
-                <strong>Presenter Prompt:</strong> {mission.prompt}
+              <div className="p-4 rounded-xl bg-[#091120] border border-[#35D5FF]/20 text-xs font-mono">
+                <span className="text-[10px] text-[#35D5FF] font-bold uppercase block mb-1">
+                  DIRECTOR TEACHING QUESTION:
+                </span>
+                <p className="text-sm font-bold text-white leading-relaxed">
+                  {mission.question}
+                </p>
               </div>
+
+              <p className="text-xs text-[#98A8BD] leading-relaxed font-mono">
+                {mission.environmentalContext}
+              </p>
             </div>
 
-            {/* Mission Options Breakdown */}
+            {/* Two Options Catalog */}
             <div className="space-y-3">
               <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#98A8BD]">
-                Options Catalog & Sustainability Impacts
+                Options Catalog &amp; Educational Classification
               </h3>
               {mission.options.map((opt) => (
                 <div
                   key={opt.id}
-                  className="p-4 rounded-xl bg-[#0D1424] border border-white/5 space-y-2 text-xs font-mono"
+                  className={`p-4 rounded-xl border space-y-2 text-xs font-mono ${
+                    opt.isSustainable
+                      ? "bg-[#081814] border-[#38E58B]/30"
+                      : "bg-[#180A0C] border-[#FF5B65]/30"
+                  }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-white text-sm">
                       Option {opt.key}: {opt.title}
                     </span>
-                    <span className="text-[#38E58B] font-bold">
-                      {choiceCounts[opt.key] || 0} votes
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${
+                        opt.isSustainable
+                          ? "bg-[#38E58B]/20 text-[#38E58B]"
+                          : "bg-[#FF5B65]/20 text-[#FF5B65]"
+                      }`}
+                    >
+                      {opt.isSustainable ? "Sustainable (+250)" : "Unsustainable (+50)"}
                     </span>
                   </div>
-                  <p className="text-[#98A8BD] text-[11px] leading-relaxed">
+                  <p className="text-[#98A8BD] text-xs leading-relaxed">
                     {opt.shortDescription}
                   </p>
                 </div>
@@ -169,14 +185,14 @@ export default function PresenterMissionsPage() {
             </div>
           </div>
 
-          {/* Right Column: Live Distribution Chart & Controls (6 cols) */}
+          {/* Right Column: Live Distribution Bar Chart & Controls (6 cols) */}
           <div className="lg:col-span-6 space-y-6">
             <div className="glass-panel p-6 rounded-2xl border border-[#35D5FF]/20 space-y-6">
               <div className="flex items-center justify-between border-b border-[#35D5FF]/15 pb-3">
                 <div className="flex items-center gap-2">
                   <Target className="w-4 h-4 text-[#35D5FF]" />
                   <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider">
-                    Live Choice Distribution
+                    Cadet Choice Distribution (A vs B)
                   </h3>
                 </div>
                 <span className="text-xs font-mono text-[#38E58B] font-bold">
@@ -188,7 +204,7 @@ export default function PresenterMissionsPage() {
               <div className="w-full h-64">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <XAxis dataKey="key" stroke="#98A8BD" fontSize={11} fontFamily="monospace" />
+                    <XAxis dataKey="key" stroke="#98A8BD" fontSize={12} fontFamily="monospace" />
                     <YAxis stroke="#98A8BD" fontSize={11} domain={[0, 100]} unit="%" />
                     <Tooltip
                       contentStyle={{
@@ -202,7 +218,10 @@ export default function PresenterMissionsPage() {
                     />
                     <Bar dataKey="percentage" radius={[6, 6, 0, 0]}>
                       {chartData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={barColors[index % barColors.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={entry.isSustainable ? "#38E58B" : "#FF5B65"}
+                        />
                       ))}
                     </Bar>
                   </BarChart>

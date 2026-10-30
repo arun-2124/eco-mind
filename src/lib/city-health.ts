@@ -51,14 +51,12 @@ export function getCityCondition(metrics: CityMetrics): {
   summary: string;
   visualLevel: number; // 1 to 5
 } {
-  // Environmental stress index (average of negative indices)
   const stress = (metrics.energyIndex + metrics.carbonIndex + metrics.waterIndex + metrics.ewasteIndex) / 4;
-  // Positive vitality index
   const vitality = (metrics.operationalEfficiency + metrics.citizenWellbeing + metrics.resilienceIndex) / 3;
 
   const netBalance = vitality - stress;
 
-  if (netBalance >= 30) {
+  if (netBalance >= 25) {
     return {
       status: "Thriving",
       color: "#38E58B",
@@ -66,7 +64,7 @@ export function getCityCondition(metrics: CityMetrics): {
       visualLevel: 5,
     };
   }
-  if (netBalance >= 10) {
+  if (netBalance >= 5) {
     return {
       status: "Sustainable",
       color: "#35D5FF",
@@ -100,58 +98,64 @@ export function getCityCondition(metrics: CityMetrics): {
 
 export function determineCityEnding(
   totalScore: number,
+  sustainableCount: number,
   metrics: CityMetrics
 ): {
-  key: "A" | "B" | "C" | "D";
+  key: "GREEN_FUTURE" | "TECH_WITHOUT_BALANCE" | "FRAGILE_CITY" | "RECOVERY_IN_PROGRESS";
   title: string;
   subtitle: string;
   description: string;
   badge: string;
   color: string;
+  image: string;
 } {
-  if (totalScore >= 800 && metrics.resilienceIndex >= 65) {
+  if (sustainableCount >= 3 || totalScore >= 750) {
     return {
-      key: "A",
-      title: "THE SUSTAINABLE FUTURE",
+      key: "GREEN_FUTURE",
+      title: "1. GREEN FUTURE",
       subtitle: "The Eco-Intelligent Metropolis",
       description:
-        "Nova City thrives as an inspiring global model of responsible technology. Through tiered hybrid intelligence, collaborative physical robotics, renewable microgrids, and circular hardware retrofits, human well-being and natural ecosystems flourish together.",
+        "Nova City thrives as an inspiring global model of responsible technology. Through local edge AI, collaborative physical robotics, workload optimization, and modular circular repairs, human well-being and natural ecosystems flourish in planetary equilibrium.",
       badge: "Planetary Equilibrium Achieved",
       color: "#38E58B",
+      image: "/assets/city-sustainable.svg",
     };
   }
 
-  if (metrics.operationalEfficiency >= 70 && (metrics.carbonIndex > 50 || metrics.ewasteIndex > 50)) {
+  if (metrics.operationalEfficiency >= 60 && (metrics.carbonIndex > 50 || metrics.ewasteIndex > 50)) {
     return {
-      key: "B",
-      title: "THE TECHNOLOGICAL GIANT",
+      key: "TECH_WITHOUT_BALANCE",
+      title: "2. TECHNOLOGY WITHOUT BALANCE",
       subtitle: "Peak Silicon, Strained Planet",
       description:
-        "The city achieved extraordinary computational speed and automated convenience, but at the cost of depleted water reserves and mounting electronics scrap. Innovation marches on, yet ecological debt looms heavy over the next generation.",
-      badge: "High Velocity, High Cost",
+        "The city achieved high technological convenience and fast automation, but at the cost of depleted water reservoirs and mounting electronic scrap. Innovation marches on, yet ecological debt looms heavy over future generations.",
+      badge: "High Velocity, High Ecological Cost",
       color: "#35D5FF",
+      image: "/assets/city-polluted.svg",
     };
   }
 
-  if (metrics.resilienceIndex < 45 || totalScore < 500) {
+  if (sustainableCount <= 1 || totalScore <= 350) {
     return {
-      key: "C",
-      title: "THE FRAGILE FUTURE",
+      key: "FRAGILE_CITY",
+      title: "3. FRAGILE CITY",
       subtitle: "Complex Systems, Fragile Margins",
       description:
-        "Nova City remained entrapped by centralized dependencies or rushed unconstrained automation. Power fluctuations frequently stall civic transport, and community trust in automated systems has eroded.",
+        "Nova City remained entrapped by centralized dependencies and planned obsolescence. Power fluctuations regularly stall civic transport, and community trust in automated systems has eroded.",
       badge: "Vulnerable Network Architecture",
       color: "#FF5B65",
+      image: "/assets/city-polluted.svg",
     };
   }
 
   return {
-    key: "D",
-    title: "THE RECOVERY PATH",
+    key: "RECOVERY_IN_PROGRESS",
+    title: "4. RECOVERY IN PROGRESS",
     subtitle: "Rebuilding Foundations with Purpose",
     description:
-      "Averted total blackout and halted hazardous landfill expansion. While several legacy challenges remain, the task force laid durable ground for circular repair, energy thrift, and collaborative robotics.",
+      "Averted total blackout and halted hazardous landfill expansion. While several legacy challenges remain, the Task Force laid durable ground for circular repair, energy thrift, and collaborative robotics.",
     badge: "Steadfast Resiliency Transition",
     color: "#FCC30B",
+    image: "/assets/city-sustainable.svg",
   };
 }

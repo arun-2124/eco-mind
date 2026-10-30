@@ -246,34 +246,85 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="glass-panel p-5 rounded-xl border border-[#35D5FF]/15">
-              <span className="text-xs font-mono text-[#35D5FF] font-bold">MISSION 01</span>
-              <h4 className="font-bold text-white text-sm mt-1">The Intelligence Crisis</h4>
-              <p className="text-xs text-[#98A8BD] mt-1">
-                Centralized Cloud vs Edge AI vs Dynamic Hybrid inference architectures.
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="glass-panel rounded-2xl border border-[#35D5FF]/20 overflow-hidden flex flex-col group">
+              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/m1-infrastructure-crisis.svg"
+                  alt="Mission 1"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-[#35D5FF] font-bold">MISSION 01</span>
+                  <h4 className="font-bold text-white text-sm mt-0.5">The AI Infrastructure Crisis</h4>
+                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
+                    Local Edge AI Processing vs Unnecessary Continuous Cloud Streaming.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="glass-panel p-5 rounded-xl border border-[#35D5FF]/15">
-              <span className="text-xs font-mono text-[#38E58B] font-bold">MISSION 02</span>
-              <h4 className="font-bold text-white text-sm mt-1">The Autonomous Rescue</h4>
-              <p className="text-xs text-[#98A8BD] mt-1">
-                Tele-operated vs Fully autonomous swarms vs Collaborative Centaur robotics.
-              </p>
+
+            <div className="glass-panel rounded-2xl border border-[#38E58B]/20 overflow-hidden flex flex-col group">
+              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/m2-autonomous-rescue.svg"
+                  alt="Mission 2"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-[#38E58B] font-bold">MISSION 02</span>
+                  <h4 className="font-bold text-white text-sm mt-0.5">The Autonomous Rescue</h4>
+                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
+                    Physical AI: Local perception &amp; autonomous navigation vs Tele-operation video lag.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="glass-panel p-5 rounded-xl border border-[#35D5FF]/15">
-              <span className="text-xs font-mono text-[#FCC30B] font-bold">MISSION 03</span>
-              <h4 className="font-bold text-white text-sm mt-1">The Energy Emergency</h4>
-              <p className="text-xs text-[#98A8BD] mt-1">
-                Model quantization, solar microgrid hubs, and carbon-aware temporal job scheduling.
-              </p>
+
+            <div className="glass-panel rounded-2xl border border-[#FCC30B]/20 overflow-hidden flex flex-col group">
+              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/m3-energy-emergency.svg"
+                  alt="Mission 3"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-[#FCC30B] font-bold">MISSION 03</span>
+                  <h4 className="font-bold text-white text-sm mt-0.5">The Energy Emergency</h4>
+                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
+                    INT8 model quantization &amp; carbon-aware scheduling vs Maximum fossil power.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="glass-panel p-5 rounded-xl border border-[#35D5FF]/15">
-              <span className="text-xs font-mono text-[#F6B94A] font-bold">MISSION 04</span>
-              <h4 className="font-bold text-white text-sm mt-1">The E-Waste Trap</h4>
-              <p className="text-xs text-[#98A8BD] mt-1">
-                Fleet obsolescence, circular civic repair workshops, and modular hardware retrofits.
-              </p>
+
+            <div className="glass-panel rounded-2xl border border-[#F6B94A]/20 overflow-hidden flex flex-col group">
+              <div className="aspect-[16/9] w-full bg-[#070B16] border-b border-white/5 overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/m4-ewaste-crisis.svg"
+                  alt="Mission 4"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-[#F6B94A] font-bold">MISSION 04</span>
+                  <h4 className="font-bold text-white text-sm mt-0.5">The E-Waste Crisis</h4>
+                  <p className="text-xs text-[#98A8BD] mt-1 line-clamp-2">
+                    Modular silicon retrofits &amp; civic repair vs Planned obsolescence disposal.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 

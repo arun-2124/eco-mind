@@ -377,7 +377,7 @@ export function registerParticipant(
 export function submitParticipantDecision(
   participantId: string,
   missionNumber: number,
-  optionKey: "A" | "B" | "C" | "D"
+  optionKey: "A" | "B"
 ): { success: boolean; error?: string; participant?: Participant } {
   const state = loadGameState();
   const participant = state.participants.find((p) => p.id === participantId);
@@ -421,6 +421,7 @@ export function submitParticipantDecision(
     missionNumber,
     optionKey,
     optionTitle: option.title,
+    isSustainable: option.isSustainable,
     submittedAt: new Date().toISOString(),
   };
 
@@ -443,34 +444,34 @@ export function submitParticipantDecision(
 // -------------------------------------------------------------
 
 function simulateBotDecisions(state: GameState, missionNum: number): void {
-  const sampleChoices: Record<number, Record<string, "A" | "B" | "C" | "D">> = {
+  const sampleChoices: Record<number, Record<string, "A" | "B">> = {
     1: {
-      "Aria Vance": "C", // Hybrid
-      "Kaelen Chen": "B", // Edge
-      "Dr. Mira Soren": "C", // Hybrid
-      "Tarek Al-Mansoor": "A", // Centralized
-      "Elena Rostova": "C", // Hybrid
+      "Aria Vance": "A", // Edge AI (Sustainable)
+      "Kaelen Chen": "A", // Edge AI
+      "Dr. Mira Soren": "A", // Edge AI
+      "Tarek Al-Mansoor": "B", // Continuous Cloud (Unsustainable)
+      "Elena Rostova": "A", // Edge AI
     },
     2: {
-      "Aria Vance": "C", // Human-supervised
-      "Kaelen Chen": "B", // Fully autonomous
-      "Dr. Mira Soren": "C", // Human-supervised
-      "Tarek Al-Mansoor": "A", // Tele-operated
-      "Elena Rostova": "C", // Human-supervised
+      "Aria Vance": "A", // Local autonomy + human supervision (Sustainable)
+      "Kaelen Chen": "A", // Local autonomy
+      "Dr. Mira Soren": "A", // Local autonomy
+      "Tarek Al-Mansoor": "B", // Continuous streaming (Unsustainable)
+      "Elena Rostova": "B", // Continuous streaming
     },
     3: {
-      "Aria Vance": "B", // Quantization
-      "Kaelen Chen": "C", // Solar depots
-      "Dr. Mira Soren": "D", // Workload scheduling
-      "Tarek Al-Mansoor": "A", // Max capacity peakers
-      "Elena Rostova": "B", // Quantization
+      "Aria Vance": "A", // Quantization & scheduling (Sustainable)
+      "Kaelen Chen": "A", // Quantization & scheduling
+      "Dr. Mira Soren": "A", // Quantization & scheduling
+      "Tarek Al-Mansoor": "B", // Max power continuous (Unsustainable)
+      "Elena Rostova": "A", // Quantization & scheduling
     },
     4: {
-      "Aria Vance": "C", // Modular retrofit
-      "Kaelen Chen": "B", // Civic repair
-      "Dr. Mira Soren": "C", // Modular retrofit
-      "Tarek Al-Mansoor": "A", // Replace all
-      "Elena Rostova": "B", // Civic repair
+      "Aria Vance": "A", // Modular repair (Sustainable)
+      "Kaelen Chen": "A", // Modular repair
+      "Dr. Mira Soren": "A", // Modular repair
+      "Tarek Al-Mansoor": "B", // Full replacement (Unsustainable)
+      "Elena Rostova": "A", // Modular repair
     },
   };
 
@@ -480,7 +481,7 @@ function simulateBotDecisions(state: GameState, missionNum: number): void {
   state.participants.forEach((part) => {
     // Only auto-submit for the predefined sample bot participants
     if (SAMPLE_PARTICIPANTS.some((sp) => sp.fullName === part.fullName)) {
-      const choice = sampleChoices[missionNum]?.[part.fullName] || "B";
+      const choice = sampleChoices[missionNum]?.[part.fullName] || "A";
       part.decisions[missionNum] = choice;
       part.hasSubmittedCurrentMission = true;
       part.score = calculateParticipantScore(part.decisions);
@@ -497,6 +498,7 @@ function simulateBotDecisions(state: GameState, missionNum: number): void {
           missionNumber: missionNum,
           optionKey: choice,
           optionTitle: option?.title || choice,
+          isSustainable: option?.isSustainable ?? true,
           submittedAt: new Date().toISOString(),
         });
       }
