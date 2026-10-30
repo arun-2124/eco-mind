@@ -6,6 +6,8 @@ import { useGameState } from "@/hooks/useGameState";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { Navbar } from "@/components/Navbar";
 import { PresenterNav } from "@/components/PresenterNav";
+import { PresenterDecisionMonitor } from "@/components/PresenterDecisionMonitor";
+import { sound } from "@/lib/audio";
 import { MISSIONS } from "@/lib/game-data";
 import {
   Play,
@@ -168,7 +170,10 @@ export default function PresenterDashboardPage() {
                 </button>
 
                 <button
-                  onClick={revealConsequences}
+                  onClick={() => {
+                    sound.playSustainableSuccess();
+                    revealConsequences();
+                  }}
                   disabled={session.consequencesRevealed}
                   className={`px-4 py-2 rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 border transition-all ${
                     session.consequencesRevealed
@@ -185,7 +190,10 @@ export default function PresenterDashboardPage() {
                 </button>
 
                 <button
-                  onClick={advanceMission}
+                  onClick={() => {
+                    sound.playConfirm();
+                    advanceMission();
+                  }}
                   disabled={session.currentMission >= 4 && session.consequencesRevealed}
                   className="px-3.5 py-2 rounded-xl bg-[#111C30] hover:bg-[#16243D] text-[#35D5FF] border border-[#35D5FF]/30 text-xs font-mono font-bold flex items-center gap-1.5 transition-colors disabled:opacity-40"
                 >
@@ -219,80 +227,16 @@ export default function PresenterDashboardPage() {
           </div>
         </div>
 
-        {/* Live Question & Decision Breakdown Panel (Part 10) */}
-        <div className="glass-panel p-6 rounded-2xl border-2 border-[#35D5FF]/30 bg-[#0B1528] space-y-4 shadow-2xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#35D5FF] font-bold">
-                ACTIVE WORKSHOP QUESTION (MISSION 0{activeMission.number})
-              </span>
-              <h2 className="text-xl sm:text-2xl font-display font-extrabold text-white mt-1">
-                {activeMission.question}
-              </h2>
-            </div>
-            <div className="text-right">
-              <span className="text-xs font-mono text-[#38E58B] font-bold block">
-                {currentMissionSubmittedCount} of {totalParticipants} Cadets Voted
-              </span>
-              <span className="text-[10px] font-mono text-[#FCC30B]">
-                {currentMissionPendingCount} pending answers
-              </span>
-            </div>
-          </div>
-
-          {/* Option A vs Option B Comparison Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Option A Card */}
-            <div className="p-4 rounded-xl bg-[#081814] border-2 border-[#38E58B]/40 space-y-2 font-mono">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-white">
-                  OPTION A: {activeMission.options[0].title}
-                </span>
-                <span className="px-2 py-0.5 rounded bg-[#38E58B]/20 text-[#38E58B] text-[10px] font-black uppercase">
-                  SUSTAINABLE CHOICE
-                </span>
-              </div>
-              <div className="flex items-baseline justify-between pt-1">
-                <span className="text-3xl font-black text-[#38E58B]">
-                  {optionACount} <span className="text-xs font-normal text-[#98A8BD]">cadets</span>
-                </span>
-                <span className="text-xl font-bold text-white">{optAPct}%</span>
-              </div>
-              {/* Progress bar */}
-              <div className="h-2 w-full bg-[#05110E] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#38E58B] rounded-full transition-all duration-500"
-                  style={{ width: `${optAPct}%` }}
-                />
-              </div>
-            </div>
-
-            {/* Option B Card */}
-            <div className="p-4 rounded-xl bg-[#1C090D] border-2 border-[#FF5B65]/40 space-y-2 font-mono">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-white">
-                  OPTION B: {activeMission.options[1].title}
-                </span>
-                <span className="px-2 py-0.5 rounded bg-[#FF5B65]/20 text-[#FF5B65] text-[10px] font-black uppercase">
-                  UNSUSTAINABLE CHOICE
-                </span>
-              </div>
-              <div className="flex items-baseline justify-between pt-1">
-                <span className="text-3xl font-black text-[#FF5B65]">
-                  {optionBCount} <span className="text-xs font-normal text-[#98A8BD]">cadets</span>
-                </span>
-                <span className="text-xl font-bold text-white">{optBPct}%</span>
-              </div>
-              {/* Progress bar */}
-              <div className="h-2 w-full bg-[#0D0406] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#FF5B65] rounded-full transition-all duration-500"
-                  style={{ width: `${optBPct}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Live Question & Decision Breakdown Panel (Part 10 & 13) */}
+        <PresenterDecisionMonitor
+          mission={activeMission}
+          countA={optionACount}
+          countB={optionBCount}
+          totalSubmissions={currentMissionSubmittedCount}
+          totalParticipants={totalParticipants}
+          revealed={session.consequencesRevealed}
+          projectorMode={projectorMode}
+        />
 
         {/* 4 Stat Overview Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

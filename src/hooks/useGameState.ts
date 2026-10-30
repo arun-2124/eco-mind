@@ -15,6 +15,7 @@ import {
   presenterEndSession,
   presenterResetWorkshop,
   submitParticipantDecision,
+  awardParticipantBonus,
   registerParticipant,
   DEFAULT_PIN,
 } from "@/lib/sync-engine";
@@ -130,6 +131,10 @@ export function useGameState() {
     // Methods
     register: handleRegister,
     submitDecision: handleSubmitDecision,
+    awardBonus: (points: number = 50) => {
+      if (!currentParticipantId) return { success: false };
+      return awardParticipantBonus(currentParticipantId, points);
+    },
     logoutParticipant,
     // Presenter methods
     startWorkshop: handlePresenterStartWorkshop,

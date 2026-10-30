@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="disaster_sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#1C130B" />
+      <stop offset="60%" stopColor="#0F1424" />
+      <stop offset="100%" stopColor="#070B16" />
+    </linearGradient>
+    <radialGradient id="beacon_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#38E58B" stopOpacity="0.8" />
+      <stop offset="60%" stopColor="#35D5FF" stopOpacity="0.3" />
+      <stop offset="100%" stopColor="#070B16" stopOpacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="450" fill="url(#disaster_sky)" />
+
+  <!-- Collapsed Structure Silhouette (Left) -->
+  <polygon points="40,380 90,260 160,280 210,210 270,380" fill="#141B2D" stroke="#FF5B65" stroke-width="1.5" stroke-dasharray="4 2" />
+  <line x1="90" y1="260" x2="160" y2="380" stroke="#FF5B65" stroke-width="1" opacity="0.6" />
+  <line x1="130" y1="270" x2="110" y2="380" stroke="#FF5B65" stroke-width="1" opacity="0.6" />
+  
+  <!-- Recovery Infrastructure & Medical Drone Hub (Right) -->
+  <rect x="520" y="160" width="180" height="220" rx="10" fill="#0E212B" stroke="#38E58B" stroke-width="2" />
+  <rect x="540" y="190" width="60" height="40" rx="4" fill="#12303A" stroke="#35D5FF" stroke-width="1" />
+  <text x="570" y="215" fill="#35D5FF" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">SURVIVOR</text>
+  <text x="570" y="226" fill="#38E58B" font-size="9" font-family="monospace" text-anchor="middle">TRIAGE</text>
+
+  <rect x="620" y="190" width="60" height="40" rx="4" fill="#12303A" stroke="#35D5FF" stroke-width="1" />
+  <text x="650" y="215" fill="#35D5FF" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">CLEAN</text>
+  <text x="650" y="226" fill="#38E58B" font-size="9" font-family="monospace" text-anchor="middle">WATER</text>
+
+  <!-- Autonomous Solar Medical Drone -->
+  <g transform="translate(610, 110)">
+    <ellipse cx="0" cy="0" rx="35" ry="10" fill="#16293A" stroke="#35D5FF" stroke-width="1.5" />
+    <circle cx="0" cy="0" r="6" fill="#38E58B" />
+    <line x1="-35" y1="0" x2="-45" y2="-5" stroke="#35D5FF" stroke-width="1.5" />
+    <line x1="35" y1="0" x2="45" y2="-5" stroke="#35D5FF" stroke-width="1.5" />
+    <ellipse cx="-45" cy="-5" rx="12" ry="2" fill="none" stroke="#38E58B" stroke-width="1" opacity="0.8" />
+    <ellipse cx="45" cy="-5" rx="12" ry="2" fill="none" stroke="#38E58B" stroke-width="1" opacity="0.8" />
+    <!-- Downward sensor scanner beam -->
+    <polygon points="0,5 -30,60 30,60" fill="url(#beacon_glow)" opacity="0.4" />
+  </g>
+
+  <!-- Physical AI Rescue Rover in Disaster Rubble -->
+  <g transform="translate(320, 310)">
+    <!-- Tracks -->
+    <rect x="-60" y="30" width="120" height="24" rx="12" fill="#0F172A" stroke="#35D5FF" stroke-width="2" />
+    <circle cx="-40" cy="42" r="8" fill="#1E293B" stroke="#35D5FF" stroke-width="1.5" />
+    <circle cx="-15" cy="42" r="8" fill="#1E293B" stroke="#35D5FF" stroke-width="1.5" />
+    <circle cx="15" cy="42" r="8" fill="#1E293B" stroke="#35D5FF" stroke-width="1.5" />
+    <circle cx="40" cy="42" r="8" fill="#1E293B" stroke="#35D5FF" stroke-width="1.5" />
+
+    <!-- Rover Body -->
+    <rect x="-45" y="0" width="90" height="32" rx="6" fill="#132B38" stroke="#38E58B" stroke-width="2" />
+    <text x="0" y="20" fill="#38E58B" font-size="10" font-family="monospace" text-anchor="middle" font-weight="bold">AI RESCUE-01</text>
+
+    <!-- Articulated Robotic Arm with Sensor Head -->
+    <line x1="-20" y1="0" x2="-10" y2="-25" stroke="#38E58B" stroke-width="3" />
+    <circle cx="-10" cy="-25" r="4" fill="#35D5FF" />
+    <line x1="-10" y1="-25" x2="15" y2="-35" stroke="#38E58B" stroke-width="3" />
+    <circle cx="15" cy="-35" r="5" fill="#F6B94A" />
+
+    <!-- LiDAR and Thermal Vision Cone scanning left rubble -->
+    <polygon points="15,-35 -150,-10 -140,50" fill="url(#beacon_glow)" opacity="0.3" />
+    <line x1="15" y1="-35" x2="-150" y2="-10" stroke="#35D5FF" stroke-width="1" stroke-dasharray="3 3" opacity="0.7" />
+    <line x1="15" y1="-35" x2="-140" y2="50" stroke="#38E58B" stroke-width="1" stroke-dasharray="3 3" opacity="0.7" />
+  </g>
+
+  <!-- Clean Ecological Recovery: Emerging Trees & Greenery amidst ruins -->
+  <g fill="#38E58B" opacity="0.85">
+    <!-- Young Tree 1 -->
+    <line x1="470" y1="380" x2="470" y2="330" stroke="#255E40" stroke-width="4" />
+    <circle cx="470" cy="320" r="18" fill="#208250" />
+    <circle cx="460" cy="315" r="12" fill="#38E58B" />
+
+    <!-- Young Tree 2 -->
+    <line x1="260" y1="380" x2="260" y2="345" stroke="#255E40" stroke-width="3" />
+    <circle cx="260" cy="335" r="14" fill="#208250" />
+    <circle cx="268" cy="330" r="10" fill="#38E58B" />
+  </g>
+
+  <!-- Ground Plane -->
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#35D5FF" stroke-width="2" />
+  <rect x="0" y="380" width="800" height="70" fill="#0A0E18" />
+
+  <!-- Holographic Telemetry Text Overlay -->
+  <g font-family="monospace" font-size="11" fill="#35D5FF" opacity="0.9">
+    <text x="30" y="420">STATUS: PHYSICAL AI DISASTER RESPONSE // GRID REGENERATION: 64%</text>
+    <text x="30" y="435" fill="#38E58B">SDG 11 (SUSTAINABLE CITIES) &amp; SDG 3 (GOOD HEALTH AND SAFETY)</text>
+  </g>
+</svg>

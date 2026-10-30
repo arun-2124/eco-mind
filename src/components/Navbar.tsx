@@ -15,7 +15,10 @@ import {
   X,
   Zap,
   HelpCircle,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
+import { sound } from "@/lib/audio";
 import { AIExplainerModal } from "./AIExplainerModal";
 
 export function Navbar() {
@@ -23,6 +26,15 @@ export function Navbar() {
   const { currentParticipant, logoutParticipant } = useGameState();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [isMuted, setIsMuted] = useState(!sound.enabled);
+
+  const toggleSound = () => {
+    sound.enabled = !sound.enabled;
+    setIsMuted(!sound.enabled);
+    if (sound.enabled) {
+      sound.playClick();
+    }
+  };
 
   const isPresenter = pathname.startsWith("/presenter");
 
@@ -115,6 +127,20 @@ export function Navbar() {
 
           {/* Right Action / Participant Identity */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Audio SFX Toggle */}
+            <button
+              type="button"
+              onClick={toggleSound}
+              className={`p-2 rounded-lg border transition-colors ${
+                isMuted
+                  ? "border-white/10 text-[#98A8BD] hover:text-white"
+                  : "border-[#35D5FF]/30 text-[#35D5FF] bg-[#35D5FF]/10"
+              }`}
+              title={isMuted ? "Enable UI Sound Effects" : "Mute Sound Effects"}
+            >
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+
             {currentParticipant ? (
               <div className="flex items-center gap-2 pl-3 border-l border-[#35D5FF]/20">
                 <div className="text-right">
@@ -176,6 +202,25 @@ export function Navbar() {
           >
             {currentParticipant ? "MY MISSION" : "JOIN MISSION"}
           </Link>
+          <button
+            type="button"
+            onClick={() => {
+              setAiModalOpen(true);
+              setMobileMenuOpen(false);
+            }}
+            className="w-full text-left px-3 py-2 rounded-lg text-sm font-mono text-[#35D5FF] hover:bg-white/5 flex items-center gap-2"
+          >
+            <HelpCircle className="w-4 h-4" />
+            AI CONCEPTS & GLOSSARY
+          </button>
+          <button
+            type="button"
+            onClick={toggleSound}
+            className="w-full text-left px-3 py-2 rounded-lg text-sm font-mono text-[#98A8BD] hover:bg-white/5 flex items-center gap-2"
+          >
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#35D5FF]" />}
+            <span>{isMuted ? "ENABLE SOUND EFFECTS" : "SOUND EFFECTS: ON"}</span>
+          </button>
           <Link
             href="/about"
             onClick={() => setMobileMenuOpen(false)}

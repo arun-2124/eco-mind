@@ -439,6 +439,19 @@ export function submitParticipantDecision(
   return { success: true, participant };
 }
 
+export function awardParticipantBonus(
+  participantId: string,
+  bonusPoints: number = 50
+): { success: boolean; participant?: Participant } {
+  const state = loadGameState();
+  const participant = state.participants.find((p) => p.id === participantId);
+  if (!participant) return { success: false };
+
+  participant.score.total = Math.min(1000, participant.score.total + bonusPoints);
+  saveGameState(state);
+  return { success: true, participant };
+}
+
 // -------------------------------------------------------------
 // Bot Simulation for Realistic Workshop Demo
 // -------------------------------------------------------------
