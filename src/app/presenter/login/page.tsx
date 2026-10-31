@@ -10,17 +10,33 @@ export default function PresenterLoginPage() {
   const router = useRouter();
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const correct =
-      process.env.NEXT_PUBLIC_PRESENTER_PASSCODE || "ecomind2045";
+    setError(null);
+    setSubmitting(true);
 
-    if (passcode.trim() === correct || passcode.trim() === "ecomind2045") {
+    try {
+      const res = await fetch("/api/presenter/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ passcode: passcode.trim() }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.error || "Invalid Presenter Access Passcode.");
+        setSubmitting(false);
+        return;
+      }
+
       sessionStorage.setItem("ecomind_presenter_auth", "true");
+      sessionStorage.setItem("ecomind_presenter_token", data.token);
       router.push("/presenter/dashboard");
-    } else {
-      setError("Invalid Presenter Access Passcode.");
+    } catch {
+      setError("Authentication failed. Please check network connection.");
+      setSubmitting(false);
     }
   };
 
@@ -69,9 +85,10 @@ export default function PresenterLoginPage() {
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#35D5FF]/20 hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                disabled={submitting}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#35D5FF]/20 hover:opacity-90 transition-opacity flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
-                <span>ENTER COMMAND CENTER</span>
+                <span>{submitting ? "VERIFYING PASSCODE..." : "ENTER COMMAND CENTER"}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </form>

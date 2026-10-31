@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="holoGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#0284C7" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0B132B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="#060913"/>
+  <!-- Server racks on left and right walls -->
+  <rect x="100" y="120" width="220" height="840" fill="#0D1527" stroke="#1E293B" stroke-width="4"/>
+  <rect x="1600" y="120" width="220" height="840" fill="#0D1527" stroke="#1E293B" stroke-width="4"/>
+  <!-- Server blinking status LEDs -->
+  <g fill="#10B981">
+    <circle cx="140" cy="200" r="4"/><circle cx="160" cy="200" r="4"/><circle cx="180" cy="200" r="4"/>
+    <circle cx="140" cy="300" r="4"/><circle cx="160" cy="300" r="4"/>
+  </g>
+  <g fill="#EF4444">
+    <circle cx="1640" cy="200" r="4"/><circle cx="1660" cy="200" r="4"/>
+    <circle cx="1640" cy="350" r="4"/>
+  </g>
+  <!-- Central Holographic Core Terminal Table -->
+  <ellipse cx="960" cy="780" rx="360" ry="120" fill="#0F172A" stroke="#0284C7" stroke-width="4"/>
+  <cylinder cx="960" cy="840" rx="360" ry="60" fill="#0B132B"/>
+  <!-- Holographic Globe Projection -->
+  <circle cx="960" cy="540" r="160" fill="url(#holoGlow)"/>
+  <circle cx="960" cy="540" r="140" stroke="#38BDF8" stroke-width="2" fill="none" stroke-dasharray="15,10"/>
+  <ellipse cx="960" cy="540" rx="140" ry="50" stroke="#38BDF8" stroke-width="2" fill="none"/>
+  <ellipse cx="960" cy="540" rx="50" ry="140" stroke="#38BDF8" stroke-width="2" fill="none"/>
+  <!-- Scattered paper reports & cables on floor -->
+  <path d="M400,920 L520,900 L540,950 L420,970 Z" fill="#E2E8F0" opacity="0.3"/>
+  <path d="M1200,950 Q1050,910 880,940" stroke="#000000" stroke-width="8" fill="none"/>
+</svg>

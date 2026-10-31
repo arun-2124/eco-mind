@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="frontierSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="60%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="680" fill="url(#frontierSky)"/>
+  <!-- Distant mountains and setting sun -->
+  <polygon points="0,680 400,420 850,680" fill="#312E81" opacity="0.6"/>
+  <polygon points="600,680 1100,380 1600,680" fill="#312E81" opacity="0.7"/>
+  <!-- Open Grasslands Highway -->
+  <polygon points="0,680 1920,680 1920,1080 0,1080" fill="#78350F"/>
+  <polygon points="850,680 1070,680 1350,1080 570,1080" fill="#334155"/>
+  <!-- Survivor Vehicle Convoy Driving Away into New Frontier -->
+  <!-- Lead Truck -->
+  <rect x="880" y="800" width="160" height="120" rx="10" fill="#1E293B"/>
+  <rect x="900" y="820" width="120" height="50" fill="#64748B"/>
+  <circle cx="910" cy="920" r="22" fill="#020617"/>
+  <circle cx="1010" cy="920" r="22" fill="#020617"/>
+  <!-- Second Vehicle in Distance -->
+  <rect x="930" y="720" width="80" height="60" rx="5" fill="#334155"/>
+  <!-- Warm tail lights disappearing on horizon -->
+  <circle cx="895" cy="890" r="6" fill="#EF4444"/>
+  <circle cx="1025" cy="890" r="6" fill="#EF4444"/>
+</svg>

@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { registerServerParticipant, getOrCreateRoom, DEFAULT_PIN } from "@/lib/server-state";
+import {
+  registerServerParticipantAsync,
+  getOrCreateRoomAsync,
+  DEFAULT_PIN,
+} from "@/lib/server-state";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { pin = DEFAULT_PIN, fullName, teamName } = body;
 
-    const res = registerServerParticipant(pin, fullName, teamName);
+    const res = await registerServerParticipantAsync(pin, fullName, teamName);
     if (!res.success) {
       return NextResponse.json({ success: false, error: res.error }, { status: 400 });
     }
 
-    const room = getOrCreateRoom(pin);
+    const room = await getOrCreateRoomAsync(pin);
     return NextResponse.json({
       success: true,
       participant: res.participant,

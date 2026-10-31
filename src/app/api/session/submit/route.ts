@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { submitServerDecision, getOrCreateRoom, DEFAULT_PIN } from "@/lib/server-state";
+import {
+  submitServerDecisionAsync,
+  getOrCreateRoomAsync,
+  DEFAULT_PIN,
+} from "@/lib/server-state";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,12 +17,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const res = submitServerDecision(pin, participantId, Number(missionNumber), optionKey);
+    const res = await submitServerDecisionAsync(pin, participantId, Number(missionNumber), optionKey);
     if (!res.success) {
       return NextResponse.json({ success: false, error: res.error }, { status: 400 });
     }
 
-    const room = getOrCreateRoom(pin);
+    const room = await getOrCreateRoomAsync(pin);
     return NextResponse.json({
       success: true,
       participant: res.participant,

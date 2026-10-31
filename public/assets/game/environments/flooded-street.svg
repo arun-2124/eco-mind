@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="floodSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#09111E"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+    <linearGradient id="floodWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#164E63"/>
+      <stop offset="50%" stop-color="#0E3846"/>
+      <stop offset="100%" stop-color="#041B23"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="550" fill="url(#floodSky)"/>
+  <!-- Submerged Buildings -->
+  <rect x="80" y="200" width="320" height="420" fill="#0C1929"/>
+  <rect x="450" y="280" width="280" height="340" fill="#132337"/>
+  <rect x="1200" y="240" width="300" height="380" fill="#0C1929"/>
+  <rect x="1550" y="180" width="300" height="440" fill="#132337"/>
+  <!-- Water Line -->
+  <rect y="580" width="1920" height="500" fill="url(#floodWater)"/>
+  <!-- Semi-submerged Passenger Car -->
+  <path d="M680,660 Q780,600 920,600 Q1040,600 1080,660 L1100,720 L660,720 Z" fill="#1E293B"/>
+  <rect x="740" y="620" width="120" height="40" fill="#64748B" opacity="0.7"/>
+  <rect x="890" y="620" width="130" height="40" fill="#64748B" opacity="0.7"/>
+  <!-- Makeshift Wooden Plank Footbridge -->
+  <polygon points="180,680 500,640 500,665 180,705" fill="#78350F"/>
+  <line x1="280" y1="690" x2="280" y2="780" stroke="#451A03" stroke-width="8"/>
+  <line x1="420" y1="655" x2="420" y2="780" stroke="#451A03" stroke-width="8"/>
+  <!-- Floating barrels & supply crates -->
+  <rect x="1280" y="690" width="60" height="50" fill="#B45309" transform="rotate(8 1310 715)"/>
+  <ellipse cx="1450" cy="730" rx="30" ry="18" fill="#1F2937"/>
+  <!-- Atmospheric Rain Drops -->
+  <g stroke="#38BDF8" stroke-width="1.5" opacity="0.4">
+    <line x1="300" y1="200" x2="280" y2="280"/>
+    <line x1="600" y1="150" x2="580" y2="230"/>
+    <line x1="950" y1="180" x2="930" y2="260"/>
+    <line x1="1300" y1="220" x2="1280" y2="300"/>
+    <line x1="1650" y1="160" x2="1630" y2="240"/>
+  </g>
+</svg>

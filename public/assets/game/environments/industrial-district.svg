@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="indusSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#18181B"/>
+      <stop offset="60%" stop-color="#27272A"/>
+      <stop offset="100%" stop-color="#3F3F46"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="700" fill="url(#indusSky)"/>
+  <!-- Heavy Gantry Cranes in Mist -->
+  <line x1="450" y1="700" x2="450" y2="280" stroke="#18181B" stroke-width="16"/>
+  <line x1="850" y1="700" x2="850" y2="280" stroke="#18181B" stroke-width="16"/>
+  <line x1="380" y1="280" x2="980" y2="280" stroke="#18181B" stroke-width="20"/>
+  <!-- Rust Red Chemical Storage Tanks -->
+  <rect x="1100" y="440" width="220" height="300" rx="30" fill="#7C2D12"/>
+  <rect x="1350" y="480" width="180" height="260" rx="25" fill="#9A3412"/>
+  <rect x="1560" y="440" width="220" height="300" rx="30" fill="#7C2D12"/>
+  <!-- Fog Layer -->
+  <rect y="680" width="1920" height="60" fill="#A1A1AA" opacity="0.3"/>
+  <!-- Wet Railway Tracks in Industrial Yard -->
+  <polygon points="0,740 1920,740 1920,1080 0,1080" fill="#09090B"/>
+  <line x1="200" y1="740" x2="50" y2="1080" stroke="#71717A" stroke-width="8"/>
+  <line x1="320" y1="740" x2="220" y2="1080" stroke="#71717A" stroke-width="8"/>
+  <line x1="1600" y1="740" x2="1700" y2="1080" stroke="#71717A" stroke-width="8"/>
+  <line x1="1720" y1="740" x2="1870" y2="1080" stroke="#71717A" stroke-width="8"/>
+</svg>

@@ -195,6 +195,10 @@ export interface CityEnding {
   color: string;
   image: string;
   actionPlan: string[];
+  reflections?: {
+    maya: { text: string; expression: string };
+    elias: { text: string; expression: string };
+  };
 }
 
 /**
@@ -219,13 +223,23 @@ export function determineCityEnding(
         "Through disciplined stewardship, sustainable Edge computing, and collective resilience, Nova City has healed its wounds. The synthetic core breathes in rhythm with restored solar wetlands. The Last Signal was not a death knell, but an awakening: technology and ecology fused into a thriving sanctuary.",
       badge: "Architect of Nova Reborn",
       color: "#10B981",
-      image: "/assets/city-sustainable.svg",
+      image: "/assets/game/story/ending-reborn.svg",
       actionPlan: [
         "Decentralize computing power into neighborhood solar microgrids",
         "Restore coastal bio-buffers to naturally shield urban infrastructure",
         "Enforce human-in-the-loop ethical oversight on all autonomous systems",
         "Transition all retired robotic hardware to circular municipal repair hubs",
       ],
+      reflections: {
+        maya: {
+          text: "Look at the dawn breaking over Sector 4, Elias. The birds are nesting in the solar towers again. We proved that technology didn't have to burn the world to preserve our future.",
+          expression: "happy",
+        },
+        elias: {
+          text: "Every microgrid held. We didn't just save lines of code or concrete towers—we gave the next generation a living world worth waking up to.",
+          expression: "happy",
+        },
+      },
     };
   }
 
@@ -239,13 +253,23 @@ export function determineCityEnding(
         "Nova City's concrete towers proved too broken and energy-hungry to sustain, but the population survived. Salvaging modular edge chips, solar skiffs, and water purification units, surviving convoys established flourishing off-grid settlements in the fertile valleys beyond the perimeter.",
       badge: "Frontier Pioneer",
       color: "#00F0FF",
-      image: "/assets/disaster-recovery.svg",
+      image: "/assets/game/story/ending-survivors.svg",
       actionPlan: [
         "Repurpose urban salvage to build low-power rural cooperative hubs",
         "Establish permaculture agriculture guided by ultra-light edge sensors",
         "Maintain open radio relays between survivor enclaves",
         "Vow never again to concentrate civilization's fate inside a single synthetic core",
       ],
+      reflections: {
+        maya: {
+          text: "The old skyline is behind us now, fading into the evening fog. But we have our tools, our seeds, and our community. The green valley is ours to rebuild.",
+          expression: "neutral",
+        },
+        elias: {
+          text: "It wasn't the victory we envisioned when the alarms first sounded. But breathing clean air in this new valley... maybe this is the clean slate we needed all along.",
+          expression: "worried",
+        },
+      },
     };
   }
 
@@ -259,13 +283,23 @@ export function determineCityEnding(
         "With the central power grid spiraling toward thermal runaway, Commander Vance and Dr. Lin initiated a desperate isolation seal. Surface towers went dark forever, cutting power to save the subterranean vaults where tens of thousands of citizens, medical caches, and seed banks remain safely sheltered.",
       badge: "Guardian of the Vaults",
       color: "#FBBF24",
-      image: "/assets/disaster-recovery.svg",
+      image: "/assets/game/story/ending-last-light.svg",
       actionPlan: [
         "Ration geothermal and battery reserves across underground emergency vaults",
         "Deploy tethered reconnaissance rovers to survey surface radiation and water",
         "Preserve cultural archives and technical schematics for future generations",
         "Wait for atmospheric stabilization before attempting surface re-emergence",
       ],
+      reflections: {
+        maya: {
+          text: "The surface sirens have gone quiet. It's pitch black up there, but down here in the vault, thirty thousand people are warm and breathing. We paid a terrible price, but we bought them time.",
+          expression: "sad",
+        },
+        elias: {
+          text: "The telemetry shows the core is sealed under three meters of reinforced lead-slag. We lost our sky, but humanity's seed survives in the dark.",
+          expression: "worried",
+        },
+      },
     };
   }
 
@@ -278,13 +312,23 @@ export function determineCityEnding(
       "Reckless power extraction, overwhelmed server clusters, and toxic electronic fallout overwhelmed Nova City's fragile ecosystems. The main reactors tripped into emergency lockout, plunging districts into permanent darkness. The Last Signal fades into empty static as the frozen skyline stands abandoned.",
     badge: "Witness to the Fall",
     color: "#EF4444",
-    image: "/assets/city-polluted.svg",
+    image: "/assets/game/story/ending-the-fall.svg",
     actionPlan: [
       "Issue distress broadcasts across emergency high-frequency channels",
       "Evacuate remaining survivors on manual transport toward mountain refuges",
       "Extract emergency hard drives before complete battery depletion",
       "Document the systemic failures of unchecked automation as a lesson for the world",
     ],
+    reflections: {
+      maya: {
+        text: "Static... that's all that's left on the radio band. We extracted everything the city had and gave nothing back. Now the snow is covering the silent streets.",
+        expression: "sad",
+      },
+      elias: {
+        text: "The warnings were on every monitor for years, and we ignored them. Gather whatever batteries still hold charge. We leave Nova City before the cold takes us.",
+        expression: "angry",
+      },
+    },
   };
 }
 

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="powerSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="60%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="750" fill="url(#powerSky)"/>
+  <!-- Massive Concrete Cooling Towers (One Fractured) -->
+  <path d="M300,750 Q360,500 340,300 L560,300 Q540,500 600,750 Z" fill="#1E293B"/>
+  <ellipse cx="450" cy="300" rx="110" ry="25" fill="#334155"/>
+  <!-- Fractured Right Tower -->
+  <path d="M1200,750 Q1260,500 1240,300 L1360,300 L1400,380 L1460,750 Z" fill="#1E293B"/>
+  <!-- Jagged crack in tower -->
+  <path d="M1360,300 L1380,420 L1340,490 L1370,580 L1350,680" stroke="#0F172A" stroke-width="8" fill="none"/>
+  <!-- Transformer Substation Yard -->
+  <rect y="750" width="1920" height="330" fill="#0A0F1D"/>
+  <!-- Electrical Pylon Grid Towers -->
+  <line x1="850" y1="750" x2="900" y2="400" stroke="#64748B" stroke-width="6"/>
+  <line x1="950" y1="750" x2="900" y2="400" stroke="#64748B" stroke-width="6"/>
+  <line x1="800" y1="520" x2="1000" y2="520" stroke="#64748B" stroke-width="6"/>
+  <line x1="830" y1="620" x2="970" y2="620" stroke="#64748B" stroke-width="6"/>
+  <!-- Electric Arc Sparking Hazard -->
+  <circle cx="890" cy="520" r="18" fill="#38BDF8"/>
+  <circle cx="890" cy="520" r="60" fill="#38BDF8" opacity="0.3"/>
+  <path d="M890,520 L910,505 L900,535 L925,515" stroke="#FFFFFF" stroke-width="3" fill="none"/>
+</svg>

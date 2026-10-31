@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useGameState } from "@/hooks/useGameState";
 import { DemoModeBanner } from "@/components/DemoModeBanner";
 import { Navbar } from "@/components/Navbar";
+import { AtmosphericOverlay } from "@/components/AtmosphericOverlay";
 import { QRCodeSVG } from "qrcode.react";
 import { DEFAULT_PIN } from "@/lib/sync-engine";
 import {
@@ -85,28 +86,35 @@ function JoinForm() {
       : `http://localhost:3000/join?pin=${DEFAULT_PIN}`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#070B16] text-[#F4F7FC]">
-      <DemoModeBanner />
-      <Navbar />
+    <div className="min-h-screen flex flex-col bg-[#070B16] text-[#F4F7FC] relative overflow-hidden">
+      {/* Cinematic Environment Background */}
+      <div
+        className="fixed inset-0 pointer-events-none bg-cover bg-center opacity-25 scale-105 transition-transform duration-1000"
+        style={{ backgroundImage: "url('/assets/game/environments/downtown-abandoned.svg')" }}
+      />
+      <div className="fixed inset-0 pointer-events-none bg-gradient-to-t from-[#070B16] via-[#070B16]/80 to-transparent" />
+      <AtmosphericOverlay weather="rain" />
 
-      <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
-        {/* Futuristic Background Glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-[#35D5FF]/10 via-[#38E58B]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="relative z-20">
+        <DemoModeBanner />
+        <Navbar />
+      </div>
 
+      <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="w-full max-w-md relative z-10">
           {/* Card Header */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#35D5FF]/30 bg-[#0B1528] mb-3">
-              <Bot className="w-4 h-4 text-[#35D5FF]" />
-              <span className="text-[11px] font-mono text-[#35D5FF] font-semibold tracking-wider uppercase">
-                Task Force Induction Terminal
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-cyan-400/30 bg-[#0B1528]/80 backdrop-blur-sm mb-3">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-[11px] font-mono text-cyan-300 font-semibold tracking-wider uppercase">
+                Survivor Radio Link &bull; Nova City 2045
               </span>
             </div>
-            <h1 className="text-3xl font-display font-extrabold text-white">
-              Join The Mission
+            <h1 className="text-3xl sm:text-4xl font-serif tracking-tight font-extrabold text-white drop-shadow-md">
+              Join The Story
             </h1>
-            <p className="text-xs text-[#98A8BD] mt-1 font-mono">
-              Enter your session PIN to link with Nova City&apos;s AI Task Force
+            <p className="text-xs text-slate-300 mt-2 font-mono">
+              Enter your session PIN to join Maya, Elias, and your fellow survivors
             </p>
           </div>
 

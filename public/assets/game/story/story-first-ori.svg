@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="oriAura" cx="65%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#0284C7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Dark Ruined Basement -->
+  <rect width="1920" height="1080" fill="#0A0F1D"/>
+  <!-- Concrete Beams overhead -->
+  <polygon points="0,0 600,0 800,450 0,600" fill="#1E293B"/>
+  <polygon points="1920,0 1350,0 1200,350 1920,500" fill="#1E293B"/>
+  <!-- Maya's Silhouette Reaching Forward on Left -->
+  <path d="M200,1080 L320,680 Q380,520 450,560 Q520,600 480,720 L580,780 L520,840 L450,810 L480,1080 Z" fill="#020617"/>
+  <path d="M480,720 L680,680 L700,720 L520,770 Z" fill="#020617"/>
+  <!-- Glowing ORI Floating in center right -->
+  <circle cx="1250" cy="480" r="320" fill="url(#oriAura)"/>
+  <circle cx="1250" cy="480" r="130" fill="#1E293B" stroke="#64748B" stroke-width="8"/>
+  <rect x="1160" y="420" width="180" height="120" rx="30" fill="#020617" stroke="#38BDF8" stroke-width="6"/>
+  <!-- Curious Bright Cyan Optical Eyes -->
+  <ellipse cx="1210" cy="480" rx="28" ry="28" fill="#38BDF8"/>
+  <ellipse cx="1290" cy="480" rx="28" ry="28" fill="#38BDF8"/>
+  <circle cx="1218" cy="472" r="8" fill="#FFFFFF"/>
+  <circle cx="1298" cy="472" r="8" fill="#FFFFFF"/>
+</svg>

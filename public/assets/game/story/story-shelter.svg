@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="doorLight" cx="60%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#B45309" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#0C0A09" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="#0C0A09"/>
+  <!-- Giant Heavy Circular Vault Door Swing Open -->
+  <ellipse cx="1150" cy="540" rx="360" ry="460" fill="url(#doorLight)"/>
+  <!-- Vault Steel Teeth -->
+  <polygon points="1350,150 1480,250 1420,850 1280,950" fill="#44403C" stroke="#78716C" stroke-width="8"/>
+  <!-- Silhouette of Elias and Maya peering in -->
+  <path d="M420,1080 L480,720 Q510,610 560,630 Q610,660 590,750 L640,840 L580,1080 Z" fill="#000000"/>
+  <path d="M620,1080 L670,680 Q710,560 770,580 Q820,620 790,720 L840,820 L780,1080 Z" fill="#000000"/>
+  <!-- Warm glow revealing supplies and clean bunks inside -->
+  <rect x="1000" y="600" width="140" height="80" fill="#78350F" opacity="0.8"/>
+  <rect x="1080" y="520" width="140" height="80" fill="#78350F" opacity="0.8"/>
+</svg>

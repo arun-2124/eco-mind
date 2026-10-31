@@ -64,10 +64,47 @@ export interface LearningHotspot {
   tag?: string;
 }
 
+export type ItemCategory = "key" | "medical" | "battery" | "photo" | "document" | "story";
+
+export interface InventoryItem {
+  id: string;
+  name: string;
+  category: ItemCategory;
+  description: string;
+  loreSnippet?: string;
+  iconName: string;
+  foundInMission: number;
+  usableInMissions?: number[];
+  effectDescription?: string;
+}
+
+export interface StoryClue {
+  id: string;
+  title: string;
+  x: number; // percentage on scene (5 to 95)
+  y: number; // percentage on scene (5 to 95)
+  type: "item" | "clue" | "memory" | "document";
+  iconName: string;
+  preview: string;
+  description: string;
+  itemReward?: InventoryItem;
+}
+
+export type CharacterId = "maya" | "elias" | "lena" | "noah" | "adrian" | "ori";
+
+export interface CharacterTrust {
+  characterId: CharacterId;
+  name: string;
+  score: number; // 0 - 100
+  status: "distrustful" | "cautious" | "neutral" | "supportive" | "devoted";
+  lastReaction?: string;
+}
+
 export interface CharacterDialogue {
   speaker: string;
   role: string;
   avatar: string;
+  expression?: "neutral" | "happy" | "sad" | "angry" | "shocked" | "worried";
   text: string;
   mood?: "urgent" | "concerned" | "determined" | "grave" | "hopeful" | "conflicted";
   accentColor?: string;
@@ -117,6 +154,9 @@ export interface DecisionOption {
   learningObjective?: string;
   sdgs?: SDGNumber[];
   educationalTakeaway?: string;
+  requiredItemId?: string;
+  trustDeltas?: Partial<Record<CharacterId, number>>;
+  trustNotice?: { character: string; text: string; positive: boolean };
 }
 
 export interface AIExplainerTopic {
@@ -168,6 +208,7 @@ export interface Mission {
   storyScene?: string;
   dialogue?: CharacterDialogue[];
   situation?: string;
+  weather?: "rain" | "fog" | "storm" | "embers" | "clear";
   environmentalContext: string;
   storyProblem: string;
   prompt: string;
@@ -176,6 +217,7 @@ export interface Mission {
   sdgs: SDGNumber[];
   summaryNote: string;
   hotspots: LearningHotspot[];
+  clues?: StoryClue[];
   branchingModifiers?: BranchingModifier[];
   aiConcept?: {
     title: string;
@@ -240,6 +282,9 @@ export interface Participant {
   score: ParticipantScore;
   cityMetrics: CityMetrics;
   decisions: Record<number, "A" | "B">; // missionNumber -> "A" | "B"
+  inventory?: InventoryItem[];
+  discoveredClueIds?: string[];
+  relationships?: Record<CharacterId, CharacterTrust>;
 }
 
 export interface WorkshopSession {

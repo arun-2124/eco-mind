@@ -2,18 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  Sparkles,
-  AlertTriangle,
-  ArrowRight,
-  Radio,
-  Activity,
-  Zap,
-  Droplets,
-  ShieldAlert,
-  Users,
-  Compass,
-} from "lucide-react";
+import { ArrowRight, Sparkles, AlertTriangle, Compass } from "lucide-react";
 import { DecisionOption } from "@/types/game";
 import { sound } from "@/lib/audio";
 
@@ -25,6 +14,33 @@ interface ConsequenceRevealProps {
   onViewResults?: () => void;
   onAwardBonusPoints?: (points: number) => void;
 }
+
+const SPEAKER_AVATARS: Record<string, { positive: string; negative: string }> = {
+  Maya: {
+    positive: "/assets/game/characters/maya-happy.svg",
+    negative: "/assets/game/characters/maya-worried.svg",
+  },
+  Elias: {
+    positive: "/assets/game/characters/elias-neutral.svg",
+    negative: "/assets/game/characters/elias-sad.svg",
+  },
+  "Dr. Lena": {
+    positive: "/assets/game/characters/lena-neutral.svg",
+    negative: "/assets/game/characters/lena-worried.svg",
+  },
+  Noah: {
+    positive: "/assets/game/characters/noah-happy.svg",
+    negative: "/assets/game/characters/noah-sad.svg",
+  },
+  "Commander Adrian": {
+    positive: "/assets/game/characters/adrian-neutral.svg",
+    negative: "/assets/game/characters/adrian-angry.svg",
+  },
+  ORI: {
+    positive: "/assets/game/characters/ori-happy.svg",
+    negative: "/assets/game/characters/ori-sad.svg",
+  },
+};
 
 export const ConsequenceReveal: React.FC<ConsequenceRevealProps> = ({
   option,
@@ -42,138 +58,84 @@ export const ConsequenceReveal: React.FC<ConsequenceRevealProps> = ({
   }, [option]);
 
   const reaction = option.characterReaction;
+  const avatarObj = reaction ? SPEAKER_AVATARS[reaction.speaker] : null;
+  const avatarPath = avatarObj
+    ? option.isSustainable
+      ? avatarObj.positive
+      : avatarObj.negative
+    : "/assets/game/characters/maya-neutral.svg";
 
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98, y: 15 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      className={`p-6 sm:p-7 rounded-2xl border-2 backdrop-blur-xl shadow-2xl space-y-6 ${
+      className={`p-6 sm:p-8 rounded-3xl border-2 backdrop-blur-xl shadow-2xl space-y-6 ${
         option.isSustainable
-          ? "border-[#38E58B] bg-gradient-to-b from-[#0A241C]/95 to-[#061510]/95 text-white"
-          : "border-[#FF5B65] bg-gradient-to-b from-[#240C12]/95 to-[#16060A]/95 text-white"
+          ? "border-emerald-500/80 bg-gradient-to-b from-[#061A14]/95 to-[#020A07]/95 text-white shadow-[0_0_40px_rgba(16,185,129,0.2)]"
+          : "border-rose-500/80 bg-gradient-to-b from-[#1C060B]/95 to-[#0C0204]/95 text-white shadow-[0_0_40px_rgba(244,63,94,0.2)]"
       }`}
     >
-      {/* Consequence Badge Header */}
+      {/* Consequence Banner */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
         <div className="flex items-center gap-2">
           {option.isSustainable ? (
-            <div className="flex items-center gap-2 text-[#38E58B] font-mono font-black text-xs sm:text-sm uppercase tracking-wider">
-              <Sparkles className="w-5 h-5 text-[#38E58B]" />
-              <span>DECISION RECORDED // SUSTAINABLE PATH (+{option.pointsAwarded} PTS)</span>
+            <div className="flex items-center gap-2 text-emerald-400 font-serif font-bold text-sm sm:text-base tracking-wide">
+              <Sparkles className="w-5 h-5 text-emerald-400" />
+              <span>THE CHOICE IS MADE // HOPE ENDURES</span>
             </div>
           ) : (
-            <div className="flex items-center gap-2 text-[#FF5B65] font-mono font-black text-xs sm:text-sm uppercase tracking-wider">
-              <AlertTriangle className="w-5 h-5 text-[#FF5B65]" />
-              <span>DECISION RECORDED // CRITICAL STRAIN (+{option.pointsAwarded} PTS)</span>
+            <div className="flex items-center gap-2 text-rose-400 font-serif font-bold text-sm sm:text-base tracking-wide">
+              <AlertTriangle className="w-5 h-5 text-rose-400" />
+              <span>THE CHOICE IS MADE // A HEAVY COST</span>
             </div>
           )}
         </div>
 
-        <span className="text-xs font-mono font-bold text-white/90 px-3 py-1 rounded bg-black/40 border border-white/15">
-          Directive {option.key} Executed
+        <span className="text-xs font-mono font-bold text-white/80 px-3 py-1 rounded-md bg-black/50 border border-white/15">
+          Choice {option.key}
         </span>
       </div>
 
       {/* Narrative Consequence */}
       <div className="space-y-2">
-        <h3 className="font-display font-extrabold text-xl sm:text-2xl text-white tracking-wide">
+        <h3 className="font-serif font-extrabold text-2xl sm:text-3xl text-white tracking-wide">
           {option.title}
         </h3>
-        <p className="text-sm sm:text-base text-[#F4F7FC] leading-relaxed font-mono">
+        <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans">
           {option.consequenceNarration}
         </p>
       </div>
 
-      {/* Character Transmission Reaction (In-Universe Voice) */}
+      {/* Character Transmission Reaction */}
       {reaction && (
-        <div className="p-4 rounded-xl bg-black/50 border border-white/15 space-y-2 relative overflow-hidden font-mono">
-          <div className="flex items-center gap-2 text-xs font-bold text-cyan-400">
-            <Radio className="w-3.5 h-3.5 animate-pulse text-cyan-400" />
-            <span className="uppercase tracking-wider">
-              INCOMING COMM TRANSMISSION // {reaction.speaker}
-            </span>
+        <div className="p-4 sm:p-5 rounded-2xl bg-black/60 border border-white/15 flex items-center gap-4">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border border-white/20 shrink-0 bg-black">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={avatarPath}
+              alt={reaction.speaker}
+              className="w-full h-full object-cover"
+            />
           </div>
-          <p className="text-xs sm:text-sm text-slate-200 italic pl-3 border-l-2 border-cyan-400">
-            &ldquo;{reaction.quote}&rdquo;
-          </p>
+
+          <div className="space-y-1">
+            <span className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider block">
+              {reaction.speaker}
+            </span>
+            <p className="text-sm sm:text-base text-slate-100 font-serif italic">
+              &ldquo;{reaction.quote}&rdquo;
+            </p>
+          </div>
         </div>
       )}
 
-      {/* Environmental & Resource Telemetry Impact */}
-      <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2.5 font-mono">
-        <div className="flex items-center justify-between text-xs text-white/60">
-          <span className="font-bold uppercase tracking-wider flex items-center gap-1.5">
-            <Activity className="w-3.5 h-3.5 text-cyan-400" /> Sector Telemetry Impact
-          </span>
-          <span className="text-[11px] text-white/40">Mission {missionNumber} Result</span>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-          <div className="p-2 rounded-lg bg-black/40 border border-white/5 flex items-center gap-2">
-            <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-            <div>
-              <span className="text-[9px] text-white/50 block">ENERGY</span>
-              <span
-                className={`font-bold ${
-                  option.cityMetricDeltas.energyIndex <= 0 ? "text-emerald-400" : "text-rose-400"
-                }`}
-              >
-                {option.cityMetricDeltas.energyIndex <= 0 ? "Stabilized" : "Strained (+Δ)"}
-              </span>
-            </div>
-          </div>
-
-          <div className="p-2 rounded-lg bg-black/40 border border-white/5 flex items-center gap-2">
-            <Droplets className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-            <div>
-              <span className="text-[9px] text-white/50 block">WATER</span>
-              <span
-                className={`font-bold ${
-                  option.cityMetricDeltas.waterIndex <= 0 ? "text-emerald-400" : "text-rose-400"
-                }`}
-              >
-                {option.cityMetricDeltas.waterIndex <= 0 ? "Conserved" : "Heavy Draw"}
-              </span>
-            </div>
-          </div>
-
-          <div className="p-2 rounded-lg bg-black/40 border border-white/5 flex items-center gap-2">
-            <Users className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-            <div>
-              <span className="text-[9px] text-white/50 block">WELLBEING</span>
-              <span
-                className={`font-bold ${
-                  option.cityMetricDeltas.citizenWellbeing >= 0 ? "text-emerald-400" : "text-rose-400"
-                }`}
-              >
-                {option.cityMetricDeltas.citizenWellbeing >= 0 ? "+Protected" : "-Stressed"}
-              </span>
-            </div>
-          </div>
-
-          <div className="p-2 rounded-lg bg-black/40 border border-white/5 flex items-center gap-2">
-            <ShieldAlert className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <div>
-              <span className="text-[9px] text-white/50 block">RESILIENCE</span>
-              <span
-                className={`font-bold ${
-                  option.cityMetricDeltas.resilienceIndex >= 0 ? "text-emerald-400" : "text-rose-400"
-                }`}
-              >
-                {option.cityMetricDeltas.resilienceIndex >= 0 ? "+Reinforced" : "-Compromised"}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Next Scene Teaser */}
       {option.nextSceneTeaser && (
-        <div className="p-3.5 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs font-mono text-cyan-300 flex items-start gap-2.5">
+        <div className="p-3.5 rounded-xl bg-cyan-950/40 border border-cyan-500/20 text-xs sm:text-sm text-cyan-200 flex items-start gap-2.5 font-sans">
           <Compass className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
           <div>
-            <strong className="block text-white uppercase text-[10px] tracking-wider mb-0.5">
-              Developing Sector Situation:
+            <strong className="block text-white font-mono text-[11px] uppercase tracking-wider mb-0.5">
+              Developing Situation:
             </strong>
             <span>{option.nextSceneTeaser}</span>
           </div>
@@ -188,10 +150,10 @@ export const ConsequenceReveal: React.FC<ConsequenceRevealProps> = ({
               sound.playClick();
               if (onViewResults) onViewResults();
             }}
-            className="px-6 py-3.5 rounded-xl bg-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-xl shadow-[#38E58B]/30 hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-sm tracking-wider uppercase shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer font-mono"
           >
             <span>DISCOVER THE FATE OF NOVA CITY</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-5 h-5" />
           </button>
         ) : (
           onAdvanceMission && (
@@ -200,10 +162,14 @@ export const ConsequenceReveal: React.FC<ConsequenceRevealProps> = ({
                 sound.playClick();
                 onAdvanceMission();
               }}
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#070B16] font-mono font-bold text-xs tracking-wider shadow-lg shadow-[#35D5FF]/20 hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-sm tracking-wider uppercase shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer font-mono"
             >
-              <span>CONTINUE STORY → NEXT SCENE</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>
+                {missionNumber % 4 === 0
+                  ? `CHAPTER ${Math.floor(missionNumber / 4)} RESOLUTION & PROCEED →`
+                  : `CONTINUE TO SCENE ${missionNumber + 1} →`}
+              </span>
+              <ArrowRight className="w-5 h-5" />
             </button>
           )
         )}

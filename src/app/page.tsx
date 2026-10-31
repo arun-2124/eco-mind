@@ -1,322 +1,277 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { Navbar } from "@/components/Navbar";
-import { DemoModeBanner } from "@/components/DemoModeBanner";
-import { CityVisualizer } from "@/components/CityVisualizer";
-import { SharedCityHUD } from "@/components/SharedCityHUD";
-import { SDGBadge } from "@/components/SDGBadge";
-import { CHAPTERS, MISSIONS } from "@/lib/game-data";
+import { motion, AnimatePresence } from "framer-motion";
 import { useGameState } from "@/hooks/useGameState";
 import { sound } from "@/lib/audio";
-import {
-  Cpu,
-  Zap,
-  Bot,
-  Recycle,
-  Sparkles,
-  ArrowRight,
-  ShieldAlert,
-  Radio,
-  Layers,
-  Users,
-  Compass,
-  QrCode,
-  Flame,
-} from "lucide-react";
+import { AtmosphericOverlay } from "@/components/AtmosphericOverlay";
+import { Volume2, VolumeX, Play, Users, RotateCcw, ArrowRight, X, Shield } from "lucide-react";
 
-export default function LandingPage() {
+export default function TitleScreen() {
   const router = useRouter();
-  const { session, sharedCityMetrics } = useGameState();
-  const [quickPin, setQuickPin] = useState(session.pin || "ECO2045");
+  const { currentParticipant, session, register } = useGameState();
+  const [isAudioActive, setIsAudioActive] = useState(false);
+  const [showJoinModal, setShowJoinModal] = useState(false);
+  const [roomPin, setRoomPin] = useState(session.pin || "ECO2045");
+  const [playerName, setPlayerName] = useState("");
+  const [isJoining, setIsJoining] = useState(false);
+  const [joinError, setJoinError] = useState<string | null>(null);
 
-  const handleQuickJoin = (e: React.FormEvent) => {
-    e.preventDefault();
-    sound.playConfirm();
-    router.push(`/join?pin=${encodeURIComponent(quickPin.trim().toUpperCase())}`);
+  // Start atmospheric ambient pad on user interaction
+  const toggleAudio = () => {
+    if (isAudioActive) {
+      sound.stopAtmosphere();
+      setIsAudioActive(false);
+    } else {
+      sound.playAtmosphere();
+      setIsAudioActive(true);
+    }
   };
 
-  const pillarCards = [
-    {
-      title: "Physical Artificial Intelligence",
-      tag: "Robotics Embodiment",
-      icon: <Bot className="w-6 h-6 text-[#35D5FF]" />,
-      desc: "Intelligent systems that perceive, reason, and actuate inside physical reality. Evaluating mechanical friction, inertia, sensor wear, and kinetic safety.",
-      color: "#35D5FF",
-    },
-    {
-      title: "Edge Artificial Intelligence",
-      tag: "Local Inference",
-      icon: <Cpu className="w-6 h-6 text-[#38E58B]" />,
-      desc: "Zero-latency local neural processing on rovers and drones. Eliminating continuous radio transmission while accounting for device battery budgets.",
-      color: "#38E58B",
-    },
-    {
-      title: "Sustainable Computing",
-      tag: "Algorithmic Efficiency",
-      icon: <Zap className="w-6 h-6 text-[#FCC30B]" />,
-      desc: "INT8 model quantization, pruned neural architectures, carbon-aware temporal scheduling, and clean renewable solar microgrid synchronization.",
-      color: "#FCC30B",
-    },
-    {
-      title: "Circular Robotics & E-Waste",
-      tag: "5R Closed-Loop Lifecycle",
-      icon: <Recycle className="w-6 h-6 text-[#F6B94A]" />,
-      desc: "Curbing toxic landfill runoff through standardized modular repair, open-source firmware longevity, and non-destructive rare-earth reclaiming.",
-      color: "#F6B94A",
-    },
-  ];
+  const handleNewGame = () => {
+    sound.playConfirm();
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("ecomind_current_participant_id");
+    }
+    router.push("/join");
+  };
+
+  const handleContinue = () => {
+    sound.playConfirm();
+    if (currentParticipant) {
+      router.push("/game");
+    } else {
+      router.push("/join");
+    }
+  };
+
+  const handleJoinStorySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!playerName.trim()) {
+      setJoinError("Please enter your survivor name.");
+      return;
+    }
+    setIsJoining(true);
+    setJoinError(null);
+    sound.playConfirm();
+
+    const res = await register(roomPin.trim().toUpperCase(), playerName.trim(), "SURVIVOR");
+    if (res.success) {
+      router.push("/game");
+    } else {
+      setJoinError(res.error || "Could not connect to story room.");
+      setIsJoining(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#050811] text-[#F4F7FC] relative selection:bg-[#35D5FF] selection:text-[#050811]">
-      <DemoModeBanner />
-      <Navbar />
+    <div className="relative min-h-screen w-full bg-[#020617] text-[#F8FAFC] overflow-hidden select-none font-sans">
+      {/* 1. Full-screen Cinematic Background Illustration */}
+      <div className="absolute inset-0 z-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/game/environments/skyline-after.svg"
+          alt="Nova City at Night"
+          className="w-full h-full object-cover object-center scale-105 animate-[kenburns_30s_ease-in-out_infinite_alternate]"
+        />
+        {/* Atmospheric vignette & color grading */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent" />
+        <div className="absolute inset-0 bg-radial-[circle_at_center,transparent_0%,rgba(2,6,23,0.7)_100%]" />
+      </div>
 
-      {/* Cyberpunk Scanlines & Holographic Ambient Lights */}
-      <div className="fixed inset-0 pointer-events-none z-10 scanlines opacity-25" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-[#35D5FF]/10 via-[#38E58B]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* 2. Atmospheric Rain & Distant Lightning Weather Overlay */}
+      <AtmosphericOverlay weather="storm" />
 
-      {/* HERO: FUTURISTIC MISSION CONTROL COMMAND PORTAL */}
-      <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-24 border-b border-[#35D5FF]/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          {/* Top Mission Directive Banner */}
-          <div className="text-center max-w-4xl mx-auto space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#35D5FF]/40 bg-[#0A172B]/90 backdrop-blur-md shadow-lg font-mono text-xs text-[#35D5FF]"
-            >
-              <Radio className="w-3.5 h-3.5 text-[#38E58B] animate-pulse" />
-              <span className="font-bold tracking-widest uppercase">
-                ROBOTICS &amp; AUTOMATION CLUB • GLOBAL SIMULATION WORKSHOP
-              </span>
-            </motion.div>
+      {/* 3. Audio & Atmospheric Controller (Top Right) */}
+      <header className="absolute top-6 right-6 z-30 flex items-center gap-4">
+        <button
+          onClick={toggleAudio}
+          className="px-3.5 py-2 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 backdrop-blur-md text-xs font-mono text-white/80 hover:text-white flex items-center gap-2 transition-all cursor-pointer"
+          title="Toggle Atmospheric Audio"
+        >
+          {isAudioActive ? (
+            <>
+              <Volume2 className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span className="text-[11px] font-bold text-emerald-300">AUDIO: ON</span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="w-4 h-4 text-white/50" />
+              <span className="text-[11px] text-white/50">AUDIO: OFF</span>
+            </>
+          )}
+        </button>
+      </header>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-display font-black tracking-tight text-white uppercase leading-none">
-              ECO<span className="text-[#35D5FF]">//</span>MIND
+      {/* 4. Center Title & Cinematic Menu */}
+      <main className="relative z-20 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="max-w-3xl space-y-6"
+        >
+          {/* Main Title Reveal */}
+          <div className="space-y-2">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-widest text-white uppercase drop-shadow-[0_10px_35px_rgba(0,0,0,0.9)]">
+              ECO<span className="text-cyan-400">//</span>MIND
             </h1>
-
-            <p className="text-sm sm:text-base font-mono font-bold tracking-widest uppercase text-[#38E58B]">
-              THE LAST SIGNAL • CINEMATIC MULTIPLAYER STORY GAME • 2045
-            </p>
-
-            <p className="text-sm sm:text-lg text-[#98A8BD] max-w-3xl mx-auto leading-relaxed">
-              Nova City is collapsing after a mysterious environmental disaster. Step into an immersive sci-fi narrative alongside Commander Vance, Dr. Lin, Scout Kael, and Operator Lyra. Make moral survivor choices to decide whether Nova City is reborn or falls forever.
+            <p className="text-lg sm:text-2xl md:text-3xl font-mono font-bold tracking-[0.35em] uppercase text-cyan-300/90 drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
+              THE LAST SIGNAL
             </p>
           </div>
 
-          {/* Holographic Tactical Command Entry Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left: Participant Mission Access Terminal (7 cols) */}
-            <div className="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-3xl border-2 border-[#35D5FF]/30 bg-[#070D1B]/95 shadow-2xl space-y-6 relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-3 h-3 rounded-full bg-[#38E58B] animate-ping" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
-                    MISSION UPLINK TERMINAL
-                  </span>
-                </div>
-                <span className="text-xs font-mono text-[#35D5FF] px-2.5 py-0.5 rounded bg-[#35D5FF]/10 border border-[#35D5FF]/30">
-                  MULTIPLAYER LIVE ROOM
+          {/* Core Tagline */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8, duration: 1 }}
+            className="text-sm sm:text-base md:text-lg text-slate-300/90 italic font-serif max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+          >
+            &ldquo;Some cities don&apos;t fall in a day. They disappear one decision at a time.&rdquo;
+          </motion.p>
+
+          {/* 3 Adventure Game Menu Actions */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto"
+          >
+            {/* NEW GAME */}
+            <button
+              onClick={handleNewGame}
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:scale-105 hover:shadow-[0_0_35px_rgba(16,185,129,0.5)] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>NEW GAME</span>
+            </button>
+
+            {/* JOIN A STORY */}
+            <button
+              onClick={() => {
+                sound.playClick();
+                setShowJoinModal(true);
+              }}
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-black/60 hover:bg-black/80 border border-white/25 hover:border-cyan-400 text-white font-bold text-sm tracking-wider uppercase backdrop-blur-md shadow-lg transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <Users className="w-4 h-4 text-cyan-400" />
+              <span>JOIN A STORY</span>
+            </button>
+
+            {/* CONTINUE */}
+            <button
+              onClick={handleContinue}
+              className={`w-full sm:w-auto px-8 py-4 rounded-xl border text-sm font-bold tracking-wider uppercase backdrop-blur-md transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                currentParticipant
+                  ? "bg-amber-950/40 border-amber-400 text-amber-300 shadow-[0_0_20px_rgba(251,191,36,0.3)] hover:scale-105"
+                  : "bg-black/40 hover:bg-black/70 border-white/15 text-slate-300 hover:text-white"
+              }`}
+            >
+              <RotateCcw className="w-4 h-4 text-amber-400" />
+              <span>
+                {currentParticipant
+                  ? `CONTINUE (SCENE ${session.currentMission})`
+                  : "CONTINUE"}
+              </span>
+            </button>
+          </motion.div>
+
+          {currentParticipant && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-xs font-mono text-cyan-300/80 pt-2"
+            >
+              Logged in survivor: <span className="text-white font-bold">{currentParticipant.fullName}</span> &bull; Room {session.pin}
+            </motion.p>
+          )}
+        </motion.div>
+      </main>
+
+      {/* 5. Minimal Presenter Link (Bottom Left) */}
+      <footer className="absolute bottom-5 inset-x-6 z-30 flex items-center justify-between text-xs font-mono text-white/40">
+        <span>NOVA CITY // 2045</span>
+
+        <Link
+          href="/presenter/dashboard"
+          className="text-white/40 hover:text-cyan-300 transition-colors flex items-center gap-1.5"
+        >
+          <Shield className="w-3.5 h-3.5" />
+          <span>Director Console</span>
+        </Link>
+      </footer>
+
+      {/* 6. In-Screen "Join a Story" Adventure Modal */}
+      <AnimatePresence>
+        {showJoinModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/80 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="w-full max-w-md p-6 sm:p-8 rounded-2xl bg-[#091122] border border-cyan-400/30 text-white shadow-2xl space-y-6 relative"
+            >
+              <button
+                onClick={() => setShowJoinModal(false)}
+                className="absolute top-4 right-4 p-2 text-white/60 hover:text-white rounded-lg transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="space-y-1">
+                <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
+                  Story Uplink
                 </span>
+                <h3 className="text-2xl font-bold font-sans text-white">Join a Live Story</h3>
+                <p className="text-xs text-slate-300">
+                  Enter the Room PIN shown on the director&apos;s screen to experience the story with your group.
+                </p>
               </div>
 
-              {/* Quick Join Terminal Form */}
-              <form onSubmit={handleQuickJoin} className="space-y-4 font-mono">
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-[#98A8BD] block font-bold">
-                    ENTER WORKSHOP SESSION PIN
-                  </label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="text"
-                      value={quickPin}
-                      onChange={(e) => setQuickPin(e.target.value.toUpperCase())}
-                      placeholder="ECO2045"
-                      maxLength={10}
-                      className="flex-1 px-4 py-3.5 rounded-xl bg-[#0B1528] border-2 border-[#35D5FF]/40 text-lg font-black text-white tracking-widest focus:outline-none focus:border-[#38E58B] transition-colors"
-                    />
-                    <button
-                      type="submit"
-                      className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#35D5FF] to-[#38E58B] text-[#050811] font-black text-xs tracking-wider shadow-lg shadow-[#35D5FF]/25 hover:scale-105 transition-all flex items-center gap-2 shrink-0"
-                    >
-                      <span>DEPLOY CADET</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
+              <form onSubmit={handleJoinStorySubmit} className="space-y-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-mono text-white/70 uppercase">Room PIN Code</label>
+                  <input
+                    type="text"
+                    value={roomPin}
+                    onChange={(e) => setRoomPin(e.target.value.toUpperCase())}
+                    placeholder="ECO2045"
+                    maxLength={10}
+                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/20 text-white font-mono font-bold text-base tracking-widest focus:outline-none focus:border-cyan-400"
+                  />
                 </div>
-                <p className="text-[11px] text-[#98A8BD]">
-                  Default demo code: <strong className="text-white">ECO2045</strong>. Enter the PIN displayed on the presenter screen to join your cohort.
-                </p>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-mono text-white/70 uppercase">Your Survivor Name</label>
+                  <input
+                    type="text"
+                    value={playerName}
+                    onChange={(e) => setPlayerName(e.target.value)}
+                    placeholder="e.g. Maya, Alex, Jordan"
+                    className="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/20 text-white font-sans text-sm focus:outline-none focus:border-cyan-400"
+                  />
+                </div>
+
+                {joinError && (
+                  <p className="text-xs text-rose-400 font-mono">{joinError}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isJoining}
+                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-sm tracking-wider uppercase shadow-lg hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  <span>{isJoining ? "CONNECTING..." : "ENTER STORY"}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
               </form>
-
-              {/* Quick Action Matrix */}
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/10 font-mono text-xs">
-                <Link
-                  href={`/join?pin=${encodeURIComponent(quickPin)}`}
-                  className="p-3.5 rounded-xl bg-[#0B1528] border border-white/10 hover:border-[#35D5FF] text-white hover:text-[#35D5FF] transition-all flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-2">
-                    <Compass className="w-4 h-4 text-[#35D5FF]" />
-                    <span>Join Mission</span>
-                  </div>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-
-                <Link
-                  href="/presenter/dashboard"
-                  className="p-3.5 rounded-xl bg-[#081F19] border border-[#38E58B]/30 hover:border-[#38E58B] text-white hover:text-[#38E58B] transition-all flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-2">
-                    <ShieldAlert className="w-4 h-4 text-[#38E58B]" />
-                    <span>Presenter Deck</span>
-                  </div>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#38E58B]" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Right: Live Holographic City Preview (5 cols) */}
-            <div className="lg:col-span-5 glass-panel p-5 rounded-3xl border border-[#35D5FF]/20 bg-[#08101F] space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-2.5 font-mono text-xs">
-                <span className="text-[#35D5FF] font-bold flex items-center gap-1.5">
-                  <Flame className="w-3.5 h-3.5 text-[#F6B94A]" /> NOVA CITY SIMULATOR
-                </span>
-                <span className="text-[10px] text-[#98A8BD]">Live Visual Feed</span>
-              </div>
-              <div className="rounded-2xl overflow-hidden border border-white/10">
-                <CityVisualizer level={3} interactive={false} />
-              </div>
-              <p className="text-[11px] font-mono text-[#98A8BD] text-center">
-                Collective cadet decisions physically alter the skyline, power grid, and environmental purity in real time.
-              </p>
-            </div>
+            </motion.div>
           </div>
-
-          {/* Room Collective Shared Telemetry */}
-          <SharedCityHUD metrics={sharedCityMetrics} />
-        </div>
-      </section>
-
-      {/* 20-MISSION CAMPAIGN & 5 CHAPTERS ROADMAP */}
-      <section className="py-16 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
-          <div>
-            <span className="text-xs font-mono font-bold text-[#35D5FF] uppercase tracking-wider block mb-1">
-              FULL MULTIPLAYER CAMPAIGN MATRIX
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase">
-              5 Chapters • 20 Tactical Missions
-            </h2>
-          </div>
-          <span className="text-xs font-mono text-[#98A8BD]">
-            Every mission features 2 contrasting technological choices with real environmental consequences.
-          </span>
-        </div>
-
-        {/* Chapters Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CHAPTERS.map((ch) => {
-            const chMissions = MISSIONS.filter(
-              (m) => m.number >= ch.missionRange[0] && m.number <= ch.missionRange[1]
-            );
-
-            return (
-              <div
-                key={ch.number}
-                className="glass-panel p-6 rounded-2xl border border-white/10 bg-[#070D1B] space-y-4 hover:border-[#35D5FF]/40 transition-all flex flex-col justify-between"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between font-mono text-xs">
-                    <span className="px-2.5 py-0.5 rounded bg-[#35D5FF]/15 text-[#35D5FF] font-bold">
-                      CHAPTER {ch.number}
-                    </span>
-                    <span className="text-[#98A8BD]">
-                      M{ch.missionRange[0]} – M{ch.missionRange[1]}
-                    </span>
-                  </div>
-                  <h3 className="font-display font-bold text-lg text-white">
-                    {ch.title}
-                  </h3>
-                  <p className="text-xs text-[#98A8BD] leading-relaxed font-sans">
-                    {ch.description}
-                  </p>
-                </div>
-
-                <div className="space-y-1.5 pt-3 border-t border-white/5 font-mono text-xs">
-                  {chMissions.map((m) => (
-                    <div
-                      key={m.id}
-                      className="flex items-center justify-between p-2 rounded-lg bg-[#0B1528] text-[11px] text-[#F4F7FC]"
-                    >
-                      <span className="truncate">
-                        {String(m.number).padStart(2, "0")}. {m.title}
-                      </span>
-                      <span className="text-[10px] text-[#38E58B] shrink-0 ml-2">
-                        +250 pts
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* CORE PEDAGOGICAL PILLARS */}
-      <section className="py-16 bg-[#04060E] border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-mono font-bold text-[#38E58B] uppercase tracking-wider">
-              CURRICULUM ARCHITECTURE
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-display font-black text-white uppercase">
-              The 4 Pillars of Sustainable Intelligence
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pillarCards.map((p, idx) => (
-              <div
-                key={idx}
-                className="glass-panel p-6 rounded-2xl border border-white/10 bg-[#070D1B] space-y-3"
-              >
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                  {p.icon}
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono text-[#98A8BD] uppercase tracking-wider block">
-                    {p.tag}
-                  </span>
-                  <h4 className="font-display font-bold text-base text-white mt-0.5">
-                    {p.title}
-                  </h4>
-                </div>
-                <p className="text-xs text-[#98A8BD] leading-relaxed">
-                  {p.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Grand Workshop Closing Banner */}
-          <div className="glass-panel p-8 rounded-3xl border-2 border-[#38E58B]/30 bg-[#071F18] text-center space-y-3 max-w-4xl mx-auto shadow-2xl">
-            <span className="text-xs font-mono font-bold text-[#38E58B] uppercase tracking-widest block">
-              THE SUSTAINABLE INTELLIGENCE CREED
-            </span>
-            <blockquote className="text-lg sm:text-2xl font-display font-extrabold text-white leading-snug">
-              &ldquo;The future is not about making AI more powerful. It is about making intelligence more responsible.&rdquo;
-            </blockquote>
-            <p className="text-xs font-mono text-[#98A8BD]">
-              Robotics and Automation Club • United Nations SDGs 3, 6, 7, 9, 11, 12, 13
-            </p>
-          </div>
-        </div>
-      </section>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

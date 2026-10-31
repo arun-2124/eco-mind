@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <rect width="1920" height="1080" fill="#0B1320"/>
+  <!-- Broken chasm / collapsed flooring -->
+  <polygon points="0,0 750,0 650,550 0,650" fill="#1E293B"/>
+  <polygon points="1250,500 1920,400 1920,1080 1150,1080" fill="#1E293B"/>
+  <!-- Maya reaching down from upper ledge -->
+  <path d="M550,550 L680,640 L700,600 L580,520 Z" fill="#F0B78C"/>
+  <circle cx="560" cy="480" r="40" fill="#F0B78C"/>
+  <!-- Noah's hand reaching up from lower ruins -->
+  <path d="M780,740 L710,650 L690,670 L760,770 Z" fill="#FDE68A"/>
+  <!-- Clasping Fingers in mid-air -->
+  <circle cx="700" cy="635" r="14" fill="#F59E0B" opacity="0.9"/>
+  <!-- Glowing safety tether line -->
+  <path d="M400,450 Q550,580 700,635" stroke="#F59E0B" stroke-width="6" fill="none"/>
+</svg>

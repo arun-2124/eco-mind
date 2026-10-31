@@ -28,7 +28,11 @@ import {
   Scale,
   ShieldAlert,
   ClipboardList,
+  Briefcase,
+  Users,
 } from "lucide-react";
+import { INITIAL_RELATIONSHIPS, getCharacterPortrait } from "@/lib/relationships";
+// from "lucide-react";
 
 const BADGE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   Cpu: Zap,
@@ -361,6 +365,130 @@ export default function GameResultsPage() {
             </div>
           </div>
         </div>
+
+        
+        {/* Character Relationships Matrix */}
+        <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-cyan-400/20 max-w-5xl mx-auto space-y-4">
+          <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div className="flex items-center gap-2">
+              <Users className="w-5 h-5 text-cyan-400" />
+              <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider">
+                Companion Relationships &amp; Character Trust
+              </h3>
+            </div>
+            <span className="text-xs font-mono text-cyan-400">
+              Personal Bonds Forged Through Crisis
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            {[
+              { id: "maya", name: "Maya Lin", role: "Field Engineer" },
+              { id: "elias", name: "Elias Ward", role: "Systems Architect" },
+              { id: "adrian", name: "Commander Adrian", role: "City Security Leader" },
+              { id: "lena", name: "Dr. Lena Weiss", role: "Lead Ecologist" },
+              { id: "noah", name: "Noah Chen", role: "Drone Specialist" },
+              { id: "ori", name: "ORI", role: "Edge AI Companion" },
+            ].map((c) => {
+              const rel = (currentParticipant.relationships as any)?.[c.id] || (INITIAL_RELATIONSHIPS as any)[c.id];
+              const score = rel?.score || 50;
+              const status = rel?.status || "neutral";
+              const isDevotedOrSupportive = score >= 65;
+              const isDistrustful = score < 35;
+              const expression = isDevotedOrSupportive ? "happy" : isDistrustful ? "angry" : "neutral";
+              const portrait = getCharacterPortrait(c.id, expression);
+
+              return (
+                <div
+                  key={c.id}
+                  className="p-4 rounded-2xl border border-white/10 bg-[#080E1C] flex items-start gap-3.5"
+                >
+                  <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-white/20 shrink-0 bg-slate-900">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={portrait} alt={c.name} className="w-full h-full object-cover" />
+                  </div>
+
+                  <div className="space-y-1 min-w-0 flex-1 font-mono">
+                    <div className="flex items-center justify-between">
+                      <span className="font-serif font-bold text-sm text-white truncate">
+                        {c.name}
+                      </span>
+                      <span
+                        className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                          isDevotedOrSupportive
+                            ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                            : isDistrustful
+                            ? "bg-rose-500/20 text-rose-300 border border-rose-500/30"
+                            : "bg-white/10 text-white/70"
+                        }`}
+                      >
+                        {status}
+                      </span>
+                    </div>
+
+                    <p className="text-[10px] text-white/50 truncate">{c.role}</p>
+
+                    <div className="w-full bg-white/10 rounded-full h-1.5 mt-1.5 overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all ${
+                          isDevotedOrSupportive
+                            ? "bg-emerald-400"
+                            : isDistrustful
+                            ? "bg-rose-400"
+                            : "bg-cyan-400"
+                        }`}
+                        style={{ width: `${Math.min(100, Math.max(10, score))}%` }}
+                      />
+                    </div>
+
+                    {rel?.lastReaction && (
+                      <p className="text-[10px] text-cyan-300/80 italic mt-1 line-clamp-1">
+                        &ldquo;{rel.lastReaction}&rdquo;
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Preserved Field Artifacts & Inventory */}
+        {currentParticipant.inventory && currentParticipant.inventory.length > 0 && (
+          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-cyan-400/20 max-w-5xl mx-auto space-y-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-amber-400" />
+                <h3 className="font-mono font-bold text-sm text-white uppercase tracking-wider">
+                  Preserved Field Artifacts ({currentParticipant.inventory.length} Gathered)
+                </h3>
+              </div>
+              <span className="text-xs font-mono text-cyan-400">
+                Environmental Clues &amp; Supplies
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {currentParticipant.inventory.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-3.5 rounded-xl border border-white/10 bg-[#080E1C] font-mono flex items-start gap-3"
+                >
+                  <div className="p-2 rounded-lg bg-cyan-950/80 border border-cyan-400/30 text-cyan-300 shrink-0">
+                    <Briefcase className="w-4 h-4 text-cyan-400" />
+                  </div>
+                  <div className="space-y-0.5 min-w-0">
+                    <span className="text-[9px] text-cyan-400 uppercase font-bold block">
+                      {item.category} &bull; Scene {item.foundInMission}
+                    </span>
+                    <h5 className="text-xs font-bold text-white truncate">{item.name}</h5>
+                    <p className="text-[10px] text-white/60 line-clamp-1">{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Closing Inspiring Motto */}
         <div className="p-8 rounded-3xl border border-cyan-400/30 bg-gradient-to-r from-[#0B1E2E] via-[#0D1424] to-[#0A201A] text-center space-y-4 max-w-3xl mx-auto shadow-2xl">

@@ -14,6 +14,14 @@ import {
   calculateCollectiveCityMetrics,
 } from "./city-health";
 import { MISSIONS } from "./game-data";
+import {
+  isSupabaseServerConfigured,
+  getSupabaseRoom,
+  createSupabaseRoom,
+  registerSupabaseParticipant,
+  submitSupabaseDecision,
+  updateSupabasePresenterAction,
+} from "./supabase-server";
 
 export interface ServerRoomState {
   session: WorkshopSession;
@@ -67,6 +75,74 @@ function persistRooms(): void {
 
 // Initial default demo room PIN
 export const DEFAULT_PIN = "ECO2045";
+
+// Track presence heartbeats (participantId -> timestamp)
+const participantLastSeenMap: Map<string, number> = new Map();
+
+export function touchParticipantPresence(pin: string, participantId?: string): void {
+  const cleanPin = pin.trim().toUpperCase() || DEFAULT_PIN;
+  const room = globalRoomStore.get(cleanPin);
+  if (!room) return;
+
+  const now = Date.now();
+  if (participantId) {
+    participantLastSeenMap.set(participantId, now);
+    const p = room.participants.find((part) => part.id === participantId);
+    if (p && p.connectionStatus !== "online") {
+      p.connectionStatus = "online";
+    }
+  }
+
+  // Mark participants who haven't pinged in 45 seconds as offline
+  for (const p of room.participants) {
+    const last = participantLastSeenMap.get(p.id);
+    if (last && now - last > 45000 && p.connectionStatus === "online") {
+      p.connectionStatus = "offline";
+    }
+  }
+}
+
+export function createServerRoom(
+  customPin?: string,
+  title?: string
+): ServerRoomState {
+  if (globalRoomStore.size === 0) {
+    loadPersistedRooms();
+  }
+
+  let cleanPin = customPin?.trim().toUpperCase().replace(/[^A-Z0-9-]/g, "");
+  if (!cleanPin) {
+    let attempts = 0;
+    do {
+      const code = Math.floor(1000 + Math.random() * 9000);
+      cleanPin = `ECO-${code}`;
+      attempts++;
+    } while (globalRoomStore.has(cleanPin) && attempts < 100);
+  }
+
+  const session: WorkshopSession = {
+    id: `session-${cleanPin}`,
+    pin: cleanPin,
+    title: title?.trim() || `Nova City Campaign — Room ${cleanPin}`,
+    status: "in_progress",
+    currentMission: 1,
+    consequencesRevealed: false,
+    allowResubmission: false,
+    registrationOpen: true,
+    createdAt: new Date().toISOString(),
+    sharedCityMetrics: { ...INITIAL_SHARED_CITY_METRICS },
+  };
+
+  const room: ServerRoomState = {
+    session,
+    participants: [],
+    submissions: [],
+  };
+
+  globalRoomStore.set(cleanPin, room);
+  persistRooms();
+  return room;
+}
 
 export function getOrCreateRoom(pin: string = DEFAULT_PIN): ServerRoomState {
   if (globalRoomStore.size === 0) {
@@ -330,10 +406,110 @@ export function updateServerPresenterAction(
       room.submissions = [];
       break;
 
+    case "create_room": {
+      const customPin = payload?.pin || payload?.customPin;
+      const title = payload?.title;
+      const created = createServerRoom(customPin, title);
+      return { success: true, session: created.session };
+    }
+
+    case "close_room":
+      room.session.status = "completed";
+      room.session.registrationOpen = false;
+      break;
+
     default:
       return { success: false, error: `Unknown presenter action: ${action}` };
   }
 
   persistRooms();
   return { success: true, session: room.session };
+}
+
+// ---------------------------------------------------------------------------
+// Hybrid Storage Async API Bridge (Supabase PostgreSQL + Local JSON Fallback)
+// ---------------------------------------------------------------------------
+
+export async function getOrCreateRoomAsync(pin: string = DEFAULT_PIN): Promise<ServerRoomState> {
+  if (isSupabaseServerConfigured()) {
+    try {
+      const supa = await getSupabaseRoom(pin);
+      if (supa) return supa;
+      const created = await createSupabaseRoom(pin);
+      if (created) return created;
+    } catch (err) {
+      console.warn("Supabase room lookup failed, falling back to local:", err);
+    }
+  }
+  return getOrCreateRoom(pin);
+}
+
+export async function createServerRoomAsync(
+  customPin?: string,
+  title?: string
+): Promise<ServerRoomState> {
+  let cleanPin = customPin?.trim().toUpperCase().replace(/[^A-Z0-9-]/g, "");
+  if (!cleanPin) {
+    const code = Math.floor(1000 + Math.random() * 9000);
+    cleanPin = `ECO-${code}`;
+  }
+
+  if (isSupabaseServerConfigured()) {
+    try {
+      const created = await createSupabaseRoom(cleanPin, title);
+      if (created) return created;
+    } catch (err) {
+      console.warn("Supabase room creation failed, falling back to local:", err);
+    }
+  }
+  return createServerRoom(cleanPin, title);
+}
+
+export async function registerServerParticipantAsync(
+  pin: string,
+  fullName: string,
+  teamName?: string
+): Promise<{ success: boolean; participant?: Participant; error?: string }> {
+  if (isSupabaseServerConfigured()) {
+    try {
+      const supa = await registerSupabaseParticipant(pin, fullName, teamName);
+      if (supa.success) return supa;
+    } catch (err) {
+      console.warn("Supabase registration failed, falling back to local:", err);
+    }
+  }
+  return registerServerParticipant(pin, fullName, teamName);
+}
+
+export async function submitServerDecisionAsync(
+  pin: string,
+  participantId: string,
+  missionNumber: number,
+  optionKey: "A" | "B"
+): Promise<{ success: boolean; error?: string; participant?: Participant; session?: WorkshopSession }> {
+  if (isSupabaseServerConfigured()) {
+    try {
+      const supa = await submitSupabaseDecision(pin, participantId, missionNumber, optionKey);
+      if (supa.success) return supa;
+    } catch (err) {
+      console.warn("Supabase submission failed, falling back to local:", err);
+    }
+  }
+  return submitServerDecision(pin, participantId, missionNumber, optionKey);
+}
+
+export async function updateServerPresenterActionAsync(
+  pin: string,
+  action: string,
+  payload?: any
+): Promise<{ success: boolean; session?: WorkshopSession; error?: string }> {
+  if (isSupabaseServerConfigured()) {
+    try {
+      const supa = await updateSupabasePresenterAction(pin, action, payload);
+      if (supa.success) return supa;
+    } catch (err) {
+      console.warn("Supabase action update failed, falling back to local:", err);
+    }
+  }
+  return updateServerPresenterAction(pin, action, payload);
 }

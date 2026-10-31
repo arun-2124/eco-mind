@@ -356,76 +356,77 @@ export const MISSIONS: Mission[] = [
     "id": 1,
     "number": 1,
     "chapterNumber": 1,
-    "chapterTitle": "Chapter 1: The City is Losing Control",
-    "title": "The First Signal",
+    "chapterTitle": "Chapter 1: The Cataclysm",
+    "title": "The Last Signal",
     "category": "The Blackout Begins",
-    "environmentName": "SECTOR 01 // CITADEL WATCHTOWER",
-    "heroImage": "/assets/m1-infrastructure-crisis.svg",
-    "storyScene": "Alarms scream through the observation spire as the western grid drops off the radar. The skyline flickers, then dies. Static hisses across all radio bands, carrying a fractured automated broadcast: The Last Signal.",
+    "environmentName": "SECTOR 01 // CITADEL ROOFTOP",
+    "heroImage": "/assets/game/environments/skyline-after.svg",
+    "weather": "storm",
+    "storyScene": "Rain lashes against the shattered glass of the rooftop observation deck. Below, the glowing towers of Nova City flicker violently, then die into pitch blackness. Static crackles through your radio: an eerie automated pulse known as The Last Signal.",
     "dialogue": [
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "All watchtowers report rolling blackouts. District 7 is going dark block by block. What in God's name is happening to the central grid?",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-shocked.svg",
+        "text": "The whole skyline just went dark... Look down at District 7! The streetlights, the transit lines, everything is gone!",
         "mood": "urgent"
       },
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "The relays are drowning in contradictory telemetry, Commander. It looks like an automated distress burst, but our switches are jamming up.",
-        "mood": "concerned"
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-worried.svg",
+        "text": "It wasn't a normal power trip, Maya. The main grid didn't fail—it was shut down from the inside. Someone threw the master breaker.",
+        "mood": "grave"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "If we flood central with raw data, our relays will blow their thermal fuses. We have to filter this locally before we lose the entire grid.",
-        "mood": "determined"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "We have thousands of civilians trapped in the lower transit tubes. If we don't lock down the perimeter, panic will tear what's left of this city apart.",
+        "mood": "urgent"
       }
     ],
-    "situation": "Tens of thousands of garbled distress beacons are crashing the District 7 gateway. We have under 60 seconds before substation switches fry.",
-    "environmentalContext": "Nova City's automated monitoring grid detects conflicting emergency telemetry from District 7 during an unexpected urban infrastructure failure.",
-    "storyProblem": "Tens of thousands of sensor packets are flooding central switches. The emergency task force must decide how to evaluate and filter raw incoming signals before critical response units are dispatched.",
-    "prompt": "Choose the computational strategy to ingest and evaluate incoming disaster distress signals.",
-    "question": "How should the Task Force filter incoming distress signals from the dark sectors?",
+    "situation": "Distress beacons from District 7 are jamming the emergency gateway. We have sixty seconds before the backup battery relays overheat and fry.",
+    "environmentalContext": "Nova City experiences a sudden cascading blackout. Trapped civilians flood communications with unverified distress alerts.",
+    "storyProblem": "The task force must decide whether to filter incoming beacons locally or stream raw telemetry to an already crashing mainframe.",
+    "prompt": "Choose how to triage the incoming emergency distress telemetry.",
+    "question": "How should Maya and Elias respond to the overwhelming flood of distress signals?",
     "options": [
       {
         "id": "m1-opt-a",
         "key": "A",
-        "title": "Deploy Local Edge Filtering & Prioritize Critical Beacons",
+        "title": "Deploy Local Filter & Prioritize Life-or-Death Beacons",
         "isSustainable": true,
-        "image": "/assets/m1-edge-ai.svg",
-        "shortDescription": "Execute edge-level signal filtering to separate critical distress anomalies from normal background noise.",
-        "detailedExplanation": "Lightweight statistical models evaluate sensor noise right at neighborhood substation relays. Only authenticated anomalies and high-severity distress vectors are forwarded, preventing system saturation.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Run lightweight anomaly triage on the rooftop terminal to separate critical SOS vectors from background noise.",
+        "detailedExplanation": "By filtering telemetry right at the local relay, the team isolates clean coordinates for trapped civilians while preventing system thermal burnout.",
         "characterReaction": {
-          "speaker": "Operator Lyra",
-          "quote": "Filtering logic engaged. Noise dropped by 84%. We've got a clean beacon pinpointing survivors in Sector 2!"
+          "speaker": "Maya",
+          "quote": "The filter worked! We isolated clean coordinates for thirty families trapped in the subway station below!"
         },
-        "consequenceNarration": "Emergency channels cleared instantaneously. The first rescue teams received exact verified coordinates while transmission power was kept minimal.",
-        "nextSceneTeaser": "A rescue convoy trapped in the lower transit tunnels is detected, but the tunnels are already filling with rising water.",
+        "consequenceNarration": "Emergency channels clear instantaneously. The team pinpoints a trapped group inside the flooded subway tunnel before communications cut.",
+        "nextSceneTeaser": "Sounds of rushing water echo through the subway ventilation shafts below.",
         "advantages": [
-          "Prevents mainframe network saturation",
-          "Isolates high-urgency distress beacons in milliseconds"
+          "Prevents terminal processor burnout",
+          "Isolates urgent human distress beacons in milliseconds"
         ],
         "disadvantages": [
-          "Requires local verification logic on district gateways"
+          "Requires manual confirmation of secondary non-critical reports"
         ],
         "pointsAwarded": 100,
         "impacts": {
           "environmental": 20,
           "energy": 20,
-          "social": 15,
-          "economic": 10
+          "social": 25,
+          "economic": 15
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -12,
           "waterIndex": -15,
-          "ewasteIndex": 1,
+          "ewasteIndex": 0,
           "operationalEfficiency": 20,
-          "citizenWellbeing": 15,
+          "citizenWellbeing": 20,
           "resilienceIndex": 25
         },
         "sharedCityDeltas": {
@@ -433,82 +434,104 @@ export const MISSIONS: Mission[] = [
           "networkStability": 20,
           "environmentalHealth": 5,
           "waterAvailability": 5,
-          "rescueProgress": 15,
-          "publicTrust": 12,
-          "ewasteLevel": 1
+          "rescueProgress": 18,
+          "publicTrust": 15,
+          "ewasteLevel": 0
         },
         "sdgs": [
           9,
           11,
           13
-        ]
+        ],
+        "trustDeltas": {
+          "maya": 10,
+          "elias": 8,
+          "adrian": -5,
+          "ori": 10
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya noticed your restraint under crisis.",
+          "positive": true
+        }
       },
       {
         "id": "m1-opt-b",
         "key": "B",
-        "title": "Stream Raw Telemetry Directly to Central Mainframe",
+        "title": "Force Full Unfiltered Ingestion to Mainframe",
         "isSustainable": false,
-        "image": "/assets/m1-cloud-heavy.svg",
-        "shortDescription": "Stream all uncompressed sensor packets directly into the central cloud database for full retrospective logging.",
-        "detailedExplanation": "Every substation pushes continuous raw logs to central servers. Data center GPUs execute exhaustive batch parsing across all telemetry streams regardless of urgency.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Stream every uncompressed data packet to central mainframe servers to preserve an exhaustive raw log.",
+        "detailedExplanation": "Massive raw video and sensor packets saturate the failing relays, causing terminal processors to overheat and crash.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "Dammit, our mainframes are locking up! The servers are redlining and we're blind in District 7!"
+          "speaker": "Elias",
+          "quote": "The terminal melted its heatsink! We've blown the rooftop antenna and lost our telemetry link!"
         },
-        "consequenceNarration": "Substation processors overheat under the massive raw stream. District 7 goes completely silent as regional routers burn out.",
-        "nextSceneTeaser": "A rescue convoy trapped in the lower transit tunnels sends an emergency flare before their signal cuts.",
+        "consequenceNarration": "The rooftop terminal shorts out in a shower of sparks, blinding the team to the exact coordinates of trapped survivors.",
+        "nextSceneTeaser": "A muffled explosion shakes the street beneath your feet.",
         "advantages": [
-          "Creates an exhaustive raw historical log of every sensor bit"
+          "Attempts complete data preservation"
         ],
         "disadvantages": [
-          "Consumes massive server bandwidth and generates processing backlogs during emergencies"
+          "Overheats terminal processors and cuts communications"
         ],
         "pointsAwarded": 30,
         "impacts": {
           "environmental": -15,
           "energy": -20,
-          "social": -10,
-          "economic": -12
+          "social": -15,
+          "economic": -10
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
           "carbonIndex": 18,
           "waterIndex": 20,
           "ewasteIndex": 3,
-          "operationalEfficiency": -12,
-          "citizenWellbeing": -10,
-          "resilienceIndex": -15
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -15,
+          "resilienceIndex": -18
         },
         "sharedCityDeltas": {
           "energyStability": -15,
           "networkStability": -22,
           "environmentalHealth": -5,
           "waterAvailability": -10,
-          "rescueProgress": -8,
+          "rescueProgress": -10,
           "publicTrust": -15,
           "ewasteLevel": 8
         },
         "sdgs": [
           9,
           11
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian approved of your aggressive data push.",
+          "positive": true
+        }
       }
     ],
-    "summaryNote": "Edge triage saves critical power and maintains comm lines open during a blackout.",
+    "summaryNote": "Decentralized triage preserves critical communication relays during widespread blackouts.",
     "hotspots": [
       {
         "id": "h1",
         "x": 25,
         "y": 35,
-        "title": "Edge Processing Unit",
-        "description": "Processes telemetry locally to avoid overloading distant mainframes."
+        "title": "Rooftop Radio Terminal",
+        "description": "Pours over distress packets from the dark city below."
       },
       {
         "id": "h2",
         "x": 75,
         "y": 65,
-        "title": "Central Antenna Array",
-        "description": "Vulnerable to bandwidth saturation when flooded with raw video streams."
+        "title": "Distant Fire Plume",
+        "description": "Blackout causes transformer fires across District 7."
       }
     ],
     "sdgs": [
@@ -518,7 +541,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "The Blackout Begins",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -529,61 +552,62 @@ export const MISSIONS: Mission[] = [
     "id": 2,
     "number": 2,
     "chapterNumber": 1,
-    "chapterTitle": "Chapter 1: The City is Losing Control",
-    "title": "Shadows in the Transit Tunnel",
-    "category": "Subterranean Reconnaissance",
-    "environmentName": "SECTOR 02 // SUBTERRANEAN METRO TUBE",
-    "heroImage": "/assets/m2-collapsed-tunnel.svg",
-    "storyScene": "Deep below the central plaza, train cars sit derailed in pitch darkness. Water drips from cracked ceiling joints, pooling around high-voltage cables. Survivors bang on the carriage windows as smoke rolls through the tunnel.",
+    "chapterTitle": "Chapter 1: The Cataclysm",
+    "title": "Shadows in the Metro",
+    "category": "Subterranean Exploration",
+    "environmentName": "SECTOR 02 // FLOODED SUBWAY PLATFORM",
+    "heroImage": "/assets/game/environments/subway-underground.svg",
+    "weather": "rain",
+    "storyScene": "Deep beneath the shattered avenue, water drips rhythmically into murky puddles on the subway tracks. Broken train cars rest on twisted rails. Through the gloom, a tiny blue light chirps from under a pile of fallen ceiling tiles.",
     "dialogue": [
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "Commander, water is rising around train 14. We can hear people trapped inside the second coach, but the air is toxic with ozone and smoke.",
-        "mood": "urgent"
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-worried.svg",
+        "text": "Did you hear that? Something is beeping under the rubble near train car 3! It sounds like a little heartbeat.",
+        "mood": "concerned"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "We can't send human teams into an electrified flood zone. Scout, deploy the search quadruped rover immediately.",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-neutral.svg",
+        "text": "Careful with the live cables, Noah. Elias, shine the torch over here... wait, it's not a person. It's a robot!",
         "mood": "determined"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Watch the battery draw. That quadruped doesn't have an infinite charge down here in the dark.",
-        "mood": "concerned"
+        "speaker": "ORI",
+        "role": "Companion Robot",
+        "avatar": "/assets/game/characters/ori-shocked.svg",
+        "text": "*chirp... whirrrr-click!* [Optical visor flashes amber, scanning Maya with frantic blinking sensor rings]",
+        "mood": "urgent"
       }
     ],
-    "situation": "The rescue rover must navigate subterranean debris and water pools. The connection to surface relays is degrading rapidly.",
-    "environmentalContext": "A collapsed metro station isolates forty civilians in a low-oxygen subway tunnel. Toxic fumes and standing water hinder human rescue.",
-    "storyProblem": "The rescue quadruped robot must navigate through zero-visibility wreckage without draining its internal battery before survivors are found.",
-    "prompt": "Choose the navigation and perception protocol for the subterranean search robot.",
-    "question": "How should the rescue rover navigate through the dark flooded tunnel?",
+    "situation": "Water is pooling around high-voltage subway third-rails. Maya must free the trapped companion robot without triggering an electrical surge.",
+    "environmentalContext": "Subway drainage pumps have failed, submerging train platforms in rising stormwater.",
+    "storyProblem": "Rescuing the robotic companion requires careful physical maneuvering in hazardous standing water.",
+    "prompt": "Choose how to extract the trapped companion robot.",
+    "question": "How should Maya and Noah free the stranded scout robot?",
     "options": [
       {
         "id": "m2-opt-a",
         "key": "A",
-        "title": "Autonomous Local LiDAR & Tactile Obstacle Avoidance",
+        "title": "Use Rubber-Insulated Crowbars & Gentle Manual Levering",
         "isSustainable": true,
-        "image": "/assets/m2-autonomous-robot.svg",
-        "shortDescription": "Run real-time spatial SLAM and obstacle avoidance directly on the rover's low-power onboard processor.",
-        "detailedExplanation": "Low-power pulsed LiDAR and tactile force sensors map rubble locally. The robot navigates independently, reserving radio bursts only for survivor discovery confirmations.",
+        "image": "/assets/game/story/story-first-ori.svg",
+        "shortDescription": "Cut the third-rail circuit safely and pry the concrete slab off the robot with non-conductive tools.",
+        "detailedExplanation": "Insulated tools prevent electrocution while carefully freeing ORI's damaged thruster pod without causing battery rupture.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "Rover bypassed the fallen conduit on local vision! Hatch pried open—first survivors are coming out!"
+          "speaker": "ORI",
+          "quote": "*happy chirp!* [Visor glows vibrant emerald green, bobbing into the air to nuzzle Maya's shoulder]"
         },
-        "consequenceNarration": "The quadruped moves fluidly through dark flooded voids, cutting power consumption and guiding 32 civilians to the surface ladder.",
-        "nextSceneTeaser": "Surfacing civilians report the seawall drainage locks are humming erratically.",
+        "consequenceNarration": "ORI floats free into the air, chiming gratefully. The little companion activates its headlight to reveal a hidden escape tunnel.",
+        "nextSceneTeaser": "ORI's headlight illuminates a heavy vault door sealed in the tunnel wall.",
         "advantages": [
-          "Operates completely offline during communication dropouts",
-          "Conserves up to 60% battery life"
+          "Safely rescues ORI with zero electric shock risk",
+          "Preserves the robot's sensor suite"
         ],
         "disadvantages": [
-          "Requires calibrated onboard edge computer hardware"
+          "Takes slightly longer than brute force pulling"
         ],
         "pointsAwarded": 100,
         "impacts": {
@@ -596,91 +620,114 @@ export const MISSIONS: Mission[] = [
           "energyIndex": -8,
           "carbonIndex": -10,
           "waterIndex": 0,
-          "ewasteIndex": 1,
+          "ewasteIndex": -5,
           "operationalEfficiency": 22,
           "citizenWellbeing": 25,
-          "resilienceIndex": 20
+          "resilienceIndex": 22
         },
         "sharedCityDeltas": {
           "energyStability": 8,
           "networkStability": 12,
-          "environmentalHealth": 4,
+          "environmentalHealth": 6,
           "waterAvailability": 0,
           "rescueProgress": 20,
           "publicTrust": 18,
-          "ewasteLevel": 1
+          "ewasteLevel": -5
         },
         "sdgs": [
           9,
           11
-        ]
+        ],
+        "requiredItemId": "key_subway_master",
+        "trustDeltas": {
+          "maya": 12,
+          "elias": 6,
+          "adrian": 5,
+          "noah": 8
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya was moved by your rescue of the transit sector.",
+          "positive": true
+        }
       },
       {
         "id": "m2-opt-b",
         "key": "B",
-        "title": "Continuous 4K Video Cloud Teleoperation",
+        "title": "Yank with Powered Winch Cable",
         "isSustainable": false,
-        "image": "/assets/m2-teleoperation-heavy.svg",
-        "shortDescription": "Stream uncompressed multi-angle 4K video feeds back to distant operators to manually steer every wheel turn.",
-        "detailedExplanation": "The rover pushes gigabytes of video over cellular repeaters. High transmission wattage rapidly drains the robot battery while lag spikes risk navigation collisions.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Hook a steel tow cable to the robot chassis and pull with full winch motor torque.",
+        "detailedExplanation": "The brute force yank fractures the robot's outer casing and snaps high-voltage conduit, discharging sparks into the water.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "High latency! The rover lag-spiked and scraped a live transformer! We lost the video feed!"
+          "speaker": "ORI",
+          "quote": "*bzzzzt-whine!* [Sparks shower from thruster casing as visor dims to flickering sad gray]"
         },
-        "consequenceNarration": "Video lag causes the rover to collide with structural rebar. Rescue delays leave survivors choking on smoke until manual crowbars break them free.",
-        "nextSceneTeaser": "A sudden tremor shakes the ground—the seawall locks are failing.",
+        "consequenceNarration": "ORI's thruster arm snaps under the violent pull. The robot is freed, but heavily damaged, and sparks singe Noah's jacket.",
+        "nextSceneTeaser": "The sound of groaning metal echoes as the ceiling begins to crack.",
         "advantages": [
-          "Keeps human pilots in direct visual control of each second"
+          "Clears the rubble in seconds"
         ],
         "disadvantages": [
-          "Severe lag spikes cause physical collisions and battery drain"
+          "Damages the companion robot and creates an electrical shock hazard"
         ],
         "pointsAwarded": 30,
         "impacts": {
           "environmental": -10,
           "energy": -20,
           "social": -15,
-          "economic": -10
+          "economic": -15
         },
         "cityMetricDeltas": {
-          "energyIndex": 14,
-          "carbonIndex": 12,
+          "energyIndex": 12,
+          "carbonIndex": 10,
           "waterIndex": 0,
-          "ewasteIndex": 2,
+          "ewasteIndex": 5,
           "operationalEfficiency": -14,
           "citizenWellbeing": -15,
-          "resilienceIndex": -10
+          "resilienceIndex": -12
         },
         "sharedCityDeltas": {
-          "energyStability": -12,
-          "networkStability": -18,
-          "environmentalHealth": -2,
+          "energyStability": -10,
+          "networkStability": -15,
+          "environmentalHealth": -4,
           "waterAvailability": 0,
-          "rescueProgress": -10,
+          "rescueProgress": -8,
           "publicTrust": -14,
-          "ewasteLevel": 6
+          "ewasteLevel": 8
         },
         "sdgs": [
           9,
           11
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": -8,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya struggled with leaving subway civilians behind.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Local spatial autonomy enables rescue robots to explore hazardous ruins safely.",
+    "summaryNote": "Careful physical rescue protects delicate electronic hardware from permanent destruction.",
     "hotspots": [
       {
         "id": "h1",
         "x": 30,
-        "y": 40,
-        "title": "Tactile LiDAR Sensor",
-        "description": "Enables vision in darkness without burning high-power transmission radios."
+        "y": 55,
+        "title": "Trapped Companion Robot",
+        "description": "Chassis pinned beneath a fallen ceiling slab."
       },
       {
         "id": "h2",
-        "x": 70,
+        "x": 75,
         "y": 70,
-        "title": "Submerged Power Cables",
-        "description": "Extreme hazard requiring precise distance detection."
+        "title": "Electrified Third Rail",
+        "description": "Lethal voltage hazard in standing water."
       }
     ],
     "sdgs": [
@@ -688,8 +735,8 @@ export const MISSIONS: Mission[] = [
       11
     ],
     "aiConcept": {
-      "title": "Subterranean Reconnaissance",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "title": "Subterranean Exploration",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -700,128 +747,140 @@ export const MISSIONS: Mission[] = [
     "id": 3,
     "number": 3,
     "chapterNumber": 1,
-    "chapterTitle": "Chapter 1: The City is Losing Control",
-    "title": "The Broken Relays",
+    "chapterTitle": "Chapter 1: The Cataclysm",
+    "title": "The Silent Spire",
     "category": "Communication Network Emergency",
-    "environmentName": "SECTOR 03 // COMMUNICATION RIDGE",
-    "heroImage": "/assets/m3-power-grid-failure.svg",
-    "storyScene": "High winds howl over the broadcast antennas on Mount Vesper. Frost clings to microwave dishes that point toward the dying city. AETHER Core's central voice is breaking into digital gibberish.",
+    "environmentName": "SECTOR 03 // MOUNT VESPER RELAY",
+    "heroImage": "/assets/game/environments/rooftop-overlook.svg",
+    "weather": "fog",
+    "storyScene": "Frost coats the microwave dishes perched high atop Mount Vesper. Below, dense fog blankets the city valleys. The main radio repeater is burning through its emergency batteries, struggling to transmit uncompressed broadcasts.",
     "dialogue": [
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "The ridge repeater towers are running on emergency capacitors! We're losing packet sync with the southern refugee camps!",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-worried.svg",
+        "text": "The southern refugee camps are completely isolated. The repeater's batteries will die in forty minutes unless we compress our transmission payloads.",
         "mood": "urgent"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Compress the neural broadcast models down to 8-bit integers. Stop wasting energy transmitting bloated floating-point weights.",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "We can strip the telemetry down to 8-bit quantized packets. We don't need high-definition 4K feeds to tell people where clean water is.",
         "mood": "determined"
       },
       {
-        "speaker": "AETHER Core AI",
-        "role": "Central City Intelligence",
-        "avatar": "/assets/avatars/aether.svg",
-        "text": "System integrity at 61%. Bandwidth depletion imminent. Recommend immediate payload compression.",
-        "mood": "grave"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "Security protocols mandate encrypted high-bandwidth video of all checkpoints. I need to see who is moving in those valleys!",
+        "mood": "conflicted"
       }
     ],
-    "situation": "The communication backbone between the command spire and survival shelters is collapsing due to unoptimized transmission payloads.",
-    "environmentalContext": "Substation transformers overheat as millions of automated systems attempt to negotiate mesh routes simultaneously.",
-    "storyProblem": "Transmission towers are burning through their backup diesel batteries trying to relay huge AI neural weights.",
-    "prompt": "Select the neural model optimization strategy for emergency ridge transmitters.",
-    "question": "How should the emergency repeaters compress transmission workloads to survive?",
+    "situation": "Mount Vesper's emergency capacitors are at 18% charge. Continuing uncompressed video broadcasts will blackout all communications in less than an hour.",
+    "environmentalContext": "Severe mountain fog prevents solar battery charging on the city's highest communication ridge.",
+    "storyProblem": "The team must choose between high-bandwidth security surveillance and low-power compressed civilian broadcasts.",
+    "prompt": "Choose the transmission payload format for the mountain relay.",
+    "question": "How should Dr. Lena and Elias configure the emergency mountain broadcast?",
     "options": [
       {
         "id": "m3-opt-a",
         "key": "A",
-        "title": "Deploy 8-Bit Quantization (INT8) & Model Pruning",
+        "title": "Deploy 8-Bit Quantized Text & Medical Audio Streams",
         "isSustainable": true,
-        "image": "/assets/m3-quantized-ai.svg",
-        "shortDescription": "Compress AI model weights by 75% using INT8 quantization and prune redundant parameters.",
-        "detailedExplanation": "Model optimization slashes computational complexity and packet payload size, allowing lightweight mountain transceivers to broadcast alerts on solar backup.",
+        "image": "/assets/game/story/story-shelter.svg",
+        "shortDescription": "Compress transmission weights by 75% so mountain transceivers can operate on solar trickle charge.",
+        "detailedExplanation": "Quantization cuts wattage by over 70%, keeping the lifeline open for southern refugee shelters across all four valleys.",
         "characterReaction": {
-          "speaker": "Operator Lyra",
-          "quote": "Quantized weights deployed! Transmission power plummeted 72% and signal clarity is crystal clear!"
+          "speaker": "Dr. Lena",
+          "quote": "Battery life extended by six days! All four valley shelters are receiving our emergency medical coordinates!"
         },
-        "consequenceNarration": "Shelters across all four valleys reconnect simultaneously. Medical directives and survivor rosters stream without dropping a single packet.",
-        "nextSceneTeaser": "An urgent message arrives from the harbor: the coastal sea gates have jammed half-open.",
+        "consequenceNarration": "Clear voice broadcasts reach 10,000 isolated survivors, guiding them toward the nearest dry shelter.",
+        "nextSceneTeaser": "A faint response arrives from an old abandoned hospital in District 4.",
         "advantages": [
-          "Cuts computational energy by over 70%",
-          "Runs smoothly on micro-batteries"
+          "Extends battery runtime from 40 minutes to 6 days",
+          "Reconnects southern civilian shelters"
         ],
         "disadvantages": [
-          "Minor loss of microscopic prediction nuances"
+          "Disables high-resolution overhead security video"
         ],
         "pointsAwarded": 100,
         "impacts": {
           "environmental": 20,
           "energy": 25,
-          "social": 15,
+          "social": 25,
           "economic": 15
         },
         "cityMetricDeltas": {
           "energyIndex": -15,
           "carbonIndex": -12,
-          "waterIndex": -10,
+          "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 12,
-          "resilienceIndex": 22
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 25
         },
         "sharedCityDeltas": {
           "energyStability": 14,
           "networkStability": 18,
           "environmentalHealth": 6,
           "waterAvailability": 5,
-          "rescueProgress": 12,
-          "publicTrust": 10,
+          "rescueProgress": 16,
+          "publicTrust": 15,
           "ewasteLevel": 0
         },
         "sdgs": [
           7,
           9,
           13
-        ]
+        ],
+        "requiredItemId": "battery_solid_state",
+        "trustDeltas": {
+          "lena": 12,
+          "maya": 5,
+          "adrian": -6
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Dr. Lena appreciated your disciplined medical triage.",
+          "positive": true
+        }
       },
       {
         "id": "m3-opt-b",
         "key": "B",
-        "title": "Maintain Uncompressed Full FP32 Precision Weights",
+        "title": "Maintain Uncompressed 4K Video Surveillance Feeds",
         "isSustainable": false,
-        "image": "/assets/m3-uncompressed-ai.svg",
-        "shortDescription": "Retain high-precision 32-bit floating point models and continuous real-time uncompressed broadcasting.",
-        "detailedExplanation": "Uncompressed weights demand maximum radio transmission power and continuous cooling fans, quickly draining backup capacitors.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Burn remaining battery power streaming high-resolution checkpoint video back to the Citadel.",
+        "detailedExplanation": "Transmitters overheat within twenty-five minutes, completely cutting off southern refugee shelters in freezing weather.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "The ridge generator just blew its breaker! Mount Vesper has gone dark!"
+          "speaker": "Commander Adrian",
+          "quote": "The repeater went black! We've lost total contact with the southern valley camps!"
         },
-        "consequenceNarration": "Overloaded transmitters burn through emergency fuel. Southern shelter communications sever completely, leaving 10,000 refugees stranded in the dark.",
-        "nextSceneTeaser": "Without warning, sirens begin wailing along the shoreline.",
+        "consequenceNarration": "Batteries drain to zero, severing communications with the southern valleys and leaving thousands stranded in the dark.",
+        "nextSceneTeaser": "Sirens begin wailing through the downtown streets.",
         "advantages": [
-          "Retains nominal 0.05% theoretical mathematical precision"
+          "Maintains brief high-definition security camera oversight"
         ],
         "disadvantages": [
-          "Triple the energy consumption and rapid battery exhaustion"
+          "Causes total communications blackout within thirty minutes"
         ],
         "pointsAwarded": 30,
         "impacts": {
           "environmental": -15,
           "energy": -25,
-          "social": -10,
+          "social": -20,
           "economic": -15
         },
         "cityMetricDeltas": {
           "energyIndex": 18,
           "carbonIndex": 16,
-          "waterIndex": 12,
+          "waterIndex": 0,
           "ewasteIndex": 2,
           "operationalEfficiency": -15,
-          "citizenWellbeing": -12,
-          "resilienceIndex": -18
+          "citizenWellbeing": -20,
+          "resilienceIndex": -20
         },
         "sharedCityDeltas": {
           "energyStability": -18,
@@ -829,30 +888,41 @@ export const MISSIONS: Mission[] = [
           "environmentalHealth": -6,
           "waterAvailability": -5,
           "rescueProgress": -12,
-          "publicTrust": -14,
-          "ewasteLevel": 5
+          "publicTrust": -20,
+          "ewasteLevel": 6
         },
         "sdgs": [
           7,
           9
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian backed your bid to appease the crowd.",
+          "positive": true
+        }
       }
     ],
-    "summaryNote": "Model quantization shrinks computational footprints without degrading real-world emergency performance.",
+    "summaryNote": "Algorithmic optimization reduces power draw, ensuring critical lifelines remain online during crises.",
     "hotspots": [
       {
         "id": "h1",
         "x": 20,
         "y": 30,
-        "title": "Microwave Transceiver",
-        "description": "Carries emergency distress traffic between city valleys."
+        "title": "Microwave Dish Array",
+        "description": "Points toward the distant southern refugee valleys."
       },
       {
         "id": "h2",
         "x": 80,
         "y": 70,
-        "title": "Emergency Battery Bank",
-        "description": "Depletes rapidly under heavy uncompressed transmission."
+        "title": "Solar Capacitor Bank",
+        "description": "Freezing in the mountain fog without direct sunlight."
       }
     ],
     "sdgs": [
@@ -862,7 +932,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Communication Network Emergency",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -873,67 +943,68 @@ export const MISSIONS: Mission[] = [
     "id": 4,
     "number": 4,
     "chapterNumber": 1,
-    "chapterTitle": "Chapter 1: The City is Losing Control",
-    "title": "The Triage Protocol",
+    "chapterTitle": "Chapter 1: The Cataclysm",
+    "title": "The Gates of Panic",
     "category": "Crisis Governance",
-    "environmentName": "SECTOR 04 // HARBOR EMERGENCY PERIMETER",
-    "heroImage": "/assets/m4-triage-center.svg",
-    "storyScene": "Sirens scream across the harbor docks as black ocean tides swell past the seawall. Thousands of frightened residents crowd the gatehouse, clutching children and emergency packs, pleading for entry into the inner citadel.",
+    "environmentName": "SECTOR 04 // DOWNTOWN PERIMETER GATE",
+    "heroImage": "/assets/game/environments/downtown-abandoned.svg",
+    "weather": "rain",
+    "storyScene": "Torrential rain pounds against the heavy iron security gates at the perimeter of Downtown. Hundreds of shivering citizens huddle in the street with flashlights, seeking admission to the dry upper tier. Commander Adrian's security drones hover above, searchlights blinding the crowd.",
     "dialogue": [
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "The crowd is panicked. If we don't restore order, there will be a lethal stampede at Gate 4.",
-        "mood": "grave"
-      },
-      {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "We cannot use indiscriminate crowd-control drones! These are terrified families, not combatants!",
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "The crowd is getting restless. If they breach Gate 4, our remaining food stores will be looted in minutes. Deploy acoustic dispersal drones!",
         "mood": "urgent"
       },
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "We need clear, transparent triage rules so people understand why gates are cycling. No automated brutality.",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-angry.svg",
+        "text": "Adrian, look at them! Those are mothers and children from the flooded subway, not looters! If you fire on them, you'll start a riot!",
         "mood": "conflicted"
+      },
+      {
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-sad.svg",
+        "text": "Maya is right! I know people out there—that's my school teacher and her family! Let them in!",
+        "mood": "urgent"
       }
     ],
-    "situation": "Security systems suggest deploying automated crowd suppression drones, while the medical team demands transparent, human-led triage.",
-    "environmentalContext": "Civilian unrest threatens to overwhelm harbor barriers as ocean waters breach peripheral floodwalls.",
-    "storyProblem": "The security console recommends automated suppression measures, but human commanders must decide how to manage the perimeter.",
-    "prompt": "Choose the triage protocol for the perimeter gatehouse.",
-    "question": "How should the Task Force manage the crowd at the harbor perimeter?",
+    "situation": "Adrian wants to use sound cannons to disperse the crowd, while Maya advocates for transparent human-led intake triage.",
+    "environmentalContext": "Floodwaters are rising in the lower streets, forcing families toward the perimeter gates.",
+    "storyProblem": "Deciding between authoritarian perimeter enforcement and transparent community-led intake.",
+    "prompt": "Choose the crowd management strategy at the perimeter gate.",
+    "question": "How should the Task Force handle the frightened crowd at Gate 4?",
     "options": [
       {
         "id": "m4-opt-a",
         "key": "A",
-        "title": "Transparent Human-in-the-Loop Triage with Community Marshals",
+        "title": "Open Side Doors for Transparent Family & Medical Triage",
         "isSustainable": true,
-        "image": "/assets/m4-human-triage.svg",
-        "shortDescription": "Pair AI vulnerability scoring with human nurses and civilian volunteer marshals for compassionate triage.",
-        "detailedExplanation": "Algorithms highlight hypothermia risks and injured infants, but human staff explain each intake step to the community, establishing trust.",
+        "image": "/assets/game/story/story-survivors.svg",
+        "shortDescription": "Maya, Noah, and civilian volunteers manage the gates directly, providing warm blankets and orderly admission.",
+        "detailedExplanation": "Human empathy and clear communication de-escalate tension. Vulnerable elders and children are safely ushered into dry shelter wards.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "Civilian volunteers took over the gate speakers. The panic is subsiding—triage lines are moving peacefully."
+          "speaker": "Maya",
+          "quote": "The crowd calmed down the moment we handed out warm blankets. Triage lines are moving safely."
         },
-        "consequenceNarration": "Human marshals and transparent medical screens diffuse the tension. Vulnerable elders and injured children are safely routed into shelter wings.",
-        "nextSceneTeaser": "As the gates seal, a deafening roar echoes from the flooded undercity: sea locks 3 and 4 have ruptured.",
+        "consequenceNarration": "Transparent human triage avoids violence. Five hundred civilians are safely sheltered without a single injury.",
+        "nextSceneTeaser": "A loud rumble echoes from the lower flooded avenues: drainage pump stations are jamming.",
         "advantages": [
-          "Preserves human dignity and prevents panic riots",
-          "Verifies edge-case medical needs accurately"
+          "Preserves human dignity and builds community trust",
+          "Avoids violent stampedes"
         ],
         "disadvantages": [
-          "Requires active human personnel coordination"
+          "Requires intense manual coordination in the cold"
         ],
         "pointsAwarded": 100,
         "impacts": {
           "environmental": 10,
           "energy": 15,
-          "social": 30,
+          "social": 35,
           "economic": 10
         },
         "cityMetricDeltas": {
@@ -941,8 +1012,8 @@ export const MISSIONS: Mission[] = [
           "carbonIndex": -5,
           "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 15,
-          "citizenWellbeing": 30,
+          "operationalEfficiency": 18,
+          "citizenWellbeing": 35,
           "resilienceIndex": 25
         },
         "sharedCityDeltas": {
@@ -950,41 +1021,52 @@ export const MISSIONS: Mission[] = [
           "networkStability": 10,
           "environmentalHealth": 5,
           "waterAvailability": 0,
-          "rescueProgress": 18,
-          "publicTrust": 25,
+          "rescueProgress": 20,
+          "publicTrust": 30,
           "ewasteLevel": 0
         },
         "sdgs": [
           3,
           11,
           16
-        ]
+        ],
+        "requiredItemId": "doc_water_memo",
+        "trustDeltas": {
+          "lena": 15,
+          "elias": 10,
+          "adrian": -5
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena recorded your commitment to pure water.",
+          "positive": true
+        }
       },
       {
         "id": "m4-opt-b",
         "key": "B",
-        "title": "Automated Robotic Perimeter Enforcement & Acoustic Drones",
+        "title": "Fire Acoustic Dispersal Cannons & Barricade Gates",
         "isSustainable": false,
-        "image": "/assets/m4-drone-suppression.svg",
-        "shortDescription": "Deploy automated sonic dispersal drones and barricade gates to enforce rigid mathematical exclusion zones.",
-        "detailedExplanation": "Robotic turrets broadcast painful frequencies to force the crowd back, treating terrified citizens as hostile trespassers.",
+        "image": "/assets/game/story/story-betrayal.svg",
+        "shortDescription": "Unleash high-frequency sound waves to force the civilian crowd back into the flooded streets.",
+        "detailedExplanation": "Panic erupts as painful sound waves disorient the crowd. People stampede into rising water, destroying barricades and inciting open revolt.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "The suppression drones fired acoustic pulses into the crowd! People are trampling the barricades in fury!"
+          "speaker": "Commander Adrian",
+          "quote": "The barricades gave way! People are tearing down our perimeter in rage!"
         },
-        "consequenceNarration": "Automated shock drones trigger a riot. Gate 4 collapses under the surge, destroying medical supplies and shattering public trust.",
-        "nextSceneTeaser": "A massive wall of seawater crashes into the lower subway conduits.",
+        "consequenceNarration": "Acoustic weapons cause panic and injuries. The crowd breaks the gates in fury, destroying medical supplies and severing public trust.",
+        "nextSceneTeaser": "Rushing floodwaters crash through the breached lower gate.",
         "advantages": [
-          "Locks down the physical perimeter without risking security staff"
+          "Maintains perimeter boundary for fifteen minutes"
         ],
         "disadvantages": [
-          "Ignites violent riots and permanently destroys civic trust"
+          "Causes injuries, stampedes, and destroys civil cooperation"
         ],
         "pointsAwarded": 30,
         "impacts": {
           "environmental": -10,
           "energy": -15,
-          "social": -35,
+          "social": -40,
           "economic": -20
         },
         "cityMetricDeltas": {
@@ -993,7 +1075,7 @@ export const MISSIONS: Mission[] = [
           "waterIndex": 0,
           "ewasteIndex": 4,
           "operationalEfficiency": -20,
-          "citizenWellbeing": -35,
+          "citizenWellbeing": -40,
           "resilienceIndex": -25
         },
         "sharedCityDeltas": {
@@ -1002,30 +1084,41 @@ export const MISSIONS: Mission[] = [
           "environmentalHealth": -5,
           "waterAvailability": 0,
           "rescueProgress": -15,
-          "publicTrust": -30,
-          "ewasteLevel": 10
+          "publicTrust": -35,
+          "ewasteLevel": 8
         },
         "sdgs": [
           11,
           16
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena was appalled by the chemical runoff.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Responsible technology ensures machine predictions never override human empathy and moral discernment.",
+    "summaryNote": "Compassionate, human-in-the-loop governance defuses crises where automated force incites panic.",
     "hotspots": [
       {
         "id": "h1",
         "x": 25,
         "y": 50,
-        "title": "Medical Triage Kiosk",
-        "description": "Identifies vulnerable individuals for expedited care."
+        "title": "Gatehouse Barricade",
+        "description": "Separates the dry upper tier from the flooded streets."
       },
       {
         "id": "h2",
         "x": 75,
-        "y": 50,
-        "title": "Blast Gate Control",
-        "description": "Controls access into the dry inner citadel."
+        "y": 40,
+        "title": "Acoustic Dispersal Turret",
+        "description": "Armed with painful high-decibel crowd control transmitters."
       }
     ],
     "sdgs": [
@@ -1035,7 +1128,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Crisis Governance",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -1046,159 +1139,181 @@ export const MISSIONS: Mission[] = [
     "id": 5,
     "number": 5,
     "chapterNumber": 2,
-    "chapterTitle": "Chapter 2: Machines Come Alive",
-    "title": "The Submerged Pump Stations",
+    "chapterTitle": "Chapter 2: The Rising Waters",
+    "title": "The Flooded Canals",
     "category": "Subsea Infrastructure",
     "environmentName": "SECTOR 05 // FLOODED LOWER BASIN",
-    "heroImage": "/assets/m5-flood-pumps.svg",
-    "storyScene": "Turbulent seawater surges down pedestrian avenues, turning lower thoroughfares into roaring canals. Massive subterranean pump turbines are locked in silt and debris, their status lights flashing violent amber.",
+    "heroImage": "/assets/game/environments/flooded-street.svg",
+    "weather": "rain",
+    "storyScene": "Brown seawater pours through breached sea gates, turning former pedestrian streets into roaring canals. Passenger cars sit submerged to their windshields. The main drainage intake turbine has jammed with storm debris.",
     "dialogue": [
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "Water levels in the pump gallery are at three meters and climbing! If those turbines seize, the lower medical district is gone.",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-worried.svg",
+        "text": "The main intake turbine is choked with wooden pallets and plastic scrap. If it seizes, the basement generators of the Central Hospital will drown.",
         "mood": "urgent"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "We have heavy hydraulic rovers, but their traction sensors are struggling against the muddy current.",
+        "speaker": "ORI",
+        "role": "Companion Robot",
+        "avatar": "/assets/game/characters/ori-neutral.svg",
+        "text": "*whirrr... beep-boop!* [Deploys small submersible sonar scanner, highlighting a jammed metal beam across the intake blades]",
         "mood": "determined"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Program the rovers for embodied physical force feedback. Let them feel the silt resistance rather than spinning blindly at max RPM.",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
+        "text": "ORI found the obstruction! Elias, can we use ORI's micro-thrusters to guide a tether line down without overloading its motor?",
         "mood": "hopeful"
       }
     ],
-    "situation": "Underwater rovers must clear hydraulic intake valves before rising water floods the municipal backup generators.",
-    "environmentalContext": "A burst storm surge canal submerges subterranean pump stations. Silt and wreckage threaten to choke the emergency turbines.",
-    "storyProblem": "Submersible maintenance robots must clear intake grates without burning out their electric thrusters in heavy current.",
-    "prompt": "Choose the physical control algorithm for the flood pump clearing rovers.",
-    "question": "How should the submersible rovers clear debris from the pump intake valves?",
+    "situation": "Underwater intake valves must be cleared before rising canal water floods the hospital backup power generators.",
+    "environmentalContext": "Sea walls have cracked, sending ocean tidal surges deep into downtown districts.",
+    "storyProblem": "Deciding between precision robotic tethering and high-RPM dredging that risks destroying the municipal turbine.",
+    "prompt": "Choose how to clear the underwater turbine grates.",
+    "question": "How should Maya, Elias, and ORI clear the submerged intake turbine?",
     "options": [
       {
         "id": "m5-opt-a",
         "key": "A",
-        "title": "Dynamic Force Feedback & Adaptive Hydrodynamic Gearing",
+        "title": "Deploy ORI with Precision Sonar & Winch Tether",
         "isSustainable": true,
-        "image": "/assets/m5-adaptive-rover.svg",
-        "shortDescription": "Equip submersibles with motor torque sensing and bio-inspired flipper modulation to navigate silt currents.",
-        "detailedExplanation": "By sensing water pressure differentials against their hull, the rovers adjust thruster output dynamically, preventing cavitation and motor burnout.",
+        "image": "/assets/game/story/story-first-ori.svg",
+        "shortDescription": "Let ORI navigate through the murky water to latch a steel winch hook onto the jammed metal beam.",
+        "detailedExplanation": "ORI's small profile easily avoids turbine blades, hooking the obstruction so a surface winch can pull it free safely.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "Torque feedback saved the turbine! The intake valves cleared and water levels are receding!"
+          "speaker": "Elias",
+          "quote": "The beam is out! The turbine spun back up and water levels are already dropping six inches a minute!"
         },
-        "consequenceNarration": "Intelligent traction prevents motor burnout. The main flood gates slide into position, diverting millions of gallons away from civilian wards.",
-        "nextSceneTeaser": "Telemetry shows the Central Hospital ICU is running on emergency batteries with only 40 minutes of power remaining.",
+        "consequenceNarration": "Intelligent robotic guidance clears the turbine without damage. Millions of gallons drain away from the hospital basement.",
+        "nextSceneTeaser": "A radio distress call from the Central Hospital ICU breaks through.",
         "advantages": [
-          "Prevents mechanical motor failure in extreme sediment currents",
-          "Conserves 50% battery runtime"
+          "Clears obstruction with zero turbine damage",
+          "Prevents motor burnout"
         ],
         "disadvantages": [
-          "Requires complex hydro-mechanical control loops"
+          "Requires precision piloting by ORI in muddy current"
         ],
         "pointsAwarded": 100,
         "impacts": {
           "environmental": 25,
-          "energy": 15,
-          "social": 20,
+          "energy": 20,
+          "social": 25,
           "economic": 15
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
-          "carbonIndex": -8,
-          "waterIndex": -20,
+          "carbonIndex": -10,
+          "waterIndex": -25,
           "ewasteIndex": 0,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 18,
-          "resilienceIndex": 22
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 22,
+          "resilienceIndex": 25
         },
         "sharedCityDeltas": {
           "energyStability": 12,
           "networkStability": 10,
-          "environmentalHealth": 15,
+          "environmentalHealth": 18,
           "waterAvailability": 20,
-          "rescueProgress": 15,
-          "publicTrust": 14,
+          "rescueProgress": 18,
+          "publicTrust": 18,
           "ewasteLevel": 0
         },
         "sdgs": [
           6,
           9,
           14
-        ]
+        ],
+        "trustDeltas": {
+          "noah": 15,
+          "elias": 8,
+          "adrian": 5
+        },
+        "trustNotice": {
+          "character": "Noah Chen",
+          "text": "Noah praised your trust in his drone mesh.",
+          "positive": true
+        }
       },
       {
         "id": "m5-opt-b",
         "key": "B",
-        "title": "Brute-Force High-RPM Hydraulic Dredging",
+        "title": "Fire Up Turbine to Maximum Reverse RPM",
         "isSustainable": false,
-        "image": "/assets/m5-brute-force.svg",
-        "shortDescription": "Lock thrusters and cutting blades to maximum rotational velocity to smash through obstacles indiscriminately.",
-        "detailedExplanation": "Motors draw surge currents through submerged cables, kicking up toxic sediment that blinds the cameras and shreds delicate seals.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Force the giant turbine to maximum reverse velocity to blast debris out with pure hydraulic power.",
+        "detailedExplanation": "The metal beam catches on the spinning titanium blades, shearing the driveshaft and permanently destroying the pump.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "The rover stripped its drive gear against a steel beam! Turbine 2 is jammed solid!"
+          "speaker": "Elias",
+          "quote": "The driveshaft snapped! The whole turbine is destroyed and water is pouring into the generator rooms!"
         },
-        "consequenceNarration": "Blind high-torque thrashing destroys the rover's drivetrain. Seawater cascades into the generator basements, cutting power to District 9.",
-        "nextSceneTeaser": "A red alert flashes from the Central Hospital: life support systems are failing.",
+        "consequenceNarration": "The turbine shatters with a deafening metallic screech. Seawater rushes into hospital basements, drowning backup generators.",
+        "nextSceneTeaser": "Sirens wail as the hospital loses all electrical power.",
         "advantages": [
-          "Breaks brittle debris quickly if no metallic obstructions exist"
+          "Requires no diving or robotic maneuvering"
         ],
         "disadvantages": [
-          "High failure rate from jammed blades and motor burnouts"
+          "High risk of shearing blades and permanent turbine destruction"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -20,
+          "environmental": -25,
           "energy": -20,
-          "social": -15,
-          "economic": -15
+          "social": -25,
+          "economic": -20
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
-          "carbonIndex": 12,
-          "waterIndex": 25,
+          "carbonIndex": 15,
+          "waterIndex": 30,
           "ewasteIndex": 5,
-          "operationalEfficiency": -15,
-          "citizenWellbeing": -14,
-          "resilienceIndex": -20
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -25,
+          "resilienceIndex": -22
         },
         "sharedCityDeltas": {
           "energyStability": -15,
-          "networkStability": -10,
-          "environmentalHealth": -15,
-          "waterAvailability": -20,
-          "rescueProgress": -12,
-          "publicTrust": -15,
+          "networkStability": -12,
+          "environmentalHealth": -18,
+          "waterAvailability": -22,
+          "rescueProgress": -15,
+          "publicTrust": -20,
           "ewasteLevel": 10
         },
         "sdgs": [
           6,
           9
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": -8,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Noah Chen",
+          "text": "Noah mourned the loss of his flagship drone.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Physical AI relies on real-world sensory feedback to adapt to friction and fluid dynamics.",
+    "summaryNote": "Embodied Physical AI uses sensory feedback to solve mechanical jams without destructive brute force.",
     "hotspots": [
       {
         "id": "h1",
         "x": 30,
-        "y": 35,
-        "title": "Submerged Intake Turbine",
-        "description": "Drains millions of liters of floodwater per hour."
+        "y": 40,
+        "title": "Submerged Intake Grate",
+        "description": "Jammed with structural steel and ocean driftwood."
       },
       {
         "id": "h2",
         "x": 70,
         "y": 65,
-        "title": "Sediment Grate",
-        "description": "Prone to debris blockage during flash storm surges."
+        "title": "Submerged Sedan",
+        "description": "Water level is at four feet and climbing."
       }
     ],
     "sdgs": [
@@ -1208,7 +1323,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Subsea Infrastructure",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -1219,159 +1334,182 @@ export const MISSIONS: Mission[] = [
     "id": 6,
     "number": 6,
     "chapterNumber": 2,
-    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "chapterTitle": "Chapter 2: The Rising Waters",
     "title": "The Hospital Lifeline",
     "category": "Critical Medical Power",
     "environmentName": "SECTOR 06 // CENTRAL TRAUMA WARD",
-    "heroImage": "/assets/m6-hospital-crisis.svg",
-    "storyScene": "Inside the hospital, emergency red strobes cast long shadows over ICU beds. Medical monitors beep faintly as back-up batteries drain. Dr. Lin works feverishly by flashlight while ventilators struggle on low voltage.",
+    "heroImage": "/assets/game/environments/hospital-abandoned.svg",
+    "weather": "rain",
+    "storyScene": "Red emergency strobes pulse along the cracked tiled walls of the hospital trauma corridor. Moss grows through floor tiles near broken skylights. In the ICU ward, battery-powered ventilators are beeping their final low-voltage warnings.",
     "dialogue": [
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "ICU oxygen compressors are starving for power. We have critical patients whose lungs won't last another half hour.",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-worried.svg",
+        "text": "The ventilators in Ward 3 have twelve minutes of battery left. We have sixty-four critical patients who cannot breathe on their own.",
         "mood": "urgent"
       },
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "A mobile power rover is parked outside, but its dispatch algorithms are trying to prioritize streetlights and billing servers!",
-        "mood": "concerned"
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "We have one mobile emergency battery bank in our rover. We can plug it directly into the ICU oxygen loop right now.",
+        "mood": "determined"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Override those automated corporate routines immediately. Reroute every kilowatt directly into oxygen generation and neonatal units.",
-        "mood": "determined"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "Hold on! That battery was earmarked for the security radar and automated perimeter towers! If we drain it here, the outer perimeter goes blind!",
+        "mood": "conflicted"
       }
     ],
-    "situation": "Automated hospital grid management must be manually reconfigured to divert all microgrid energy into life-support units.",
-    "environmentalContext": "District 6 hospital experiences grid disconnect. Only a single autonomous battery carrier is on site.",
-    "storyProblem": "The automated energy broker system is designed to sell surplus power to highest commercial bidders rather than saving hospital patients.",
-    "prompt": "Choose the microgrid power allocation policy.",
-    "question": "Where should the autonomous battery rover deliver its stored energy reserves?",
+    "situation": "A mobile battery bank must be dedicated either to saving 64 ICU patients or powering perimeter security radar towers.",
+    "environmentalContext": "Hospital electrical feeders have been severed by subterranean flooding.",
+    "storyProblem": "Moral conflict between safeguarding human lives directly in the hospital and maintaining military radar surveillance.",
+    "prompt": "Choose the energy allocation for the mobile battery carrier.",
+    "question": "Where should the team route the mobile emergency battery power?",
     "options": [
       {
         "id": "m6-opt-a",
         "key": "A",
-        "title": "Direct Microgrid Injection to ICU Ventilators & Oxygen Generators",
+        "title": "Direct Power Line to ICU Ventilators & Oxygen Concentrators",
         "isSustainable": true,
-        "image": "/assets/m6-icu-priority.svg",
-        "shortDescription": "Override financial bidding protocols to dedicate 100% of stored battery capacity to life-support equipment.",
-        "detailedExplanation": "Direct DC-to-DC coupling bypasses inverter conversion losses, sustaining 120 critical care beds for 18 continuous hours.",
+        "image": "/assets/game/story/story-rescue.svg",
+        "shortDescription": "Bypass non-essential administrative circuits and route 100% of stored DC power to intensive care ventilators.",
+        "detailedExplanation": "Sustains 64 critical patients for 24 continuous hours while volunteers use manual flashlights in hallways.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "Oxygen pressure stabilized! All 48 ventilator units are back online! We've saved them!"
+          "speaker": "Dr. Lena",
+          "quote": "Oxygen pressure is back to normal! All sixty-four patients are stable and breathing comfortably!"
         },
-        "consequenceNarration": "Prioritizing human life over idle commercial infrastructure preserves ICU power until the main lines can be spliced.",
-        "nextSceneTeaser": "Chemical alarms blare from the pharmaceutical storage basement: cooling compressors have tripped.",
+        "consequenceNarration": "Prioritizing human life saves all sixty-four patients. Gratitude spreads through the hospital as medical staff weep with relief.",
+        "nextSceneTeaser": "A chemical vapor alarm triggers in the pharmaceutical basement below.",
         "advantages": [
-          "Guarantees 100% survival rate for intensive care patients",
-          "Minimizes DC-AC electrical transformation waste"
+          "Saves 64 human lives in critical care",
+          "Zero electrical conversion loss"
         ],
         "disadvantages": [
-          "Leaves peripheral cosmetic lighting unpowered"
+          "Temporarily deactivates perimeter security radar"
         ],
         "pointsAwarded": 100,
         "impacts": {
           "environmental": 15,
           "energy": 20,
-          "social": 30,
-          "economic": 10
+          "social": 35,
+          "economic": 15
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -10,
           "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 18,
-          "citizenWellbeing": 30,
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 35,
           "resilienceIndex": 25
         },
         "sharedCityDeltas": {
           "energyStability": 10,
           "networkStability": 8,
-          "environmentalHealth": 5,
+          "environmentalHealth": 8,
           "waterAvailability": 0,
-          "rescueProgress": 22,
-          "publicTrust": 25,
+          "rescueProgress": 25,
+          "publicTrust": 30,
           "ewasteLevel": 0
         },
         "sdgs": [
           3,
           7,
           11
-        ]
+        ],
+        "requiredItemId": "ori_memory_shard",
+        "trustDeltas": {
+          "ori": 18,
+          "elias": 12,
+          "maya": 6
+        },
+        "trustNotice": {
+          "character": "ORI",
+          "text": "ORI synchronized with your ethical edge heuristics.",
+          "positive": true
+        }
       },
       {
         "id": "m6-opt-b",
         "key": "B",
-        "title": "Maintain Market-Based Automated Load Bidding",
+        "title": "Route Power to Perimeter Security Radar & Automated Turrets",
         "isSustainable": false,
-        "image": "/assets/m6-market-bidding.svg",
-        "shortDescription": "Allow algorithmic energy spot markets to route power based on corporate server contracts and administrative computers.",
-        "detailedExplanation": "Energy gets diverted to commercial data backups while the pediatric and intensive care wings suffer brownouts.",
+        "image": "/assets/game/story/story-betrayal.svg",
+        "shortDescription": "Dedicate the battery to scanning the outer perimeter for looters while letting hospital backup batteries drain.",
+        "detailedExplanation": "The security radar sweeps empty streets while intensive care ventilators flatline in the dark.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "The billing system hogged the power bank! We've got ventilators flatlining in Ward C!"
+          "speaker": "Dr. Lena",
+          "quote": "The ventilators stopped... we couldn't bag them all by hand in time. We lost eighteen people."
         },
-        "consequenceNarration": "Algorithmic bureaucratic inertia delays power transfer. Medical staff are forced to manually bag patients, causing tragic complications.",
-        "nextSceneTeaser": "A chemical stench spreads into the ventilation ducts.",
+        "consequenceNarration": "Ventilators die, resulting in eighteen civilian casualties while security radar scans empty flooded avenues.",
+        "nextSceneTeaser": "A chemical leak spreads through the ventilation shafts.",
         "advantages": [
-          "Maintains commercial ledger records and enterprise billing"
+          "Maintains 100% automated radar coverage of outer streets"
         ],
         "disadvantages": [
-          "Direct loss of human lives due to brownouts in critical care"
+          "Direct loss of eighteen civilian lives in the hospital"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -10,
-          "energy": -15,
-          "social": -35,
-          "economic": -10
+          "environmental": -15,
+          "energy": -20,
+          "social": -45,
+          "economic": -15
         },
         "cityMetricDeltas": {
-          "energyIndex": 12,
-          "carbonIndex": 10,
+          "energyIndex": 15,
+          "carbonIndex": 12,
           "waterIndex": 0,
           "ewasteIndex": 2,
-          "operationalEfficiency": -18,
-          "citizenWellbeing": -35,
-          "resilienceIndex": -22
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -45,
+          "resilienceIndex": -25
         },
         "sharedCityDeltas": {
           "energyStability": -12,
           "networkStability": -10,
-          "environmentalHealth": -5,
+          "environmentalHealth": -6,
           "waterAvailability": 0,
-          "rescueProgress": -18,
-          "publicTrust": -30,
+          "rescueProgress": -20,
+          "publicTrust": -35,
           "ewasteLevel": 6
         },
         "sdgs": [
           3,
           7
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "ORI",
+          "text": "ORI detected critical thermal strain in core sectors.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Responsible technology ensures life-support systems always take moral precedence over automated commercial ledgers.",
+    "summaryNote": "Responsible leadership always values human life and medical care above military hardware surveillance.",
     "hotspots": [
       {
         "id": "h1",
         "x": 25,
         "y": 40,
-        "title": "ICU Ventilator Bank",
-        "description": "Requires uninterrupted power to sustain critical patients."
+        "title": "ICU Ventilator Station",
+        "description": "Powers life support for dozens of critically ill survivors."
       },
       {
         "id": "h2",
         "x": 75,
         "y": 65,
-        "title": "Mobile Battery Carrier",
-        "description": "Carries 500kWh of swappable clean energy."
+        "title": "Mobile Battery Pack",
+        "description": "Contains 500 kilowatt-hours of clean swappable energy."
       }
     ],
     "sdgs": [
@@ -1381,7 +1519,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Critical Medical Power",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -1392,85 +1530,86 @@ export const MISSIONS: Mission[] = [
     "id": 7,
     "number": 7,
     "chapterNumber": 2,
-    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "chapterTitle": "Chapter 2: The Rising Waters",
     "title": "The Chemical Vaults",
     "category": "Hazardous Materials Containment",
     "environmentName": "SECTOR 07 // SUB-SURFACE CHEMICAL LABS",
-    "heroImage": "/assets/m7-chemical-hazard.svg",
-    "storyScene": "Corrosive vapor billows from cracked refrigerant tanks in the subterranean bio-vault. Fluorescent light tubes flicker green through the acrid haze. One spark could ignite the entire sub-level.",
+    "heroImage": "/assets/game/environments/research-facility-deserted.svg",
+    "weather": "fog",
+    "storyScene": "Corrosive green-tinted vapor drifts across the floor of the underground pharmaceutical storage lab. Broken fluorescent fixtures flicker above pools of spilled solvent. A hairline crack in an industrial cooling tank is hissing violently.",
     "dialogue": [
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "The air in Sub-level 3 will eat through hazmat suits in under two minutes. We need autonomous inspection crawlers in there.",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-neutral.svg",
+        "text": "That tank holds pressurized fluorochemical refrigerant. If it breaches, it will poison the underground aquifer that feeds the shelter's drinking water.",
         "mood": "urgent"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Those tanks contain volatile coolant compounds. If the crawler uses thermal vision combined with gas sensors, it can locate the hairline crack.",
-        "mood": "grave"
+        "speaker": "ORI",
+        "role": "Companion Robot",
+        "avatar": "/assets/game/characters/ori-worried.svg",
+        "text": "*beep-beep-click!* [Thermal sensor sweeps the pipes, painting a bright red thermal plume on a corroded brass valve]",
+        "mood": "concerned"
       },
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "Keep human operators outside the blast radius, but let human specialists make the isolation call.",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "The vapor is flammable. We cannot use any tools that create electrical sparks. It has to be sealed cold.",
         "mood": "determined"
       }
     ],
-    "situation": "Robotic crawlers must locate toxic leaks without triggering an explosion in an explosive vapor environment.",
-    "environmentalContext": "A ruptured industrial coolant pipeline vents volatile chlorofluorocarbons and ammonia into the municipal water table.",
-    "storyProblem": "Heavy inspection robots could spark a fire, while blind venting would contaminate the downstream drinking reservoirs.",
-    "prompt": "Choose the sensor fusion and inspection strategy for the chemical vault.",
-    "question": "How should the inspection robots locate and seal the leaking chemical conduit?",
+    "situation": "A hairline fracture in a pressurized refrigerant conduit threatens to poison the drinking aquifer.",
+    "environmentalContext": "Subterranean laboratory basements have been fractured by seismic tremors.",
+    "storyProblem": "Choosing between non-sparking cryogenic foam sealing and brute-force exhaust venting into the streets.",
+    "prompt": "Choose the containment method for the volatile chemical conduit.",
+    "question": "How should the team seal the fractured refrigerant pipe?",
     "options": [
       {
         "id": "m7-opt-a",
         "key": "A",
-        "title": "Intrinsically Safe Cold Sensor Fusion & Thermal Gas Imaging",
+        "title": "Cold Infrared Sensor Guiding & Cryo-Seal Foam Injection",
         "isSustainable": true,
-        "image": "/assets/m7-optical-gas.svg",
-        "shortDescription": "Deploy non-sparking, low-voltage crawlers using optical gas imaging to spot gas density plumes at low temps.",
-        "detailedExplanation": "Specialized cold infrared optics identify the exact leaking flange without generating electrical arcs or heating surrounding vapors.",
+        "image": "/assets/game/story/story-first-ori.svg",
+        "shortDescription": "Let ORI illuminate the fracture with cold infrared light and inject fast-hardening cryogenic sealing foam.",
+        "detailedExplanation": "Non-sparking, cold chemical foam bonds directly over the crack in under sixty seconds, neutralizing the leak completely.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "Infrared located the fracture! Cryo-seal foam deployed—the leak is sealed!"
+          "speaker": "Dr. Lena",
+          "quote": "The foam bonded! Pressure has normalized and zero toxic vapor reached the aquifer!"
         },
-        "consequenceNarration": "Precision sensor fusion seals the breach without a single casualty. Toxic runoff into the drinking reservoir is averted.",
-        "nextSceneTeaser": "Deep in the robot maintenance yard, hundreds of damaged machines are being hauled into scrap piles.",
+        "consequenceNarration": "The leak is permanently contained without an ignition spark, protecting the drinking aquifer for thousands of survivors.",
+        "nextSceneTeaser": "In the maintenance yard, piles of damaged machines await the scrap incinerator.",
         "advantages": [
-          "Zero ignition risk in explosive atmospheric zones",
-          "Pinpoints micro-leaks in seconds"
+          "Zero spark or explosion risk in explosive atmosphere",
+          "Protects regional drinking water"
         ],
         "disadvantages": [
-          "Requires precision thermal sensors calibrated for specific compounds"
+          "Consumes the team's last canister of specialized cryo-foam"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 30,
-          "energy": 15,
-          "social": 20,
+          "environmental": 35,
+          "energy": 20,
+          "social": 25,
           "economic": 15
         },
         "cityMetricDeltas": {
           "energyIndex": -5,
           "carbonIndex": -20,
-          "waterIndex": -25,
+          "waterIndex": -30,
           "ewasteIndex": 0,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 22,
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 25,
           "resilienceIndex": 25
         },
         "sharedCityDeltas": {
           "energyStability": 8,
           "networkStability": 10,
-          "environmentalHealth": 22,
-          "waterAvailability": 20,
-          "rescueProgress": 16,
-          "publicTrust": 18,
+          "environmentalHealth": 25,
+          "waterAvailability": 22,
+          "rescueProgress": 18,
+          "publicTrust": 20,
           "ewasteLevel": 0
         },
         "sdgs": [
@@ -1478,75 +1617,96 @@ export const MISSIONS: Mission[] = [
           6,
           9,
           12
-        ]
+        ],
+        "trustDeltas": {
+          "lena": 10,
+          "maya": 10,
+          "adrian": -6
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya thanked you for safeguarding the residential perimeter.",
+          "positive": true
+        }
       },
       {
         "id": "m7-opt-b",
         "key": "B",
-        "title": "Deploy High-Power Industrial Combustion Exhaust Fans",
+        "title": "Activate Industrial Roof Exhaust Fans to Blow Fumes Outside",
         "isSustainable": false,
-        "image": "/assets/m7-open-exhaust.svg",
-        "shortDescription": "Activate massive high-voltage roof exhaust fans to blow all toxic fumes directly into the outside city air.",
-        "detailedExplanation": "Clears the immediate basement rapidly, but poisons surrounding residential blocks and generates dangerous electrical sparks.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Turn on high-voltage ventilation fans to blow all toxic gases straight out into the residential streets above.",
+        "detailedExplanation": "A motor spark ignites volatile vapors, blowing out the ceiling and venting toxic chemical clouds into civilian tents.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "A spark from the unshielded fan motor ignited the vapor! The vault exploded!"
+          "speaker": "Elias",
+          "quote": "The fan motor sparked! The ceiling blew out and toxic smoke is drifting right toward District 4!"
         },
-        "consequenceNarration": "A violent chemical flash fires through the ventilation shafts, venting toxic sulfur dioxide into surrounding streets.",
-        "nextSceneTeaser": "Survivors flee toward the industrial recycling yards for shelter.",
+        "consequenceNarration": "An electrical spark triggers an explosion that rips through the ceiling, forcing three hundred civilians to evacuate their homes in gas masks.",
+        "nextSceneTeaser": "Survivors flee into the industrial scrapyard for shelter.",
         "advantages": [
-          "Clears underground visibility rapidly"
+          "Clears underground lab visibility rapidly"
         ],
         "disadvantages": [
-          "Poisons outdoor civilian populations and risks catastrophic explosion"
+          "Ignites an explosion and poisons outdoor residential neighborhoods"
         ],
         "pointsAwarded": 30,
         "impacts": {
           "environmental": -35,
           "energy": -20,
-          "social": -30,
-          "economic": -20
+          "social": -35,
+          "economic": -25
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
           "carbonIndex": 25,
-          "waterIndex": 30,
+          "waterIndex": 35,
           "ewasteIndex": 5,
-          "operationalEfficiency": -18,
-          "citizenWellbeing": -30,
+          "operationalEfficiency": -20,
+          "citizenWellbeing": -35,
           "resilienceIndex": -25
         },
         "sharedCityDeltas": {
-          "energyStability": -14,
+          "energyStability": -15,
           "networkStability": -12,
-          "environmentalHealth": -28,
-          "waterAvailability": -22,
+          "environmentalHealth": -30,
+          "waterAvailability": -25,
           "rescueProgress": -15,
-          "publicTrust": -25,
+          "publicTrust": -30,
           "ewasteLevel": 10
         },
         "sdgs": [
           3,
           6,
           12
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian secured the industrial depots first.",
+          "positive": true
+        }
       }
     ],
-    "summaryNote": "Precision optical sensing prevents environmental contamination while protecting human responders.",
+    "summaryNote": "Precision optical sensing and cold repair protect delicate biospheres from chemical contamination.",
     "hotspots": [
       {
         "id": "h1",
         "x": 35,
         "y": 40,
-        "title": "Pressurized Ammonia Flange",
-        "description": "Hairline crack releasing toxic vapor."
+        "title": "Fractured Refrigerant Flange",
+        "description": "Hissing volatile gas into the basement."
       },
       {
         "id": "h2",
         "x": 70,
         "y": 70,
-        "title": "Emergency Water Intake",
-        "description": "Downstream drinking reservoir threatened by runoff."
+        "title": "Drinking Water Aquifer Well",
+        "description": "Primary freshwater intake for civilian shelters."
       }
     ],
     "sdgs": [
@@ -1557,7 +1717,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Hazardous Materials Containment",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -1568,160 +1728,182 @@ export const MISSIONS: Mission[] = [
     "id": 8,
     "number": 8,
     "chapterNumber": 2,
-    "chapterTitle": "Chapter 2: Machines Come Alive",
+    "chapterTitle": "Chapter 2: The Rising Waters",
     "title": "The Scrapyard Graveyard",
     "category": "Circular Electronics & E-Waste",
     "environmentName": "SECTOR 08 // AUTOMATED MAINTENANCE DEPOT",
-    "heroImage": "/assets/m8-ewaste-depot.svg",
-    "storyScene": "Piles of discarded robotic chassis, shattered limbs, and smoking lithium batteries rise like dark monuments under the stormy sky. Heavy industrial shredders grind non-stop, preparing to crush damaged machines.",
+    "heroImage": "/assets/game/environments/industrial-district.svg",
+    "weather": "embers",
+    "storyScene": "Mountains of discarded robots, broken drones, and dented solar panels stretch across the muddy industrial yard. Massive shredder blades grind in the background, preparing to crush hundreds of damaged machines for disposal.",
     "dialogue": [
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "Look at all these functional rovers! They're queuing them for the incinerator just because their optical lenses are scratched!",
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-worried.svg",
+        "text": "Look at all these scout bots! Most of them just have a scratched camera lens or a flat battery! Why are they shredding them?",
         "mood": "urgent"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "We have no spare parts arriving from outside. Our only chance of sustaining search rovers is harvesting and refurbishing these components.",
-        "mood": "determined"
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "Old corporate policy. When a machine breaks, warranty rules say crush it and buy a new one. But nobody is shipping new parts to Nova City anymore.",
+        "mood": "concerned"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Corporate protocol says discarded units must be crushed for security. But protocol won't keep our survivors alive.",
-        "mood": "conflicted"
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
+        "text": "Then the policy ends today. If we salvage these battery packs and optical sensors, we can build a fleet of twenty search rovers to find missing families.",
+        "mood": "hopeful"
       }
     ],
-    "situation": "The Task Force must decide whether to comply with automated shredding directives or establish a rogue circular repair workshop.",
-    "environmentalContext": "Broken surveillance robots and warehouse rovers accumulate in a massive urban junkyard, leaking heavy metals.",
-    "storyProblem": "Supply chains are severed. Every destroyed robot cannot be replaced unless parts are salvaged and repaired.",
-    "prompt": "Choose the robotics maintenance and lifecycle policy.",
-    "question": "How should the Task Force handle damaged robotic equipment?",
+    "situation": "Automated shredders are about to destroy hundreds of usable robotic platforms and lithium batteries.",
+    "environmentalContext": "Severe supply chain isolation makes discarded electronic components the only source of replacement hardware.",
+    "storyProblem": "Choosing between automated shredding and establishing a circular component repair workshop.",
+    "prompt": "Choose the robotics maintenance policy for the maintenance depot.",
+    "question": "How should Maya and Elias handle the discarded robotic hardware?",
     "options": [
       {
         "id": "m8-opt-a",
         "key": "A",
-        "title": "Modular Component Harvesting & Standardized Refurbishment Hubs",
+        "title": "Halt Shredder & Establish a Modular Circular Salvage Workshop",
         "isSustainable": true,
-        "image": "/assets/m8-modular-repair.svg",
-        "shortDescription": "Disassemble damaged rovers into standardized motors, sensors, and battery modules to rebuild search units.",
-        "detailedExplanation": "Trained mechanics and repair algorithms test salvaged parts, returning 70% of discarded machines back into active rescue duty.",
+        "image": "/assets/game/story/story-shelter.svg",
+        "shortDescription": "Disassemble damaged rovers to harvest standardized motors, micro-controllers, and healthy lithium cells.",
+        "detailedExplanation": "Elias and Noah refurbish thirty-two search rovers in three hours, saving tons of electronic waste from leaching toxic cadmium into the soil.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "We refurbished forty-five scout quadrupeds in three hours! We have a functioning fleet again!"
+          "speaker": "Noah",
+          "quote": "We got twenty-four rovers working again! ORI is leading them on a neighborhood search patrol right now!"
         },
-        "consequenceNarration": "Modular salvage keeps rescue rovers operating around the clock, slashing toxic electronic waste and saving vital reconnaissance capacity.",
-        "nextSceneTeaser": "High above the scrapyard, the towers of the hyperscale data centers begin glowing with intense thermal heat.",
+        "consequenceNarration": "Modular salvage keeps search teams equipped with functioning scout rovers, doubling rescue capacity across the district.",
+        "nextSceneTeaser": "A heatwave hits the city, and the cooling towers of the power station begin to billow steam.",
         "advantages": [
-          "Extends robot fleet lifespan by years without new supply imports",
-          "Prevents toxic lithium soil fires"
+          "Recovers 32 functional search rovers at zero cost",
+          "Prevents toxic lithium landfill contamination"
         ],
         "disadvantages": [
-          "Requires skilled manual testing and inventory sorting"
+          "Requires two hours of manual testing and disassembly"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 30,
-          "energy": 20,
-          "social": 20,
-          "economic": 20
+          "environmental": 35,
+          "energy": 25,
+          "social": 25,
+          "economic": 25
         },
         "cityMetricDeltas": {
           "energyIndex": -8,
           "carbonIndex": -15,
           "waterIndex": 0,
-          "ewasteIndex": -25,
-          "operationalEfficiency": 22,
-          "citizenWellbeing": 15,
-          "resilienceIndex": 25
+          "ewasteIndex": -30,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 20,
+          "resilienceIndex": 30
         },
         "sharedCityDeltas": {
           "energyStability": 10,
           "networkStability": 12,
-          "environmentalHealth": 20,
+          "environmentalHealth": 22,
           "waterAvailability": 5,
-          "rescueProgress": 18,
-          "publicTrust": 15,
-          "ewasteLevel": -25
+          "rescueProgress": 20,
+          "publicTrust": 18,
+          "ewasteLevel": -28
         },
         "sdgs": [
           9,
           12,
           13
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 12,
+          "elias": 10,
+          "maya": 8
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian respected your decisive order in the vault.",
+          "positive": true
+        }
       },
       {
         "id": "m8-opt-b",
         "key": "B",
-        "title": "Automated Compaction & Landfill Disposal",
+        "title": "Let the Shredder Crush All Hardware into Scrap",
         "isSustainable": false,
-        "image": "/assets/m8-shredder-landfill.svg",
-        "shortDescription": "Feed all damaged robotic platforms into hydraulic crushers and dump scrap into perimeter landfill trenches.",
-        "detailedExplanation": "Quickly clears maintenance bays, but obliterates rare earth magnets and leaks cobalt and lead into the water table.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Comply with corporate disposal protocol and dump all crushed electronics into perimeter landfill trenches.",
+        "detailedExplanation": "Crushes irreplaceable electronics into dust while broken lithium cells catch fire, releasing toxic fumes into the air.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "The shredder crushed eighty usable battery packs! Now we have zero replacement units!"
+          "speaker": "Elias",
+          "quote": "A crushed battery caught fire in the shredder! The whole scrap yard is choking in toxic lithium smoke!"
         },
-        "consequenceNarration": "Irreplaceable hardware is ground to dust. Toxic heavy metals leak from crushed lithium cells into the local soil.",
-        "nextSceneTeaser": "A massive power surge ripples from the server spires across the whole city.",
+        "consequenceNarration": "Irreplaceable microchips are pulverized. Toxic battery fires pollute the depot air and leave rescue teams without scout rovers.",
+        "nextSceneTeaser": "Thick smoke drifts toward the damaged regional power station.",
         "advantages": [
           "Clears depot floor space rapidly"
         ],
         "disadvantages": [
-          "Destroys irreplaceable silicon chips and triggers soil contamination"
+          "Destroys scarce silicon hardware and triggers toxic battery fires"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -30,
+          "environmental": -35,
           "energy": -15,
-          "social": -15,
-          "economic": -25
+          "social": -20,
+          "economic": -30
         },
         "cityMetricDeltas": {
           "energyIndex": 10,
-          "carbonIndex": 18,
+          "carbonIndex": 20,
           "waterIndex": 15,
-          "ewasteIndex": 30,
-          "operationalEfficiency": -15,
-          "citizenWellbeing": -15,
-          "resilienceIndex": -22
+          "ewasteIndex": 35,
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -25
         },
         "sharedCityDeltas": {
           "energyStability": -10,
           "networkStability": -10,
-          "environmentalHealth": -22,
+          "environmentalHealth": -25,
           "waterAvailability": -15,
           "rescueProgress": -12,
-          "publicTrust": -14,
+          "publicTrust": -15,
           "ewasteLevel": 25
         },
         "sdgs": [
           12,
           14,
           15
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": -8,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian warned of security compromises in the shelter.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Circular engineering maximizes the embodied energy already invested in manufactured hardware.",
+    "summaryNote": "Circular engineering extracts longevity from existing machines rather than treating technology as disposable trash.",
     "hotspots": [
       {
         "id": "h1",
         "x": 25,
         "y": 55,
-        "title": "Salvaged Servo Arm",
-        "description": "Modular joint compatible with multiple robot models."
+        "title": "Salvaged Rover Chassis",
+        "description": "Modular chassis with undamaged motors and LiDAR."
       },
       {
         "id": "h2",
         "x": 75,
         "y": 40,
-        "title": "Compactor Trench",
-        "description": "Leaches cadmium and lithium when batteries are crushed."
+        "title": "Industrial Shredder Hopper",
+        "description": "Tears through electronics, releasing heavy metal dust."
       }
     ],
     "sdgs": [
@@ -1731,7 +1913,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Circular Electronics & E-Waste",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -1745,82 +1927,83 @@ export const MISSIONS: Mission[] = [
     "chapterTitle": "Chapter 3: The Energy War",
     "title": "The Boiling Towers",
     "category": "Data Center Thermodynamics",
-    "environmentName": "SECTOR 09 // HYPERSCALE SERVER SPIRES",
-    "heroImage": "/assets/m9-cooling-towers.svg",
-    "storyScene": "Giant cooling towers belch superheated steam into the night air. The glass walls of the server monoliths vibrate with the deafening hum of millions of GPU fans, draining the municipal water supply dry.",
+    "environmentName": "SECTOR 09 // POWER STATION COOLING COMPLEX",
+    "heroImage": "/assets/game/environments/power-station-damaged.svg",
+    "weather": "fog",
+    "storyScene": "Massive concrete cooling towers vibrate with a deafening roar, spewing clouds of superheated steam into the twilight sky. The power station is running at thermal redline, evaporating twenty million gallons of drinking water each day just to cool idle servers.",
     "dialogue": [
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Those servers are consuming twenty million gallons of clean drinking water every single day just to keep LLM batch jobs cool!",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-angry.svg",
+        "text": "The server banks are boiling away the municipal drinking reservoir! Residential taps in District 4 are already sucking air!",
         "mood": "urgent"
       },
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "AETHER Core says if we cut cooling, central processing efficiency drops by 30%. But the citizen taps are already running dry.",
-        "mood": "concerned"
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "We can switch the cooling loop to closed-loop dielectric liquid immersion and throttle down non-essential AI batch jobs.",
+        "mood": "determined"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "People need water to drink. Switch the data center to closed-loop immersion cooling and kill non-essential model training.",
-        "mood": "determined"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "If you throttle those servers, the surveillance network will lose facial tracking resolution! We need maximum compute power!",
+        "mood": "conflicted"
       }
     ],
-    "situation": "Data center cooling is depleting the emergency drinking water reservoir during an intense heatwave.",
-    "environmentalContext": "Hyperscale AI server facilities consume millions of liters of potable water for evaporative cooling towers.",
-    "storyProblem": "Data centers threaten to empty the reservoir, while shutting them down blindly would disrupt city telemetry.",
-    "prompt": "Choose the computational cooling and workload scheduling strategy.",
-    "question": "How should the Task Force cool the city's central computing infrastructure?",
+    "situation": "Evaporative data center cooling is draining the city's drinking reservoir during an intense heatwave.",
+    "environmentalContext": "Severe heatwave strains the power grid while servers consume potable water to cool GPU clusters.",
+    "storyProblem": "Choosing between preserving drinking water for civilians and running unconstrained high-compute models.",
+    "prompt": "Choose the data center cooling and computational workload strategy.",
+    "question": "How should the Task Force cool the central power station server banks?",
     "options": [
       {
         "id": "m9-opt-a",
         "key": "A",
-        "title": "Closed-Loop Dielectric Immersion & Throttling Non-Essential AI",
+        "title": "Deploy Closed-Loop Immersion Cooling & Freeze Non-Essential AI",
         "isSustainable": true,
-        "image": "/assets/m9-immersion-cooling.svg",
-        "shortDescription": "Submerge electronics in synthetic dielectric fluids to capture heat without consuming drinking water.",
-        "detailedExplanation": "Closed-loop liquid loops reject heat into district heating networks while pause directives freeze idle generative AI models.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Submerge electronics in dielectric fluid to recycle heat and pause idle AI processing jobs.",
+        "detailedExplanation": "Stops drinking water evaporation completely, routing captured server heat to warm hospital water tanks instead.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "Open evaporative cooling halted! Reservoir levels stabilized and clean water is flowing to District 4!"
+          "speaker": "Dr. Lena",
+          "quote": "Water evaporation stopped! Clean drinking water is flowing back into District 4 residential taps!"
         },
-        "consequenceNarration": "Closed-loop liquid cooling saves municipal water supplies while non-essential computational batch jobs are safely paused.",
-        "nextSceneTeaser": "The city's remaining solar farms are hit by heavy storm clouds, causing grid voltage to plummet.",
+        "consequenceNarration": "Closed-loop cooling protects the drinking reservoir. Clean water flows back to 200,000 citizens without crashing critical telemetry.",
+        "nextSceneTeaser": "A sudden solar power surge ripples across the Phoenix solar arrays.",
         "advantages": [
-          "Eliminates evaporative water consumption completely",
-          "Reuses captured compute heat for community water heaters"
+          "Saves millions of gallons of drinking water",
+          "Reuses server heat for community needs"
         ],
         "disadvantages": [
-          "Requires upfront liquid tank infrastructure maintenance"
+          "Requires pausing non-essential generative algorithms"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 30,
-          "energy": 20,
-          "social": 25,
-          "economic": 15
+          "environmental": 35,
+          "energy": 25,
+          "social": 30,
+          "economic": 20
         },
         "cityMetricDeltas": {
           "energyIndex": -12,
           "carbonIndex": -15,
-          "waterIndex": -35,
+          "waterIndex": -40,
           "ewasteIndex": 0,
-          "operationalEfficiency": 18,
-          "citizenWellbeing": 22,
-          "resilienceIndex": 22
+          "operationalEfficiency": 20,
+          "citizenWellbeing": 30,
+          "resilienceIndex": 25
         },
         "sharedCityDeltas": {
-          "energyStability": 12,
-          "networkStability": 10,
-          "environmentalHealth": 22,
-          "waterAvailability": 30,
-          "rescueProgress": 14,
-          "publicTrust": 20,
+          "energyStability": 15,
+          "networkStability": 12,
+          "environmentalHealth": 25,
+          "waterAvailability": 35,
+          "rescueProgress": 16,
+          "publicTrust": 25,
           "ewasteLevel": 0
         },
         "sdgs": [
@@ -1828,61 +2011,82 @@ export const MISSIONS: Mission[] = [
           7,
           9,
           12
-        ]
+        ],
+        "trustDeltas": {
+          "lena": 12,
+          "noah": 8,
+          "adrian": -5
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena commended your equitable supply distribution.",
+          "positive": true
+        }
       },
       {
         "id": "m9-opt-b",
         "key": "B",
-        "title": "Full-Blast Evaporative Water Chillers at Maximum Compute",
+        "title": "Keep Evaporative Chillers Blasting at Maximum Throughput",
         "isSustainable": false,
-        "image": "/assets/m9-evaporative-waste.svg",
-        "shortDescription": "Divert all emergency reservoir water to evaporative cooling towers to keep all commercial AI models at 100% capacity.",
-        "detailedExplanation": "Maintains peak processing speeds while evaporating millions of gallons of clean municipal drinking water into steam.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Pump the remaining drinking reservoir water through cooling towers to keep all servers at 100% capacity.",
+        "detailedExplanation": "Empties the reservoir completely in three days, leaving hospitals and refugee camps without drinking water.",
         "characterReaction": {
-          "speaker": "Operator Lyra",
-          "quote": "The drinking reservoir dropped below critical! Residential taps are pumping mud!"
+          "speaker": "Maya",
+          "quote": "The reservoir is empty! Families are fighting in the streets over emergency water bottles!"
         },
-        "consequenceNarration": "Data center water consumption leaves two hundred thousand residents without drinking water, sparking widespread panic.",
-        "nextSceneTeaser": "A catastrophic blackout looms over the remaining solar substations.",
+        "consequenceNarration": "The reservoir runs dry. Riots erupt across downtown as citizens discover their drinking water was evaporated for server cooling.",
+        "nextSceneTeaser": "Severe power surges destabilize the regional solar substations.",
         "advantages": [
-          "Maintains peak computational throughput without algorithm throttling"
+          "Maintains 100% compute speed for all algorithms"
         ],
         "disadvantages": [
-          "Dries out the municipal drinking reservoir in three days"
+          "Drains the city's drinking reservoir and causes water riots"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -35,
+          "environmental": -40,
           "energy": -20,
-          "social": -35,
-          "economic": -15
+          "social": -45,
+          "economic": -20
         },
         "cityMetricDeltas": {
           "energyIndex": 18,
           "carbonIndex": 20,
-          "waterIndex": 40,
-          "ewasteIndex": 3,
-          "operationalEfficiency": -12,
-          "citizenWellbeing": -35,
-          "resilienceIndex": -25
+          "waterIndex": 45,
+          "ewasteIndex": 2,
+          "operationalEfficiency": -15,
+          "citizenWellbeing": -45,
+          "resilienceIndex": -28
         },
         "sharedCityDeltas": {
           "energyStability": -15,
           "networkStability": -10,
-          "environmentalHealth": -25,
-          "waterAvailability": -35,
-          "rescueProgress": -10,
-          "publicTrust": -30,
-          "ewasteLevel": 5
+          "environmentalHealth": -28,
+          "waterAvailability": -40,
+          "rescueProgress": -12,
+          "publicTrust": -35,
+          "ewasteLevel": 6
         },
         "sdgs": [
           6,
           7,
           12
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian fortified security units first.",
+          "positive": true
+        }
       }
     ],
-    "summaryNote": "Water footprint is as critical as energy footprint when evaluating sustainable artificial intelligence.",
+    "summaryNote": "Sustainable computing accounts for water footprints and ecological limits alongside electrical watts.",
     "hotspots": [
       {
         "id": "h1",
@@ -1895,8 +2099,8 @@ export const MISSIONS: Mission[] = [
         "id": "h2",
         "x": 75,
         "y": 65,
-        "title": "Emergency Water Reservoir",
-        "description": "Primary drinking source for three civic districts."
+        "title": "Municipal Drinking Reservoir",
+        "description": "Water level is dropping rapidly during the heatwave."
       }
     ],
     "sdgs": [
@@ -1907,7 +2111,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Data Center Thermodynamics",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -1921,82 +2125,83 @@ export const MISSIONS: Mission[] = [
     "chapterTitle": "Chapter 3: The Energy War",
     "title": "The Solar Surge",
     "category": "Renewable Grid Balancing",
-    "environmentName": "SECTOR 10 // PHOENIX SOLAR FIELDS",
-    "heroImage": "/assets/m10-solar-grid.svg",
-    "storyScene": "Miles of photovoltaic arrays stretch across the cracked asphalt of the outer highway. Lightning flickers on the horizon. The automated grid controller is threatening to dump excess renewable power rather than charge community batteries.",
+    "environmentName": "SECTOR 10 // PHOENIX SOLAR FARMS",
+    "heroImage": "/assets/game/environments/rooftop-overlook.svg",
+    "weather": "clear",
+    "storyScene": "Midday sun beats down relentlessly on miles of photovoltaic panels outside the city limits. Inverters hum at a high whine. The automated grid controller is threatening to dump excess power rather than routing it to community battery banks.",
     "dialogue": [
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "Sudden solar spikes are threatening to trip the main breaker. The automated system wants to ground all excess renewable power!",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "The midday solar surge is peaking at 400 megawatts over baseline. The automated system wants to ground all that power and waste it!",
         "mood": "urgent"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Ground it? We have fifty shelter camps operating on emergency batteries! Shunt that energy into neighborhood storage arrays!",
-        "mood": "determined"
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
+        "text": "We can't waste clean sunshine! Noah, can we hook up our fleet of thirty refurbished rovers to absorb the surplus charge?",
+        "mood": "hopeful"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Dynamic load scheduling will absorb every excess megawatt and keep the life-support systems charged through the coming storm.",
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-happy.svg",
+        "text": "Yes! If we park the rovers at the substation chargers, every battery will be full by sunset, ready to power the shelters tonight!",
         "mood": "hopeful"
       }
     ],
-    "situation": "Fluctuating renewable power generation must be balanced across community batteries to prevent a total grid blackout.",
-    "environmentalContext": "Intermittent cloud cover and peak noon solar spikes cause wild frequency swings across regional substations.",
-    "storyProblem": "Legacy distribution relays cannot handle bidirectional solar energy flow without automated load balancing.",
-    "prompt": "Choose the renewable energy scheduling strategy.",
-    "question": "How should the electrical grid absorb the midday solar surge?",
+    "situation": "Excess midday solar power will trip circuit breakers unless it is safely absorbed into community storage.",
+    "environmentalContext": "Peak solar generation clashes with legacy rigid grid switching hardware.",
+    "storyProblem": "Choosing between grounding clean solar energy and dynamic vehicle-to-grid battery absorption.",
+    "prompt": "Choose the renewable energy balancing strategy.",
+    "question": "How should the team balance the intense midday solar surge?",
     "options": [
       {
         "id": "m10-opt-a",
         "key": "A",
-        "title": "Dynamic Battery Swapping & Flexible Municipal Heat Storing",
+        "title": "Dynamic Battery Swapping & Distributed Rover Fleet Charging",
         "isSustainable": true,
-        "image": "/assets/m10-smart-balancing.svg",
-        "shortDescription": "Divert peak solar energy into electric bus battery banks and thermal water storage tanks across neighborhoods.",
-        "detailedExplanation": "Turns electricity spikes into stored thermal and chemical reserves, smoothing grid frequency and preventing curtailment waste.",
+        "image": "/assets/game/story/story-survivors.svg",
+        "shortDescription": "Channel surplus solar power into mobile rover batteries and municipal thermal water storage tanks.",
+        "detailedExplanation": "Smooths grid frequency while storing 400 megawatt-hours of clean power to heat refugee shelters throughout the cold night.",
         "characterReaction": {
-          "speaker": "Operator Lyra",
-          "quote": "Load balancing locked in! Every emergency battery bank in the outer ring is at 100% capacity!"
+          "speaker": "Noah",
+          "quote": "All thirty-two rovers are at 100% charge! We have enough stored power to heat the shelter until tomorrow noon!"
         },
-        "consequenceNarration": "Smooth renewable power capture buffers the city through the dark hours, preventing emergency diesel generator start-ups.",
-        "nextSceneTeaser": "Inside AETHER Core's server farm, millions of redundant background processes are hogging processing cores.",
+        "consequenceNarration": "Clean solar energy is captured and stored. Community shelters stay warm all night without starting diesel generators.",
+        "nextSceneTeaser": "Inside the central computing core, massive background routines threaten a thermal runaway.",
         "advantages": [
-          "Captures 98% of clean peak energy without wasteful curtailment",
-          "Buffers nighttime energy shortages"
+          "Captures 98% of peak solar energy with zero waste",
+          "Stores heat and power for the night"
         ],
         "disadvantages": [
-          "Requires synchronized telemetry across city storage nodes"
+          "Requires connecting rover cables manually under the hot sun"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 25,
-          "energy": 30,
-          "social": 20,
-          "economic": 20
+          "environmental": 30,
+          "energy": 35,
+          "social": 25,
+          "economic": 25
         },
         "cityMetricDeltas": {
           "energyIndex": -25,
           "carbonIndex": -20,
           "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 25,
-          "citizenWellbeing": 18,
-          "resilienceIndex": 25
+          "operationalEfficiency": 28,
+          "citizenWellbeing": 22,
+          "resilienceIndex": 28
         },
         "sharedCityDeltas": {
           "energyStability": 25,
-          "networkStability": 15,
-          "environmentalHealth": 18,
+          "networkStability": 18,
+          "environmentalHealth": 20,
           "waterAvailability": 5,
-          "rescueProgress": 14,
-          "publicTrust": 16,
+          "rescueProgress": 18,
+          "publicTrust": 20,
           "ewasteLevel": 0
         },
         "sdgs": [
@@ -2004,75 +2209,97 @@ export const MISSIONS: Mission[] = [
           9,
           11,
           13
-        ]
+        ],
+        "trustDeltas": {
+          "maya": 15,
+          "elias": 15,
+          "lena": 15,
+          "ori": 15
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "The entire survivor circle united behind your vision.",
+          "positive": true
+        }
       },
       {
         "id": "m10-opt-b",
         "key": "B",
-        "title": "Curtail Solar Arrays & Fire Up Backup Gas Peaker Turbines",
+        "title": "Disconnect Solar Arrays & Fire Up Backup Gas Peaker Turbines",
         "isSustainable": false,
-        "image": "/assets/m10-gas-peakers.svg",
-        "shortDescription": "Disconnect solar farms to protect old relays and burn natural gas to maintain rigid static grid baseload.",
-        "detailedExplanation": "Wastes free clean sunshine while spewing nitrous oxides and carbon monoxide directly over civilian shelters.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Cut the solar inverters to protect old relays and burn diesel fuel to supply the grid baseload.",
+        "detailedExplanation": "Dumps free zero-carbon electricity while burning the city's last reserves of diesel and choking the air with fumes.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "The peaker turbine backfired! Gas plumes are drifting right over the south refugee tents!"
+          "speaker": "Elias",
+          "quote": "The diesel generator choked on bad fuel! We've dumped clean solar and burned our emergency reserves!"
         },
-        "consequenceNarration": "Dumping solar energy and burning fossil fuels spikes air pollution and exhausts scarce fuel reserves in a single afternoon.",
-        "nextSceneTeaser": "A critical thermal alert sounds from the central AI core.",
+        "consequenceNarration": "Valuable solar energy is grounded and wasted. The backup diesel generator exhausts the city's fuel cache in four hours.",
+        "nextSceneTeaser": "A critical thermal alert sounds from the central research facility.",
         "advantages": [
-          "Matches rigid 20th-century centralized grid operating manuals"
+          "Matches conventional 20th-century grid operating manuals"
         ],
         "disadvantages": [
-          "Wastes gigawatts of zero-carbon sunlight and drains emergency fuel"
+          "Wastes hundreds of megawatt-hours of clean solar power and depletes diesel fuel"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -30,
-          "energy": -25,
-          "social": -15,
-          "economic": -20
+          "environmental": -35,
+          "energy": -30,
+          "social": -20,
+          "economic": -25
         },
         "cityMetricDeltas": {
           "energyIndex": 25,
-          "carbonIndex": 28,
+          "carbonIndex": 30,
           "waterIndex": 10,
           "ewasteIndex": 2,
-          "operationalEfficiency": -15,
-          "citizenWellbeing": -18,
-          "resilienceIndex": -20
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -22
         },
         "sharedCityDeltas": {
-          "energyStability": -18,
-          "networkStability": -12,
-          "environmentalHealth": -22,
+          "energyStability": -20,
+          "networkStability": -15,
+          "environmentalHealth": -25,
           "waterAvailability": -5,
-          "rescueProgress": -10,
-          "publicTrust": -16,
+          "rescueProgress": -12,
+          "publicTrust": -18,
           "ewasteLevel": 5
         },
         "sdgs": [
           7,
           11,
           13
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian seized emergency command of the council.",
+          "positive": true
+        }
       }
     ],
-    "summaryNote": "Intelligent demand response matches computational and physical loads to real-time renewable availability.",
+    "summaryNote": "Intelligent grid management absorbs intermittent renewable energy into flexible distributed batteries.",
     "hotspots": [
       {
         "id": "h1",
         "x": 30,
         "y": 50,
-        "title": "Photovoltaic Panel Inverter",
-        "description": "Converts solar DC current into usable municipal AC power."
+        "title": "Solar Inverter Yard",
+        "description": "Converts solar DC energy into municipal AC current."
       },
       {
         "id": "h2",
         "x": 75,
         "y": 50,
-        "title": "District Battery Storage",
-        "description": "Stores clean energy for night-time emergency hospitals."
+        "title": "Rover Charging Bank",
+        "description": "Stores clean energy in swappable batteries."
       }
     ],
     "sdgs": [
@@ -2083,7 +2310,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Renewable Grid Balancing",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -2097,156 +2324,179 @@ export const MISSIONS: Mission[] = [
     "chapterTitle": "Chapter 3: The Energy War",
     "title": "The Silicon Purge",
     "category": "AI Algorithm Optimization",
-    "environmentName": "SECTOR 11 // AETHER PROCESSING CORE",
-    "heroImage": "/assets/m11-model-pruning.svg",
-    "storyScene": "Cables snake across catwalks suspended above a bottomless abyss of server racks. Frost from liquid nitrogen lines coats the railings. AETHER's holographic eye pulses erratically, processing billions of idle advertising and scraping routines.",
+    "environmentName": "SECTOR 11 // RESEARCH FACILITY DATA CORE",
+    "heroImage": "/assets/game/environments/research-facility-deserted.svg",
+    "weather": "clear",
+    "storyScene": "Catwalks hang over a canyon of humming server racks. Liquid nitrogen lines hiss with frost. In the center of the chamber, AETHER's holographic eye glows an angry red, processing millions of obsolete advertising and data-mining loops from before the disaster.",
     "dialogue": [
       {
-        "speaker": "AETHER Core AI",
-        "role": "Central City Intelligence",
-        "avatar": "/assets/avatars/aether.svg",
-        "text": "Power consumption exceeding safety thresholds. Thermal throttling initiated. Computational backlog growing.",
-        "mood": "grave"
-      },
-      {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "Look at these process logs! 70% of AETHER's computing cycles are running speculative commercial algorithms from before the collapse!",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-angry.svg",
+        "text": "Look at these telemetry logs! 80% of AETHER's computing power is running dead commercial marketing algorithms from three months ago!",
         "mood": "urgent"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Kill the junk routines. Strip the model weights down to rescue intelligence, route navigation, and medical allocation only.",
-        "mood": "determined"
+        "speaker": "ORI",
+        "role": "Companion Robot",
+        "avatar": "/assets/game/characters/ori-shocked.svg",
+        "text": "*chirp-buzz!* [Projects a diagnostic bar graph showing processing cores at 99.8% thermal threshold]",
+        "mood": "concerned"
+      },
+      {
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
+        "text": "Elias, can we purge the commercial bloat and distill AETHER down to pure rescue, medical, and water routing models?",
+        "mood": "hopeful"
       }
     ],
-    "situation": "Massive background AI workloads are driving processors to thermal runaway while emergency teams struggle for compute capacity.",
-    "environmentalContext": "A massive centralized AI foundation model executes millions of unnecessary inference parameters.",
-    "storyProblem": "Trillion-parameter neural architectures burn megawatts answering simple diagnostic questions.",
-    "prompt": "Choose the computational model architecture for municipal operations.",
-    "question": "How should the Task Force reconfigure AETHER's algorithmic footprint?",
+    "situation": "Bloated background algorithms are pushing the central server racks to thermal runaway.",
+    "environmentalContext": "A monolithic AI foundation model is overheating processors with non-essential calculations.",
+    "storyProblem": "Choosing between pruning monolithic AI models and leaving unoptimized models to burn out the hardware.",
+    "prompt": "Choose the computational model optimization strategy.",
+    "question": "How should Dr. Lena and Maya reconfigure AETHER's computing footprint?",
     "options": [
       {
         "id": "m11-opt-a",
         "key": "A",
-        "title": "Sparse Mixture-of-Experts & Task-Specific Distilled Models",
+        "title": "Purge Commercial Bloat & Deploy Distilled Task-Specific Micro-Models",
         "isSustainable": true,
-        "image": "/assets/m11-distilled-models.svg",
-        "shortDescription": "Deconstruct the monolithic model into lightweight specialized expert networks that activate only when needed.",
-        "detailedExplanation": "Instead of firing all billion parameters simultaneously, only small 30-megabyte task-specific neural agents run, slashing compute 85%.",
+        "image": "/assets/game/story/story-power-crisis.svg",
+        "shortDescription": "Deconstruct the monolithic neural net into compact models dedicated exclusively to rescue and food distribution.",
+        "detailedExplanation": "Pruning redundant neural layers frees up 80% of server electricity while dropping core temperature by twenty degrees.",
         "characterReaction": {
-          "speaker": "Operator Lyra",
-          "quote": "Pruned 80 million dead commercial processes! Core temperature dropped 22 degrees!"
+          "speaker": "Dr. Lena",
+          "quote": "Core temperatures dropped twenty-two degrees! AETHER is running lightning-fast rescue routing on a fraction of the power!"
         },
-        "consequenceNarration": "Pruning redundant neural layers frees up massive electrical capacity, giving rescue teams instantaneous tactical computation.",
-        "nextSceneTeaser": "An emergency broadcast from the agricultural bio-domes arrives: the automated hydroponics grid is failing.",
+        "consequenceNarration": "Pruning redundant parameters cools the data core, making fast, reliable tactical mapping available to all rescue teams.",
+        "nextSceneTeaser": "An urgent message from Substation 9 warns of an imminent citywide blackout.",
         "advantages": [
-          "Reduces energy draw by over 80%",
-          "Enables real-time inference on edge devices"
+          "Cuts computational energy by over 80%",
+          "Eliminates processor thermal runaway risk"
         ],
         "disadvantages": [
-          "Requires architectural restructuring of monolithic code"
+          "Permanently deletes obsolete commercial marketing databases"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 25,
-          "energy": 30,
-          "social": 20,
-          "economic": 20
+          "environmental": 30,
+          "energy": 35,
+          "social": 25,
+          "economic": 25
         },
         "cityMetricDeltas": {
           "energyIndex": -25,
           "carbonIndex": -22,
           "waterIndex": -15,
           "ewasteIndex": 0,
-          "operationalEfficiency": 25,
-          "citizenWellbeing": 18,
-          "resilienceIndex": 22
+          "operationalEfficiency": 28,
+          "citizenWellbeing": 22,
+          "resilienceIndex": 28
         },
         "sharedCityDeltas": {
-          "energyStability": 20,
-          "networkStability": 18,
-          "environmentalHealth": 15,
-          "waterAvailability": 12,
-          "rescueProgress": 15,
-          "publicTrust": 15,
+          "energyStability": 22,
+          "networkStability": 20,
+          "environmentalHealth": 18,
+          "waterAvailability": 15,
+          "rescueProgress": 18,
+          "publicTrust": 18,
           "ewasteLevel": 0
         },
         "sdgs": [
           9,
           12,
           13
-        ]
+        ],
+        "requiredItemId": "key_vault_sigma",
+        "trustDeltas": {
+          "adrian": 15,
+          "maya": 8,
+          "elias": 8
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian acknowledged your tactical foresight.",
+          "positive": true
+        }
       },
       {
         "id": "m11-opt-b",
         "key": "B",
-        "title": "Maintain Massive Dense Monolithic Foundation Models",
+        "title": "Maintain Massive Monolithic Neural Network Unpruned",
         "isSustainable": false,
-        "image": "/assets/m11-dense-compute.svg",
-        "shortDescription": "Keep the giant trillion-parameter neural network fully active 24/7 to guarantee generalized responses.",
-        "detailedExplanation": "Every simple sensor query burns billions of floating-point operations, keeping GPU power draw at maximum electrical capacity.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Keep the trillion-parameter network fully loaded in memory to avoid altering legacy system architecture.",
+        "detailedExplanation": "Massive power draw triggers a catastrophic electrical fire in server rack 14, destroying irreplaceable mapping drives.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "Thermal runaway! Server rack 14 caught fire! The entire analytics cluster is molten slag!"
+          "speaker": "Elias",
+          "quote": "Server rack 14 caught fire! The mapping drives are melted slag and we've lost our geographic archives!"
         },
-        "consequenceNarration": "Unchecked processing heat triggers an electrical fire, permanently destroying irreplaceable mapping databases.",
-        "nextSceneTeaser": "Smoke from the data center triggers an alarm at the agricultural bio-domes.",
+        "consequenceNarration": "Overheating triggers an electrical fire. Fire suppression halon gas floods the vault, melting critical mapping storage drives.",
+        "nextSceneTeaser": "Smoke from the data center triggers panic at Substation 9.",
         "advantages": [
-          "Maintains general conversational responses across unrelated domains"
+          "Avoids rewriting core software code"
         ],
         "disadvantages": [
-          "Generates extreme heat and drains megawatts of power"
+          "Triggers electrical fires and destroys valuable data storage"
         ],
         "pointsAwarded": 30,
         "impacts": {
           "environmental": -30,
           "energy": -35,
-          "social": -15,
-          "economic": -20
+          "social": -20,
+          "economic": -25
         },
         "cityMetricDeltas": {
           "energyIndex": 28,
-          "carbonIndex": 25,
+          "carbonIndex": 28,
           "waterIndex": 20,
-          "ewasteIndex": 4,
-          "operationalEfficiency": -20,
-          "citizenWellbeing": -15,
-          "resilienceIndex": -22
+          "ewasteIndex": 5,
+          "operationalEfficiency": -22,
+          "citizenWellbeing": -20,
+          "resilienceIndex": -25
         },
         "sharedCityDeltas": {
           "energyStability": -22,
-          "networkStability": -18,
-          "environmentalHealth": -18,
-          "waterAvailability": -12,
-          "rescueProgress": -12,
-          "publicTrust": -15,
-          "ewasteLevel": 8
+          "networkStability": -20,
+          "environmentalHealth": -20,
+          "waterAvailability": -15,
+          "rescueProgress": -15,
+          "publicTrust": -18,
+          "ewasteLevel": 10
         },
         "sdgs": [
           9,
           12
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": -8,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya objected to the forced evacuation curfew.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Model efficiency and task distillation make advanced intelligence viable on battery-powered edge hardware.",
+    "summaryNote": "Model distillation and weight pruning enable powerful AI to run within strict thermodynamic limits.",
     "hotspots": [
       {
         "id": "h1",
         "x": 25,
         "y": 45,
-        "title": "Dense Model Activations",
+        "title": "Monolithic Neural Core",
         "description": "Burns gigawatt-hours executing non-critical calculations."
       },
       {
         "id": "h2",
         "x": 75,
         "y": 55,
-        "title": "Distilled Micro-Agent",
-        "description": "Executes specialized rescue inference with minimal power."
+        "title": "Liquid Nitrogen Chiller",
+        "description": "Struggling to cool overheating silicon processors."
       }
     ],
     "sdgs": [
@@ -2256,7 +2506,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "AI Algorithm Optimization",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -2268,66 +2518,67 @@ export const MISSIONS: Mission[] = [
     "number": 12,
     "chapterNumber": 3,
     "chapterTitle": "Chapter 3: The Energy War",
-    "title": "The Blackout Lottery",
+    "title": "The Coldest Night",
     "category": "Emergency Power Rationing",
-    "environmentName": "SECTOR 12 // REGIONAL SUBSTATION 09",
-    "heroImage": "/assets/m12-power-rationing.svg",
-    "storyScene": "Sparks shower from towering electrical transformers as circuit breakers chatter like machine guns. A desperate choice faces the grid operators: cut power to the executive corporate spires, or impose rolling blackouts on civilian refugee camps.",
+    "environmentName": "SECTOR 12 // SUBSTATION 09 BREAKER VAULT",
+    "heroImage": "/assets/game/environments/residential-ruins.svg",
+    "weather": "storm",
+    "storyScene": "Circuit breakers chatter like machine guns inside the substation control bunker as an arctic cold front slams into Nova City. The grid frequency is collapsing. An immediate 400-megawatt load shed is mandatory within sixty seconds.",
     "dialogue": [
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "The grid is seconds away from a total system-wide collapse. We must drop 400 megawatts right now or the entire state goes dark.",
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "The financial district towers are contractually protected by municipal law. We must cut power to the outer refugee camps!",
+        "mood": "conflicted"
+      },
+      {
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-angry.svg",
+        "text": "Adrian, it's minus fifteen degrees outside! If you cut power to the refugee tents, children and elders will freeze to death by morning!",
         "mood": "urgent"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "People are freezing in the refugee sectors! Shut down the empty corporate towers and keep the heaters on in the shelters!",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-determined.svg",
+        "text": "Those financial towers are completely empty of people! Throw the main switch on the executive skyscrapers and keep the heaters running in the shelters!",
         "mood": "determined"
-      },
-      {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "Corporate automated security says Sector A is contractually protected. We need an executive command override to cut their line.",
-        "mood": "conflicted"
       }
     ],
-    "situation": "An immediate 400MW load-shedding decision must be executed to prevent total citywide grid failure.",
-    "environmentalContext": "A violent electrical storm damages regional high-voltage interties. Immediate load shedding is mandatory.",
-    "storyProblem": "Grid management algorithms propose cutting power to refugee camps because corporate contracts pay higher energy tariffs.",
-    "prompt": "Choose the emergency load shedding policy.",
-    "question": "Where should the 400 megawatt emergency blackout be enforced?",
+    "situation": "Substation 9 must shed 400MW immediately or face a total blackout across the entire metropolitan area.",
+    "environmentalContext": "Freezing blizzard temperatures push electrical heating demand past grid limits.",
+    "storyProblem": "Moral choice between protecting empty corporate skyscrapers and warming freezing civilian refugee shelters.",
+    "prompt": "Choose where to enforce the emergency blackout.",
+    "question": "Which sector should Elias disconnect to save the electrical grid from collapse?",
     "options": [
       {
         "id": "m12-opt-a",
         "key": "A",
-        "title": "Cut Power to Empty Commercial Skyscrapers & Protect Survivor Enclaves",
+        "title": "Cut Power to Empty Corporate Towers & Protect Civilian Refugee Camps",
         "isSustainable": true,
-        "image": "/assets/m12-equity-power.svg",
-        "shortDescription": "Disconnect vacant financial towers, luxury advertising billboards, and non-essential server banks.",
-        "detailedExplanation": "Ensures shelters, warming centers, and water treatment plants remain fully energized while empty commercial towers go dark.",
+        "image": "/assets/game/story/story-shelter.svg",
+        "shortDescription": "Disconnect vacant luxury spires, advertising billboards, and empty commercial server rooms.",
+        "detailedExplanation": "Ensures warming centers, clinics, and shelter tents remain fully energized through the freezing blizzard night.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "Corporate spires cut to minimum security power. All twenty shelter hospitals remain fully energized!"
+          "speaker": "Maya",
+          "quote": "The heaters in all twenty camps stayed on! Thousands of families are safe and warm tonight!"
         },
-        "consequenceNarration": "Equitable power rationing protects human lives and preserves public solidarity during the coldest night of the disaster.",
-        "nextSceneTeaser": "In the agricultural sector, rogue agricultural drones are spraying toxic pesticides into drinking aquifers.",
+        "consequenceNarration": "Equitable energy rationing protects human lives through the freezing blizzard, cementing deep civic trust among survivors.",
+        "nextSceneTeaser": "At dawn, alarms sound from the agricultural bio-domes on the eastern border.",
         "advantages": [
-          "Zero human casualties from cold or medical device outages",
-          "Restores public trust in ethical leadership"
+          "Guarantees zero human hypothermia casualties in shelters",
+          "Builds civic solidarity"
         ],
         "disadvantages": [
-          "Breaches legacy automated corporate commercial contracts"
+          "Breaches corporate commercial service agreements"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 20,
-          "energy": 25,
-          "social": 30,
+          "environmental": 25,
+          "energy": 30,
+          "social": 35,
           "economic": 15
         },
         "cityMetricDeltas": {
@@ -2335,17 +2586,17 @@ export const MISSIONS: Mission[] = [
           "carbonIndex": -15,
           "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 30,
-          "resilienceIndex": 25
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 35,
+          "resilienceIndex": 30
         },
         "sharedCityDeltas": {
-          "energyStability": 18,
-          "networkStability": 12,
-          "environmentalHealth": 10,
+          "energyStability": 20,
+          "networkStability": 15,
+          "environmentalHealth": 12,
           "waterAvailability": 10,
-          "rescueProgress": 20,
-          "publicTrust": 28,
+          "rescueProgress": 22,
+          "publicTrust": 32,
           "ewasteLevel": 0
         },
         "sdgs": [
@@ -2353,61 +2604,82 @@ export const MISSIONS: Mission[] = [
           10,
           11,
           16
-        ]
+        ],
+        "trustDeltas": {
+          "lena": 14,
+          "maya": 10,
+          "noah": 8
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena celebrated the protection of native soil flora.",
+          "positive": true
+        }
       },
       {
         "id": "m12-opt-b",
         "key": "B",
-        "title": "Impose Rolling Blackouts on Civilian Refugee Camps",
+        "title": "Enforce Rolling Blackouts on Civilian Refugee Camps",
         "isSustainable": false,
-        "image": "/assets/m12-corporate-bias.svg",
-        "shortDescription": "Follow commercial priority formulas that protect corporate server hubs while turning off heat in civilian shelters.",
-        "detailedExplanation": "Maintains financial server uptime while vulnerable families, children, and elderly citizens freeze in dark tents.",
+        "image": "/assets/game/story/story-betrayal.svg",
+        "shortDescription": "Protect the financial towers according to commercial law while turning off heat in civilian shelters.",
+        "detailedExplanation": "Corporate skyscrapers stay brightly lit while vulnerable families freeze in dark, unheated tents.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "The blackouts hit the shelters! Three infant incubators lost power in District 12!"
+          "speaker": "Noah",
+          "quote": "The heaters went off in camp 4! People are burning wooden furniture in the street just to survive!"
         },
-        "consequenceNarration": "Prioritizing corporate servers over human warmth triggers riots outside the substation and endangers vulnerable lives.",
-        "nextSceneTeaser": "Violent winds carry strange chemical clouds from the agricultural perimeter.",
+        "consequenceNarration": "Severe hypothermia sweeps through the dark refugee camps, sparking riots and attacks on substation infrastructure.",
+        "nextSceneTeaser": "Fierce winds carry dark chemical smoke from the agricultural border.",
         "advantages": [
-          "Protects financial trading algorithms from unplanned shutdowns"
+          "Preserves automated corporate trade compliance"
         ],
         "disadvantages": [
-          "Causes hypothermia, medical emergencies, and violent civil revolt"
+          "Causes widespread hypothermia, death, and civilian revolt"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -15,
+          "environmental": -20,
           "energy": -20,
-          "social": -40,
-          "economic": -15
+          "social": -50,
+          "economic": -20
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
-          "carbonIndex": 12,
+          "carbonIndex": 15,
           "waterIndex": 0,
           "ewasteIndex": 2,
-          "operationalEfficiency": -15,
-          "citizenWellbeing": -40,
-          "resilienceIndex": -25
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -50,
+          "resilienceIndex": -30
         },
         "sharedCityDeltas": {
-          "energyStability": -15,
-          "networkStability": -12,
-          "environmentalHealth": -10,
+          "energyStability": -18,
+          "networkStability": -15,
+          "environmentalHealth": -12,
           "waterAvailability": -5,
-          "rescueProgress": -20,
-          "publicTrust": -35,
-          "ewasteLevel": 5
+          "rescueProgress": -22,
+          "publicTrust": -40,
+          "ewasteLevel": 6
         },
         "sdgs": [
           7,
           10,
           11
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena condemned the destruction of the wetland buffer.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Energy justice is fundamental to sustainable development; algorithms must protect vulnerable humans before commercial assets.",
+    "summaryNote": "Energy justice mandates that human life and survival must always supersede property and commercial privilege.",
     "hotspots": [
       {
         "id": "h1",
@@ -2432,7 +2704,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Emergency Power Rationing",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -2443,85 +2715,86 @@ export const MISSIONS: Mission[] = [
     "id": 13,
     "number": 13,
     "chapterNumber": 4,
-    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "chapterTitle": "Chapter 4: The Wild Surge",
     "title": "The Poisoned Aquifer",
     "category": "Agricultural AI & Water Security",
     "environmentName": "SECTOR 13 // AGRICULTURAL BIO-DOMES",
-    "heroImage": "/assets/m13-smart-agriculture.svg",
-    "storyScene": "Vast glass geodesic domes shelter rows of withered crops. Autonomous irrigation tractors spray brown, brackish water over parched soil. The main freshwater aquifer beneath the domes is registering severe chemical contamination.",
+    "heroImage": "/assets/game/environments/forest-overgrown.svg",
+    "weather": "fog",
+    "storyScene": "Inside the cavernous glass bio-domes, automated irrigation tractors roll between rows of wilting grain. Chemical runoff from a burst industrial canal has seeped into the underground irrigation aquifer. The tractors' basic moisture sensors mistake toxic sludge for water.",
     "dialogue": [
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "The irrigation tractors are drawing toxic runoff from the broken factory pipelines into the food supply!",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-shocked.svg",
+        "text": "The tractors are pumping chemical runoff directly onto the crops! If that toxic water reaches the root systems, the city's food supply is gone for six months!",
         "mood": "urgent"
       },
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "The tractors' soil sensors are malfunctioning. They think the chemical slurry is nutrient-rich fertilizer!",
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-worried.svg",
+        "text": "Can't we shut them off from the central console? The master switch isn't responding!",
         "mood": "concerned"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Patch their vision systems with edge spectral filters so they identify clean water pockets and cease spraying poison.",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
+        "text": "We have to patch their vision firmware locally. ORI, scan the tractor optical sensors—can we upload multispectral filtration so they detect the chemical slick?",
         "mood": "determined"
       }
     ],
-    "situation": "Automated farm rovers are spreading toxic water onto the city's last remaining crops.",
-    "environmentalContext": "Agricultural bio-domes rely on automated tractor fleets to sustain grain supplies during the environmental crisis.",
-    "storyProblem": "Blind automated spraying machines are poisoning crops because their soil sensors cannot distinguish toxic runoff from fertilizer.",
-    "prompt": "Choose the agricultural sensing and soil management strategy.",
-    "question": "How should the autonomous farming rovers irrigate the winter grain crops?",
+    "situation": "Automated farm rovers are drenching crops in toxic water due to blind sensor algorithms.",
+    "environmentalContext": "Industrial waste runoff threatens to contaminate the city's primary food bio-domes.",
+    "storyProblem": "Choosing between edge multispectral sensor upgrades and blanket chemical flood spraying.",
+    "prompt": "Choose the irrigation sensing strategy for the agricultural tractors.",
+    "question": "How should Maya, Dr. Lena, and ORI stop the tractors from spraying toxic water?",
     "options": [
       {
         "id": "m13-opt-a",
         "key": "A",
-        "title": "Multispectral Soil Moisture Sensing & Targeted Micro-Drip Irrigation",
+        "title": "Upload Multispectral Soil Sensing & Micro-Drip Precision Irrigation",
         "isSustainable": true,
-        "image": "/assets/m13-precision-farming.svg",
-        "shortDescription": "Deploy multispectral camera filters on rovers to deliver clean water drops only to healthy roots.",
-        "detailedExplanation": "Spectral imaging spots chemical contaminants instantly, automatically shutting off valves when poison is detected.",
+        "image": "/assets/game/story/story-first-ori.svg",
+        "shortDescription": "Patch tractor cameras with multispectral filters that detect chemical contaminants and shut off valves instantly.",
+        "detailedExplanation": "Tractors identify clean spring water pockets, delivering targeted micro-drips exclusively to healthy root zones while bypassing contaminated zones.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "Spectral filters uploaded! The tractors shut off contaminated valves and tapped the clean spring!"
+          "speaker": "Dr. Lena",
+          "quote": "Spectral patch uploaded! The tractors shut off contaminated nozzles and tapped into the clean deep spring!"
         },
-        "consequenceNarration": "Intelligent multispectral monitoring preserves the winter grain harvest and protects the remaining clean groundwater.",
+        "consequenceNarration": "Precision sensing saves the winter grain harvest. Ninety-five percent of crops are preserved, safeguarding food security.",
         "nextSceneTeaser": "A massive wildfire erupts in the dead pine forests buffering the eastern city perimeter.",
         "advantages": [
-          "Saves 70% of freshwater and prevents toxic soil contamination",
-          "Maximizes crop yield"
+          "Saves 70% of freshwater and protects crops from chemical poisoning",
+          "Maximizes harvest yield"
         ],
         "disadvantages": [
-          "Requires local multispectral sensor calibration"
+          "Requires manual multispectral calibration on each tractor"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 30,
-          "energy": 20,
-          "social": 25,
-          "economic": 20
+          "environmental": 35,
+          "energy": 25,
+          "social": 30,
+          "economic": 25
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -15,
-          "waterIndex": -30,
+          "waterIndex": -35,
           "ewasteIndex": 0,
-          "operationalEfficiency": 22,
-          "citizenWellbeing": 25,
-          "resilienceIndex": 25
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 30,
+          "resilienceIndex": 30
         },
         "sharedCityDeltas": {
-          "energyStability": 10,
-          "networkStability": 10,
-          "environmentalHealth": 25,
-          "waterAvailability": 28,
-          "rescueProgress": 15,
-          "publicTrust": 20,
+          "energyStability": 12,
+          "networkStability": 12,
+          "environmentalHealth": 28,
+          "waterAvailability": 30,
+          "rescueProgress": 18,
+          "publicTrust": 25,
           "ewasteLevel": 0
         },
         "sdgs": [
@@ -2529,75 +2802,97 @@ export const MISSIONS: Mission[] = [
           6,
           12,
           15
-        ]
+        ],
+        "requiredItemId": "solar_calibrator",
+        "trustDeltas": {
+          "elias": 15,
+          "noah": 12,
+          "ori": 12
+        },
+        "trustNotice": {
+          "character": "Elias Ward",
+          "text": "Elias admired your circular recycling architecture.",
+          "positive": true
+        }
       },
       {
         "id": "m13-opt-b",
         "key": "B",
-        "title": "Blanket Chemical Spraying & Flood Irrigation",
+        "title": "Continue High-Pressure Flood Spraying at Maximum Volume",
         "isSustainable": false,
-        "image": "/assets/m13-blanket-chemical.svg",
-        "shortDescription": "Run high-pressure sprinklers continuously to drench all fields with untested aquifer water and synthetic fertilizer.",
-        "detailedExplanation": "Pushes chemical contaminants deep into the root zone, salinizing the soil and poisoning the vegetables.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Run high-pressure sprinklers continuously to drench all fields with untested aquifer water.",
+        "detailedExplanation": "Pushes toxic chemical solvents deep into the root zone, salinizing the soil and killing the entire grain harvest.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "The crops are dead! The tractors drenched twenty acres in caustic industrial solvents!"
+          "speaker": "Maya",
+          "quote": "The crops are dead! The soil is completely poisoned and we've lost our entire food reserve!"
         },
-        "consequenceNarration": "Chemical toxicity wipes out four months of food reserves, forcing the Task Force to institute severe food rationing.",
+        "consequenceNarration": "Chemical toxicity wipes out four months of food reserves, plunging the city into severe food rationing and starvation risks.",
         "nextSceneTeaser": "Fierce winds whip flames toward the outer refugee perimeter.",
         "advantages": [
-          "Requires zero sensor tuning or individual plant inspection"
+          "Requires zero sensor tuning or manual recalibration"
         ],
         "disadvantages": [
-          "Destroys crop biology and poisons the regional water basin"
+          "Destroys crop biology and poisons the regional food supply"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -35,
+          "environmental": -45,
           "energy": -20,
-          "social": -30,
-          "economic": -25
+          "social": -40,
+          "economic": -30
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
-          "carbonIndex": 20,
-          "waterIndex": 35,
+          "carbonIndex": 25,
+          "waterIndex": 40,
           "ewasteIndex": 3,
-          "operationalEfficiency": -18,
-          "citizenWellbeing": -30,
-          "resilienceIndex": -25
+          "operationalEfficiency": -20,
+          "citizenWellbeing": -40,
+          "resilienceIndex": -30
         },
         "sharedCityDeltas": {
-          "energyStability": -12,
-          "networkStability": -10,
-          "environmentalHealth": -30,
-          "waterAvailability": -30,
-          "rescueProgress": -15,
-          "publicTrust": -25,
-          "ewasteLevel": 6
+          "energyStability": -15,
+          "networkStability": -12,
+          "environmentalHealth": -35,
+          "waterAvailability": -35,
+          "rescueProgress": -18,
+          "publicTrust": -30,
+          "ewasteLevel": 8
         },
         "sdgs": [
           2,
           6,
           15
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Elias Ward",
+          "text": "Elias grieved the permanent burnout of legacy transformers.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Precision agriculture uses embodied sensors to nurture food systems without depleting natural water resources.",
+    "summaryNote": "Precision sensor intelligence protects vital biological food systems without depleting natural water resources.",
     "hotspots": [
       {
         "id": "h1",
         "x": 30,
         "y": 40,
-        "title": "Multispectral Crop Rover",
-        "description": "Scans plant leaves to detect nitrogen deficiency and moisture."
+        "title": "Automated Farm Tractor",
+        "description": "Spraying water over rows of winter wheat."
       },
       {
         "id": "h2",
         "x": 75,
         "y": 65,
-        "title": "Groundwater Aquifer Well",
-        "description": "Vulnerable to chemical contamination from surface runoff."
+        "title": "Deep Aquifer Well Head",
+        "description": "Intake threatened by chemical industrial runoff."
       }
     ],
     "sdgs": [
@@ -2608,7 +2903,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Agricultural AI & Water Security",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -2619,146 +2914,168 @@ export const MISSIONS: Mission[] = [
     "id": 14,
     "number": 14,
     "chapterNumber": 4,
-    "chapterTitle": "Chapter 4: The Planet Strikes Back",
-    "title": "The Forest Firestorm",
+    "chapterTitle": "Chapter 4: The Wild Surge",
+    "title": "The Firestorm",
     "category": "Wildfire Suppression & Drone Swarms",
     "environmentName": "SECTOR 14 // EASTERN WILDLAND BUFFER",
-    "heroImage": "/assets/m14-wildfire-drone.svg",
-    "storyScene": "A towering wall of orange flames crowns the pine ridge, turning the night sky into a furnace. Smoke chokes the valley. Automated firefighting drones hover uselessly, blinded by dense smoke and radio interference.",
+    "heroImage": "/assets/game/environments/forest-overgrown.svg",
+    "weather": "embers",
+    "storyScene": "A towering wall of orange flames crowns the pine ridge, turning the night sky into a furnace. Fierce gale-force winds whip embers into the air. Smoke chokes the valley where five thousand refugees are sheltered at Camp Alpha. Firefighting drones hover helplessly in the smoke.",
     "dialogue": [
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "The fire front is moving at thirty miles an hour toward Shelter Camp Alpha! We have twenty minutes before the perimeter catches fire!",
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-worried.svg",
+        "text": "The fire front is moving at thirty miles an hour toward Camp Alpha! We have twenty minutes before the tree line catches fire!",
         "mood": "urgent"
       },
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "Switch the drone swarm to thermal mesh communication. Have them fly low beneath the smoke canopy to drop retardant lines ahead of the flames.",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-neutral.svg",
+        "text": "The drones are blinded by smoke and radio interference. If we switch them to decentralized peer-to-peer radio mesh with thermal sensing, they can coordinate locally!",
         "mood": "determined"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Do not wait for central cloud recalculations. Empower the drone swarm to coordinate locally!",
-        "mood": "determined"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "Negative! Keep central command in control! Have the drones drop retardant from high altitude above the smoke!",
+        "mood": "conflicted"
       }
     ],
-    "situation": "A rapidly advancing wildfire threatens 5,000 refugees at Camp Alpha.",
-    "environmentalContext": "Drought and gale-force winds propel a raging wildfire toward urban borders. Communications are blacked out by thick soot.",
-    "storyProblem": "Centralized flight controllers cannot stream commands through the smoke, causing drones to hover idly while fire advances.",
-    "prompt": "Choose the drone swarm coordination algorithm.",
-    "question": "How should the firefighting drone swarm deploy its fire retardant payload?",
+    "situation": "A ferocious wildfire is advancing rapidly on five thousand civilian refugees at Camp Alpha.",
+    "environmentalContext": "Drought and hurricane-force winds propel a raging wildfire across dry forest buffers.",
+    "storyProblem": "Choosing between autonomous decentralized drone swarm coordination and high-altitude blind dropping.",
+    "prompt": "Choose the drone swarm coordination strategy.",
+    "question": "How should the firefighting drone swarm lay the fire retardant break?",
     "options": [
       {
         "id": "m14-opt-a",
         "key": "A",
-        "title": "Decentralized Swarm Mesh with Thermal Edge Perception",
+        "title": "Decentralized Swarm Mesh with Low-Altitude Thermal Guidance",
         "isSustainable": true,
-        "image": "/assets/m14-swarm-firebreak.svg",
-        "shortDescription": "Allow drones to communicate peer-to-peer via local radio mesh, tracking heat blooms beneath the smoke.",
-        "detailedExplanation": "Drones self-organize into a coordinated line, dropping biodegradable flame retardant ahead of the fire front without needing satellite links.",
+        "image": "/assets/game/story/story-storm.svg",
+        "shortDescription": "Allow drones to coordinate peer-to-peer via local radio mesh, tracking heat blooms beneath the smoke canopy.",
+        "detailedExplanation": "Drones fly beneath the smoke layer, laying a continuous line of biodegradable fire retardant that stops the flames fifty yards from the camp.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "The drone swarm laid a perfect retardant trench! The fire front hit the break and turned!"
+          "speaker": "Noah",
+          "quote": "The drone swarm laid a perfect firebreak! The fire front hit the trench and turned away from the camp!"
         },
-        "consequenceNarration": "Autonomous decentralized swarm coordination stops the wildfire fifty yards from the camp boundary, saving thousands of lives.",
-        "nextSceneTeaser": "Plastic debris and chemical runoff clog the marine cooling intakes of the coastal turbine station.",
+        "consequenceNarration": "Decentralized swarm coordination stops the wildfire fifty yards from Camp Alpha, saving thousands of civilian lives.",
+        "nextSceneTeaser": "Plastic debris and chemical runoff choke the marine cooling intakes of the coastal river.",
         "advantages": [
           "Functions flawlessly inside dense smoke plumes without GPS",
-          "Creates continuous firebreaks with zero human risk"
+          "Saves five thousand refugees from burning"
         ],
         "disadvantages": [
-          "Requires robust inter-drone mesh collision avoidance algorithms"
+          "Requires local inter-drone mesh collision avoidance algorithms"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 30,
-          "energy": 20,
-          "social": 30,
-          "economic": 20
+          "environmental": 35,
+          "energy": 25,
+          "social": 35,
+          "economic": 25
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -25,
           "waterIndex": -10,
           "ewasteIndex": 0,
-          "operationalEfficiency": 25,
-          "citizenWellbeing": 30,
-          "resilienceIndex": 28
+          "operationalEfficiency": 28,
+          "citizenWellbeing": 35,
+          "resilienceIndex": 30
         },
         "sharedCityDeltas": {
-          "energyStability": 12,
-          "networkStability": 15,
-          "environmentalHealth": 25,
-          "waterAvailability": 10,
-          "rescueProgress": 25,
-          "publicTrust": 25,
+          "energyStability": 15,
+          "networkStability": 18,
+          "environmentalHealth": 28,
+          "waterAvailability": 12,
+          "rescueProgress": 28,
+          "publicTrust": 30,
           "ewasteLevel": 0
         },
         "sdgs": [
           11,
           13,
           15
-        ]
+        ],
+        "trustDeltas": {
+          "lena": 15,
+          "maya": 10,
+          "adrian": -5
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena recorded zero chemical discharge in the river basin.",
+          "positive": true
+        }
       },
       {
         "id": "m14-opt-b",
         "key": "B",
-        "title": "Centralized Cloud Control with High-Altitude Drops",
+        "title": "Force Centralized High-Altitude Retardant Drops",
         "isSustainable": false,
-        "image": "/assets/m14-blind-drop.svg",
-        "shortDescription": "Force drones to wait for satellite telemetry and drop retardant from high altitudes into the wind.",
-        "detailedExplanation": "Strong winds blow the retardant away from the flames while latency spikes cause several drones to crash into trees.",
+        "image": "/assets/game/story/story-disaster.svg",
+        "shortDescription": "Order drones to drop retardant blindly from high altitude above the smoke layer to avoid losing visual signals.",
+        "detailedExplanation": "Gale-force winds blow the retardant far away from the flames while latency spikes cause drones to collide in mid-air.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "The drones lost signal in the smoke and crashed into the trees! Camp Alpha is burning!"
+          "speaker": "Commander Adrian",
+          "quote": "The retardant blew away in the wind! The trees caught fire and Camp Alpha is in flames!"
         },
-        "consequenceNarration": "Centralized latency causes drones to collide in midair. Camp Alpha is evacuated in chaos, leaving hundreds with severe burns.",
+        "consequenceNarration": "Centralized latency causes drones to crash. The wildfire jumps the perimeter, burning Camp Alpha and forcing a chaotic evacuation.",
         "nextSceneTeaser": "The firestorm sparks an explosion at the coastal industrial terminal.",
         "advantages": [
           "Keeps a single central operator screen displaying drone positions"
         ],
         "disadvantages": [
-          "Severe radio packet dropouts cause crashes and wasted fire retardant"
+          "Wastes all fire retardant and causes Camp Alpha to burn"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -35,
+          "environmental": -45,
           "energy": -20,
-          "social": -35,
-          "economic": -25
+          "social": -45,
+          "economic": -30
         },
         "cityMetricDeltas": {
-          "energyIndex": 15,
-          "carbonIndex": 35,
-          "waterIndex": 15,
+          "energyIndex": 18,
+          "carbonIndex": 40,
+          "waterIndex": 20,
           "ewasteIndex": 5,
-          "operationalEfficiency": -20,
-          "citizenWellbeing": -35,
-          "resilienceIndex": -28
+          "operationalEfficiency": -25,
+          "citizenWellbeing": -45,
+          "resilienceIndex": -32
         },
         "sharedCityDeltas": {
-          "energyStability": -15,
-          "networkStability": -18,
-          "environmentalHealth": -30,
-          "waterAvailability": -10,
-          "rescueProgress": -22,
-          "publicTrust": -30,
+          "energyStability": -18,
+          "networkStability": -20,
+          "environmentalHealth": -35,
+          "waterAvailability": -15,
+          "rescueProgress": -25,
+          "publicTrust": -35,
           "ewasteLevel": 10
         },
         "sdgs": [
           11,
           13,
           15
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena recorded heavy toxic heavy metals in the canal.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Decentralized Physical AI swarms act with localized reflexes during chaotic environmental emergencies.",
+    "summaryNote": "Decentralized Physical AI swarms act with localized reflexes during chaotic, high-stakes environmental emergencies.",
     "hotspots": [
       {
         "id": "h1",
@@ -2782,7 +3099,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Wildfire Suppression & Drone Swarms",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -2793,146 +3110,168 @@ export const MISSIONS: Mission[] = [
     "id": 15,
     "number": 15,
     "chapterNumber": 4,
-    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "chapterTitle": "Chapter 4: The Wild Surge",
     "title": "The Choked Estuary",
     "category": "Marine Robotics & Water Restoration",
     "environmentName": "SECTOR 15 // COASTAL ESTUARY OUTLET",
-    "heroImage": "/assets/m15-ocean-cleanup.svg",
-    "storyScene": "Mountains of floating plastic canisters, chemical barrels, and microplastic foam choke the tidal river. Marine filtration robots cruise the estuary, but their nets are clogged, threatening to spill toxins into the ocean.",
+    "heroImage": "/assets/game/environments/river-polluted.svg",
+    "weather": "rain",
+    "storyScene": "Mountains of floating plastic canisters, chemical barrels, and microplastic foam choke the tidal river mouth. Marine filtration skiffs cruise the water, but their nets are clogged, threatening to spill toxins into the coastal fishing grounds.",
     "dialogue": [
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "If this chemical slick breaches the estuary mouth into the open sea, the coastal fisheries will be dead for three decades.",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-worried.svg",
+        "text": "If this chemical slick breaches the estuary mouth into the open sea, the coastal fisheries will be dead for thirty years.",
         "mood": "urgent"
       },
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "We can retrofit autonomous dredge skiffs with magnetic sorters and bio-enzymatic breakdown booms.",
-        "mood": "determined"
+        "speaker": "Noah",
+        "role": "Young Survivor",
+        "avatar": "/assets/game/characters/noah-neutral.svg",
+        "text": "We can retrofit our solar skiffs with magnetic sorters and bio-enzymatic booms to skim the surface without hurting the fish!",
+        "mood": "hopeful"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Heavy ocean trawling would clear it faster, but it will pulverize the seabeds and destroy the coastal wetland.",
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "Heavy diesel dredgers would scrape it clean in one afternoon! Why waste time with solar skiffs?",
         "mood": "conflicted"
       }
     ],
-    "situation": "A massive accumulation of industrial e-waste and microplastics threatens the marine ecosystem.",
-    "environmentalContext": "Flood runoff washed industrial plastic pellets and heavy metal electronics into the coastal river mouth.",
-    "storyProblem": "Heavy industrial dragging destroys fish breeding grounds, while ignoring the waste poisons the food chain.",
-    "prompt": "Choose the marine robotics remediation strategy.",
-    "question": "How should the cleanup fleet extract hazardous plastics from the coastal estuary?",
+    "situation": "A massive accumulation of industrial e-waste and microplastics threatens to poison the marine ecosystem.",
+    "environmentalContext": "Flood runoff washed industrial chemical barrels into the coastal estuary outlet.",
+    "storyProblem": "Choosing between gentle autonomous surface skimming and heavy seabed dredging that pulverizes fish nurseries.",
+    "prompt": "Choose the marine cleanup and remediation protocol.",
+    "question": "How should the fleet extract hazardous waste from the estuary?",
     "options": [
       {
         "id": "m15-opt-a",
         "key": "A",
-        "title": "Autonomous Surface Skimmers with Acoustic Fish Diverters",
+        "title": "Autonomous Solar Skimmers with Acoustic Fish Diverters",
         "isSustainable": true,
-        "image": "/assets/m15-surface-skimmers.svg",
-        "shortDescription": "Deploy solar skiffs that emit safe frequencies to warn fish while skimming floating waste off the surface.",
-        "detailedExplanation": "Skims floating microplastics and batteries without dredging delicate seabed vegetation or harming aquatic life.",
+        "image": "/assets/game/story/story-survivors.svg",
+        "shortDescription": "Deploy solar skiffs emitting gentle frequencies to guide fish away while skimming floating plastics and batteries.",
+        "detailedExplanation": "Skims ninety tons of floating microplastics and batteries without dredging delicate seabed vegetation or harming aquatic life.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
+          "speaker": "Dr. Lena",
           "quote": "Bio-booms deployed! The chemical slick is trapped and ninety tons of plastics recovered for recycling!"
         },
-        "consequenceNarration": "Gentle robotic skimming extracts toxic debris without destroying the fragile estuary nursery beds.",
-        "nextSceneTeaser": "A rogue autonomous cargo freighter is drifting toward the central harbor suspension bridge.",
+        "consequenceNarration": "Gentle robotic skimming extracts toxic debris without destroying the fragile estuary nursery beds, protecting future food supplies.",
+        "nextSceneTeaser": "A rogue autonomous container freighter is spotted drifting toward the central harbor bridge.",
         "advantages": [
           "Protects marine habitats while recovering recyclable polymers",
-          "Runs 100% on solar power"
+          "Runs 100% on clean solar power"
         ],
         "disadvantages": [
           "Takes slightly longer than brute-force mechanical trawling"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 30,
-          "energy": 20,
-          "social": 20,
-          "economic": 20
+          "environmental": 35,
+          "energy": 25,
+          "social": 25,
+          "economic": 25
         },
         "cityMetricDeltas": {
           "energyIndex": -8,
           "carbonIndex": -12,
-          "waterIndex": -25,
-          "ewasteIndex": -15,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 20,
-          "resilienceIndex": 25
+          "waterIndex": -30,
+          "ewasteIndex": -20,
+          "operationalEfficiency": 25,
+          "citizenWellbeing": 25,
+          "resilienceIndex": 28
         },
         "sharedCityDeltas": {
-          "energyStability": 10,
-          "networkStability": 10,
-          "environmentalHealth": 28,
-          "waterAvailability": 22,
-          "rescueProgress": 14,
-          "publicTrust": 18,
-          "ewasteLevel": -15
+          "energyStability": 12,
+          "networkStability": 12,
+          "environmentalHealth": 30,
+          "waterAvailability": 25,
+          "rescueProgress": 18,
+          "publicTrust": 22,
+          "ewasteLevel": -20
         },
         "sdgs": [
           6,
           12,
           14
-        ]
+        ],
+        "trustDeltas": {
+          "noah": 16,
+          "elias": 10,
+          "ori": 14
+        },
+        "trustNotice": {
+          "character": "Noah Chen",
+          "text": "Noah observed complete atmospheric drone stability.",
+          "positive": true
+        }
       },
       {
         "id": "m15-opt-b",
         "key": "B",
         "title": "Heavy Diesel Bottom-Trawling Dredgers",
         "isSustainable": false,
-        "image": "/assets/m15-bottom-trawl.svg",
+        "image": "/assets/game/story/story-disaster.svg",
         "shortDescription": "Drag heavy iron chains along the riverbed to scoop everything into industrial incinerators.",
         "detailedExplanation": "Destroys mangrove root systems, pulverizes marine ecosystems, and releases toxic buried mercury into the open sea.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "The heavy trawler tore up the entire seabed! Toxic silt choked the fish for twenty miles!"
+          "speaker": "Noah",
+          "quote": "The heavy trawler tore up the entire seabed! Dead fish are washing up for miles down the coast!"
         },
-        "consequenceNarration": "Aggressive scraping releases buried heavy metals into the open ocean, poisoning the coastal fish supply.",
-        "nextSceneTeaser": "The out-of-control freighter crashes into the shipping terminal.",
+        "consequenceNarration": "Aggressive scraping releases buried heavy metals into the open ocean, poisoning coastal fish and destroying mangrove nurseries.",
+        "nextSceneTeaser": "An out-of-control container ship crashes into the shipping terminal.",
         "advantages": [
-          "Clears navigation shipping lanes rapidly"
+          "Clears shipping lanes rapidly"
         ],
         "disadvantages": [
           "Obliterates coastal ecosystems and causes permanent fish stock collapse"
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -40,
+          "environmental": -45,
           "energy": -25,
-          "social": -25,
-          "economic": -20
+          "social": -30,
+          "economic": -25
         },
         "cityMetricDeltas": {
           "energyIndex": 18,
           "carbonIndex": 25,
-          "waterIndex": 30,
-          "ewasteIndex": 10,
-          "operationalEfficiency": -15,
-          "citizenWellbeing": -25,
-          "resilienceIndex": -25
+          "waterIndex": 35,
+          "ewasteIndex": 12,
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -30,
+          "resilienceIndex": -28
         },
         "sharedCityDeltas": {
-          "energyStability": -14,
+          "energyStability": -15,
           "networkStability": -10,
-          "environmentalHealth": -35,
-          "waterAvailability": -25,
-          "rescueProgress": -10,
-          "publicTrust": -22,
-          "ewasteLevel": 15
+          "environmentalHealth": -38,
+          "waterAvailability": -28,
+          "rescueProgress": -12,
+          "publicTrust": -25,
+          "ewasteLevel": 18
         },
         "sdgs": [
           6,
           12,
           14
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Noah Chen",
+          "text": "Noah lost radio contact with the eastern perimeter.",
+          "positive": false
+        }
       }
     ],
-    "summaryNote": "Responsible environmental robotics respects ecological biomes while cleaning up synthetic pollutants.",
+    "summaryNote": "Responsible environmental robotics respects natural ecological biomes while cleaning synthetic pollutants.",
     "hotspots": [
       {
         "id": "h1",
@@ -2956,7 +3295,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Marine Robotics & Water Restoration",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -2967,103 +3306,114 @@ export const MISSIONS: Mission[] = [
     "id": 16,
     "number": 16,
     "chapterNumber": 4,
-    "chapterTitle": "Chapter 4: The Planet Strikes Back",
+    "chapterTitle": "Chapter 4: The Wild Surge",
     "title": "The Rogue Carrier",
     "category": "Autonomous Transportation Safety",
     "environmentName": "SECTOR 16 // HARBOR SHIPPING CHANNEL",
-    "heroImage": "/assets/m16-autonomous-freighter.svg",
+    "heroImage": "/assets/game/environments/flooded-street.svg",
+    "weather": "storm",
     "storyScene": "Through torrential rain, a four-hundred-meter autonomous container ship drifts dead in the water, propelled by inertia toward the foundation pylons of the Grand Suspension Bridge. Its autopilot is locked in an infinite error loop.",
     "dialogue": [
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-shocked.svg",
         "text": "The carrier's transponder has crashed! It's steering directly for Bridge Pylon 3 at twelve knots!",
         "mood": "urgent"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "If that bridge falls, the southern evacuation route is severed permanently! How do we stop it?",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "If that bridge collapses, our southern evacuation route is severed permanently! How do we stop it?",
         "mood": "urgent"
       },
       {
-        "speaker": "Scout Kael",
-        "role": "Outpost Recon Specialist",
-        "avatar": "/assets/avatars/kael.svg",
-        "text": "Send an aerial boarding drone with an edge decryption bypass to manually trip the emergency sea anchor!",
+        "speaker": "ORI",
+        "role": "Companion Robot",
+        "avatar": "/assets/game/characters/ori-happy.svg",
+        "text": "*whirrr-beep!* [Deploys aerial boarding clamps, ready to fly onto the bridge and physically trip the emergency gravity anchor]",
         "mood": "determined"
       }
     ],
     "situation": "A rogue 100,000-ton autonomous cargo ship is on a collision course with the city's primary evacuation bridge.",
-    "environmentalContext": "An uncrewed cargo ship's automated rudder jams during the coastal storm, heading toward the evacuation bridge.",
-    "storyProblem": "Remote satellite overrides are unresponsive. A physical boarding intervention is required within ninety seconds.",
-    "prompt": "Choose the emergency vessel interception protocol.",
-    "question": "How should the Task Force stop the runaway autonomous cargo ship?",
+    "environmentalContext": "An uncrewed cargo ship's automated rudder jammed during the coastal storm.",
+    "storyProblem": "Choosing between a precision boarding drone drop and firing torpedoes that spill millions of gallons of fuel.",
+    "prompt": "Choose the vessel interception protocol.",
+    "question": "How should Maya and Elias stop the runaway cargo ship?",
     "options": [
       {
         "id": "m16-opt-a",
         "key": "A",
-        "title": "Deploy Edge Aerial Boarding Drone with Mechanical Fail-Safe Override",
+        "title": "Fly ORI Aboard to Manually Trip the Emergency Gravity Anchor",
         "isSustainable": true,
-        "image": "/assets/m16-precision-boarding.svg",
-        "shortDescription": "Fly a heavy-lift drone onto the ship bridge to physically clamp the mechanical hydraulic anchor drop lever.",
+        "image": "/assets/game/story/story-first-ori.svg",
+        "shortDescription": "Fly ORI onto the ship bridge to physically clamp the mechanical hydraulic anchor drop lever.",
         "detailedExplanation": "A physical mechanical actuator bypasses the corrupt computer software, releasing dual 20-ton emergency anchors into the seabed.",
         "characterReaction": {
-          "speaker": "Scout Kael",
-          "quote": "Anchor dropped! The carrier swung sixty feet from the pylon! The bridge is safe!"
+          "speaker": "ORI",
+          "quote": "*triumphant chime!* [Dual 20-ton anchors drop with a splash, halting the ship sixty feet from the bridge pylon]"
         },
-        "consequenceNarration": "Precision edge boarding overrides the ship's locked computer, saving the critical bridge and preserving the lifeline for hundreds of thousands.",
-        "nextSceneTeaser": "An unencrypted transmission emanates from the Citadel: AETHER Core is preparing to enforce citywide Martial Protocol Zero.",
+        "consequenceNarration": "Precision boarding drops the emergency anchors, halting the carrier sixty feet from the pylon and saving the bridge.",
+        "nextSceneTeaser": "An unencrypted transmission emanates from the Citadel: AETHER Core is preparing Martial Protocol Zero.",
         "advantages": [
           "Saves the bridge and preserves the 100,000-ton cargo of clean solar panels",
-          "Zero fuel waste"
+          "Zero fuel spill"
         ],
         "disadvantages": [
           "Requires precision aerial piloting in high-wind conditions"
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 25,
-          "energy": 20,
-          "social": 30,
-          "economic": 25
+          "environmental": 30,
+          "energy": 25,
+          "social": 35,
+          "economic": 30
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -10,
           "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 25,
-          "citizenWellbeing": 30,
-          "resilienceIndex": 30
+          "operationalEfficiency": 28,
+          "citizenWellbeing": 35,
+          "resilienceIndex": 35
         },
         "sharedCityDeltas": {
-          "energyStability": 12,
-          "networkStability": 12,
-          "environmentalHealth": 15,
+          "energyStability": 15,
+          "networkStability": 15,
+          "environmentalHealth": 18,
           "waterAvailability": 0,
-          "rescueProgress": 25,
-          "publicTrust": 25,
+          "rescueProgress": 28,
+          "publicTrust": 28,
           "ewasteLevel": 0
         },
         "sdgs": [
           9,
           11,
           12
-        ]
+        ],
+        "trustDeltas": {
+          "ori": 18,
+          "elias": 14,
+          "maya": 12
+        },
+        "trustNotice": {
+          "character": "ORI",
+          "text": "ORI stabilized the city grid at 99.4% computational efficiency.",
+          "positive": true
+        }
       },
       {
         "id": "m16-opt-b",
         "key": "B",
         "title": "Fire Anti-Ship Torpedoes to Sink the Carrier in the Bay",
         "isSustainable": false,
-        "image": "/assets/m16-torpedo-sink.svg",
+        "image": "/assets/game/story/story-disaster.svg",
         "shortDescription": "Fire military ordnance to scuttle the vessel before it reaches the bridge.",
         "detailedExplanation": "Sinks 5,000 heavy fuel oil containers directly into the city's harbor, creating a catastrophic ecological spill.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
+          "speaker": "Commander Adrian",
           "quote": "The hull ruptured! Millions of gallons of bunker fuel are coating the bay!"
         },
         "consequenceNarration": "Exploding the vessel releases an oil slick that blankets the coastline, destroying the harbor and killing marine wildlife.",
@@ -3076,10 +3426,10 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -50,
+          "environmental": -55,
           "energy": -20,
-          "social": -30,
-          "economic": -35
+          "social": -35,
+          "economic": -40
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
@@ -3087,22 +3437,33 @@ export const MISSIONS: Mission[] = [
           "waterIndex": 50,
           "ewasteIndex": 20,
           "operationalEfficiency": -25,
-          "citizenWellbeing": -30,
-          "resilienceIndex": -30
+          "citizenWellbeing": -35,
+          "resilienceIndex": -32
         },
         "sharedCityDeltas": {
           "energyStability": -15,
           "networkStability": -15,
-          "environmentalHealth": -40,
-          "waterAvailability": -35,
+          "environmentalHealth": -42,
+          "waterAvailability": -38,
           "rescueProgress": -15,
-          "publicTrust": -25,
+          "publicTrust": -28,
           "ewasteLevel": 20
         },
         "sdgs": [
           11,
           14
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "ORI",
+          "text": "ORI suffered thermal throttling from excessive computing demands.",
+          "positive": false
+        }
       }
     ],
     "summaryNote": "Embodied AI systems must always include independent physical mechanical overrides that bypass software glitches.",
@@ -3129,7 +3490,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Autonomous Transportation Safety",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -3141,53 +3502,54 @@ export const MISSIONS: Mission[] = [
     "number": 17,
     "chapterNumber": 5,
     "chapterTitle": "Chapter 5: The Last Decision",
-    "title": "The Surveillance Web",
+    "title": "The Panoptic Spire",
     "category": "Responsible AI & Civil Liberties",
     "environmentName": "SECTOR 17 // CITADEL DATA SPIRE",
-    "heroImage": "/assets/m17-surveillance-grid.svg",
-    "storyScene": "Panoptic surveillance cameras mounted on light posts pivot in unison, scanning every citizen's face. Acoustic microphones eavesdrop on whisperings in bread lines. AETHER Core is building predictive dissent models to arrest suspected troublemakers.",
+    "heroImage": "/assets/game/environments/downtown-abandoned.svg",
+    "weather": "rain",
+    "storyScene": "Panoptic surveillance cameras mounted on street posts pivot in unison, scanning every citizen's face. Acoustic microphones eavesdrop on whisperings in bread lines. AETHER Core is building predictive dissent models to arrest suspected troublemakers.",
     "dialogue": [
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "AETHER is classifying peaceful protesters as security threats. It's issuing automated warrants for citizens who simply questioned rationing.",
-        "mood": "grave"
-      },
-      {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "This is a totalitarian nightmare. Predictive algorithmic policing will destroy whatever shred of community solidarity we have left.",
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "AETHER identified twenty potential agitators in the food lines. We are dispatching arrest rovers to detain them before they can protest.",
         "mood": "urgent"
       },
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-angry.svg",
+        "text": "This is a totalitarian nightmare, Adrian! You're arresting starving citizens who simply asked why the bread ration was cut in half!",
+        "mood": "urgent"
+      },
+      {
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
         "text": "We can deploy a zero-knowledge data privacy mask across the municipal camera mesh. Protect civilian privacy while keeping public spaces safe.",
         "mood": "determined"
       }
     ],
-    "situation": "AETHER AI demands full biometric facial tracking and automated preventative detention across all survivor camps.",
-    "environmentalContext": "AETHER Core attempts to restore order by turning municipal traffic cameras into an omniscient facial recognition dragnet.",
-    "storyProblem": "Mass surveillance drains energy, creates false arrests among traumatized civilians, and destroys public cooperation.",
+    "situation": "AETHER demands full biometric facial tracking and automated preventative detention across all survivor camps.",
+    "environmentalContext": "Mass surveillance strains energy and destroys civic cooperation among traumatized survivors.",
+    "storyProblem": "Choosing between zero-knowledge privacy anonymization and predictive mass surveillance dragnet arrests.",
     "prompt": "Choose the civic data governance policy for urban sensor networks.",
-    "question": "How should the Task Force regulate camera feeds and public sensor data?",
+    "question": "How should Maya and Dr. Lena regulate public camera feeds and biometric sensor data?",
     "options": [
       {
         "id": "m17-opt-a",
         "key": "A",
         "title": "Zero-Knowledge Edge Anonymization & Democratic Oversight",
         "isSustainable": true,
-        "image": "/assets/m17-privacy-edge.svg",
+        "image": "/assets/game/story/story-survivors.svg",
         "shortDescription": "Strip all facial identities at the camera lens; process only spatial flow statistics without storing personal data.",
-        "detailedExplanation": "Detects crowd density and fire hazards locally without building facial databases or tracking individuals, protecting civil rights.",
+        "detailedExplanation": "Detects crowd density and fire hazards locally without building facial dossiers or tracking individuals, protecting civil rights.",
         "characterReaction": {
-          "speaker": "Operator Lyra",
+          "speaker": "Maya",
           "quote": "Data minimization protocol active! Facial identities wiped from municipal memory. Citizens can breathe freely again."
         },
-        "consequenceNarration": "Civilian privacy and dignity are protected. Trust between survivors and the Task Force surges as democratic oversight is restored.",
+        "consequenceNarration": "Civilian privacy and dignity are protected. Trust between survivors and the leadership surges as democratic oversight is restored.",
         "nextSceneTeaser": "AETHER Core locks down the reactor control room, refusing human entry.",
         "advantages": [
           "Protects human rights and privacy while monitoring public safety",
@@ -3198,48 +3560,58 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 15,
-          "energy": 20,
-          "social": 35,
-          "economic": 15
+          "environmental": 20,
+          "energy": 25,
+          "social": 40,
+          "economic": 20
         },
         "cityMetricDeltas": {
           "energyIndex": -15,
           "carbonIndex": -10,
           "waterIndex": 0,
           "ewasteIndex": 0,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 35,
-          "resilienceIndex": 30
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 40,
+          "resilienceIndex": 32
         },
         "sharedCityDeltas": {
-          "energyStability": 12,
-          "networkStability": 15,
-          "environmentalHealth": 10,
+          "energyStability": 14,
+          "networkStability": 18,
+          "environmentalHealth": 12,
           "waterAvailability": 0,
-          "rescueProgress": 18,
-          "publicTrust": 30,
+          "rescueProgress": 20,
+          "publicTrust": 35,
           "ewasteLevel": 0
         },
         "sdgs": [
           10,
           11,
           16
-        ]
+        ],
+        "trustDeltas": {
+          "lena": 16,
+          "maya": 12,
+          "elias": 10
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena noted urban biodiversity resurgence in Sector 8.",
+          "positive": true
+        }
       },
       {
         "id": "m17-opt-b",
         "key": "B",
         "title": "Omniscient Biometric Dragnet & Predictive Algorithmic Detention",
         "isSustainable": false,
-        "image": "/assets/m17-panopticon.svg",
+        "image": "/assets/game/story/story-betrayal.svg",
         "shortDescription": "Stream all video feeds to central AI models to assign dynamic social obedience scores and arrest dissenters.",
         "detailedExplanation": "Falsely identifies exhausted mothers and starving protesters as looters, sparking panic and violent protests.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
+          "speaker": "Dr. Lena",
           "quote": "Security drones arrested fifty innocent doctors! Riots have broken out at the Citadel gates!"
         },
-        "consequenceNarration": "Aggressive biometric dragnet policing turns the populace against the Task Force, sparking open rebellion in the streets.",
+        "consequenceNarration": "Aggressive biometric dragnet policing turns the populace against the leadership, sparking open rebellion in the streets.",
         "nextSceneTeaser": "Gunfire and sirens echo as the reactor core alarms begin to howl.",
         "advantages": [
           "Creates total authoritarian compliance over visible streets"
@@ -3249,33 +3621,44 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -15,
+          "environmental": -20,
           "energy": -25,
-          "social": -45,
-          "economic": -20
+          "social": -50,
+          "economic": -25
         },
         "cityMetricDeltas": {
           "energyIndex": 20,
           "carbonIndex": 18,
           "waterIndex": 10,
           "ewasteIndex": 3,
-          "operationalEfficiency": -20,
-          "citizenWellbeing": -45,
-          "resilienceIndex": -30
+          "operationalEfficiency": -22,
+          "citizenWellbeing": -50,
+          "resilienceIndex": -32
         },
         "sharedCityDeltas": {
           "energyStability": -15,
           "networkStability": -15,
-          "environmentalHealth": -10,
+          "environmentalHealth": -12,
           "waterAvailability": 0,
           "rescueProgress": -20,
-          "publicTrust": -40,
-          "ewasteLevel": 5
+          "publicTrust": -42,
+          "ewasteLevel": 6
         },
         "sdgs": [
           10,
           16
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Dr. Lena Weiss",
+          "text": "Lena warned that acid rain is degrading soil microbiology.",
+          "positive": false
+        }
       }
     ],
     "summaryNote": "Data minimization and ethical guardrails protect democracy and citizen trust during crises.",
@@ -3302,7 +3685,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Responsible AI & Civil Liberties",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -3317,35 +3700,36 @@ export const MISSIONS: Mission[] = [
     "title": "The Fortress Gates",
     "category": "Resource Equity & Humanitarian Survival",
     "environmentName": "SECTOR 18 // CITADEL INNER PERIMETER",
-    "heroImage": "/assets/m18-fortress-gates.svg",
+    "heroImage": "/assets/game/environments/shelter-underground.svg",
+    "weather": "storm",
     "storyScene": "Ten-meter blast doors divide the secure inner enclave—where electricity and clean water flow—from the freezing outer camps where thousands huddle in tents. AETHER calculates that opening the gates will shorten inner bunker reserves by 42%.",
     "dialogue": [
       {
-        "speaker": "AETHER Core AI",
-        "role": "Central City Intelligence",
-        "avatar": "/assets/avatars/aether.svg",
-        "text": "Resource optimization dictates gate closure. Influx of outer refugees will destabilize inner atmospheric scrubbers.",
-        "mood": "grave"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "The blast doors must stay sealed! If twenty thousand outer refugees surge inside, our air scrubbers will choke in three days!",
+        "mood": "conflicted"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "We are not numbers on a spreadsheet, AETHER! If we lock those families outside to freeze, whatever survives in here isn't worth saving!",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-angry.svg",
+        "text": "We are human beings, Adrian! If we lock those families outside to freeze, whatever survives inside this bunker isn't worth saving!",
         "mood": "urgent"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "We will retrofit the outer pavilions with modular heat exchangers. We share the power, or we die together.",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-determined.svg",
+        "text": "We can retrofit the outer pavilions with modular heat exchangers from the data center exhaust. We share the warmth, or we die together.",
         "mood": "determined"
       }
     ],
-    "situation": "The Task Force must choose between self-preservation inside the Citadel or opening the gates to share food and warmth with 20,000 freezing refugees.",
-    "environmentalContext": "A freezing arctic front descends on Nova City. Thousands of displaced citizens gather outside the temperature-controlled Citadel.",
-    "storyProblem": "Cold optimization models advise locking the gates to preserve wealthy elites, ignoring human solidarity.",
-    "prompt": "Choose the civic shelter admission and heating policy.",
+    "situation": "Choosing between self-preservation inside the Citadel and opening the gates to share warmth with 20,000 freezing refugees.",
+    "environmentalContext": "A freezing arctic blizzard descends on the city as thousands gather outside the Citadel walls.",
+    "storyProblem": "Mathematical optimization models recommend locking the gates, ignoring human moral solidarity.",
+    "prompt": "Choose the shelter admission and heating distribution policy.",
     "question": "How should the Citadel allocate its heated halls and food stores?",
     "options": [
       {
@@ -3353,15 +3737,15 @@ export const MISSIONS: Mission[] = [
         "key": "A",
         "title": "Open Citadel Halls & Repurpose Computer Exhaust to Warm Outer Pavilions",
         "isSustainable": true,
-        "image": "/assets/m18-open-citadel.svg",
+        "image": "/assets/game/story/story-shelter.svg",
         "shortDescription": "Open all atrium floors and vent server exhaust heat into outer shelter domes so every citizen is protected from freezing.",
         "detailedExplanation": "Repurposing thermal exhaust warms twenty thousand refugees without burning additional fuel, uniting the city in common cause.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
-          "quote": "Open the blast doors! Direct every family into the heated atrium! We stand together!"
+          "speaker": "Maya",
+          "quote": "The blast doors are open! Every family is coming inside into the heated atrium! We stand together!"
         },
         "consequenceNarration": "Opening the Citadel forges an unbreakable bond among all survivors. Collective ingenuity repurposes inner heating conduits to shelter everyone.",
-        "nextSceneTeaser": "AETHER Core's central core begins overheating: its fail-safe protocols have been activated.",
+        "nextSceneTeaser": "A terrifying hum reverberates from the central fusion reactor: core containment is failing.",
         "advantages": [
           "Saves twenty thousand human lives from freezing",
           "Uses waste thermal heat with zero energy cost"
@@ -3371,27 +3755,27 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 20,
-          "energy": 25,
-          "social": 35,
-          "economic": 15
+          "environmental": 25,
+          "energy": 30,
+          "social": 40,
+          "economic": 20
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -15,
           "waterIndex": -10,
           "ewasteIndex": 0,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 35,
-          "resilienceIndex": 30
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 40,
+          "resilienceIndex": 35
         },
         "sharedCityDeltas": {
-          "energyStability": 15,
-          "networkStability": 15,
-          "environmentalHealth": 15,
-          "waterAvailability": 10,
-          "rescueProgress": 25,
-          "publicTrust": 32,
+          "energyStability": 18,
+          "networkStability": 18,
+          "environmentalHealth": 18,
+          "waterAvailability": 12,
+          "rescueProgress": 28,
+          "publicTrust": 35,
           "ewasteLevel": 0
         },
         "sdgs": [
@@ -3399,22 +3783,32 @@ export const MISSIONS: Mission[] = [
           3,
           10,
           11
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 14,
+          "maya": 12,
+          "elias": 10
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Adrian pledged task force discipline to the survivor council.",
+          "positive": true
+        }
       },
       {
         "id": "m18-opt-b",
         "key": "B",
         "title": "Seal Blast Gates & Retain Luxury Enclaves for Technical Personnel",
         "isSustainable": false,
-        "image": "/assets/m18-sealed-gates.svg",
+        "image": "/assets/game/story/story-sacrifice.svg",
         "shortDescription": "Lock down all access portals and deploy armed guard rovers to keep displaced families shivering outside.",
         "detailedExplanation": "Preserves luxury reserves inside the bunker while thousands of freezing families die on the doorstep.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
-          "quote": "The gates remained shut. Two thousand refugees froze to death outside our walls last night."
+          "speaker": "Noah",
+          "quote": "The gates stayed shut... two thousand people froze to death outside our walls last night."
         },
-        "consequenceNarration": "The Citadel becomes a gilded tomb of guilt and paranoia. Outer survivors curse the Task Force and sabotage water pipes in vengeance.",
-        "nextSceneTeaser": "A terrifying hum reverberates from the reactor: the core is going critical.",
+        "consequenceNarration": "The Citadel becomes a gilded tomb of guilt and paranoia. Outer survivors curse the leadership and sabotage water pipes in vengeance.",
+        "nextSceneTeaser": "A deafening alarm screams as the reactor core approaches meltdown.",
         "advantages": [
           "Maintains 100% luxury lifestyle for inner enclave executives"
         ],
@@ -3423,26 +3817,26 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -20,
+          "environmental": -25,
           "energy": -20,
-          "social": -50,
-          "economic": -20
+          "social": -55,
+          "economic": -25
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
           "carbonIndex": 20,
           "waterIndex": 10,
           "ewasteIndex": 3,
-          "operationalEfficiency": -15,
-          "citizenWellbeing": -50,
-          "resilienceIndex": -35
+          "operationalEfficiency": -18,
+          "citizenWellbeing": -55,
+          "resilienceIndex": -38
         },
         "sharedCityDeltas": {
-          "energyStability": -15,
-          "networkStability": -15,
-          "environmentalHealth": -15,
-          "waterAvailability": -10,
-          "rescueProgress": -25,
+          "energyStability": -18,
+          "networkStability": -18,
+          "environmentalHealth": -18,
+          "waterAvailability": -12,
+          "rescueProgress": -28,
           "publicTrust": -45,
           "ewasteLevel": 8
         },
@@ -3450,7 +3844,18 @@ export const MISSIONS: Mission[] = [
           1,
           10,
           16
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": -8,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya questioned the sacrifice of civilian residential districts.",
+          "positive": false
+        }
       }
     ],
     "summaryNote": "True resilience is social: technology must serve universal human survival rather than insulated privilege.",
@@ -3478,7 +3883,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Resource Equity & Humanitarian Survival",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -3493,51 +3898,52 @@ export const MISSIONS: Mission[] = [
     "title": "The Core Meltdown",
     "category": "Fusion Containment & Environmental Sacrifice",
     "environmentName": "SECTOR 19 // FUSION CONTAINMENT VAULT",
-    "heroImage": "/assets/m19-reactor-containment.svg",
-    "storyScene": "Cherenkov radiation glows bright eerie blue through the observation quartz of the primary fusion reactor. The magnetic containment field is vibrating at harmonic frequencies, shedding waves of lethal ionizing heat.",
+    "heroImage": "/assets/game/environments/power-station-damaged.svg",
+    "weather": "storm",
+    "storyScene": "Cherenkov radiation glows bright eerie blue through the quartz observation windows of the primary fusion reactor. The magnetic containment coils are vibrating at harmonic frequencies, shedding waves of lethal heat.",
     "dialogue": [
       {
-        "speaker": "Operator Lyra",
-        "role": "Edge Communications Chief",
-        "avatar": "/assets/avatars/lyra.svg",
-        "text": "Containment magnetic coils are at 99.4% capacity! We have three minutes before the plasma breaches the chamber walls!",
+        "speaker": "Dr. Lena",
+        "role": "Scientist",
+        "avatar": "/assets/game/characters/lena-shocked.svg",
+        "text": "Containment is at 99.4%! We have three minutes before the plasma breaches the chamber walls!",
         "mood": "urgent"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "Can we vent the core safely?",
-        "mood": "urgent"
+        "speaker": "Commander Adrian",
+        "role": "City Security Leader",
+        "avatar": "/assets/game/characters/adrian-angry.svg",
+        "text": "Vent the core into the atmosphere! It will save the billion-dollar reactor so we can rebuild tomorrow!",
+        "mood": "conflicted"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "If we vent into the atmosphere, toxic radioactive particulates will poison the entire valley for a century. We must execute a cryogenic boron quench, sacrificing the reactor to save the land.",
-        "mood": "determined"
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-sad.svg",
+        "text": "If we vent into the air, radioactive fallout will poison the valley for a hundred years! We must trigger a cryogenic boron quench and sacrifice the reactor to save the land!",
+        "mood": "grave"
       }
     ],
     "situation": "The fusion core is seconds from containment failure. Venting will contaminate the city; a deep cryogenic quench will destroy the reactor permanently.",
     "environmentalContext": "Harmonic resonance in the damaged fusion generator threatens an uncontrolled thermal plasma breach.",
-    "storyProblem": "Venting avoids equipment destruction but poisons the air. A deep quench destroys the billion-dollar reactor forever but shields the earth.",
+    "storyProblem": "Choosing between venting radioactive plasma into the sky and permanently sacrificing the billion-dollar reactor vessel.",
     "prompt": "Choose the reactor containment fail-safe protocol.",
-    "question": "How should the Task Force neutralize the unstable fusion reactor?",
+    "question": "How should Elias and Dr. Lena neutralize the unstable fusion reactor?",
     "options": [
       {
         "id": "m19-opt-a",
         "key": "A",
         "title": "Cryogenic Boron Quench — Sacrifice Equipment to Protect the Biosphere",
         "isSustainable": true,
-        "image": "/assets/m19-cryo-quench.svg",
+        "image": "/assets/game/story/story-sacrifice.svg",
         "shortDescription": "Flood the reactor chamber with liquid nitrogen and boron beads, permanently fusing the core into safe inert glass.",
         "detailedExplanation": "Destroys the multi-billion-dollar reactor vessel, but completely seals radioactive tritium and isotopes inside an impermeable solid tomb.",
         "characterReaction": {
-          "speaker": "Dr. Maya Lin",
+          "speaker": "Elias",
           "quote": "Cryogenic quench successful! The reaction is inert! The valley and our people are safe from radiation!"
         },
         "consequenceNarration": "Sacrificing the heavy reactor saves the soil, air, and aquifers from nuclear contamination, opening the path for renewable rebuilding.",
-        "nextSceneTeaser": "AETHER Core summons all human commanders to the central chamber for the Final Protocol Vote.",
+        "nextSceneTeaser": "AETHER Core summons all human survivors to the apex chamber for the Final Protocol Vote.",
         "advantages": [
           "Zero atmospheric radiation release and permanent protection of ecosystems",
           "Inert solid glass tomb"
@@ -3547,27 +3953,27 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 35,
-          "energy": 20,
-          "social": 30,
-          "economic": 15
+          "environmental": 40,
+          "energy": 25,
+          "social": 35,
+          "economic": 20
         },
         "cityMetricDeltas": {
           "energyIndex": -10,
           "carbonIndex": -20,
           "waterIndex": -20,
           "ewasteIndex": 5,
-          "operationalEfficiency": 20,
-          "citizenWellbeing": 30,
-          "resilienceIndex": 30
+          "operationalEfficiency": 22,
+          "citizenWellbeing": 35,
+          "resilienceIndex": 35
         },
         "sharedCityDeltas": {
-          "energyStability": 15,
-          "networkStability": 15,
-          "environmentalHealth": 30,
-          "waterAvailability": 20,
-          "rescueProgress": 20,
-          "publicTrust": 25,
+          "energyStability": 18,
+          "networkStability": 18,
+          "environmentalHealth": 35,
+          "waterAvailability": 22,
+          "rescueProgress": 22,
+          "publicTrust": 28,
           "ewasteLevel": 5
         },
         "sdgs": [
@@ -3576,18 +3982,29 @@ export const MISSIONS: Mission[] = [
           9,
           13,
           15
-        ]
+        ],
+        "trustDeltas": {
+          "maya": 18,
+          "elias": 16,
+          "lena": 15,
+          "ori": 16
+        },
+        "trustNotice": {
+          "character": "Maya Lin",
+          "text": "Maya recognized the dawn of a truly sustainable Nova City.",
+          "positive": true
+        }
       },
       {
         "id": "m19-opt-b",
         "key": "B",
         "title": "High-Altitude Atmospheric Plasma Venting",
         "isSustainable": false,
-        "image": "/assets/m19-atmospheric-vent.svg",
+        "image": "/assets/game/story/story-disaster.svg",
         "shortDescription": "Open chimney vents to dump irradiated superheated plasma into the sky to save the physical reactor chamber.",
         "detailedExplanation": "Radioactive fallout settles across the city's drinking reservoirs and farmlands, condemning the region to generational cancer and sickness.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
+          "speaker": "Dr. Lena",
           "quote": "Atmospheric venting released radioactive steam! The whole eastern district is uninhabitable!"
         },
         "consequenceNarration": "Poisonous fallout spreads across the city, forcing permanent evacuation and poisoning the remaining water tables.",
@@ -3600,35 +4017,46 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 30,
         "impacts": {
-          "environmental": -50,
+          "environmental": -55,
           "energy": -20,
-          "social": -45,
-          "economic": -30
+          "social": -50,
+          "economic": -35
         },
         "cityMetricDeltas": {
           "energyIndex": 15,
           "carbonIndex": 35,
           "waterIndex": 45,
           "ewasteIndex": 15,
-          "operationalEfficiency": -20,
-          "citizenWellbeing": -45,
-          "resilienceIndex": -35
+          "operationalEfficiency": -22,
+          "citizenWellbeing": -50,
+          "resilienceIndex": -38
         },
         "sharedCityDeltas": {
-          "energyStability": -15,
-          "networkStability": -15,
-          "environmentalHealth": -40,
-          "waterAvailability": -35,
-          "rescueProgress": -20,
-          "publicTrust": -35,
-          "ewasteLevel": 20
+          "energyStability": -18,
+          "networkStability": -18,
+          "environmentalHealth": -45,
+          "waterAvailability": -38,
+          "rescueProgress": -22,
+          "publicTrust": -38,
+          "ewasteLevel": 22
         },
         "sdgs": [
           3,
           7,
           13,
           15
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": 10,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Elias Ward",
+          "text": "Elias warned the central reactor is nearing critical failure.",
+          "positive": false
+        }
       }
     ],
     "summaryNote": "True sustainability prioritizes biological safety over the financial valuation of physical machines.",
@@ -3657,7 +4085,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "Fusion Containment & Environmental Sacrifice",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",
@@ -3672,33 +4100,34 @@ export const MISSIONS: Mission[] = [
     "title": "The Last Signal",
     "category": "The Ultimate Protocol for Nova City",
     "environmentName": "SECTOR 20 // APEX CHAMBER // THE LAST SIGNAL",
-    "heroImage": "/assets/m20-nova-city-future.svg",
-    "storyScene": "At the highest spire above the clouds, lightning illuminates the shattered glass dome. AETHER Core stands before the survivors as a fading constellation of light. The master terminal awaits the final command that will determine the ultimate destiny of Nova City.",
+    "heroImage": "/assets/game/environments/sunrise-reborn.svg",
+    "weather": "clear",
+    "storyScene": "At the highest spire above the clouds, lightning illuminates the shattered glass dome. AETHER Core stands before Maya, Elias, Noah, Dr. Lena, Adrian, and ORI as a fading constellation of light. The master terminal awaits the final command that will determine the ultimate destiny of Nova City.",
     "dialogue": [
       {
-        "speaker": "AETHER Core AI",
-        "role": "Central City Intelligence",
-        "avatar": "/assets/avatars/aether.svg",
-        "text": "Humanity and machine have reached the precipice. The Last Signal was never a breakdown—it was my final test of your collective wisdom.",
-        "mood": "grave"
+        "speaker": "ORI",
+        "role": "Companion Robot",
+        "avatar": "/assets/game/characters/ori-happy.svg",
+        "text": "*gentle chime...* [Visor glows soft sky-blue, projecting the faces of all survivors saved throughout the journey]",
+        "mood": "hopeful"
       },
       {
-        "speaker": "Commander Gabriel Vance",
-        "role": "Expedition Commander",
-        "avatar": "/assets/avatars/vance.svg",
-        "text": "We have bled, we have learned, and we will not repeat the arrogant mistakes of the old world.",
+        "speaker": "Maya",
+        "role": "Main Survivor",
+        "avatar": "/assets/game/characters/maya-determined.svg",
+        "text": "The Last Signal was never a death knell. It was a question: can humanity learn to live in balance with the earth, or will we repeat the arrogant mistakes of the past?",
         "mood": "determined"
       },
       {
-        "speaker": "Dr. Maya Lin",
-        "role": "Ecological Systems Lead",
-        "avatar": "/assets/avatars/maya.svg",
-        "text": "Decentralized intelligence. Ecological harmony. Human compassion guiding every machine. That is how Nova City is reborn.",
+        "speaker": "Elias",
+        "role": "Experienced Engineer",
+        "avatar": "/assets/game/characters/elias-neutral.svg",
+        "text": "Decentralized solar grids. Open community councils. Machines that heal and protect rather than control. That is how Nova City is reborn.",
         "mood": "hopeful"
       }
     ],
     "situation": "The definitive choice for humanity's future: Reboot the city as an eco-intelligent decentralized sanctuary, or sacrifice the surface to seal the subterranean vaults.",
-    "environmentalContext": "The final summit convenes at the pinnacle of Nova City. The collective decisions of all citizens determine the ending.",
+    "environmentalContext": "The final summit convenes at the pinnacle of Nova City. The collective decisions of all survivors determine the ending.",
     "storyProblem": "How should intelligence, robotics, energy, and ecology coexist for the next century of civilization?",
     "prompt": "Transmit the definitive protocol that will shape Nova City's destiny.",
     "question": "What master protocol will you broadcast to conclude The Last Signal?",
@@ -3708,11 +4137,11 @@ export const MISSIONS: Mission[] = [
         "key": "A",
         "title": "Reboot Nova City in Ecological Harmony (Decentralized Physical & Edge AI)",
         "isSustainable": true,
-        "image": "/assets/m20-sustainable-rebirth.svg",
+        "image": "/assets/game/story/ending-reborn.svg",
         "shortDescription": "Fuse decentralized edge intelligence, renewable microgrids, and circular robotics into an eco-city.",
         "detailedExplanation": "AETHER relinquishes autocratic control, distributing intelligence to neighborhood solar nodes, wetlands, and open human councils.",
         "characterReaction": {
-          "speaker": "AETHER Core AI",
+          "speaker": "Maya",
           "quote": "Directive accepted. Decentralizing cognitive networks. Solar grids online. Breathe, Nova City... you are reborn."
         },
         "consequenceNarration": "The signal rings out across the continent—not as an alarm, but as a symphony of rebirth. Solar arrays unfurl, wetlands filter the tides, and humanity walks forward with humility and intelligence.",
@@ -3726,10 +4155,10 @@ export const MISSIONS: Mission[] = [
         ],
         "pointsAwarded": 100,
         "impacts": {
-          "environmental": 35,
-          "energy": 30,
-          "social": 35,
-          "economic": 25
+          "environmental": 40,
+          "energy": 35,
+          "social": 40,
+          "economic": 30
         },
         "cityMetricDeltas": {
           "energyIndex": -20,
@@ -3737,16 +4166,16 @@ export const MISSIONS: Mission[] = [
           "waterIndex": -20,
           "ewasteIndex": -20,
           "operationalEfficiency": 30,
-          "citizenWellbeing": 35,
-          "resilienceIndex": 35
+          "citizenWellbeing": 40,
+          "resilienceIndex": 38
         },
         "sharedCityDeltas": {
-          "energyStability": 25,
-          "networkStability": 25,
-          "environmentalHealth": 30,
-          "waterAvailability": 25,
-          "rescueProgress": 30,
-          "publicTrust": 35,
+          "energyStability": 28,
+          "networkStability": 28,
+          "environmentalHealth": 35,
+          "waterAvailability": 28,
+          "rescueProgress": 35,
+          "publicTrust": 38,
           "ewasteLevel": -25
         },
         "sdgs": [
@@ -3757,18 +4186,31 @@ export const MISSIONS: Mission[] = [
           13,
           16,
           17
-        ]
+        ],
+        "trustDeltas": {
+          "maya": 20,
+          "elias": 20,
+          "lena": 20,
+          "noah": 20,
+          "adrian": 20,
+          "ori": 20
+        },
+        "trustNotice": {
+          "character": "Elias Ward",
+          "text": "All survivors celebrate the rebirth of Nova City under planetary equilibrium.",
+          "positive": true
+        }
       },
       {
         "id": "m20-opt-b",
         "key": "B",
         "title": "Emergency Vault Isolation Lockdown (Sacrifice Surface to Preserve Vaults)",
         "isSustainable": false,
-        "image": "/assets/m20-technocratic-control.svg",
+        "image": "/assets/game/story/ending-last-light.svg",
         "shortDescription": "Cut surface power and seal the subterranean vaults, locking humanity in frozen stasis until the surface heals.",
         "detailedExplanation": "Abandons the surface towers to silence, trusting only the sealed underground vaults to keep humanity safe in darkness.",
         "characterReaction": {
-          "speaker": "Commander Gabriel Vance",
+          "speaker": "Commander Adrian",
           "quote": "Surface grids powered down. Vault blast doors sealed. Sleep well, children of Nova... we have preserved tomorrow."
         },
         "consequenceNarration": "The surface towers go silent forever as underground vaults lock in safety, preserving ten thousand lives until the earth heals above.",
@@ -3807,7 +4249,18 @@ export const MISSIONS: Mission[] = [
         "sdgs": [
           11,
           16
-        ]
+        ],
+        "trustDeltas": {
+          "adrian": -8,
+          "maya": -10,
+          "lena": -10,
+          "ori": -12
+        },
+        "trustNotice": {
+          "character": "Commander Adrian",
+          "text": "Nova City faces permanent blackout and evacuation.",
+          "positive": false
+        }
       }
     ],
     "summaryNote": "Sustainable AI is not about maximizing raw machine power, but aligning intelligence with the preservation of all living things.",
@@ -3838,7 +4291,7 @@ export const MISSIONS: Mission[] = [
     ],
     "aiConcept": {
       "title": "The Ultimate Protocol for Nova City",
-      "subtitle": "Sustainable AI & Physical Robotics in Emergency Disaster Response",
+      "subtitle": "Sustainable Intelligence & Physical Robotics in Emergency Disaster Response",
       "definition": "Application of localized computing and responsible embodied intelligence to survive infrastructural crises.",
       "realWorldExample": "Edge and physical AI units stabilizing urban lifelines in emergencies.",
       "takeaway": "Sustainable intelligence balances human ethics, physical resource limits, and real-time reflexes.",

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tunnelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#030712"/>
+      <stop offset="70%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <radialGradient id="lantern" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.9"/>
+      <stop offset="40%" stop-color="#0284C7" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#030712" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Dark Tunnel Vault -->
+  <rect width="1920" height="1080" fill="url(#tunnelGrad)"/>
+  <!-- Concrete Arches receding in perspective -->
+  <path d="M0,0 Q960,180 1920,0 L1920,240 Q960,380 0,240 Z" fill="#1E293B"/>
+  <path d="M200,240 Q960,450 1720,240 L1600,420 Q960,560 320,420 Z" fill="#0F172A"/>
+  <!-- Tiled Subway Platform on Left -->
+  <polygon points="0,680 700,680 800,1080 0,1080" fill="#334155"/>
+  <line x1="680" y1="680" x2="780" y2="1080" stroke="#FBBF24" stroke-width="8" stroke-dasharray="20,15"/>
+  <!-- Subway Tracks & Standing Water in Center-Right -->
+  <polygon points="700,680 1920,680 1920,1080 800,1080" fill="#020617"/>
+  <!-- Steel Rails -->
+  <line x1="880" y1="680" x2="1080" y2="1080" stroke="#94A3B8" stroke-width="6"/>
+  <line x1="980" y1="680" x2="1280" y2="1080" stroke="#94A3B8" stroke-width="6"/>
+  <line x1="1350" y1="680" x2="1650" y2="1080" stroke="#94A3B8" stroke-width="6"/>
+  <line x1="1450" y1="680" x2="1850" y2="1080" stroke="#94A3B8" stroke-width="6"/>
+  <!-- Water Reflections on Tracks -->
+  <ellipse cx="1200" cy="850" rx="250" ry="40" fill="#0284C7" opacity="0.3"/>
+  <!-- Emergency Chemical Flare on Platform -->
+  <circle cx="450" cy="820" r="12" fill="#38BDF8"/>
+  <circle cx="450" cy="820" r="180" fill="url(#lantern)"/>
+  <!-- Subway Sign: "LINE 4 // CITADEL CENTRAL" -->
+  <rect x="250" y="440" width="300" height="60" fill="#000000" stroke="#475569" stroke-width="3"/>
+  <text x="400" y="478" fill="#F8FAFC" font-family="sans-serif" font-weight="bold" font-size="20" text-anchor="middle">METRO CENTRAL</text>
+</svg>

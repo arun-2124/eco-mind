@@ -5,6 +5,7 @@ import {
   SubmissionRecord,
   WorkshopSession,
   SharedCityMetrics,
+  InventoryItem,
 } from "@/types/game";
 import {
   INITIAL_CITY_METRICS,
@@ -14,6 +15,7 @@ import {
 } from "./city-health";
 import { calculateParticipantScore, INITIAL_SCORE } from "./scoring";
 import { MISSIONS } from "./game-data";
+import { applyTrustDeltas, INITIAL_RELATIONSHIPS } from "./relationships";
 
 export const DEFAULT_PIN = "ECO2045";
 
@@ -212,9 +214,15 @@ export function subscribeToSync(callback: (state: GameState) => void): () => voi
 // Online Cross-Device Server API Sync
 // -------------------------------------------------------------
 
-export async function fetchRemoteRoom(pin: string = DEFAULT_PIN): Promise<GameState | null> {
+export async function fetchRemoteRoom(
+  pin: string = DEFAULT_PIN,
+  participantId?: string
+): Promise<GameState | null> {
   try {
-    const res = await fetch(`/api/session?pin=${encodeURIComponent(pin)}`);
+    const url = `/api/session?pin=${encodeURIComponent(pin)}${
+      participantId ? `&participantId=${encodeURIComponent(participantId)}` : ""
+    }`;
+    const res = await fetch(url);
     if (!res.ok) return null;
     const data = await res.json();
     if (data.success && data.session) {
@@ -230,6 +238,33 @@ export async function fetchRemoteRoom(pin: string = DEFAULT_PIN): Promise<GameSt
     // fallback to local state
   }
   return null;
+}
+
+export async function createRoomOnline(
+  customPin?: string,
+  title?: string,
+  passcode?: string
+): Promise<{ success: boolean; pin?: string; session?: WorkshopSession; error?: string }> {
+  try {
+    const res = await fetch("/api/session/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ customPin, title, passcode }),
+    });
+    const data = await res.json();
+    if (data.success && data.session) {
+      const state: GameState = {
+        session: data.session,
+        participants: data.participants || [],
+        submissions: data.submissions || [],
+      };
+      saveGameState(state);
+      return { success: true, pin: data.pin, session: data.session };
+    }
+    return { success: false, error: data.error || "Failed to create room" };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Network error while creating room" };
+  }
 }
 
 export async function registerParticipantOnline(
@@ -531,6 +566,9 @@ export function registerParticipant(
     score: { ...INITIAL_SCORE },
     cityMetrics: { ...INITIAL_CITY_METRICS },
     decisions: {},
+    inventory: [],
+    discoveredClueIds: [],
+    relationships: { ...INITIAL_RELATIONSHIPS },
   };
 
   state.participants.push(newPart);
@@ -596,6 +634,49 @@ export function submitParticipantDecision(
 
   participant.score = calculateParticipantScore(participant.decisions);
   participant.cityMetrics = calculateCityMetrics(participant.decisions);
+
+  // Apply character trust relationship changes if specified
+  if (option.trustDeltas) {
+    participant.relationships = applyTrustDeltas(
+      participant.relationships,
+      option.trustDeltas,
+      option.trustNotice?.text
+    );
+  }
+
+  saveGameState(state);
+  return { success: true, participant };
+}
+
+export function addParticipantItem(
+  participantId: string,
+  item: InventoryItem
+): { success: boolean; participant?: Participant } {
+  const state = loadGameState();
+  const participant = state.participants.find((p) => p.id === participantId);
+  if (!participant) return { success: false };
+
+  if (!participant.inventory) participant.inventory = [];
+  if (!participant.inventory.some((i) => i.id === item.id)) {
+    participant.inventory.push(item);
+  }
+
+  saveGameState(state);
+  return { success: true, participant };
+}
+
+export function addParticipantDiscoveredClue(
+  participantId: string,
+  clueId: string
+): { success: boolean; participant?: Participant } {
+  const state = loadGameState();
+  const participant = state.participants.find((p) => p.id === participantId);
+  if (!participant) return { success: false };
+
+  if (!participant.discoveredClueIds) participant.discoveredClueIds = [];
+  if (!participant.discoveredClueIds.includes(clueId)) {
+    participant.discoveredClueIds.push(clueId);
+  }
 
   saveGameState(state);
   return { success: true, participant };

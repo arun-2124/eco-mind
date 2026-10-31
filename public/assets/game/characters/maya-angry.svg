@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle portrait -->
+  <rect width="480" height="480" rx="32" fill="url(#bgGrad)"/>
+  <!-- Jacket Shoulders -->
+  <path d="M60,480 L160,360 L320,360 L420,480 Z" fill="#065F46"/>
+  <path d="M190,360 L240,430 L290,360 Z" fill="#D97706"/>
+  <!-- Neck -->
+  <rect x="215" y="300" width="50" height="70" fill="#E2A77A"/>
+  <!-- Head Base -->
+  <ellipse cx="240" cy="220" rx="80" ry="100" fill="#F0B78C"/>
+  <!-- Ponytail Hair Backing -->
+  <path d="M150,180 Q100,100 120,30 Q220,50 330,120 Z" fill="#1C1917"/>
+  <path d="M340,160 Q400,220 380,320 Q350,280 340,220 Z" fill="#1C1917"/>
+  <!-- Hair Front Bangs -->
+  <path d="M150,170 Q240,110 330,170 Q300,140 240,130 Q180,140 150,170 Z" fill="#292524"/>
+  <!-- Ears -->
+  <circle cx="160" cy="220" r="14" fill="#E2A77A"/>
+  <circle cx="320" cy="220" r="14" fill="#E2A77A"/>
+  <!-- Face Details -->
+  <path d="M150,160 L210,185" stroke="#1F2937" stroke-width="7" fill="none" stroke-linecap="round"/>
+               <path d="M270,185 L330,160" stroke="#1F2937" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <ellipse cx="185" cy="202" rx="14" ry="12" fill="#1F2937"/><circle cx="187" cy="200" r="3" fill="#FFFFFF"/>
+              <ellipse cx="295" cy="202" rx="14" ry="12" fill="#1F2937"/><circle cx="297" cy="200" r="3" fill="#FFFFFF"/>
+  <!-- Nose -->
+  <path d="M240,215 L235,245 L248,248" stroke="#D97706" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M215,280 L265,275" stroke="#7F1D1D" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

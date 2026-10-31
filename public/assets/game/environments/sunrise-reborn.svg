@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="rebornSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="40%" stop-color="#38BDF8"/>
+      <stop offset="70%" stop-color="#FED7AA"/>
+      <stop offset="100%" stop-color="#FEF08A"/>
+    </linearGradient>
+    <radialGradient id="morningSun" cx="50%" cy="65%" r="35%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="25%" stop-color="#FEF08A" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#FB923C" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Brilliant Morning Sunrise -->
+  <rect width="1920" height="720" fill="url(#rebornSky)"/>
+  <circle cx="960" cy="620" r="300" fill="url(#morningSun)"/>
+  <!-- Restored City Towers with Vertical Gardens -->
+  <rect x="350" y="320" width="160" height="400" fill="#0C4A6E"/>
+  <rect x="560" y="240" width="180" height="480" fill="#075985"/>
+  <rect x="880" y="160" width="160" height="560" fill="#0369A1"/>
+  <polygon points="960,60 880,160 1040,160" fill="#0369A1"/>
+  <rect x="1180" y="260" width="180" height="460" fill="#075985"/>
+  <rect x="1420" y="340" width="160" height="380" fill="#0C4A6E"/>
+  <!-- Lush Green Rooftop Gardens -->
+  <ellipse cx="430" cy="320" rx="80" ry="20" fill="#10B981"/>
+  <ellipse cx="650" cy="240" rx="90" ry="22" fill="#10B981"/>
+  <ellipse cx="1270" cy="260" rx="90" ry="22" fill="#10B981"/>
+  <ellipse cx="1500" cy="340" rx="80" ry="20" fill="#10B981"/>
+  <!-- Clean Sparkling Harbor Waters -->
+  <rect y="720" width="1920" height="360" fill="#0284C7"/>
+  <path d="M860,720 L1060,720 L1120,1080 L800,1080 Z" fill="#FEF08A" opacity="0.35"/>
+  <!-- Flocks of Flying Birds Returning to Nova City -->
+  <path d="M700,280 Q715,265 730,280 Q745,265 760,280" stroke="#0C4A6E" stroke-width="4" fill="none"/>
+  <path d="M780,240 Q795,225 810,240 Q825,225 840,240" stroke="#0C4A6E" stroke-width="3" fill="none"/>
+  <path d="M1150,220 Q1165,205 1180,220 Q1195,205 1210,220" stroke="#0C4A6E" stroke-width="3" fill="none"/>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="rebornDawn" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="80%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#rebornDawn)"/>
+  <!-- Verdant Restored Metropolis -->
+  <circle cx="960" cy="550" r="280" fill="#FEF08A" opacity="0.8"/>
+  <!-- Towers covered in lush sky-gardens -->
+  <rect x="400" y="380" width="200" height="520" fill="#064E3B"/>
+  <ellipse cx="500" cy="380" rx="100" ry="25" fill="#10B981"/>
+  <rect x="680" y="280" width="220" height="620" fill="#047857"/>
+  <ellipse cx="790" cy="280" rx="110" ry="30" fill="#34D399"/>
+  <rect x="1020" y="240" width="220" height="660" fill="#047857"/>
+  <ellipse cx="1130" cy="240" rx="110" ry="30" fill="#34D399"/>
+  <rect x="1320" y="360" width="200" height="540" fill="#064E3B"/>
+  <ellipse cx="1420" cy="360" rx="100" ry="25" fill="#10B981"/>
+  <!-- Foreground Hill with Maya, Noah, and ORI looking out together -->
+  <polygon points="0,850 1920,850 1920,1080 0,1080" fill="#064E3B"/>
+  <!-- Silhouettes of survivors embracing -->
+  <circle cx="920" cy="800" r="26" fill="#022C22"/>
+  <path d="M890,920 L910,820 L940,820 L950,920 Z" fill="#022C22"/>
+  <circle cx="970" cy="810" r="22" fill="#022C22"/>
+  <path d="M950,920 L965,830 L985,830 L990,920 Z" fill="#022C22"/>
+  <circle cx="1040" cy="800" r="24" fill="#022C22"/>
+  <line x1="930" y1="840" x2="970" y2="840" stroke="#022C22" stroke-width="8"/>
+</svg>

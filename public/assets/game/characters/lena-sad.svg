@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="lenaBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F2D3A"/>
+      <stop offset="100%" stop-color="#081820"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" rx="32" fill="url(#lenaBg)"/>
+  <!-- White Lab / Field Coat -->
+  <path d="M60,480 L160,350 L320,350 L420,480 Z" fill="#E2E8F0"/>
+  <path d="M210,350 L240,410 L270,350 Z" fill="#0284C7"/>
+  <!-- Neck -->
+  <rect x="220" y="290" width="40" height="70" fill="#F2C4A2"/>
+  <!-- Head -->
+  <ellipse cx="240" cy="210" rx="75" ry="95" fill="#F8CCA8"/>
+  <!-- Short Sleek Dark Bob Haircut -->
+  <path d="M145,210 Q140,110 240,100 Q340,110 335,210 Q345,260 330,270 Q320,230 315,190 Q240,150 165,190 Q160,230 150,270 Z" fill="#09090B"/>
+  <!-- Lena's Signature Scientific Glasses -->
+  <rect x="160" y="180" width="55" height="36" rx="6" stroke="#0284C7" stroke-width="4" fill="none"/>
+  <rect x="265" y="180" width="55" height="36" rx="6" stroke="#0284C7" stroke-width="4" fill="none"/>
+  <line x1="215" y1="195" x2="265" y2="195" stroke="#0284C7" stroke-width="4"/>
+  <!-- Face Details -->
+  <path d="M150,160 Q180,175 210,175" stroke="#1F2937" stroke-width="6" fill="none" stroke-linecap="round"/>
+               <path d="M270,175 Q300,175 330,160" stroke="#1F2937" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <ellipse cx="185" cy="200" rx="14" ry="10" fill="#1F2937"/><circle cx="188" cy="197" r="4" fill="#FFFFFF"/>
+              <ellipse cx="295" cy="200" rx="14" ry="10" fill="#1F2937"/><circle cx="298" cy="197" r="4" fill="#FFFFFF"/>
+  <!-- Nose -->
+  <path d="M240,210 L237,240 L245,242" stroke="#D97706" stroke-width="3" fill="none"/>
+  <path d="M215,290 Q240,265 265,290" stroke="#991B1B" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

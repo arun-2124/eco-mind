@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="forestSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#064E3B"/>
+      <stop offset="50%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#D1FAE5"/>
+    </linearGradient>
+    <radialGradient id="sunbeams" cx="70%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.6"/>
+      <stop offset="40%" stop-color="#A7F3D0" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#064E3B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Forest Canopy Sky -->
+  <rect width="1920" height="1080" fill="url(#forestSky)"/>
+  <rect width="1920" height="1080" fill="url(#sunbeams)"/>
+  <!-- Distant Pine Trunks -->
+  <g fill="#064E3B" opacity="0.6">
+    <rect x="250" y="100" width="40" height="980"/>
+    <rect x="450" y="80" width="55" height="1000"/>
+    <rect x="750" y="120" width="45" height="960"/>
+    <rect x="1150" y="60" width="50" height="1020"/>
+    <rect x="1450" y="90" width="60" height="990"/>
+    <rect x="1750" y="110" width="40" height="970"/>
+  </g>
+  <!-- Abandoned Highway Asphalt swallowed by roots -->
+  <polygon points="600,1080 820,700 1100,700 1320,1080" fill="#1E293B"/>
+  <line x1="960" y1="700" x2="960" y2="1080" stroke="#FDE047" stroke-width="6" stroke-dasharray="35,25" opacity="0.4"/>
+  <!-- Foreground Massive Ancient Oaks & Vines -->
+  <path d="M0,0 Q180,450 60,1080 L0,1080 Z" fill="#022C22"/>
+  <path d="M1920,0 Q1740,480 1860,1080 L1920,1080 Z" fill="#022C22"/>
+  <!-- Dense Ferns and Moss Carpeting the Forest Floor -->
+  <ellipse cx="960" cy="1050" rx="960" ry="140" fill="#064E3B"/>
+  <circle cx="300" cy="980" r="80" fill="#047857"/>
+  <circle cx="500" cy="1020" r="100" fill="#059669"/>
+  <circle cx="1400" cy="990" r="90" fill="#047857"/>
+  <circle cx="1650" cy="1010" r="110" fill="#059669"/>
+</svg>

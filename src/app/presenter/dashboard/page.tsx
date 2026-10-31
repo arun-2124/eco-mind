@@ -31,15 +31,22 @@ import {
   X,
   ShieldAlert,
   ChevronRight,
+  Copy,
+  Check,
+  PlusCircle,
+  RefreshCw,
 } from "lucide-react";
 
 export default function PresenterDashboardPage() {
   const {
     session,
+    pin,
     participants,
     submissions,
     sharedCityMetrics,
     activeMission,
+    createRoom,
+    switchRoom,
     startWorkshop,
     startMission,
     revealConsequences,
@@ -56,6 +63,46 @@ export default function PresenterDashboardPage() {
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
   const [projectorMode, setProjectorMode] = useState(false);
   const [qrModalOpen, setQrModalOpen] = useState(false);
+  const [roomModalOpen, setRoomModalOpen] = useState(false);
+  const [newRoomCustomPin, setNewRoomCustomPin] = useState("");
+  const [newRoomTitle, setNewRoomTitle] = useState("");
+  const [switchPinInput, setSwitchPinInput] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  const handleCopyLink = () => {
+    sound.playClick();
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(joinUrl);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2500);
+    }
+  };
+
+  const handleCreateNewRoom = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsCreating(true);
+    try {
+      const res = await createRoom(newRoomCustomPin || undefined, newRoomTitle || undefined);
+      if (res.success && res.pin) {
+        sound.playConfirm();
+        setRoomModalOpen(false);
+        setNewRoomCustomPin("");
+        setNewRoomTitle("");
+      }
+    } finally {
+      setIsCreating(false);
+    }
+  };
+
+  const handleSwitchToRoom = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!switchPinInput.trim()) return;
+    sound.playClick();
+    await switchRoom(switchPinInput.trim());
+    setRoomModalOpen(false);
+    setSwitchPinInput("");
+  };
 
   // Computed statistics
   const totalParticipants = participants.length;
@@ -128,7 +175,7 @@ export default function PresenterDashboardPage() {
         {/* Top Session Status Ribbon */}
         <div className="glass-panel p-6 rounded-2xl border-2 border-[#35D5FF]/30 bg-[#091122]/95 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-2xl">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
               <span
                 className={`w-2.5 h-2.5 rounded-full ${
                   session.status === "in_progress"
@@ -142,6 +189,27 @@ export default function PresenterDashboardPage() {
                 PRESENTER COMMAND CENTER • SESSION PIN:{" "}
                 <strong className="text-white underline">{session.pin}</strong>
               </span>
+
+              <button
+                onClick={handleCopyLink}
+                className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-[11px] font-mono text-white flex items-center gap-1 transition-colors cursor-pointer"
+                title="Copy Direct Join Link"
+              >
+                {copiedLink ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-cyan-300" />}
+                <span>{copiedLink ? "COPIED" : "COPY LINK"}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setRoomModalOpen(true);
+                }}
+                className="px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-500/40 hover:bg-cyan-900/60 text-[11px] font-mono text-cyan-300 flex items-center gap-1 transition-colors cursor-pointer"
+                title="Create or Switch Multiplayer Room"
+              >
+                <PlusCircle className="w-3 h-3" />
+                <span>ROOMS</span>
+              </button>
             </div>
             <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-white">
               {session.title}
@@ -637,6 +705,96 @@ export default function PresenterDashboardPage() {
                 Confirm Reset
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Room Management Modal */}
+      {roomModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+          <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-cyan-500/40 max-w-md w-full space-y-6 bg-[#091122] text-[#F4F7FC] relative shadow-2xl">
+            <button
+              onClick={() => setRoomModalOpen(false)}
+              className="absolute top-4 right-4 p-2 text-white/50 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div>
+              <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest block">
+                MULTIPLAYER ROOM MANAGEMENT
+              </span>
+              <h3 className="text-xl font-display font-extrabold text-white mt-1">
+                Create or Switch Workshop Room
+              </h3>
+              <p className="text-xs font-mono text-white/60 mt-1">
+                Active Room: <strong className="text-white underline">{session.pin}</strong>
+              </p>
+            </div>
+
+            {/* Create Room Section */}
+            <form onSubmit={handleCreateNewRoom} className="space-y-3 pt-2 border-t border-white/10">
+              <span className="text-xs font-mono font-bold uppercase text-white/80 block">
+                Option 1: Create New Room
+              </span>
+              <div>
+                <label className="text-[11px] font-mono text-white/60 block mb-1">
+                  Workshop Title (Optional)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Robotics Club — 2045"
+                  value={newRoomTitle}
+                  onChange={(e) => setNewRoomTitle(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/20 text-white text-xs font-mono focus:outline-none focus:border-cyan-400"
+                />
+              </div>
+
+              <div>
+                <label className="text-[11px] font-mono text-white/60 block mb-1">
+                  Custom Room PIN (Optional, leave blank to auto-generate)
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. ECO-4912"
+                  value={newRoomCustomPin}
+                  onChange={(e) => setNewRoomCustomPin(e.target.value.toUpperCase())}
+                  className="w-full px-3 py-2 rounded-lg bg-black/60 border border-white/20 text-white text-xs font-mono focus:outline-none focus:border-cyan-400 uppercase"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isCreating}
+                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-mono font-bold text-xs tracking-wider shadow-lg shadow-cyan-400/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>{isCreating ? "CREATING ROOM..." : "GENERATE & LAUNCH ROOM"}</span>
+              </button>
+            </form>
+
+            {/* Switch Room Section */}
+            <form onSubmit={handleSwitchToRoom} className="space-y-3 pt-4 border-t border-white/10">
+              <span className="text-xs font-mono font-bold uppercase text-white/80 block">
+                Option 2: Switch to Existing Room
+              </span>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="ENTER PIN (e.g. ECO2045)"
+                  value={switchPinInput}
+                  onChange={(e) => setSwitchPinInput(e.target.value.toUpperCase())}
+                  className="flex-1 px-3 py-2 rounded-lg bg-black/60 border border-white/20 text-white text-xs font-mono focus:outline-none focus:border-cyan-400 uppercase"
+                />
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-white/15 hover:bg-white/25 text-white font-mono font-bold text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>SWITCH</span>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

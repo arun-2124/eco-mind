@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="lakeSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="60%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#14532D"/>
+    </linearGradient>
+    <linearGradient id="scumWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#155E75"/>
+      <stop offset="40%" stop-color="#166534"/>
+      <stop offset="100%" stop-color="#022C22"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="580" fill="url(#lakeSky)"/>
+  <!-- Dead trees sticking out of marsh water -->
+  <line x1="380" y1="580" x2="360" y2="340" stroke="#0F172A" stroke-width="12"/>
+  <line x1="360" y1="390" x2="310" y2="320" stroke="#0F172A" stroke-width="7"/>
+  <line x1="360" y1="440" x2="420" y2="380" stroke="#0F172A" stroke-width="7"/>
+  <!-- Toxic Sheen River Water -->
+  <rect y="580" width="1920" height="500" fill="url(#scumWater)"/>
+  <!-- Iridescent Chemical Slick Patterns -->
+  <ellipse cx="800" cy="720" rx="240" ry="40" fill="#A855F7" opacity="0.35"/>
+  <ellipse cx="1150" cy="800" rx="320" ry="50" fill="#EAB308" opacity="0.3"/>
+  <ellipse cx="650" cy="880" rx="380" ry="60" fill="#06B6D4" opacity="0.35"/>
+  <!-- Reeds & Cat-tails on shoreline foreground -->
+  <g stroke="#713F12" stroke-width="4">
+    <line x1="80" y1="1080" x2="70" y2="920"/>
+    <line x1="120" y1="1080" x2="140" y2="880"/>
+    <line x1="160" y1="1080" x2="150" y2="900"/>
+    <line x1="1820" y1="1080" x2="1810" y2="910"/>
+    <line x1="1860" y1="1080" x2="1870" y2="880"/>
+  </g>
+</svg>

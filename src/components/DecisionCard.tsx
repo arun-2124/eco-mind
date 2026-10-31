@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, Key, Sparkles } from "lucide-react";
 import { DecisionOption } from "@/types/game";
 import { sound } from "@/lib/audio";
 
@@ -11,6 +11,7 @@ interface DecisionCardProps {
   isStaged: boolean;     // Participant has clicked this card to inspect/stage it
   isCommitted: boolean;  // Final decision has been confirmed and submitted
   isLocked: boolean;     // Submissions locked for this mission
+  heldItemIds?: string[]; // Item IDs held in player inventory
   onStage: (option: DecisionOption) => void;
 }
 
@@ -19,6 +20,7 @@ export const DecisionCard: React.FC<DecisionCardProps> = ({
   isStaged,
   isCommitted,
   isLocked,
+  heldItemIds = [],
   onStage,
 }) => {
   const handleClick = () => {
@@ -27,97 +29,103 @@ export const DecisionCard: React.FC<DecisionCardProps> = ({
     onStage(option);
   };
 
+  const hasRequiredItem = option.requiredItemId ? heldItemIds.includes(option.requiredItemId) : true;
+
   return (
     <motion.div
-      whileHover={{ y: isLocked || isCommitted ? 0 : -4 }}
+      whileHover={{ y: isLocked || isCommitted ? 0 : -4, scale: isLocked || isCommitted ? 1 : 1.01 }}
       onClick={handleClick}
-      className={`glass-panel rounded-2xl border-2 overflow-hidden flex flex-col justify-between transition-all cursor-pointer ${
+      className={`group relative rounded-2xl overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between ${
         isCommitted
-          ? "border-[#38E58B] ring-2 ring-[#38E58B]/50 shadow-2xl bg-[#081822]"
+          ? "border-emerald-400 bg-[#061510]/95 shadow-[0_0_30px_rgba(16,185,129,0.3)] ring-2 ring-emerald-400/50 cursor-default"
+          : isLocked
+          ? "opacity-40 border-white/10 bg-black/40 grayscale cursor-not-allowed"
           : isStaged
-          ? "border-[#35D5FF] ring-2 ring-[#35D5FF]/60 shadow-2xl bg-[#0C1D38]"
-          : "border-white/10 bg-[#0B1424] hover:border-[#35D5FF]/40 hover:bg-[#0D182E]"
+          ? "border-cyan-400 bg-[#091528]/95 shadow-[0_0_30px_rgba(34,211,238,0.3)] ring-2 ring-cyan-400/50 cursor-pointer"
+          : "border-white/15 bg-black/60 hover:border-white/40 hover:bg-black/80 backdrop-blur-md cursor-pointer"
       }`}
     >
-      {/* 16:9 Visual Scene Illustration */}
-      <div className="relative aspect-[16/9] w-full border-b border-white/10 bg-[#070B16] overflow-hidden">
+      {/* Visual Scene Artwork */}
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-black/80">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={option.image}
           alt={option.title}
-          className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-[#070B16]/90 border border-white/20 text-xs font-mono font-bold text-white shadow-md">
-          OPTION {option.key}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+
+        {/* Option Key Tag */}
+        <div className="absolute top-3 left-3 px-3 py-1 rounded-md bg-black/80 border border-white/20 text-xs font-mono font-bold text-white shadow-md">
+          CHOICE {option.key}
         </div>
 
         {isCommitted && (
-          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-[#38E58B] text-[#070B16] font-mono font-black text-[10px] tracking-wider uppercase flex items-center gap-1 shadow-lg">
+          <div className="absolute top-3 right-3 px-3 py-1 rounded-md bg-emerald-400 text-slate-950 font-mono font-black text-xs uppercase flex items-center gap-1.5 shadow-lg">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>COMMITTED</span>
           </div>
         )}
 
         {isStaged && !isCommitted && (
-          <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-[#35D5FF] text-[#070B16] font-mono font-black text-[10px] tracking-wider uppercase flex items-center gap-1 shadow-lg">
-            <span>SELECTED (PENDING CONFIRM)</span>
+          <div className="absolute top-3 right-3 px-3 py-1 rounded-md bg-cyan-400 text-slate-950 font-mono font-black text-xs uppercase flex items-center gap-1.5 shadow-lg animate-pulse">
+            <span>SELECTED</span>
           </div>
         )}
       </div>
 
-      {/* Card Body */}
-      <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
-        <div>
-          <h4 className="font-display font-bold text-base sm:text-lg text-white">
+      {/* Choice Body */}
+      <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
+        <div className="space-y-2">
+          <h4 className="font-serif font-bold text-lg sm:text-xl text-white tracking-wide group-hover:text-cyan-300 transition-colors">
             {option.title}
           </h4>
-          <p className="text-xs sm:text-sm text-[#98A8BD] mt-2 leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
             {option.detailedExplanation}
           </p>
-        </div>
-
-        {/* Trade-offs & Engineering Analysis */}
-        <div className="space-y-2 pt-3 border-t border-white/10 text-xs font-mono">
-          <div className="p-2.5 rounded-lg bg-[#081F19] border border-[#38E58B]/20 text-[#38E58B]">
-            <strong className="block mb-0.5 uppercase text-[10px] tracking-wider text-[#38E58B]/80">
-              Anticipated Advantage:
-            </strong>
-            <span className="leading-snug">• {option.advantages[0]}</span>
-          </div>
-          <div className="p-2.5 rounded-lg bg-[#240E14] border border-[#FF5B65]/20 text-[#FF5B65]">
-            <strong className="block mb-0.5 uppercase text-[10px] tracking-wider text-[#FF5B65]/80">
-              Engineering Risk / Trade-off:
-            </strong>
-            <span className="leading-snug">• {option.disadvantages[0]}</span>
-          </div>
-        </div>
-
-        {/* Selection Status Button */}
-        <div className="pt-2">
-          {isCommitted ? (
-            <div className="w-full py-3 rounded-xl bg-[#38E58B]/20 border border-[#38E58B] text-[#38E58B] font-mono font-bold text-xs flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-[#38E58B]" />
-              <span>DECISION RECORDED (OPTION {option.key})</span>
+          {option.requiredItemId && (
+            <div className={`px-2.5 py-1.5 rounded-lg text-[11px] font-mono flex items-center gap-1.5 ${
+              hasRequiredItem
+                ? "bg-emerald-950/60 border border-emerald-500/40 text-emerald-300"
+                : "bg-amber-950/40 border border-amber-500/30 text-amber-300/80"
+            }`}>
+              <Key className="w-3.5 h-3.5 shrink-0" />
+              <span>
+                {hasRequiredItem
+                  ? "Item in Backpack: Special narrative perk unlocked"
+                  : "Optional story item not yet discovered in scene"}
+              </span>
             </div>
-          ) : isStaged ? (
-            <div className="w-full py-3 rounded-xl bg-[#35D5FF]/20 border-2 border-[#35D5FF] text-[#35D5FF] font-mono font-bold text-xs flex items-center justify-center gap-2 animate-pulse">
-              <ShieldCheck className="w-4 h-4 text-[#35D5FF]" />
-              <span>OPTION {option.key} STAGED — READY TO CONFIRM</span>
-            </div>
-          ) : (
-            <button
-              type="button"
-              disabled={isLocked}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClick();
-              }}
-              className="w-full py-3 rounded-xl bg-[#111C30] hover:bg-[#182640] border border-[#35D5FF]/30 text-white font-mono font-bold text-xs tracking-wider transition-colors flex items-center justify-center gap-1.5"
-            >
-              <span>INSPECT &amp; STAGE OPTION {option.key}</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#35D5FF]" />
-            </button>
           )}
+
+          {option.trustNotice && (
+            <div className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300/80 flex items-center gap-1.5">
+              <Sparkles className="w-3 h-3 text-cyan-400 shrink-0" />
+              <span>{option.trustNotice.text}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Narrative Consequences Preview */}
+        <div className="pt-2 text-xs font-sans text-slate-400 border-t border-white/10 flex items-center justify-between">
+          <span className="italic text-slate-300/80 line-clamp-1">
+            &ldquo;{option.shortDescription}&rdquo;
+          </span>
+          <span className="shrink-0 font-mono font-bold flex items-center gap-1 ml-2">
+            {isCommitted ? (
+              <span className="text-emerald-400 flex items-center gap-1">
+                <span>COMMITTED</span>
+                <CheckCircle2 className="w-3.5 h-3.5" />
+              </span>
+            ) : isLocked ? (
+              <span className="text-slate-500">LOCKED</span>
+            ) : (
+              <span className="text-cyan-400 flex items-center gap-1">
+                <span>SELECT</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+            )}
+          </span>
         </div>
       </div>
     </motion.div>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="twilightSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="40%" stop-color="#1E1B4B"/>
+      <stop offset="75%" stop-color="#4C1D95"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+  </defs>
+  <!-- Twilight Sky -->
+  <rect width="1920" height="750" fill="url(#twilightSky)"/>
+  <!-- Distant City Skyline Silhouetted against Pink Horizon -->
+  <path d="M100,750 L100,480 L180,480 L180,750 M280,750 L280,420 L350,420 L350,750 M600,750 L600,320 L720,320 L720,750 M950,750 L950,220 L1040,220 L1040,750 M1280,750 L1280,380 L1380,380 L1380,750 M1600,750 L1600,450 L1720,450 L1720,750 Z" fill="#0A0612"/>
+  <!-- Stars in upper sky -->
+  <circle cx="300" cy="120" r="2" fill="#FFFFFF"/><circle cx="700" cy="80" r="1.5" fill="#FFFFFF"/><circle cx="1200" cy="150" r="2" fill="#FFFFFF"/><circle cx="1600" cy="90" r="2.5" fill="#FFFFFF"/>
+  <!-- Rooftop Foreground Ledge & Safety Railing -->
+  <polygon points="0,850 1920,850 1920,1080 0,1080" fill="#18181B"/>
+  <line x1="0" y1="780" x2="1920" y2="780" stroke="#71717A" stroke-width="8"/>
+  <line x1="0" y1="820" x2="1920" y2="820" stroke="#71717A" stroke-width="6"/>
+  <!-- Vertical Rail Posts -->
+  <line x1="300" y1="780" x2="300" y2="850" stroke="#71717A" stroke-width="10"/>
+  <line x1="650" y1="780" x2="650" y2="850" stroke="#71717A" stroke-width="10"/>
+  <line x1="1000" y1="780" x2="1000" y2="850" stroke="#71717A" stroke-width="10"/>
+  <line x1="1350" y1="780" x2="1350" y2="850" stroke="#71717A" stroke-width="10"/>
+  <line x1="1700" y1="780" x2="1700" y2="850" stroke="#71717A" stroke-width="10"/>
+  <!-- Rooftop Water Tank & Small Wind Turbine -->
+  <rect x="180" y="650" width="140" height="200" fill="#27272A"/>
+  <polygon points="250,560 180,650 320,650" fill="#3F3F46"/>
+  <!-- Micro Wind Turbine Spin Blades -->
+  <line x1="1500" y1="850" x2="1500" y2="520" stroke="#52525B" stroke-width="8"/>
+  <circle cx="1500" cy="520" r="12" fill="#E4E4E7"/>
+  <line x1="1500" y1="520" x2="1420" y2="440" stroke="#E4E4E7" stroke-width="6"/>
+  <line x1="1500" y1="520" x2="1580" y2="440" stroke="#E4E4E7" stroke-width="6"/>
+  <line x1="1500" y1="520" x2="1500" y2="620" stroke="#E4E4E7" stroke-width="6"/>
+</svg>

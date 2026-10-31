@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="45%" stop-color="#3B82F6"/>
+      <stop offset="75%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#F97316"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="75%" r="40%">
+      <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#F59E0B" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="25%" stop-color="#1E3A8A"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <!-- Sunset Sky -->
+  <rect width="1920" height="750" fill="url(#skyGrad)"/>
+  <circle cx="960" cy="650" r="350" fill="url(#sunGlow)"/>
+  <!-- Distant mountain silhouette -->
+  <path d="M0,620 L300,540 L650,600 L1100,510 L1500,580 L1920,530 L1920,750 L0,750 Z" fill="#312E81" opacity="0.4"/>
+  <!-- Distant City Layer -->
+  <path d="M100,750 L100,480 L160,480 L160,750 M250,750 L250,420 L320,420 L320,750 M400,750 L400,510 L470,510 L470,750 M600,750 L600,380 L680,380 L680,750 M850,750 L850,320 L960,250 L1070,320 L1070,750 M1200,750 L1200,430 L1300,430 L1300,750 M1450,750 L1450,490 L1530,490 L1530,750 M1680,750 L1680,410 L1760,410 L1760,750 Z" fill="#1E293B" opacity="0.6"/>
+  <!-- Mid-ground Spire towers -->
+  <rect x="720" y="300" width="110" height="450" fill="#0F172A"/>
+  <polygon points="775,180 720,300 830,300" fill="#0F172A"/>
+  <line x1="775" y1="140" x2="775" y2="180" stroke="#F8FAFC" stroke-width="4"/>
+  <rect x="1100" y="340" width="130" height="410" fill="#111827"/>
+  <polygon points="1165,220 1100,340 1230,340" fill="#111827"/>
+  <!-- Glowing windows & solar architectural balconies -->
+  <g fill="#FEF08A" opacity="0.85">
+    <rect x="740" y="320" width="12" height="18"/><rect x="770" y="320" width="12" height="18"/><rect x="800" y="320" width="12" height="18"/>
+    <rect x="740" y="360" width="12" height="18"/><rect x="770" y="360" width="12" height="18"/><rect x="800" y="360" width="12" height="18"/>
+    <rect x="740" y="400" width="12" height="18"/><rect x="770" y="400" width="12" height="18"/><rect x="800" y="400" width="12" height="18"/>
+    <rect x="1120" y="360" width="15" height="20"/><rect x="1160" y="360" width="15" height="20"/><rect x="1200" y="360" width="15" height="20"/>
+    <rect x="1120" y="410" width="15" height="20"/><rect x="1160" y="410" width="15" height="20"/><rect x="1200" y="410" width="15" height="20"/>
+  </g>
+  <!-- Foreground Bridge with graceful cables -->
+  <path d="M0,740 Q960,690 1920,740 L1920,760 Q960,710 0,760 Z" fill="#475569"/>
+  <line x1="480" y1="740" x2="480" y2="450" stroke="#334155" stroke-width="8"/>
+  <line x1="1440" y1="740" x2="1440" y2="450" stroke="#334155" stroke-width="8"/>
+  <!-- Water with golden twilight reflections -->
+  <rect y="750" width="1920" height="330" fill="url(#waterGrad)"/>
+  <path d="M720,750 L830,750 L870,1080 L680,1080 Z" fill="#F59E0B" opacity="0.25"/>
+  <path d="M1100,750 L1230,750 L1260,1080 L1070,1080 Z" fill="#F59E0B" opacity="0.2"/>
+  <!-- Silhouetted trees in foreground promenade -->
+  <path d="M0,1080 L0,960 Q200,950 400,990 L400,1080 Z" fill="#020617"/>
+  <path d="M1520,1080 L1520,980 Q1720,950 1920,970 L1920,1080 Z" fill="#020617"/>
+</svg>

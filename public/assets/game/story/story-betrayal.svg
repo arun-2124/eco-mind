@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="corridorLight" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="50%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#corridorLight)"/>
+  <!-- Two figures confronting each other across narrow gangway -->
+  <!-- Figure 1 on Left with Flashlight Beam -->
+  <path d="M350,1080 L420,700 Q460,580 520,600 Q580,640 560,740 L620,860 L540,1080 Z" fill="#020617"/>
+  <!-- Flashlight cone piercing dark corridor -->
+  <polygon points="560,740 1600,620 1600,820" fill="#FEF08A" opacity="0.35"/>
+  <!-- Figure 2 on Right Caught in the Light holding wire cutters -->
+  <path d="M1450,1080 L1400,680 Q1370,570 1310,590 Q1260,630 1280,720 L1220,840 L1300,1080 Z" fill="#020617"/>
+  <!-- Dropped severed high-voltage line sparking -->
+  <path d="M1250,780 Q1320,880 1200,940" stroke="#38BDF8" stroke-width="8" fill="none"/>
+  <circle cx="1200" cy="940" r="16" fill="#38BDF8"/>
+</svg>

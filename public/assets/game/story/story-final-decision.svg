@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="apexGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#1E3A8A" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#020617" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="#020617"/>
+  <!-- Pinnacle Spire Observatory Glass Dome -->
+  <circle cx="960" cy="450" r="450" fill="url(#apexGlow)"/>
+  <path d="M510,450 Q960,0 1410,450" stroke="#38BDF8" stroke-width="4" fill="none" opacity="0.5"/>
+  <line x1="960" y1="0" x2="960" y2="450" stroke="#38BDF8" stroke-width="4" opacity="0.5"/>
+  <!-- Master Terminal Pedestal in center -->
+  <polygon points="860,900 1060,900 1020,620 900,620" fill="#0F172A" stroke="#38BDF8" stroke-width="6"/>
+  <!-- Glowing Activation Key Interface -->
+  <rect x="915" y="600" width="90" height="40" rx="8" fill="#10B981" stroke="#FFFFFF" stroke-width="3"/>
+  <!-- Maya standing before terminal with ORI hovering beside her -->
+  <path d="M720,1080 L760,780 Q780,680 810,700 Q840,730 830,800 L860,920 L800,1080 Z" fill="#0F172A"/>
+  <!-- ORI floating next to her -->
+  <circle cx="680" cy="720" r="45" fill="#1E293B" stroke="#38BDF8" stroke-width="4"/>
+  <circle cx="680" cy="720" r="14" fill="#38BDF8"/>
+  <!-- Panoramic view of city below through glass -->
+  <path d="M0,880 L1920,880" stroke="#1E293B" stroke-width="6"/>
+</svg>

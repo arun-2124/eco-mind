@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="stormSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="85%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#331A1A"/>
+    </linearGradient>
+    <radialGradient id="smokeGlow" cx="60%" cy="65%" r="35%">
+      <stop offset="0%" stop-color="#DC2626" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#7C2D12" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#020617" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Ominous Storm Sky -->
+  <rect width="1920" height="780" fill="url(#stormSky)"/>
+  <!-- Distant smoke plumes -->
+  <circle cx="1150" cy="620" r="320" fill="url(#smokeGlow)"/>
+  <path d="M1100,700 Q1050,450 1140,250 Q1220,400 1250,700 Z" fill="#1C1917" opacity="0.6"/>
+  <path d="M500,720 Q440,520 520,380 Q590,500 620,720 Z" fill="#1C1917" opacity="0.5"/>
+  <!-- Shattered Distant Skyline -->
+  <path d="M150,750 L150,560 L210,560 L210,750 M320,750 L320,480 L350,500 L380,470 L390,750 M700,750 L700,420 L780,490 L790,750 M880,750 L880,290 L950,330 L970,750 M1300,750 L1300,460 L1380,460 L1400,750 M1550,750 L1550,530 L1630,550 L1640,750 Z" fill="#090D16"/>
+  <!-- Broken Iconic Apex Spire -->
+  <polygon points="900,750 900,380 940,320 955,360 970,750" fill="#050811"/>
+  <line x1="940" y1="320" x2="980" y2="260" stroke="#475569" stroke-width="3" stroke-dasharray="10,5"/>
+  <!-- Intermittent Red Warning Strobe -->
+  <circle cx="940" cy="320" r="6" fill="#EF4444"/>
+  <circle cx="940" cy="320" r="18" fill="#EF4444" opacity="0.3"/>
+  <!-- Broken Bridge Pylons -->
+  <path d="M0,760 Q960,730 1920,760" stroke="#1E293B" stroke-width="14" fill="none"/>
+  <path d="M850,745 L920,840 L970,840 L1020,745" stroke="#1E293B" stroke-width="12" fill="none"/>
+  <!-- Dark Turbulent Water with Rain Streaks -->
+  <rect y="760" width="1920" height="320" fill="#050811"/>
+  <line x1="200" y1="800" x2="280" y2="800" stroke="#38BDF8" stroke-width="1" opacity="0.3"/>
+  <line x1="600" y1="860" x2="720" y2="860" stroke="#38BDF8" stroke-width="1" opacity="0.2"/>
+  <line x1="1200" y1="820" x2="1350" y2="820" stroke="#F59E0B" stroke-width="1" opacity="0.25"/>
+  <!-- Foreground Rubble & Debris -->
+  <path d="M0,1080 L0,940 L280,970 L420,930 L600,1080 Z" fill="#0A0F1D"/>
+  <path d="M1400,1080 L1550,960 L1750,980 L1920,920 L1920,1080 Z" fill="#0A0F1D"/>
+</svg>
